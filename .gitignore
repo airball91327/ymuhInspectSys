@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/InspectSystem/.vs
+/InspectSystem/InspectSystem/App_Data/DefaultConnection_log.ldf
+/InspectSystem/InspectSystem/App_Data/DefaultConnection.mdf

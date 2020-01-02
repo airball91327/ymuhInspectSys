@@ -1,0 +1,78 @@
+﻿/* Hide the header and footer's background color over flow from the modal. */
+.modal-content {
+    overflow: hidden;
+}
+
+/* Style background-color for modal header and footer. */
+.modal-header, .modal-footer {
+    background-color: darksalmon;
+}
+
+#flowDocModal .modal-header, #flowDocModal .modal-footer {
+    background-color: lightblue;
+}
+
+/* Style the modal title. */
+.modal-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Style the tab that will show the flow list. */
+#flowListBtn {
+    margin-top: 50px;
+}
+
+/* Style the tab that will click to show the flow modal. */
+#flowDocBtn {
+    background-color: coral;
+    border: 1px solid #ccc;
+}
+
+#flowDocBtn:hover {
+    font-weight: bold;
+    box-shadow: 4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+}
+
+/* Style the tab that will send doc to checker when enabled. */
+#sendToChecker:enabled {
+    margin-top: 50px;
+    background-color: chocolate;
+    border: 1px solid #ccc;
+}
+
+#sendToChecker:enabled:hover {
+    font-weight: bold;
+    box-shadow: 4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+}
+
+/* Style the tab when disabled. */
+#sendToChecker:disabled, #sendToChecker:disabled:hover {
+    margin-top: 50px;
+    background-color: lightblue;
+    border: 1px solid #ccc;
+    opacity: 0.3;
+}
+
+/* Style color for class glyphicon-ok. */
+.glyphicon-ok {
+    color: green;
+    text-shadow: 0 0 10px white;
+}
+
+/* Style a circle class. */
+.circle {
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    border-radius: 50%;
+    font-size: 17px;
+    color: white;
+    text-align: center;
+    background-color: hsl(0, 90%, 50%);
+}
+
+h3 {
+    font-weight: bold;
+    text-align: center;
+}

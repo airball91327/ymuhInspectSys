@@ -1,0 +1,37 @@
+﻿@using WebMatrix.WebData
+@{ 
+    // Get real name.
+    // 先取得該使用者的 FormsIdentity
+    FormsIdentity id = (FormsIdentity)User.Identity;
+    // 再取出使用者的 FormsAuthenticationTicket
+    FormsAuthenticationTicket ticket = id.Ticket;
+    // 將儲存在 FormsAuthenticationTicket 中的角色定義取出，並轉成字串陣列
+    char[] charSpilt = new char[] { ',', '{', '}', '[', ']', '"', ':', '\\' };
+    string[] roles = ticket.UserData.Split(charSpilt, StringSplitOptions.RemoveEmptyEntries);
+    // 取得userData最後的資料userName
+    string userName = roles.Last();
+}
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + userName + "!", "Index", "Home", new { Area = "" }, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">登出</a>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        @*<li>@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+        <li>@Html.ActionLink("登入", "Login", "Account", routeValues: new { Area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

@@ -1,0 +1,11 @@
+﻿.dataTables_wrapper th, .dataTables_wrapper td {
+    text-align: center;
+}
+
+.dataTables_wrapper input, .dataTables_wrapper select {
+    border-radius: 4px;
+}
+
+div.dataTables_wrapper div.dataTables_processing {
+    padding-top: 7px;
+}

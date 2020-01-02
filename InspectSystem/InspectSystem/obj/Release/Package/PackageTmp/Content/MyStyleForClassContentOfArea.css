@@ -1,0 +1,56 @@
+﻿/* Style the scale of checkbox. */
+input[type=checkbox] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FireFox */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+}
+
+/* Style the input type textbox.*/
+input[type=text], input[type=number] {
+    width: 50%;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the h3. */
+h3  {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+/* Style the display of item name. */
+div.itemName {
+    font-weight: bold;
+    padding-top: 8px;
+    /*background-color:bisque;*/
+}
+
+/* Style radio button, col-md , and main columns of a row. */
+.radioBtn, .col-md, .mainCol {
+    padding-bottom: 5%;
+}
+
+/* Style the display of field name. */
+.fieldTitle {
+    padding-left: 0%;
+    height: 20px;
+}
+
+/* Style the row of items. */
+.itemRow {
+    background-color: aliceblue;
+}
+
+/* Style the table with no border. */
+.table.no-border tr td, .table.no-border tr th {
+    border-width: 0px;
+}
+
+/* Style the hr. */
+hr{
+    margin-top:1%;
+    margin-bottom:1%;
+}

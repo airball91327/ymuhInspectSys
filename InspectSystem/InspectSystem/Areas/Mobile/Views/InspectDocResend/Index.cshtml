@@ -1,0 +1,55 @@
+﻿@model IEnumerable<InspectSystem.Models.ClassesOfAreas>
+
+@Scripts.Render("~/bundles//jquery")
+<script src="~/Scripts/Mobile/InspectDocDetailsSelectClass.js"></script>
+<link rel="stylesheet" href="~/Content/MobileStyle/MyStyleForDocDetail.css">
+
+@{
+    ViewBag.Title = "選擇項目";
+
+    /* Show alert message. */
+    if (TempData["SaveMsg"] != null)
+    {
+        <script>
+            var message = @Html.Raw(Json.Encode(TempData["SaveMsg"]));
+            alert(message);
+        </script>
+    }
+}
+
+<style>
+    h3 {
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $("#sendToChecker").click(function () {
+            window.location.href = "@Url.Action("DocDetails", new { area = "Mobile", docID = ViewBag.DocID })";
+        });
+    });
+</script>
+
+<h3>@ViewBag.AreaName</h3>
+<hr />
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("ClassContentOfAreaEdit", new { area = "Mobile", acid = item.ACID, docID = ViewBag.DocID })" id="@item.ClassID">
+            @if (item.IsSaved == true)
+            {
+                <span class="glyphicon glyphicon-ok"></span>
+            }
+            @item.InspectClasses.ClassName
+            @if (item.CountErrors != 0)
+            {
+                <span class="circle">@item.CountErrors</span>
+            }
+        </a>
+    }
+    <button class="btn btn-primary btn-block btn-lg" id="sendToChecker" value="@ViewBag.AllSaved">送出審核</button>
+</div>
+
+

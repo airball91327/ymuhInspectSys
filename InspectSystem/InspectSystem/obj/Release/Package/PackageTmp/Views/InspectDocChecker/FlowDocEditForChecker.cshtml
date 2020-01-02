@@ -1,0 +1,77 @@
+﻿@model InspectSystem.Models.InspectDocFlow
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<style>
+    .myDisplayStyle {
+        margin-top: 7px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#submitBtn").click(function () {
+            /* Check the radio button is selected or not. */
+            if ($(":radio:checked").length == 0) {
+                $("#errorMsg").html("請選擇審核結果");
+            }
+            else {
+                $("#errorMsg").html("");
+                $("#checkForm").submit();
+            }
+        });
+    });
+</script>
+
+@using (Html.BeginForm("FlowDocEditForChecker", "InspectDocChecker", FormMethod.Post, new { id = "checkForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3>
+            <b>簽核作業</b>
+        </h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CheckerID)
+        @Html.HiddenFor(model => model.DocID)
+        @Html.HiddenFor(model => model.StepID)
+        @Html.HiddenFor(model => model.StepOwnerID)
+        @Html.HiddenFor(model => model.WorkerID)
+        @Html.HiddenFor(model => model.EditorID)
+        @Html.HiddenFor(model => model.EditorName)
+        @Html.HiddenFor(model => model.FlowStatusID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InspectDocs.WorkerName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9 myDisplayStyle">
+                @Html.DisplayFor(model => model.InspectDocs.WorkerName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Opinions, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Opinions, new { @class = "form-control", cols = "50", rows = "5" })
+                @Html.ValidationMessageFor(model => model.Opinions, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">審核結果</label>
+            <div class="col-md-9" style="margin-top : 7px">
+                @Html.RadioButton("NextFlowStatusID", "0")退回文件
+                @Html.RadioButton("NextFlowStatusID", "2")結案
+                <p id="errorMsg" style="color: red"></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <br />
+                <button type="button" class="btn btn-primary btn-lg" id="submitBtn">送出</button>
+            </div>
+        </div>
+    </div>
+}

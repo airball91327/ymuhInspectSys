@@ -1,0 +1,138 @@
+﻿/* Hide the header and footer's background color over flow from the modal. */
+.modal-content {
+    overflow: hidden;
+}
+
+/* Style background-color for modal header and footer. */
+.modal-header, .modal-footer {
+    background-color: darksalmon;
+}
+
+#flowDocModal .modal-header, #flowDocModal .modal-footer {
+    background-color: lightblue;
+}
+
+/* Style the modal title. */
+.modal-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Style the tab */
+.tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 15%;
+    height: 100%;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 20px 15px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 19px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: navajowhite;
+}
+
+/* Create an active/current "tab button" class */
+.tab .active {
+    background-color: coral;
+    color: white;
+    /*font-weight: bold;*/
+    /*text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 1px black;*/
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    padding-right: 12px;
+    border: 1px solid #ccc;
+    width: 85%;
+    height: 100%;
+}
+
+/* Style the tab that will show the flow list. */
+#flowListBtn {
+    margin-top: 50px;
+}
+
+/* Style the tab that will click to show the flow modal. */
+#flowDocBtn {
+    background-color: lightblue;
+    border: 1px solid #ccc;
+}
+
+#flowDocBtn:hover {
+    font-weight: bold;
+    box-shadow: 4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+}
+
+/* Style the tab that will send doc to checker when enabled. */
+#sendToChecker:enabled {
+    margin-top: 50px;
+    background-color: lightblue;
+    border: 1px solid #ccc;
+}
+
+#sendToChecker:enabled:hover {
+    font-weight: bold;
+    box-shadow: 4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+}
+
+/* Style the tab when disabled. */
+#sendToChecker:disabled, #sendToChecker:disabled:hover {
+    margin-top: 50px;
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    opacity: 0.3;
+}
+
+/* Style color for class glyphicon-ok. */
+.glyphicon-ok {
+    color: green;
+}
+
+/* Style a circle class. */
+.circle {
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    border-radius: 50%;
+    font-size: 17px;
+    color: white;
+    text-align: center;
+    background-color: hsl(0, 90%, 50%);
+}
+
+#goToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: cornflowerblue; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+#goToTopBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}

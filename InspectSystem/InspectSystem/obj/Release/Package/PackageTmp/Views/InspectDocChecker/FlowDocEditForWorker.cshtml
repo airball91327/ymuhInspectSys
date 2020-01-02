@@ -1,0 +1,59 @@
+﻿@model InspectSystem.Models.InspectDocFlow
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<style>
+    .myDisplayStyle {
+        margin-top: 7px;
+    }
+</style>
+
+@using (Html.BeginForm("FlowDocEditForWorker", "InspectDocChecker"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3>
+            <b>簽核作業</b>
+        </h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.FlowStatusID)
+        @Html.HiddenFor(model => model.DocID)
+        @Html.HiddenFor(model => model.StepID)
+        @Html.HiddenFor(model => model.StepOwnerID)
+        @Html.HiddenFor(model => model.WorkerID)
+        @Html.HiddenFor(model => model.CheckerID)
+        @Html.HiddenFor(model => model.EditorID)
+        @Html.HiddenFor(model => model.EditorName)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InspectDocs.WorkerName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9 myDisplayStyle">
+                @Html.DisplayFor(model => model.InspectDocs.WorkerName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InspectDocs.CheckerName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9 myDisplayStyle">
+                @Html.DisplayFor(model => model.InspectDocs.CheckerName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Opinions, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Opinions, 5, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Opinions, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <br />
+                <input type="submit" value="送出審核" class="btn btn-primary btn-lg" />
+            </div>
+        </div>
+    </div>
+}

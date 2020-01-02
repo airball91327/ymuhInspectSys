@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -  巡檢系統</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/MyMegaDropDownStyle.css" />
+
+    <style>
+        .navbar-layout-content {
+            font-size: 15px;
+        }
+
+        .layout-dropdown-menu {
+            background-color: #222;
+        }
+
+        .layout-dropdown-menu  > li > a {
+            color: #9d9d9d;
+            padding: 7px 15px;
+            font-size: 16px;
+        }
+
+        .layout-dropdown-menu  > li > a:hover,
+        .layout-dropdown-menu  > li > a:focus {
+            color: #ffffff;
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("巡檢系統", "DocListForChecker", "InspectDocChecker", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-layout-content">
+                    <li>@Html.ActionLink("巡檢作業", "SelectAreas", "InspectDocDetails")</li>
+                    <li>@Html.ActionLink("工程師審核作業", "DocListForWorker", "InspectDocChecker")</li>
+                    <li>@Html.ActionLink("主管審核作業", "DocListForChecker", "InspectDocChecker")</li>
+                    <li class="dropdown">
+                        <a href="@Url.Action("Index", "InspectDocSearch")">搜尋<span class="caret"></span></a>
+                        <ul class="dropdown-menu layout-dropdown-menu">
+                            <li>@Html.ActionLink("巡檢表單搜尋", "Index", "InspectDocSearch")</li>
+                            <li>@Html.ActionLink("欄位數值搜尋", "Index", "InspectDocDtlValSearch")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown mega-dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            後台維護功能
+                            <span class="caret" id="dropdownSymbol"></span>
+                        </a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-sm-offset-1 col-sm-2">
+                                <ul>
+                                    <li class="dropdown-header">表單維護</li>
+                                    <li>@Html.ActionLink("巡檢區域維護", "Index", "InspectAreas")</li>
+                                    <li>@Html.ActionLink("巡檢類別維護", "Index", "InspectClasses")</li>
+                                    <li>@Html.ActionLink("巡檢項目維護", "Index", "InspectItems")</li>
+                                    <li>@Html.ActionLink("注意事項維護", "Index", "InspectPrecautions")</li>
+                                </ul>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <ul>
+                                    <li class="dropdown-header">人員維護</li>
+                                    <li>@Html.ActionLink("巡檢人員列表", "Index", "InspectMembers")</li>
+                                    <li>@Html.ActionLink("各區審核主管維護", "Index", "InspectAreaCheckers")</li>
+                                </ul>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <ul>
+                                    <li class="dropdown-header">文件維護</li>
+                                    <li>@Html.ActionLink("巡檢文件編輯", "Index", "InspectDocs")</li>
+                                    <li>@Html.ActionLink("新增巡檢文件", "Create", "InspectDocs")</li>
+                                </ul>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <ul>
+                                    <li class="dropdown-header">報表系統(設計中)</li>
+                                    <li>@Html.ActionLink("報表輸出", "Index", "InspectReports")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.UtcNow.AddHours(08) - 巡檢系統</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>
+</body>
+</html>

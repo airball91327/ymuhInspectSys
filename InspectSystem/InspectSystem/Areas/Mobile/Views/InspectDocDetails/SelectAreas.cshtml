@@ -1,0 +1,87 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectAreas>
+
+<link rel="stylesheet" href="~/Content/w3.css">
+@Scripts.Render("~/bundles//jquery")
+
+@{
+    ViewBag.Title = "選擇區域";
+
+    /* Show alert message. */
+    if (TempData["ErrorMsg"] != null)
+    {
+        <script>
+            var message = @Html.Raw(Json.Encode(TempData["ErrorMsg"]));
+            alert(message);
+        </script>
+    }
+}
+
+<style>
+    .w3-display-container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+
+    .imgText {
+        white-space: normal;
+        width: 160px;
+        font-size: 23px;
+        font-weight: bold;
+        color: orange;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 2px 2px 2px black;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .div.w3-display-middle {
+        width: 160px;
+        height: 50px;
+    }
+</style>
+
+<script>
+    function confirmToWork(url) {
+        var targetUrl = url;
+        if (confirm("是否開始巡檢?")) {
+            window.location.href = targetUrl;
+        }
+        else {
+        }
+    }
+</script>
+
+<h2>
+    <b>選擇區域</b>
+</h2>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-6 w3-display-container">
+                <a href="#" class="w3-button w3-round-large w3-opacity w3-hover-opacity-off" onclick="confirmToWork('@Url.Action("SelectClass", new { area = "Mobile", areaID = item.AreaID})')">
+                    @if (item.AreaID == 4)
+                    {
+                        <img src="~/Content/Building4.jpg" class="img-responsive w3-round" />
+                    }
+                    else if (item.AreaID == 5)
+                    {
+                        <img src="~/Content/Building5.jpg" class="img-responsive w3-round" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/Building1.jpg" class="img-responsive w3-round" />
+                    }
+                    <div class="w3-display-middle">
+                        <p class="imgText">@Html.DisplayFor(modelItem => item.AreaName)</p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+
+

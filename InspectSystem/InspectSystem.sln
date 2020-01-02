@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InspectSystem", "InspectSystem\InspectSystem.csproj", "{90697D3D-35B5-4078-8F0D-8FD389CF80FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90697D3D-35B5-4078-8F0D-8FD389CF80FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90697D3D-35B5-4078-8F0D-8FD389CF80FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90697D3D-35B5-4078-8F0D-8FD389CF80FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90697D3D-35B5-4078-8F0D-8FD389CF80FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06344B24-FC8D-40C3-9356-42DA42EFF50D}
+	EndGlobalSection
+EndGlobal

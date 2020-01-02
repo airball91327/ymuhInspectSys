@@ -1,0 +1,66 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectDocs>
+
+@{
+    ViewBag.Title = "巡檢中文件";
+}
+
+<h2 style="font-weight: bold">編輯中巡檢文件</h2>
+<br />
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectAreas.AreaName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectFlowStatusTable.FlowStatusName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckerName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InspectAreas.AreaName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InspectFlowStatusTable.FlowStatusName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckerName)
+        </td>
+        <td>
+            @Html.ActionLink("巡檢人員更改", "Edit", new { id=item.DocID })
+
+        </td>
+    </tr>
+}
+
+</table>

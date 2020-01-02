@@ -1,0 +1,32 @@
+﻿@model InspectSystem.Models.InspectPrecautions
+
+@{
+    ViewBag.Title = "詳細資訊";
+}
+
+<h2><b>詳細資訊</b></h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InspectAreas.AreaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InspectAreas.AreaName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("內容編輯", "Edit", new { id = Model.PrecautionID }) |
+    @Html.ActionLink("回主列表", "Index")
+</p>

@@ -1,0 +1,140 @@
+﻿/* Style the body. */
+body{
+    font-size: 175%;
+}
+
+/* Style the scale of checkbox. */
+input[type=checkbox], input[type=radio] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FireFox */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+}
+
+/* Style the input type textbox.*/
+input[type=text], input[type=number] {
+    width: 70%;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the h3. */
+h3  {
+    font-weight: bold;
+    padding-left: 10px;
+    text-align: center;
+}
+
+/* Style the display of item name. */
+div.itemName {
+    font-weight: bold;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    /*background-color:bisque;*/
+}
+
+/* Style radio button, col-md , and main columns of a row. */
+.radioBtn, .col-md, .mainCol {
+    padding-bottom: 5%;
+}
+
+/* Style the display of field name. */
+.fieldTitle {
+    padding-left: 0%;
+}
+
+/* Style the odd row of items. */
+.itemRow:nth-child(odd) {
+    background-color: #c6c6c6;
+}
+
+/* Style the even row of items. */
+.itemRow:nth-child(even) {
+    background-color: lightblue;
+}
+
+#goToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: darkorange; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+#goToTopBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+
+#submitScrollBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 80px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+    width: 84px;
+}
+
+#submitScrollBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+
+/* Hide the header and footer's background color over flow from the modal. */
+.modal-content {
+    overflow: hidden;
+}
+
+/* Style background-color for modal header and footer. */
+.modal-header, .modal-footer {
+    background-color: darksalmon;
+}
+
+#flowDocModal .modal-header, #flowDocModal .modal-footer {
+    background-color: lightblue;
+}
+
+/* Style the modal title. */
+.modal-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Style the precaution modal's button. */
+#modalBtn {
+    float:right;
+}
+
+/* Style the checkbox. */
+.checkboxStyle {
+    display:block;
+    padding-bottom: 2%;
+}
+
+/* Style the dropdownlist. */
+.dropDownListStyle {
+    display: block;
+    padding-bottom: 2%;
+}
+
+/* Style the hr. */
+hr {
+    border: 2px;
+    border-top: 1px solid white;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}

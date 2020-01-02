@@ -1,0 +1,77 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectDocFlow>
+
+<style>
+    h3 {
+        font-weight: bold;
+        padding-left: 5%;
+    }
+
+    th {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    table {
+        table-layout: fixed;
+        width: inherit;
+    }
+</style>
+
+<h3>流程資訊</h3>
+<hr />
+
+<div class="container col-md-12">
+    <table class="table-bordered">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StepID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InspectFlowStatusTable.FlowStatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StepOwnerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opinions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EditorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EditTime)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StepID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InspectFlowStatusTable.FlowStatusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StepOwnerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opinions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EditorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EditTime)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <hr />
+</div>

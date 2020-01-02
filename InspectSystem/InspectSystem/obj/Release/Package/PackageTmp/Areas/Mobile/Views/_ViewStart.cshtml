@@ -1,0 +1,15 @@
+﻿@{
+    /* Separate layouts for Supervisor, Engineer and Admin. */
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_LayoutSupervisor.cshtml";
+    }
+    else if (User.IsInRole("MedMgr") == true || User.IsInRole("Manager") == true)
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_LayoutSupervisor.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_Layout.cshtml";
+    }
+}

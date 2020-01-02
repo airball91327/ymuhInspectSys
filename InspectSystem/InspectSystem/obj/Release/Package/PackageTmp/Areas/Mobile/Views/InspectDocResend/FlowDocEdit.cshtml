@@ -1,0 +1,88 @@
+﻿@model InspectSystem.Models.InspectDocFlow
+
+@Scripts.Render("~/bundles//jquery")
+<link rel="stylesheet" href="~/Content/MyStyleForPostLoader.css" />
+
+@{
+    ViewBag.Title = "簽核作業";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.combobox').combobox();
+
+        $("#submitForm").submit(function () {
+            $("#postLoading").modal("show");
+        });
+    });
+</script>
+
+@using (Html.BeginForm("SendDocToChecker", "InspectDocResend", new { area = "Mobile" }, FormMethod.Post, new { id = "submitForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3 class="text-center">
+            簽核作業
+        </h3>
+        <hr />
+        <div class="container">
+            <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("DocDetails", new { area = "Mobile", docID = Model.DocID })">回項目選擇</a>
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.FlowStatusID)
+        @Html.HiddenFor(model => model.DocID)
+        @Html.HiddenFor(model => model.StepID)
+        @Html.HiddenFor(model => model.StepOwnerID)
+        @Html.HiddenFor(model => model.WorkerID)
+        @Html.HiddenFor(model => model.EditorID)
+        @Html.HiddenFor(model => model.EditorName)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InspectDocs.WorkerName, htmlAttributes: new { @class = "control-label col-xs-3" })
+            <div class="col-xs-9">
+                @Html.DisplayFor(model => model.InspectDocs.WorkerName)
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            @Html.LabelFor(model => model.InspectDocs.CheckerName, htmlAttributes: new { @class = "control-label col-xs-3" })
+            <div class="col-xs-9">
+                @Html.DropDownList("AreaCheckerNames", null, new { @class = "form-control combobox" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Opinions, htmlAttributes: new { @class = "control-label col-xs-3" })
+            <div class="col-xs-9">
+                @Html.TextAreaFor(model => model.Opinions, 5, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Opinions, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-3 col-xs-9">
+                <br />
+                <input type="submit" value="送出審核" class="btn btn-primary btn-lg" />
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Post Loading Modal -->
+<div class="modal fade" id="postLoading" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Loading image for Ajax. -->
+                <div id="loadingIMG" style="text-align: center">
+                    <img src="~/Content/post-loader.gif" />
+                    <p>儲存中，請稍後。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

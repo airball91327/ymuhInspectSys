@@ -1,0 +1,89 @@
+﻿@model InspectSystem.Models.InspectDocFlow
+
+@Scripts.Render("~/bundles//jquery")
+
+@{
+    ViewBag.Title = "簽核作業";
+}
+
+<style>
+    /* Style the scale of checkbox. */
+    input[type=radio] {
+        -ms-transform: scale(2); /* IE */
+        -moz-transform: scale(2); /* FireFox */
+        -webkit-transform: scale(2); /* Safari and Chrome */
+        -o-transform: scale(2); /* Opera */
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#submitBtn").click(function () {
+            /* Check the radio button is selected or not. */
+            if ($(":radio:checked").length == 0) {
+                $("#errorMsg").html("請選擇審核結果");
+            }
+            else {
+                $("#errorMsg").html("");
+                $("form").submit();
+            }
+        });
+    });
+</script>
+
+@using (Html.BeginForm("FlowDocEditForChecker", "InspectDocChecker", new { area = "Mobile" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3 class="text-center">
+            <b>簽核作業</b>
+        </h3>
+        <hr />
+        <div class="container">
+            <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("DocDetailsChecker", new { area = "Mobile", docID = Model.DocID })">回項目選擇</a>
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CheckerID)
+        @Html.HiddenFor(model => model.DocID)
+        @Html.HiddenFor(model => model.StepID)
+        @Html.HiddenFor(model => model.StepOwnerID)
+        @Html.HiddenFor(model => model.WorkerID)
+        @Html.HiddenFor(model => model.EditorID)
+        @Html.HiddenFor(model => model.EditorName)
+        @Html.HiddenFor(model => model.FlowStatusID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InspectDocs.WorkerName, htmlAttributes: new { @class = "control-label col-xs-3" })
+            <div class="col-xs-9">
+                @Html.DisplayFor(model => model.InspectDocs.WorkerName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Opinions, htmlAttributes: new { @class = "control-label col-xs-3" })
+            <div class="col-xs-9">
+                @Html.TextAreaFor(model => model.Opinions, new { @class = "form-control", cols = "50", rows = "5" })
+                @Html.ValidationMessageFor(model => model.Opinions, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-3">審核結果</label>
+            <div class="col-xs-9" style="margin-top : 7px">
+                @Html.RadioButton("NextFlowStatusID", "0")<span style="margin:2.5%">退回文件</span>
+                @Html.RadioButton("NextFlowStatusID", "2")<span style="margin:2.5%">結案</span>
+                <p id="errorMsg" style="color: red"></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-3 col-xs-9">
+                <br />
+                <button type="button" class="btn btn-primary btn-lg" id="submitBtn">送出</button>
+            </div>
+        </div>
+    </div>
+}

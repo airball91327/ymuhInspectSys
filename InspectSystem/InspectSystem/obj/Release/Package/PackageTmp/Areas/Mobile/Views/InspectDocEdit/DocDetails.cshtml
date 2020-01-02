@@ -1,0 +1,45 @@
+﻿@model IEnumerable<InspectSystem.Models.ClassesOfAreas>
+
+@Scripts.Render("~/bundles//jquery")
+<link rel="stylesheet" type="text/css" href="~/Content/MobileStyle/MyStyleForDocDetail.css">
+
+@{
+    ViewBag.Title = "項目選擇";
+    if (TempData["SaveMsg"] != null)
+    {
+        <script>
+            var message = @Html.Raw(Json.Encode(TempData["SaveMsg"]));
+            alert(message);
+        </script>
+    }
+    string backToList = Url.Action("DocListForWorker", "InspectDocChecker", new { area = "Mobile" }).ToString();
+}
+
+<style>
+    /* Style background-color for modal header and footer. */
+    .modal-header, .modal-footer {
+        background-color: cornflowerblue;
+    }
+</style>
+
+<h3>@ViewBag.AreaName</h3>
+<hr />
+<div class="container">
+    <a class="btn btn-primary btn-block btn-lg" href="@backToList">回到列表</a>
+</div>
+<hr />
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("ClassContentOfArea", new { area = "Mobile", acid = @item.ACID, docID = @ViewBag.DocID })" id="@item.ClassID">
+            @*@if (item.IsSaved == true)
+            {
+                <span class="glyphicon glyphicon-ok"></span>
+            }*@
+            @item.InspectClasses.ClassName
+        </a>
+    }
+    <a class="btn btn-primary btn-block btn-lg" id="flowListBtn" href="@Url.Action("GetFlowList", new { area = "Mobile", docID = ViewBag.DocID })">流程資訊</a>
+    <a class="btn btn-primary btn-block btn-lg" id="flowDocBtn" href="@Url.Action("FlowDocEditForWorker", new { area = "Mobile", docID = ViewBag.DocID })">簽核作業</a>
+</div>

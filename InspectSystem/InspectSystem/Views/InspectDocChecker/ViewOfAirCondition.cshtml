@@ -1,0 +1,137 @@
+﻿@model InspectSystem.Models.InspectDocDetailsViewModels
+
+@{
+    ViewBag.Title = "ViewOfAirCondition";
+    List<InspectSystem.Models.InspectDocDetails> FieldsOfMostItem = ViewBag.FieldsOfMostItem;
+}
+
+<style>
+    th, td {
+        text-align: center;
+    }
+
+    .valueTextBox {
+        text-align: center;
+        padding: 15px;
+    }
+
+    table {
+        table-layout: fixed;
+        width:100%;
+        word-break: break-all;
+    }
+</style>
+
+<h3 style="font-weight: bold; padding-left: 10px">@ViewBag.ClassName</h3>
+<hr />
+    @{
+        var currentItemName = "0";
+        int i = 0;
+    } 
+    <div class="container col-md-12">
+        <table class="table-bordered">
+            <tr>
+                <th>
+                    <p>運轉機號</p>
+                </th>
+                @{/* Use foreach to display <th> names. */}
+                @foreach (var item in FieldsOfMostItem)
+                {
+                    if (item.FieldName != null)
+                    {
+                        <th>
+                            <p>@item.FieldName</p>
+                        </th>
+                    }
+                }
+                <th>
+                    <p>是否正常</p>
+                </th>
+                <th>
+                    <p>錯誤描述</p>
+                </th>
+            </tr>
+            @foreach (var item in Model.InspectItems)
+            {
+                /* Display the ItemName when ItemName is not the same. */
+                if (item.ItemName != currentItemName)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        @{int countFields = 0;}
+                        @foreach (var fieldItem in Model.InspectFields)
+                        {
+                            /* Display all the FieldName belong the current Item. */
+                            if (item.ItemID == fieldItem.ItemID)
+                            {
+                                foreach (var docItem in Model.InspectDocDetails)
+                                {
+                                    /* Display textbox or checkbox for all fields. */
+                                    if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID)
+                                    {
+                                        countFields = countFields + 1;
+
+                                        switch (fieldItem.DataType)
+                                        {
+                                            case "string":
+                                                <td class="valueTextBox">
+                                                    @Html.DisplayFor(modelItem => docItem.Value)
+                                                </td>
+                                                break;
+
+                                            case "float":
+                                                <td class="valueTextBox">
+                                                    @Html.DisplayFor(modelItem => docItem.Value)
+                                                    @Html.DisplayFor(modelItem => fieldItem.UnitOfData)
+                                                </td>
+                                                break;
+
+                                            case "null":
+                                                <td></td>
+                                                break;
+
+                                            case "boolean":
+
+                                                if (countFields == 1)
+                                                {
+                                                    for (int j = 1; j < FieldsOfMostItem.Count(); j++)
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                }
+                                                else if (countFields < FieldsOfMostItem.Count())
+                                                {
+                                                    <td></td>
+                                                }
+                                                <td>
+                                                    @if(docItem.IsFunctional == true)
+                                                    {
+                                                        <p>正常</p>
+                                                    }
+                                                    else if(docItem.IsFunctional == false)
+                                                    {
+                                                        <p style="color: red;font-weight: bold">不正常</p>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => docItem.ErrorDescription)
+                                                </td>
+                                                break;
+                                        }
+                                    }
+                                }
+                                i++;
+                            }
+                        }
+                    </tr>
+                }
+                else
+                {
+                    currentItemName = item.ItemName;
+                }
+            }
+        </table>
+        <hr />
+    </div>

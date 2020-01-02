@@ -1,0 +1,150 @@
+﻿@model InspectSystem.Models.InspectDocDetailsViewModels
+
+<script src="~/Scripts/ClassContentOfAreaDocEdit.js"></script>
+
+@{
+    ViewBag.Title = "ViewOfUPS";
+}
+
+<style>
+    input[type="text"] {
+        width: 70%;
+    }
+
+    th {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    #sendToChecker {
+        position: absolute;
+        right: 12px;
+    }
+</style>
+
+<h3 style="font-weight: bold; padding-left: 10px">@ViewBag.ClassName</h3>
+<hr />
+
+@using (Html.BeginForm("SaveData", "InspectDocEdit", FormMethod.Post, new { id = "detailsForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    var currentItemName = "0";
+    int i = 0;
+    <div class="container col-md-12">
+        <table class="table-bordered" style="table-layout: fixed">
+            <tr class="row">
+                <th>
+                    <p>編號(容量)</p>
+                </th>
+                <th>
+                    <p>容量%</p>
+                </th>
+                <th>
+                    <p>IR</p>
+                </th>
+                <th>
+                    <p>IS</p>
+                </th>
+                <th>
+                    <p>IT</p>
+                </th>
+                <th>
+                    <p>機房溫度</p>
+                </th>
+                <th>
+                    <p>是否正常/</p>
+                    <p>錯誤描述</p>
+                </th>
+            </tr>
+            @foreach (var item in Model.InspectItems)
+            {
+                /* Display the ItemName when ItemName is not the same. */
+                if (item.ItemName != currentItemName)
+                {
+                    <tr class="row">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        @{int countFields = 0;}
+                        @foreach (var fieldItem in Model.InspectFields)
+                        {
+                            /* Display all the FieldName belong the current Item. */
+                            if (item.ItemID == fieldItem.ItemID)
+                            {
+                                foreach (var docItem in Model.InspectDocDetails)
+                                {
+                                    /* Display textbox or checkbox for all fields. */
+                                    if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID)
+                                    {
+                                        @Html.Hidden("InspectDocDetails[" + i + "].DocID", docItem.DocID)
+                                        @Html.Hidden("InspectDocDetails[" + i + "].AreaID", docItem.AreaID, new { id = "InspectDocDetails[" + i + "].AreaID" })
+                                        @Html.Hidden("InspectDocDetails[" + i + "].AreaName", docItem.AreaName)
+                                        @Html.Hidden("InspectDocDetails[" + i + "].ClassID", docItem.ClassID, new { id = "InspectDocDetails[" + i + "].ClassID" })
+                                        @Html.Hidden("InspectDocDetails[" + i + "].ClassName", docItem.ClassName)
+                                        @Html.Hidden("InspectDocDetails[" + i + "].ItemID", docItem.ItemID, new { id = "InspectDocDetails[" + i + "].ItemID" })
+                                        @Html.Hidden("InspectDocDetails[" + i + "].ItemName", docItem.ItemName)
+                                        @Html.Hidden("InspectDocDetails[" + i + "].FieldID", docItem.FieldID, new { id = "InspectDocDetails[" + i + "].FieldID" })
+                                        @Html.Hidden("InspectDocDetails[" + i + "].FieldName", docItem.FieldName)
+
+                                        countFields = countFields + 1;
+                                        switch (fieldItem.DataType)
+                                        {
+                                            case "string":
+                                                <td>
+                                                    @Html.EditorFor(modelItem => docItem.Value, new { htmlAttributes = new { @Name = "InspectDocDetails[" + i + "].Value" } })
+                                                    @Html.ValidationMessage("InspectDocDetails[" + i + "].Value", "", new { @class = "text-danger" })
+                                                </td>
+                                                break;
+
+                                            case "float":
+                                                <td>
+                                                    @Html.EditorFor(modelItem => docItem.Value, new { htmlAttributes = new { @Name = "InspectDocDetails[" + i + "].Value", @class = "inputValue", id = i } })
+                                                    @Html.DisplayFor(modelItem => fieldItem.UnitOfData)
+                                                    @Html.ValidationMessage("InspectDocDetails[" + i + "].Value", "", new { @class = "text-danger" })
+                                                    <br /><span class="@i"></span>
+                                                </td>
+                                                break;
+
+                                            case "null":
+                                                <td></td>
+                                                break;
+
+                                            case "boolean":
+                                                /* If there is no temperature field,jump over a field. */
+                                                if (countFields == 5)
+                                                {
+                                                    <td></td>
+                                                }
+                                                <td>
+                                                    @Html.RadioButtonFor(modelItem => docItem.IsFunctional, true, new { @Name = "InspectDocDetails[" + i + "].IsFunctional" })正常
+                                                    @Html.RadioButtonFor(modelItem => docItem.IsFunctional, false, new { @Name = "InspectDocDetails[" + i + "].IsFunctional" })不正常
+                                                    @Html.TextAreaFor(modelItem => docItem.ErrorDescription, new { @Name = "InspectDocDetails[" + i + "].ErrorDescription", rows = "3" })
+                                                </td>
+                                                break;
+                                        }
+                                    }
+                                }
+                                i++;
+                            }
+                        }
+                    </tr>
+                }
+                else
+                {
+                    currentItemName = item.ItemName;
+                }
+            }
+        </table>
+        <hr />
+        <div>
+            <input class="btn btn-primary" type="submit" value="儲存修改資料" />
+        </div>
+        <hr />
+    </div>
+}
+

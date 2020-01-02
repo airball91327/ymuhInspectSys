@@ -1,0 +1,152 @@
+﻿@model InspectSystem.Models.InspectDocDetailsViewModels
+
+@Scripts.Render("~/bundles//jquery")
+<script src="~/Scripts/ScrollToTop.js"></script>
+<link rel="stylesheet" href="~/Content/MobileStyle/MyStyleForClassContentOfArea.css" />
+
+@{
+    ViewBag.Title = "詳細內容";
+    var DocItems = ViewBag.itemsByDocDetails as List<InspectSystem.Models.InspectDocDetails>;
+    var DocFields = ViewBag.fieldsByDocDetails as List<InspectSystem.Models.InspectDocDetails>;
+}
+
+<h3>@ViewBag.ClassName</h3>
+<hr />
+<div class="container">
+    <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("DocDetailsChecker", new { area = "Mobile", docID = ViewBag.DocID })">回到上頁</a>
+</div>
+<hr />
+<hr />
+@{
+    var currentItemName = "0";
+    int i = 0, j = 0;
+}
+<div class="container">
+    @foreach (var item in DocItems)
+    {
+        /* Display the ItemName when ItemName is not the same. */
+        if (item.ItemName != currentItemName)
+        {
+            <div class="row itemRow">
+                <div class="col-xs-12 itemName">
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </div>
+                <table class="table col-xs-12" style="margin-bottom:0px">
+                    @foreach (var fieldItem in DocFields)
+                    {
+                        /* Display all the FieldName belong the current Item. */
+                        if (item.ItemID == fieldItem.ItemID)
+                        {
+                            <tr>
+                                <td style="padding-left:15px">
+                                    @if (fieldItem.FieldName != null)
+                                    {
+                                        @Html.DisplayFor(modelItem => fieldItem.FieldName)
+                                    }
+                                </td>
+
+                                <td>
+                                    @foreach (var docItem in Model.InspectDocDetails)
+                                    {
+                                        /* Display textbox or checkbox for all fields, except boolean type. */
+                                        if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                            fieldItem.DataType != "boolean")
+                                        {
+                                            switch (fieldItem.DataType)
+                                            {
+                                                case "dropdownlist":
+                                                case "string":
+                                                    <span>
+                                                        @Html.DisplayFor(modelItem => docItem.Value)
+                                                    </span>
+                                                    break;
+
+                                                case "float":
+                                                    <span>
+                                                        @Html.DisplayFor(modelItem => docItem.Value)
+                                                        @Html.DisplayFor(modelItem => fieldItem.UnitOfData)
+                                                    </span>
+                                                    break;
+
+                                                case "checkbox":
+                                                    <span class="checkboxStyle">
+                                                        @if (docItem.Value == "true")
+                                                        {
+                                                            @Html.CheckBox("InspectDocDetails[" + i + "].Value", true, new { disabled = "disabled" })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.CheckBox("InspectDocDetails[" + i + "].Value", false, new { disabled = "disabled" })
+                                                        }
+                                                    </span>
+                                                    break;
+                                            }
+                                            i++;
+                                        }
+                                        else if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                                 fieldItem.DataType == "boolean")
+                                        {
+                                            i++; // Skip an array space to let the boolean type insert later.
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+                <div class="col-xs-12">
+                    @foreach (var fieldItem in DocFields)
+                    {
+                        /* Display all the FieldName belong the current Item. */
+                        if (item.ItemID == fieldItem.ItemID)
+                        {
+
+                            foreach (var docItem in Model.InspectDocDetails)
+                            {
+                                /* Display textbox or checkbox for all fields. */
+                                if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID)
+                                {
+                                    if (fieldItem.DataType == "boolean")
+                                    {
+                                        <div class="col">
+                                            @if (docItem.IsFunctional == "y")
+                                            {
+                                                <p style="font-weight: bold">正常</p>
+                                            }
+                                            else if (docItem.IsFunctional == "n")
+                                            {
+                                                <p style="color: red;font-weight: bold">不正常</p>
+                                            }
+                                        </div>
+                                        <div class="col">
+                                            @if (docItem.ErrorDescription != null)
+                                            {
+                                                @Html.LabelFor(modelItem => docItem.ErrorDescription)
+                                                <br />
+                                                @Html.TextAreaFor(modelItem => docItem.ErrorDescription, new { rows = "3", @readonly = "readonly" })
+                                            }
+                                        </div>
+                                    }
+                                    j++;
+                                }
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            <hr />
+        }
+        else
+        {
+            currentItemName = item.ItemName;
+        }
+        <hr />
+    }
+</div>
+
+<div class="container">
+    <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("DocDetailsChecker", new { area = "Mobile", docID = ViewBag.DocID })">回到上頁</a>
+</div>
+
+<!-- Button for go to top-->
+<button onclick="topFunction()" id="goToTopBtn" title="Go to top">回頁首</button>

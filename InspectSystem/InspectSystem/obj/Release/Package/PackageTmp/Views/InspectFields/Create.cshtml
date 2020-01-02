@@ -1,0 +1,163 @@
+﻿@model InspectSystem.Models.InspectFields
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/InspectFields.js"></script>
+@{
+    Layout = null;
+    int ACID = ViewBag.CreateACID;
+    int itemID = ViewBag.CreateItemID;
+    int zoneNo = ACID * 100 + itemID;
+    string createModalNo = "createModalNo" + zoneNo;
+    string fieldDivNo = "fieldDivNo" + zoneNo;
+}
+
+<!DOCTYPE html>
+
+<style>
+    /* Style the scale of checkbox. */
+    input[type=checkbox], input[type=radio] {
+        -ms-transform: scale(1.5); /* IE */
+        -moz-transform: scale(1.5); /* FireFox */
+        -webkit-transform: scale(1.5); /* Safari and Chrome */
+        -o-transform: scale(1.5); /* Opera */
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#FieldName").focus();
+        /* When submit, close the modal. */
+        $("#submitBtnCreate").submit(function () {
+            document.getElementById("@createModalNo").style.display = "none";
+        });      
+    });
+</script>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    @using (Ajax.BeginForm("Create", new AjaxOptions { UpdateTargetId = fieldDivNo }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4></h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.ACID)
+                    @Html.HiddenFor(model => model.ItemID)
+                    <p style="margin-top : 7px">@ViewBag.ItemNameForCreate</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FieldName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FieldName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FieldName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DataType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top : 7px">
+                    @Html.RadioButtonFor(model => model.DataType, "string") 字串
+                    @Html.RadioButtonFor(model => model.DataType, "float", new { @checked = "checked" }) 數字
+                    @Html.RadioButtonFor(model => model.DataType, "boolean") 正常/不正常
+                    @Html.RadioButtonFor(model => model.DataType, "checkbox") 勾選方塊
+                    @Html.RadioButtonFor(model => model.DataType, "dropdownlist") 下拉選單
+                    @Html.ValidationMessageFor(model => model.DataType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="content-group">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UnitOfData, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UnitOfData, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UnitOfData, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MinValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MinValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MinValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaxValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MaxValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MaxValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="showPastValueDiv">
+                    @Html.LabelFor(model => model.ShowPastValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="margin-top : 7px">
+                        @Html.CheckBoxFor(model => model.ShowPastValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ShowPastValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <!--for datatype dropdownlist, and dynamic inset textbox.-->
+            <div class="well col-md-offset-2 col-md-10 textbox-group" role="form">
+                <div class="row" id="TextBoxesGroup">
+                    <div class="col-md-10">
+                        <div id="TextBoxScope1" class="form-group">
+                            <label>選項 #1 : </label>
+                            <input type="text" id='textbox1' name="textbox1" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+    
+                <hr />
+                @Html.Hidden("TextBoxCount", 1)
+                <input type="button" class="btn btn-primary" value="增加選項" id='addButton'>
+                <input type="button" class="btn btn-info" value='移除選項' id='removeButton'>
+            </div>
+            <!--for datatype dropdownlist, and dynamic inset textbox.-->
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FieldStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top : 7px">
+                    @Html.CheckBoxFor(model => model.FieldStatus)
+                    @Html.ValidationMessageFor(model => model.FieldStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsRequired, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top : 7px">
+                    @Html.CheckBoxFor(model => model.IsRequired)
+                    @Html.ValidationMessageFor(model => model.IsRequired, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-offset-2">
+                <p style="color : red">無須設定大小值時，請將數值設定為0</p>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="儲存" class="btn btn-default" id="submitBtnCreate" />
+                </div>
+            </div>
+        </div>
+        <hr />
+    }
+</body>
+</html>
