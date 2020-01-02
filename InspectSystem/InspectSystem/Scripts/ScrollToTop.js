@@ -7,16 +7,28 @@
 });
 
 function scrollFunction() {
+    var goToTopBtn = document.getElementById("goToTopBtn");
+    var submitScrollBtn = document.getElementById("submitScrollBtn");
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("goToTopBtn").style.display = "block";
-        document.getElementById("submitScrollBtn").style.display = "block";
+        if (goToTopBtn !== null) {
+            document.getElementById("goToTopBtn").style.display = "block";
+        }
+        if (submitScrollBtn !== null) {
+            document.getElementById("submitScrollBtn").style.display = "block";
+        }
     } else {
-        document.getElementById("goToTopBtn").style.display = "none";
-        document.getElementById("submitScrollBtn").style.display = "none";
+        if (goToTopBtn !== null) {
+            document.getElementById("goToTopBtn").style.display = "none";
+        }
+        if (submitScrollBtn !== null) {
+            document.getElementById("submitScrollBtn").style.display = "none";
+        }
     }
     /* If scroll to bottom. */
-    if (document.documentElement.scrollTop + window.innerHeight == document.documentElement.scrollHeight) {
-        document.getElementById("submitScrollBtn").style.display = "none";
+    if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.scrollHeight) {
+        if (submitScrollBtn !== null) {
+            document.getElementById("submitScrollBtn").style.display = "none";
+        }
     } 
 }
 

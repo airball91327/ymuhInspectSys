@@ -16,7 +16,7 @@
         @Html.HiddenFor(model => model.AreaCheckerID, new { @Value = 0})
 
         <div class="form-group">
-            @Html.LabelFor(model => model.InspectAreas.AreaName, "AreaID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.InspectAreas.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("AreaID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })

@@ -38,7 +38,7 @@ namespace InspectSystem.Controllers
                 TempData["ErrorMsg"] = "今日巡檢文件已送出!";
                 return RedirectToAction("SelectAreas");
             }
-            else if (FindDoc != null && FindDoc.WorkerID != System.Convert.ToInt32(WebSecurity.CurrentUserName))
+            else if (FindDoc != null && FindDoc.WorkerID != WebSecurity.CurrentUserId)
             {
                 TempData["ErrorMsg"] = "非今日巡檢人員!";
                 return RedirectToAction("SelectAreas");
@@ -46,17 +46,9 @@ namespace InspectSystem.Controllers
             /* Find the InspectDoc according to the docID, if can't find, new a doc. */
             if (FindDoc == null)
             {
-                int workerID = System.Convert.ToInt32(WebSecurity.CurrentUserName);
-
-                // Get real name.
-                // 先取得該使用者的 FormsIdentity
-                FormsIdentity id = (FormsIdentity)User.Identity;
-                // 再取出使用者的 FormsAuthenticationTicket
-                FormsAuthenticationTicket ticket = id.Ticket;
-                // 將儲存在 FormsAuthenticationTicket 中的角色定義取出，並轉成字串陣列
-                char[] charSpilt = new char[] { ',', '{', '}', '[', ']', '"', ':', '\\' };
-                string[] roles = ticket.UserData.Split(charSpilt, StringSplitOptions.RemoveEmptyEntries);
-                string workerName = roles.Last();
+                AppUser u = db.AppUsers.Find(WebSecurity.CurrentUserId);
+                int workerID = WebSecurity.CurrentUserId;
+                string workerName = u.FullName;
 
                 /* Find the checker of the area. */
                 int checkerID = 0;
@@ -86,10 +78,10 @@ namespace InspectSystem.Controllers
 
                 var allItems = db.InspectItems.Where(i => i.ACID >= firstACID &&
                                                           i.ACID < nextACID &&
-                                                          i.ItemStatus == true);
+                                                          i.ItemStatus == true).ToList();
                 var allFields = db.InspectFields.Where(i => i.ACID >= firstACID &&
                                                             i.ACID < nextACID &&
-                                                            i.FieldStatus == true);
+                                                            i.FieldStatus == true).ToList();
                 var insertFields =
                     from f in allFields
                     join i in allItems on f.ACID equals i.ACID
@@ -221,7 +213,7 @@ namespace InspectSystem.Controllers
         public ActionResult SelectAreas()
         {
             /* Get the user's inspect areas. */
-            int workerID = System.Convert.ToInt32(WebSecurity.CurrentUserName);
+            int workerID = WebSecurity.CurrentUserId;
             var getInspectAreas = db.InspectMemberAreas.Where(i => i.MemberId == workerID).ToList();
             List<InspectAreas> inspectAreasList = new List<InspectAreas>();
             foreach(var item in getInspectAreas)

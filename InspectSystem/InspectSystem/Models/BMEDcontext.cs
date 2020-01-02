@@ -9,7 +9,7 @@ namespace InspectSystem.Models
     public class BMEDcontext : DbContext
     {
         public BMEDcontext()
-        : base("AZUREconnection")
+        : base("AzureConnection")
         {
         }
 
@@ -18,7 +18,6 @@ namespace InspectSystem.Models
         public DbSet<InspectItems> InspectItems { get; set; }
         public DbSet<InspectFields> InspectFields { get; set; }
         public DbSet<InspectFieldDropDown> InspectFieldDropDown { get; set; }
-        public DbSet<ClassesOfAreas> ClassesOfAreas { get; set; }
         public DbSet<InspectPrecautions> InspectPrecautions { get; set; }
         public DbSet<InspectDocs> InspectDocs { get; set; }
         public DbSet<InspectDocDetails> InspectDocDetails { get; set; }
@@ -28,5 +27,10 @@ namespace InspectSystem.Models
         public DbSet<InspectAreaChecker> InspectAreaCheckers { get; set; }
         public DbSet<InspectMembers> InspectMembers { get; set; }
         public DbSet<InspectMemberAreas> InspectMemberAreas { get; set; }
+        public DbSet<ClassesOfAreas> ClassesOfAreas { get; set; }
+
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<AppRoles> AppRoles { get; set; }
+        public DbSet<UsersInRoles> UsersInRoles { get; set; }
     }
 }

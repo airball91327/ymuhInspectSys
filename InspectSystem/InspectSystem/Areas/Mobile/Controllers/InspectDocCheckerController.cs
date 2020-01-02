@@ -25,7 +25,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
         // GET: Mobile/InspectDocChecker/DocListForChecker
         public ActionResult DocListForChecker()
         {
-            int UserID = System.Convert.ToInt32(WebSecurity.CurrentUserName);
+            int UserID = WebSecurity.CurrentUserId;
             /* Find All not completed documents. */
             var CheckingDocs = db.InspectDocs.Where(i => i.CheckerID == UserID &&
                                                          i.FlowStatusID != 2);
@@ -36,7 +36,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
         // GET: Mobile/InspectDocChecker/DocListForWorker
         public ActionResult DocListForWorker()
         {
-            int UserID = System.Convert.ToInt32(WebSecurity.CurrentUserName);
+            int UserID = WebSecurity.CurrentUserId;
             /* Find all not completed or not send documents. */
             var CheckingDocs = db.InspectDocs.Where(i => i.WorkerID == UserID &&
                                                          i.FlowStatusID != 2 &&
@@ -134,18 +134,10 @@ namespace InspectSystem.Areas.Mobile.Controllers
             ViewBag.AreaID = flowDoc.InspectDocs.AreaID;
 
             /* Use userID to find the user details.*/
-            flowDoc.EditorID = System.Convert.ToInt32(WebSecurity.CurrentUserName);
+            AppUser u = db.AppUsers.Find(WebSecurity.CurrentUserId);
+            flowDoc.EditorID = WebSecurity.CurrentUserId;
             flowDoc.Opinions = "";
-
-            // Get real name.
-            // 先取得該使用者的 FormsIdentity
-            FormsIdentity id = (FormsIdentity)User.Identity;
-            // 再取出使用者的 FormsAuthenticationTicket
-            FormsAuthenticationTicket ticket = id.Ticket;
-            // 將儲存在 FormsAuthenticationTicket 中的角色定義取出，並轉成字串陣列
-            char[] charSpilt = new char[] { ',', '{', '}', '[', ']', '"', ':', '\\' };
-            string[] roles = ticket.UserData.Split(charSpilt, StringSplitOptions.RemoveEmptyEntries);
-            flowDoc.EditorName = roles.Last();
+            flowDoc.EditorName = u.FullName;
 
             return View("FlowDocEditForChecker", flowDoc);
         }
@@ -160,18 +152,10 @@ namespace InspectSystem.Areas.Mobile.Controllers
             ViewBag.AreaID = flowDoc.InspectDocs.AreaID;
 
             /* Use userID to find the user details.*/
-            flowDoc.EditorID = System.Convert.ToInt32(WebSecurity.CurrentUserName);
+            AppUser u = db.AppUsers.Find(WebSecurity.CurrentUserId);
+            flowDoc.EditorID = WebSecurity.CurrentUserId;
             flowDoc.Opinions = "";
-
-            // Get real name.
-            // 先取得該使用者的 FormsIdentity
-            FormsIdentity id = (FormsIdentity)User.Identity;
-            // 再取出使用者的 FormsAuthenticationTicket
-            FormsAuthenticationTicket ticket = id.Ticket;
-            // 將儲存在 FormsAuthenticationTicket 中的角色定義取出，並轉成字串陣列
-            char[] charSpilt = new char[] { ',', '{', '}', '[', ']', '"', ':', '\\' };
-            string[] roles = ticket.UserData.Split(charSpilt, StringSplitOptions.RemoveEmptyEntries);
-            flowDoc.EditorName = roles.Last();
+            flowDoc.EditorName = u.FullName;
 
             return View("FlowDocEditForWorker", flowDoc);
         }
@@ -215,27 +199,27 @@ namespace InspectSystem.Areas.Mobile.Controllers
 
                     //Send Mail
                     Mail mail = new Mail();
-                    string body = "";
-                    mail.from = inspectDocFlow.CheckerID + "@cch.org.tw";
-                    mail.to = inspectDocFlow.WorkerID + "@cch.org.tw";
-                    mail.subject = "巡檢系統[退件通知]";
-                    body += "<p>表單編號：" + inspectDoc.DocID + "</p>";
-                    body += "<p>日期：" + inspectDoc.Date.ToString("yyyy/MM/dd") + "</p>";
-                    body += "<p>區域：" + db.InspectAreas.Find(inspectDoc.AreaID).AreaName + "</p>";
-                    body += "<p><a href='https://inspectsys.azurewebsites.net/'" + ">處理案件</a></p>";
-                    body += "<br/>";
-                    body += "<h3>此封信件為系統通知郵件，請勿回覆。</h3>";
-                    body += "<br/>";
-                    mail.msg = body;
+                    //string body = "";
+                    //mail.from = inspectDocFlow.CheckerID + "@cch.org.tw";
+                    //mail.to = inspectDocFlow.WorkerID + "@cch.org.tw";
+                    //mail.subject = "巡檢系統[退件通知]";
+                    //body += "<p>表單編號：" + inspectDoc.DocID + "</p>";
+                    //body += "<p>日期：" + inspectDoc.Date.ToString("yyyy/MM/dd") + "</p>";
+                    //body += "<p>區域：" + db.InspectAreas.Find(inspectDoc.AreaID).AreaName + "</p>";
+                    //body += "<p><a href='https://inspectsys.azurewebsites.net/'" + ">處理案件</a></p>";
+                    //body += "<br/>";
+                    //body += "<h3>此封信件為系統通知郵件，請勿回覆。</h3>";
+                    //body += "<br/>";
+                    //mail.msg = body;
 
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("http://dms.cch.org.tw:8080/");
-                    string url = "WebApi/Mail/SendMail";
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json"));
-                    var content = new StringContent(JsonConvert.SerializeObject(mail), Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PostAsync(url, content);
+                    //HttpClient client = new HttpClient();
+                    //client.BaseAddress = new Uri("http://dms.cch.org.tw:8080/");
+                    //string url = "WebApi/Mail/SendMail";
+                    //client.DefaultRequestHeaders.Accept.Clear();
+                    //client.DefaultRequestHeaders.Accept.Add(
+                    //    new MediaTypeWithQualityHeaderValue("application/json"));
+                    //var content = new StringContent(JsonConvert.SerializeObject(mail), Encoding.UTF8, "application/json");
+                    //HttpResponseMessage response = await client.PostAsync(url, content);
                 }
             }
             else if (nextFlowStatusID == 2) // If doc closed.

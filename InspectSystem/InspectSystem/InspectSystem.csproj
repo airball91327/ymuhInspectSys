@@ -234,6 +234,8 @@
     <Compile Include="Areas\Mobile\Controllers\InspectDocResendController.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppRolesController.cs" />
+    <Compile Include="Controllers\AppUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InspectAreaCheckersController.cs" />
     <Compile Include="Controllers\InspectAreasController.cs" />
@@ -255,8 +257,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppRoles.cs" />
+    <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\BMEDcontext.cs" />
     <Compile Include="Models\ClassesOfAreas.cs" />
+    <Compile Include="Models\DB_GEN_STAFF_PW.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InspectAreaChecker.cs" />
@@ -275,7 +280,11 @@
     <Compile Include="Models\InspectMembers.cs" />
     <Compile Include="Models\InspectMembersViewModel.cs" />
     <Compile Include="Models\InspectPrecautions.cs" />
+    <Compile Include="Models\PSONcontext.cs" />
+    <Compile Include="Models\UsersInRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CustomMembershipProvider.cs" />
+    <Compile Include="Providers\CustomRoleProvider.cs" />
     <Compile Include="Report\WaterSystem.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -285,6 +294,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\220px-NYMU_Hospital.jpg" />
     <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\bootstrap-combobox.css" />
     <Content Include="Content\bootstrap-select.css" />
@@ -293,9 +303,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Building1.JPG" />
-    <Content Include="Content\Building4.jpg" />
-    <Content Include="Content\Building5.JPG" />
     <Content Include="Content\datatable-loader.gif" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
@@ -463,8 +470,8 @@
     <Content Include="Content\MyStyleForClassContentOfArea.css" />
     <Content Include="Content\MyStyleForDocDetail.css" />
     <Content Include="Content\MyStyleForPostLoader.css" />
+    <Content Include="Content\NYMU.jpg" />
     <Content Include="Content\post-loader.gif" />
-    <Content Include="Content\TestPic.jpg" />
     <Content Include="Content\w3.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -834,7 +841,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\InspectClasses\Create.cshtml" />

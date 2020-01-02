@@ -56,17 +56,17 @@ namespace InspectSystem.Controllers
                     fromDoc = (fromDate * 100) + 1;
                     toDoc = (toDate * 100) + 99;
                 }
-                var searchList = db.InspectDocs.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc);
+                var searchList = db.InspectDocs.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc).ToList();
 
                 /* 查詢區域 */
                 if (areaId != null)
                 {
-                    searchList = searchList.Where(r => r.AreaID == areaId);
+                    searchList = searchList.Where(r => r.AreaID == areaId).ToList();
                 }
                 /* 查詢文件狀態 */
                 if(flowStatusId != null)
                 {
-                    searchList = searchList.Where(r => r.FlowStatusID == flowStatusId);
+                    searchList = searchList.Where(r => r.FlowStatusID == flowStatusId).ToList();
                 }
 
                 var resultList = searchList.AsEnumerable().Select(s => new
@@ -107,9 +107,9 @@ namespace InspectSystem.Controllers
                     };
                 return Json(returnObj, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new Exception(e.Message);
             }
         }
 

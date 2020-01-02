@@ -56,21 +56,21 @@ namespace InspectSystem.Controllers
                     fromDoc = (fromDate * 100) + 1;
                     toDoc = (toDate * 100) + 99;
                 }
-                var searchList = db.InspectDocDetails.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc);
+                var searchList = db.InspectDocDetails.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc).ToList();
 
                 /* 查詢區域、類別 */
                 searchList = searchList.Where(s => s.AreaID == areaId &&
-                                                   s.ClassID == classId);
+                                                   s.ClassID == classId).ToList();
                 /* 查詢項目 */
                 if (itemId != 0)
                 {
-                    searchList = searchList.Where(s => s.ItemID == itemId);
+                    searchList = searchList.Where(s => s.ItemID == itemId).ToList();
                 }
 
                 /* 查詢欄位 */
                 if (fieldId != 0)
                 {
-                    searchList = searchList.Where(s => s.FieldID == fieldId);
+                    searchList = searchList.Where(s => s.FieldID == fieldId).ToList();
                 }
 
                 ///* 查詢欄位關鍵字 */
