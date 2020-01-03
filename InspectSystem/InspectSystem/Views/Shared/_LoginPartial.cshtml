@@ -20,7 +20,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello " + Html.Action("GetFullName", "AppUsers") + "!", "Index", "Home", new { Area = "" }, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello " + Html.Action("GetFullName", "AppUsers", new { Area = "" }) + "!", "Index", "Home", new { Area = "" }, htmlAttributes: new { title = "Manage" })
             </li>
             <li>
                 <a href="javascript:document.getElementById('logoutForm').submit()">登出</a>

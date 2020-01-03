@@ -6,7 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 using InspectSystem.Models;
+using WebMatrix.WebData;
 
 namespace InspectSystem.Controllers
 {
@@ -34,6 +37,23 @@ namespace InspectSystem.Controllers
             {
                 return HttpNotFound();
             }
+            List<ListItem> list = new List<ListItem>();
+            List<string> s;
+            ListItem li;
+            AppUser u;
+            s = Roles.GetUsersInRole("MedMgr").ToList();
+            foreach (string l in s)
+            {
+                u = db.AppUsers.Find(WebSecurity.GetUserId(l));
+                if (!string.IsNullOrEmpty(u.DptId))
+                {
+                    li = new ListItem();
+                    li.Text = u.FullName;
+                    li.Value = WebSecurity.GetUserId(l).ToString();
+                    list.Add(li);
+                }
+            }
+            ViewData["CheckerID"] = new SelectList(list, "Value", "Text", "");
             ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaID);
             return View(inspectAreaChecker);
         }
@@ -79,6 +99,23 @@ namespace InspectSystem.Controllers
         // GET: InspectAreaCheckers/Create
         public ActionResult Create()
         {
+            List<ListItem> list = new List<ListItem>();
+            List<string> s;
+            ListItem li;
+            AppUser u;
+            s = Roles.GetUsersInRole("MedMgr").ToList();
+            foreach (string l in s)
+            {
+                u = db.AppUsers.Find(WebSecurity.GetUserId(l));
+                if (!string.IsNullOrEmpty(u.DptId))
+                {
+                    li = new ListItem();
+                    li.Text = u.FullName;
+                    li.Value = WebSecurity.GetUserId(l).ToString();
+                    list.Add(li);
+                }
+            }
+            ViewData["CheckerID"] = new SelectList(list, "Value", "Text", "");
             ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
             return View();
         }

@@ -6,14 +6,14 @@
 
 <h2><b>新增簽核主管</b></h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AreaCheckerID, new { @Value = 0})
+        @Html.HiddenFor(model => model.AreaCheckerID, new { @Value = 0 })
 
         <div class="form-group">
             @Html.LabelFor(model => model.InspectAreas.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -24,18 +24,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CheckerID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CheckerID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CheckerID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
+            @Html.HiddenFor(model => model.CheckerName)
             @Html.LabelFor(model => model.CheckerName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CheckerName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CheckerName, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.CheckerID, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CheckerID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -58,3 +51,16 @@
 <div>
     @Html.ActionLink("回到列表", "Index")
 </div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            $("#CheckerID").change(function () {
+                $("#CheckerName").val($("#CheckerID :selected").text());
+            });
+        });
+    </script>
+}

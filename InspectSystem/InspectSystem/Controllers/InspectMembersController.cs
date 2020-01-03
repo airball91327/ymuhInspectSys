@@ -60,7 +60,7 @@ namespace InspectSystem.Controllers
 
             /* Find the AreaIDs which is not already exist. */
             var q = ( from a in db.InspectAreas select a.AreaID )
-                    .Except( from m in db.InspectMemberAreas where m.MemberId == id select m.AreaId );
+                    .Except( from m in db.InspectMemberAreas where m.MemberId == id select m.AreaId ).ToList();
             /* Insert Areas into dropdownlist. */
             List<InspectAreas> areaList = new List<InspectAreas>();
             foreach(var item in q)
@@ -127,7 +127,7 @@ namespace InspectSystem.Controllers
             /* Find the AreaIDs which is not already exist and selected. */
             var q = (from a in db.InspectAreas select a.AreaID)
                     .Except(from m in db.InspectMemberAreas where m.MemberId == id && 
-                                                                  m.AreaId != areaID select m.AreaId);
+                                                                  m.AreaId != areaID select m.AreaId).ToList();
             /* Insert Areas into dropdownlist. */
             List<InspectAreas> areaList = new List<InspectAreas>();
             foreach (var item in q)

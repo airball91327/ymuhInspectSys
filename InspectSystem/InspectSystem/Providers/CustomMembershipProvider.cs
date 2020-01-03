@@ -299,8 +299,8 @@ namespace InspectSystem.Providers
         public override bool ValidateUser(string username, string password)
         {
             //測試用-----------------------------------------------------------------------------------
-            if (username == "admin" && password == "nckupwd")
-                return true;
+            //if (username == "admin" && password == "nckupwd")
+            //    return true;
             //-----------------------------------------------------------------------------------------
             //string sha1Pswd = GetMD5Hash(password);
 
