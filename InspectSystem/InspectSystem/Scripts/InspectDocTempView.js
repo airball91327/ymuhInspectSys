@@ -20,7 +20,7 @@ function openClassContent(evt, acid, docID) {
 
     $.ajax({
         type: "GET",
-        url: "/InspectDocTempView/ClassContentOfArea",
+        url: "../InspectDocTempView/ClassContentOfArea",
         data: { ACID: acid, DocID: docID },
         beforeSend: function () {
             $("#loadingModal").modal("show");

@@ -45,7 +45,7 @@ function openClassContent(evt, acid, docID) {
 
             $.ajax({
                 type: "GET",
-                url: "/InspectDocEdit/ClassContentOfArea",
+                url: "../InspectDocEdit/ClassContentOfArea",
                 data: { ACID: acid, DocID: docID },
                 beforeSend: function () {
                     $("#loadingModal").modal("show");
@@ -77,7 +77,7 @@ function openClassContent(evt, acid, docID) {
 
         $.ajax({
             type: "GET",
-            url: "/InspectDocEdit/ClassContentOfArea",
+            url: "../InspectDocEdit/ClassContentOfArea",
             data: { ACID: acid, DocID: docID },
             beforeSend: function () {
                 $("#loadingModal").modal("show");
@@ -116,7 +116,7 @@ function getFlowList(evt, docID) {
 
             $.ajax({
                 type: "GET",
-                url: "/InspectDocChecker/GetFlowList",
+                url: "../InspectDocChecker/GetFlowList",
                 data: { DocID: docID },
                 beforeSend: function () {
                     $("#loadingModal").modal("show");
@@ -147,7 +147,7 @@ function getFlowList(evt, docID) {
 
         $.ajax({
             type: "GET",
-            url: "/InspectDocChecker/GetFlowList",
+            url: "../InspectDocChecker/GetFlowList",
             data: { DocID: docID },
             beforeSend: function () {
                 $("#loadingModal").modal("show");

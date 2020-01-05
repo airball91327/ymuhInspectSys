@@ -28,7 +28,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/InspectDocEdit/CheckValue",
+            url: "../InspectDocEdit/CheckValue",
             data: { DocID: docID, ClassID: classID, ItemID: itemID, FieldID: fieldID, Value: value },
             success: function (result) {
                 //console.log(result); //For debug

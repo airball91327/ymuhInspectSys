@@ -202,7 +202,7 @@
                     //],
                     ajax: {
                         method: "get",
-                        url: "/InspectDocDtlValSearch/GetData",
+                        url: "../InspectDocDtlValSearch/GetData",
                         "dataSrc": "data",
                         data: function (d) {
                             d.startDate = $("input[name=startDate]").val();
@@ -243,7 +243,7 @@
             $('#AreaID').change(function () {
 
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetClasses',
+                    url: '../InspectDocDtlValSearch/GetClasses',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: $(this).val() },
@@ -269,7 +269,7 @@
                 var areaId = $(this).val();
                 var classId = $('#classId').val();
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetItems',
+                    url: '../InspectDocDtlValSearch/GetItems',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId, ClassID: classId },
@@ -295,13 +295,13 @@
 
                 var itemId = $('#itemId').val();
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetFields',
+                    url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
                     async: false,
                     success: function (response) {
-                        console.log(response); // ForDebug
+                        //console.log(response); // ForDebug
                         var select = $('#fieldId');
                         var defaultOption = 0;
                         var i = 0;
@@ -327,7 +327,7 @@
                 var areaId = $("#AreaID").val();
                 var classId = $(this).val();
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetItems',
+                    url: '../InspectDocDtlValSearch/GetItems',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId, ClassID: classId },
@@ -353,13 +353,13 @@
 
                 var itemId = $('#itemId').val();
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetFields',
+                    url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
                     async: false,
                     success: function (response) {
-                        console.log(response); // ForDebug
+                        //console.log(response); // ForDebug
                         var select = $('#fieldId');
                         var defaultOption = 0;
                         var i = 0;
@@ -386,13 +386,13 @@
                 var classId = $("#classId").val();
                 var itemId = $(this).val();
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetFields',
+                    url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
                     async: false,
                     success: function (response) {
-                        console.log(response); // ForDebug
+                        //console.log(response); // ForDebug
                         var select = $('#fieldId');
                         var defaultOption = 0;
                         var i = 0;
@@ -416,7 +416,7 @@
             var areaId = $("#AreaID").val();
             if (areaId != "") {
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetClasses',
+                    url: '../InspectDocDtlValSearch/GetClasses',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId },
@@ -441,7 +441,7 @@
 
                 var classId = $('#classId').val();
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetItems',
+                    url: '../InspectDocDtlValSearch/GetItems',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId, ClassID: classId },
@@ -467,13 +467,13 @@
 
                 var itemId = $('#itemId').val();
                 $.ajax({
-                    url: '../../InspectDocDtlValSearch/GetFields',
+                    url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
                     data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
                     async: false,
                     success: function (response) {
-                        console.log(response); // ForDebug
+                        //console.log(response); // ForDebug
                         var select = $('#fieldId');
                         var defaultOption = 0;
                         var i = 0;

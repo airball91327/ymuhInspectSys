@@ -58,7 +58,7 @@ function openClassContent(evt, acid, docID) {
 
             $.ajax({
                 type: "GET",
-                url: "/InspectDocDetails/ClassContentOfArea",
+                url: "../InspectDocDetails/ClassContentOfArea",
                 data: { ACID: acid, DocID: docID },
                 async: true,
                 beforeSend: function () {
@@ -91,7 +91,7 @@ function openClassContent(evt, acid, docID) {
 
         $.ajax({
             type: "GET",
-            url: "/InspectDocDetails/ClassContentOfArea",
+            url: "../InspectDocDetails/ClassContentOfArea",
             data: { ACID: acid, DocID: docID },
             async: true,
             beforeSend: function () {

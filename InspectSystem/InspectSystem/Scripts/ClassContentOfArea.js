@@ -28,7 +28,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "/InspectDocDetails/CheckValue",
+            url: "../InspectDocDetails/CheckValue",
             data: { AreaID: areaID, ClassID: classID, ItemID: itemID, FieldID: fieldID, Value: value },
             success: function (result) {
                 //console.log(result); //For debug

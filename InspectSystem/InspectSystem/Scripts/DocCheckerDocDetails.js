@@ -20,7 +20,7 @@ function openClassContent(evt, acid, docID) {
 
     $.ajax({
         type: "GET",
-        url: "/InspectDocChecker/ClassContentOfArea",
+        url: "../InspectDocChecker/ClassContentOfArea",
         data: { ACID: acid, DocID: docID },
         beforeSend: function () {
             $("#loadingModal").modal("show");
@@ -53,7 +53,7 @@ function getFlowList(evt, docID) {
 
     $.ajax({
         type: "GET",
-        url: "/InspectDocChecker/GetFlowList",
+        url: "../InspectDocChecker/GetFlowList",
         data: { DocID: docID },
         beforeSend: function () {
             $("#loadingModal").modal("show");

@@ -25,7 +25,7 @@
         /*Get the search result of fields*/
         $.ajax({
             type: "GET",
-            url: "/InspectFields/Search",
+            url: "../InspectFields/Search",
             data: { acid: ACID, itemid: itemID },
             success: function (result) {
                 //console.log(result); //For debug

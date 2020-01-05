@@ -15,7 +15,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/InspectFields/Edit",
+            url: "../InspectFields/Edit",
             data: { acid: ACID, itemid: itemID, fieldid: fieldID },
             success: function (result) {
                 //console.log(result); //For debug
@@ -41,7 +41,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/InspectFields/Create",
+            url: "../InspectFields/Create",
             data: { acid: ACID, itemid: itemID },
             success: function (result) {
                 //console.log(result); //For debug
