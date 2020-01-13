@@ -8,6 +8,7 @@ namespace InspectSystem.Models
     public class InspectMembers
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
         [Display(Name = "員工代號")]
         public int MemberId { get; set; }

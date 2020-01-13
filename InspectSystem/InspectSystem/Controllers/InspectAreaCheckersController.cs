@@ -115,7 +115,7 @@ namespace InspectSystem.Controllers
                     list.Add(li);
                 }
             }
-            ViewData["CheckerID"] = new SelectList(list, "Value", "Text", "");
+            ViewData["CheckerID"] = new SelectList(list, "Value", "Text", list.First().Value);
             ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
             return View();
         }

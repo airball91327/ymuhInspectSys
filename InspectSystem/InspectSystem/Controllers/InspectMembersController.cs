@@ -6,7 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 using InspectSystem.Models;
+using WebMatrix.WebData;
 
 namespace InspectSystem.Controllers
 {
@@ -97,6 +100,93 @@ namespace InspectSystem.Controllers
             }
             ViewBag.AreaId = new SelectList(areaList, "AreaID", "AreaName");
             inspectMemberAreas.InspectMembers = db.InspectMembers.Find(id);
+            return View(inspectMemberAreas);
+        }
+
+        // GET: InspectMembers/Create2/5
+        public ActionResult Create2()
+        {
+            List<ListItem> list = new List<ListItem>();
+            List<string> s;
+            ListItem li;
+            AppUser u;
+            s = Roles.GetUsersInRole("MedEngineer").ToList();
+            foreach (string l in s)
+            {
+                u = db.AppUsers.Find(WebSecurity.GetUserId(l));
+                if (!string.IsNullOrEmpty(u.DptId))
+                {
+                    li = new ListItem();
+                    li.Text = u.FullName;
+                    li.Value = WebSecurity.GetUserId(l).ToString();
+                    list.Add(li);
+                }
+            }
+            ViewData["MemberId"] = new SelectList(list, "Value", "Text", list.First().Value);
+
+            /* Insert Areas into dropdownlist. */
+            List<InspectAreas> areaList = new List<InspectAreas>();
+            foreach (var item in db.InspectAreas)
+            {
+                areaList.Add(item);
+            }
+            ViewBag.AreaId = new SelectList(areaList, "AreaID", "AreaName");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create2([Bind(Include = "MemberId,AreaId")] InspectMemberAreas inspectMemberAreas)
+        {
+            var memberExist = db.InspectMembers.Where(i => i.MemberId == inspectMemberAreas.MemberId).FirstOrDefault();
+            if (memberExist != null)
+            {
+                ModelState.AddModelError("MemberId", "已有相同員工於列表中");
+            }
+            else
+            {
+                AppUser ur = db.AppUsers.Find(inspectMemberAreas.MemberId);
+                InspectMembers inspectMember = new InspectMembers()
+                {
+                    MemberId = ur.Id,
+                    MemberName = ur.FullName,
+                    Department = ur.DptId
+                };
+                db.InspectMembers.Add(inspectMember);
+                db.SaveChanges();
+            }
+            if (ModelState.IsValid)
+            {
+                db.InspectMemberAreas.Add(inspectMemberAreas);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            List<ListItem> list = new List<ListItem>();
+            List<string> s;
+            ListItem li;
+            AppUser u;
+            s = Roles.GetUsersInRole("MedEngineer").ToList();
+            foreach (string l in s)
+            {
+                u = db.AppUsers.Find(WebSecurity.GetUserId(l));
+                if (!string.IsNullOrEmpty(u.DptId))
+                {
+                    li = new ListItem();
+                    li.Text = u.FullName;
+                    li.Value = WebSecurity.GetUserId(l).ToString();
+                    list.Add(li);
+                }
+            }
+            ViewData["MemberId"] = new SelectList(list, "Value", "Text", list.First().Value);
+
+            /* Insert Areas into dropdownlist. */
+            List<InspectAreas> areaList = new List<InspectAreas>();
+            foreach (var item in db.InspectAreas)
+            {
+                areaList.Add(item);
+            }
+            ViewBag.AreaId = new SelectList(areaList, "AreaID", "AreaName");
             return View(inspectMemberAreas);
         }
 

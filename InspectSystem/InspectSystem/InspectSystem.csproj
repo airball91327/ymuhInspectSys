@@ -910,6 +910,7 @@
     <Content Include="Views\InspectDocSearch\DocTempIndex.cshtml" />
     <Content Include="Views\InspectReports\Index.cshtml" />
     <Content Include="Views\InspectDocDtlValSearch\Index.cshtml" />
+    <Content Include="Views\InspectMembers\Create2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
