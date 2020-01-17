@@ -192,7 +192,13 @@ namespace InspectSystem.Controllers
         {
             FormsAuthentication.SignOut();
 
+            //return Redirect("~/Home/Index");
+#if DEBUG
             return Redirect("~/Home/Index");
+#else
+            //回到選擇系統的主畫面
+            return Redirect("../../Home/Index");
+#endif
         }
 
         protected override void Dispose(bool disposing)
