@@ -32,5 +32,6 @@ namespace InspectSystem.Models
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRoles> AppRoles { get; set; }
         public DbSet<UsersInRoles> UsersInRoles { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

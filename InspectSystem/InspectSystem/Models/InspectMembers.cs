@@ -12,10 +12,14 @@ namespace InspectSystem.Models
         [Required]
         [Display(Name = "員工代號")]
         public int MemberId { get; set; }
+        [NotMapped]
+        public string MemberUserName { get; set; }
         [Required]
         [Display(Name = "員工姓名")]
         public string MemberName { get; set; }
         [Display(Name = "所屬部門")]
         public string Department { get; set; }
+        [NotMapped]
+        public string DptName { get; set; }
     }
 }

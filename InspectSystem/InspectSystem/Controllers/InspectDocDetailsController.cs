@@ -38,11 +38,11 @@ namespace InspectSystem.Controllers
                 TempData["ErrorMsg"] = "今日巡檢文件已送出!";
                 return RedirectToAction("SelectAreas");
             }
-            else if (FindDoc != null && FindDoc.WorkerID != WebSecurity.CurrentUserId)
-            {
-                TempData["ErrorMsg"] = "非今日巡檢人員!";
-                return RedirectToAction("SelectAreas");
-            }
+            //else if (FindDoc != null && FindDoc.WorkerID != WebSecurity.CurrentUserId)
+            //{
+            //    TempData["ErrorMsg"] = "非今日巡檢人員!";
+            //    return RedirectToAction("SelectAreas");
+            //}
             /* Find the InspectDoc according to the docID, if can't find, new a doc. */
             if (FindDoc == null)
             {

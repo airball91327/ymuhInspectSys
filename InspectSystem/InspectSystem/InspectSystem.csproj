@@ -262,6 +262,7 @@
     <Compile Include="Models\BMEDcontext.cs" />
     <Compile Include="Models\ClassesOfAreas.cs" />
     <Compile Include="Models\DB_GEN_STAFF_PW.cs" />
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InspectAreaChecker.cs" />

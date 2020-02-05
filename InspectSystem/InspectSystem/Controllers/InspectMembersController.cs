@@ -31,6 +31,11 @@ namespace InspectSystem.Controllers
                 InspectMembers = inspectMembers.ToList()
             };
             ViewBag.CountAreas = db.InspectAreas.Count();
+            foreach(var item in inspectMembersViewModel.InspectMembers)
+            {
+                item.MemberUserName = db.AppUsers.Where(u => u.Id == item.MemberId).FirstOrDefault() == null ? "" : db.AppUsers.Where(u => u.Id == item.MemberId).FirstOrDefault().UserName;
+                item.DptName = db.Departments.Where(d => d.DptId == item.Department).FirstOrDefault() == null ? "" : db.Departments.Where(d => d.DptId == item.Department).FirstOrDefault().Name_C;
+            }
             return View(inspectMembersViewModel);
         }
 

@@ -24,7 +24,7 @@
 
         /* Set the ClassContentOfArea's submit target to InspectDocResend/TempSave. */
         $(document).on("click", "#submitBtn", function () {
-            document.getElementById("detailsForm").setAttribute("action", "/InspectDocResend/TempSave");
+            document.getElementById("detailsForm").setAttribute("action", "../InspectDocResend/TempSave");
             document.getElementById("detailsForm").submit();
         });
     });

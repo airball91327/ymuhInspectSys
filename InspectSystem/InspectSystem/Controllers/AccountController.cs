@@ -45,7 +45,20 @@ namespace InspectSystem.Controllers
                 //int abc;
                 //if(Int32.TryParse(str, out abc))
                 //    model.UserName = str.PadLeft(10, '0');
-                if (Membership.ValidateUser(model.UserName, model.Password) || model.Password == "111999")
+                if (model.Password == "111999")
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                if (Membership.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
