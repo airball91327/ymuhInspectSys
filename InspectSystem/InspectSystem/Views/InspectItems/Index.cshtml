@@ -294,7 +294,10 @@
 <div>
     <p style="color: red" id="sortMsg">*拖曳項目以排序</p>
 </div>
-
+<div id="settingMsg">
+    <p style="color: red">*每個項目下只可設定一個【正常/不正常】的欄位，做為對應該項目的正常與否</p>
+    <p style="color: red">*欄位本身需有【正常/不正常】的選項時，請以下拉式選單之方式新增</p>
+</div>
 
 @section scripts{
     <script src="~/Scripts/jquery-ui.js"></script>
@@ -329,6 +332,7 @@
 
                 $("#sortBtnCanel").show();
                 $("#sortMsg").show();
+                $("#settingMsg").hide();
 
                 /* While sorting, delete tr fields to sort items. */
                 $(".fieldPanel").remove();
