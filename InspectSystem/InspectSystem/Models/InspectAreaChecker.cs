@@ -11,14 +11,14 @@ namespace InspectSystem.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
         [Display(Name = "編號")]
-        public int AreaCheckerID { get; set; }          // AreaCheckerID = CheckerID * 100 + areaID
+        public int AreaCheckerId { get; set; }          // AreaCheckerID = CheckerID * 100 + areaID
         [Required]
         [ForeignKey("InspectAreas")]
         [Display(Name = "區域代碼")]
-        public int AreaID { get; set; }
+        public int AreaId { get; set; }
         [Required]
         [Display(Name = "簽核主管ID")]
-        public int CheckerID { get; set; }
+        public int CheckerId { get; set; }
         [Required]
         [Display(Name = "簽核主管")]
         public string CheckerName { get; set; }

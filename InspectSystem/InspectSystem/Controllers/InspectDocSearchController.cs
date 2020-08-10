@@ -22,7 +22,7 @@ namespace InspectSystem.Controllers
         public ActionResult Index()
         {
             ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
-            ViewBag.FlowStatusID = new SelectList(db.InspectFlowStatusTable, "FlowStatusID", "FlowStatusName");
+            ViewBag.FlowStatusID = new SelectList(db.InspectFlowStatus, "FlowStatusID", "FlowStatusName");
             return View();
         }
 

@@ -13,25 +13,27 @@ namespace InspectSystem.Models
         {
         }
 
-        public DbSet<InspectAreas> InspectAreas { get; set; }
-        public DbSet<InspectClasses> InspectClasses { get; set; }
-        public DbSet<InspectItems> InspectItems { get; set; }
-        public DbSet<InspectFields> InspectFields { get; set; }
-        public DbSet<InspectFieldDropDown> InspectFieldDropDown { get; set; }
-        public DbSet<InspectPrecautions> InspectPrecautions { get; set; }
-        public DbSet<InspectDocs> InspectDocs { get; set; }
-        public DbSet<InspectDocDetails> InspectDocDetails { get; set; }
-        public DbSet<InspectDocDetailsTemporary> InspectDocDetailsTemporary { get; set; }
-        public DbSet<InspectFlowStatusTable> InspectFlowStatusTable { get; set; }
-        public DbSet<InspectDocFlow> InspectDocFlows { get; set; }
-        public DbSet<InspectAreaChecker> InspectAreaCheckers { get; set; }
-        public DbSet<InspectMembers> InspectMembers { get; set; }
-        public DbSet<InspectMemberAreas> InspectMemberAreas { get; set; }
-        public DbSet<ClassesOfAreas> ClassesOfAreas { get; set; }
+        public virtual DbSet<InspectAreas> InspectAreas { get; set; }
+        public virtual DbSet<InspectClasses> InspectClasses { get; set; }
+        public virtual DbSet<InspectItems> InspectItems { get; set; }
+        public virtual DbSet<InspectFields> InspectFields { get; set; }
+        public virtual DbSet<InspectFieldDropDown> InspectFieldDropDown { get; set; }
+        public virtual DbSet<InspectPrecautions> InspectPrecautions { get; set; }
+        public virtual DbSet<InspectDocs> InspectDocs { get; set; }
+        public virtual DbSet<InspectDocDetails> InspectDocDetails { get; set; }
+        public virtual DbSet<InspectDocDetailsTemporary> InspectDocDetailsTemporary { get; set; }
+        public virtual DbSet<InspectFlowStatus> InspectFlowStatus { get; set; }
+        public virtual DbSet<InspectDocFlow> InspectDocFlows { get; set; }
+        public virtual DbSet<InspectAreaChecker> InspectAreaCheckers { get; set; }
+        public virtual DbSet<InspectMembers> InspectMembers { get; set; }
+        public virtual DbSet<InspectMemberAreas> InspectMemberAreas { get; set; }
+        public virtual DbSet<InspectShifts> InspectShifts { get; set; }
+        public virtual DbSet<ShiftsInAreas> ShiftsInAreas { get; set; }
+        public virtual DbSet<ClassesOfAreas> ClassesOfAreas { get; set; }
 
-        public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<AppRoles> AppRoles { get; set; }
-        public DbSet<UsersInRoles> UsersInRoles { get; set; }
-        public DbSet<Department> Departments { get; set; }
+        public virtual DbSet<AppUser> AppUsers { get; set; }
+        public virtual DbSet<AppRoles> AppRoles { get; set; }
+        public virtual DbSet<UsersInRoles> UsersInRoles { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
     }
 }

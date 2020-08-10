@@ -275,8 +275,10 @@
     <Compile Include="Models\InspectDocs.cs" />
     <Compile Include="Models\InspectFieldDropDown.cs" />
     <Compile Include="Models\InspectFields.cs" />
+    <Compile Include="Models\ShiftsInAreas.cs" />
+    <Compile Include="Models\InspectShifts.cs" />
     <Compile Include="Models\InspectItems.cs" />
-    <Compile Include="Models\InspectFlowStatusTable.cs" />
+    <Compile Include="Models\InspectFlowStatus.cs" />
     <Compile Include="Models\InspectMemberAreas.cs" />
     <Compile Include="Models\InspectMembers.cs" />
     <Compile Include="Models\InspectMembersViewModel.cs" />

@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InspectSystem.Models
 {
-    [Table("InspectFlowStatusTable")]
-    public class InspectFlowStatusTable
+    [Table("InspectFlowStatus")]
+    public class InspectFlowStatus
     {
         [Key]
         [Required]

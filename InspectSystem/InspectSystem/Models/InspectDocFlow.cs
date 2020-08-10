@@ -40,7 +40,7 @@ namespace InspectSystem.Models
         [Display(Name ="異動時間")]
         public DateTime? EditTime { get; set; }
 
-        public virtual InspectFlowStatusTable InspectFlowStatusTable { get; set; }
+        public virtual InspectFlowStatus InspectFlowStatusTable { get; set; }
         public virtual InspectDocs InspectDocs { get; set; }
     }
 }
