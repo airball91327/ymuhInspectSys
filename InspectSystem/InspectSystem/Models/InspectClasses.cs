@@ -19,7 +19,7 @@ namespace InspectSystem.Models
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "類別代碼")]
-        public int ClassID { get; set; }
+        public int ClassId { get; set; }
         [Required]
         [Display(Name = "類別名稱")]
         public string ClassName { get; set; }

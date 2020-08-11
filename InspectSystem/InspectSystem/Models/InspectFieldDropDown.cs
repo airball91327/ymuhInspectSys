@@ -13,8 +13,14 @@ namespace InspectSystem.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        [Display(Name = "ACID")]
-        public int ACID { get; set; }
+        [Display(Name = "區域代碼")]
+        public int AreaId { get; set; }
+        [Required]
+        [Display(Name = "班別代碼")]
+        public int ShiftId { get; set; }
+        [Required]
+        [Display(Name = "類別代碼")]
+        public int ClassId { get; set; }
         [Required]
         [Display(Name = "項目代碼")]
         public int ItemID { get; set; }

@@ -10,11 +10,11 @@ namespace InspectSystem.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PrecautionID { get; set; }
+        public int PrecautionId { get; set; }
         [Required]
         [ForeignKey("InspectAreas")]
         [Display(Name = "區域代碼")]
-        public int AreaID { get; set; }
+        public int AreaId { get; set; }
         [Required]
         [Display(Name = "注意事項")]
         public string Content { get; set; }

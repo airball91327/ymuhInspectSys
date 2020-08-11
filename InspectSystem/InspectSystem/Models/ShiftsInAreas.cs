@@ -8,8 +8,12 @@ namespace InspectSystem.Models
     [Table("ShiftsInAreas")]
     public class ShiftsInAreas
     {
+        [Key, Column(Order = 1)]
         public int AreaId { get; set; }
+        [Key, Column(Order = 2)]
         public int ShiftId { get; set; }
+        [Required]
+        [Display(Name = "狀態")]
         public string Status { get; set; }
         public int? Rtp { get; set; }
         public DateTime? Rtt { get; set; }

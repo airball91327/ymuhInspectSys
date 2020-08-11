@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using InspectSystem.Models;
+using WebMatrix.WebData;
 
 namespace InspectSystem.Controllers
 {
@@ -47,21 +48,24 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AreaID,AreaName,CheckerID,CheckerName")] InspectAreas inspectAreas)
+        public ActionResult Create([Bind(Include = "AreaId,AreaName,CheckerId,CheckerName")] InspectAreas inspectAreas)
         {
             if (ModelState.IsValid)
             {
+                inspectAreas.Rtp = WebSecurity.CurrentUserId;
+                inspectAreas.Rtt = DateTime.Now;
+                inspectAreas.Status = "Y";
                 db.InspectAreas.Add(inspectAreas);
                 db.SaveChanges();
 
-                var getAreaID = db.InspectAreas.ToList().Last().AreaID;
+                var getAreaId = db.InspectAreas.ToList().Last().AreaId;
                 // Insert default checker for the new area.
                 InspectAreaChecker inspectAreaChecker = new InspectAreaChecker()
                 {
-                    AreaID = getAreaID,
-                    CheckerID = inspectAreas.CheckerID,
+                    AreaId = getAreaId,
+                    CheckerId = inspectAreas.CheckerId,
                     CheckerName = inspectAreas.CheckerName,
-                    AreaCheckerID = (inspectAreas.CheckerID) * 100 + getAreaID
+                    AreaCheckerId = (inspectAreas.CheckerId) * 100 + getAreaId
                 };
                 db.InspectAreaCheckers.Add(inspectAreaChecker);
                 db.SaveChanges();
@@ -90,10 +94,12 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AreaID,AreaName")] InspectAreas inspectAreas)
+        public ActionResult Edit([Bind(Include = "AreaId,AreaName,Status")] InspectAreas inspectAreas)
         {
             if (ModelState.IsValid)
             {
+                inspectAreas.Rtp = WebSecurity.CurrentUserId;
+                inspectAreas.Rtt = DateTime.Now;
                 db.Entry(inspectAreas).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

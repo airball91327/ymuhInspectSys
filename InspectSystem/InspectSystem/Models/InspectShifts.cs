@@ -15,8 +15,15 @@ namespace InspectSystem.Models
             this.ShiftsInAreas = new HashSet<ShiftsInAreas>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "班別代碼")]
         public int ShiftId { get; set; }
+        [Required]
+        [Display(Name = "班別名稱")]
         public string ShiftName { get; set; }
+        [Required]
+        [Display(Name = "排列順序")]
         public int ShiftOrder { get; set; }
         public int? Rtp { get; set; }
         public DateTime? Rtt { get; set; }

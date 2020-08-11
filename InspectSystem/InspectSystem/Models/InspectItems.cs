@@ -10,29 +10,40 @@ namespace InspectSystem.Models
         [Key, Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
-        [Display(Name = "ACID")]
-        public int ACID { get; set; }         //對應ClassesOfAreas的ID、程式產生
         [ForeignKey("InspectAreas")]
-        public int AreaID { get; set; }
-        [ForeignKey("InspectClasses")]
-        public int ClassID { get; set; }
+        [Display(Name = "區域代碼")]
+        public int AreaId { get; set; }
         [Key, Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
+        [ForeignKey("InspectShifts")]
+        [Display(Name = "班別代碼")]
+        public int ShiftId { get; set; }
+        [Key, Column(Order = 3)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required]
+        [ForeignKey("InspectClasses")]
+        [Display(Name = "類別代碼")]
+        public int ClassId { get; set; }
+        [Key, Column(Order = 4)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required]
         [Display(Name = "項目代碼")]
-        public int ItemID { get; set; }
+        public int ItemId { get; set; }
         [Required]
         [Display(Name = "項目名稱")]
         public string ItemName { get; set; }
         [Required]
         [Display(Name = "顯示項目")]
-        public Boolean ItemStatus { get; set; }
+        public bool ItemStatus { get; set; }
         [Required]
         [Display(Name = "排列順序")]
         public int ItemOrder { get; set; }
+        public int? Rtp { get; set; }
+        public DateTime? Rtt { get; set; }
 
         public virtual InspectAreas InspectAreas { get; set; }
         public virtual InspectClasses InspectClasses { get; set; }
-
+        public virtual InspectShifts InspectShifts { get; set; }
     }
 }

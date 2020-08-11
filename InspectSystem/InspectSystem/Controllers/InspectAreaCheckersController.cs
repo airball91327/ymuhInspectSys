@@ -21,18 +21,18 @@ namespace InspectSystem.Controllers
         // GET: InspectAreaCheckers
         public ActionResult Index()
         {
-            var inspectAreaCheckers = db.InspectAreaCheckers.Include(i => i.InspectAreas).OrderBy(i => i.AreaID);
+            var inspectAreaCheckers = db.InspectAreaCheckers.Include(i => i.InspectAreas).OrderBy(i => i.AreaId);
             return View(inspectAreaCheckers.ToList());
         }
 
         // GET: InspectAreaCheckers/Edit/5
-        public ActionResult Edit(int? areaCheckerID)
+        public ActionResult Edit(int? areaCheckerId)
         {
-            if (areaCheckerID == null)
+            if (areaCheckerId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectAreaChecker inspectAreaChecker = db.InspectAreaCheckers.Find(areaCheckerID);
+            InspectAreaChecker inspectAreaChecker = db.InspectAreaCheckers.Find(areaCheckerId);
             if (inspectAreaChecker == null)
             {
                 return HttpNotFound();
@@ -53,8 +53,8 @@ namespace InspectSystem.Controllers
                     list.Add(li);
                 }
             }
-            ViewData["CheckerID"] = new SelectList(list, "Value", "Text", "");
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaID);
+            ViewData["CheckerId"] = new SelectList(list, "Value", "Text", "");
+            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
             return View(inspectAreaChecker);
         }
 
@@ -67,8 +67,8 @@ namespace InspectSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newAreaCheckerID = (inspectAreaChecker.CheckerID) * 100 +(inspectAreaChecker.AreaID);
-                if( newAreaCheckerID == inspectAreaChecker.AreaCheckerID ) // Did not change area or checker.
+                var newAreaCheckerID = (inspectAreaChecker.CheckerId) * 100 +(inspectAreaChecker.AreaId);
+                if( newAreaCheckerID == inspectAreaChecker.AreaCheckerId ) // Did not change area or checker.
                 {
                     db.Entry(inspectAreaChecker).State = EntityState.Modified;
                     db.SaveChanges();
@@ -86,13 +86,13 @@ namespace InspectSystem.Controllers
                     else
                     {
                         ModelState.AddModelError("", "此項資料已存在");
-                        ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaID);
+                        ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
                         return View(inspectAreaChecker);
                     }
                 }
                 
             }
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaID);
+            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
             return View(inspectAreaChecker);
         }
 
@@ -115,7 +115,7 @@ namespace InspectSystem.Controllers
                     list.Add(li);
                 }
             }
-            ViewData["CheckerID"] = new SelectList(list, "Value", "Text", list.First().Value);
+            ViewData["CheckerId"] = new SelectList(list, "Value", "Text", list.First().Value);
             ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
             return View();
         }
@@ -127,32 +127,32 @@ namespace InspectSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AreaCheckerID,AreaID,CheckerID,CheckerName,Email")] InspectAreaChecker inspectAreaChecker)
         {
-            inspectAreaChecker.AreaCheckerID = (inspectAreaChecker.CheckerID) * 100 + (inspectAreaChecker.AreaID);
+            inspectAreaChecker.AreaCheckerId = (inspectAreaChecker.CheckerId) * 100 + (inspectAreaChecker.AreaId);
             if (ModelState.IsValid)
             {
-                var isDataExist = db.InspectAreaCheckers.Find(inspectAreaChecker.AreaCheckerID);
+                var isDataExist = db.InspectAreaCheckers.Find(inspectAreaChecker.AreaCheckerId);
                 if( isDataExist != null )
                 {
                     ModelState.AddModelError("", "此項資料已存在");
-                    ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaID);
+                    ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
                     return View(inspectAreaChecker);
                 }
                 db.InspectAreaCheckers.Add(inspectAreaChecker);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaID);
+            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
             return View(inspectAreaChecker);
         }
 
         // GET: InspectAreaCheckers/Delete/5
-        public ActionResult Delete(int? areaCheckerID)
+        public ActionResult Delete(int? areaCheckerId)
         {
-            if (areaCheckerID == null)
+            if (areaCheckerId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectAreaChecker inspectAreaChecker = db.InspectAreaCheckers.Find(areaCheckerID);
+            InspectAreaChecker inspectAreaChecker = db.InspectAreaCheckers.Find(areaCheckerId);
             if (inspectAreaChecker == null)
             {
                 return HttpNotFound();
@@ -163,10 +163,10 @@ namespace InspectSystem.Controllers
         // POST: InspectAreaCheckers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? areaCheckerID)
+        public ActionResult DeleteConfirmed(int? areaCheckerId)
         {
-            InspectAreaChecker inspectAreaChecker = db.InspectAreaCheckers.Find(areaCheckerID);
-            var isLastAreaChecker = db.InspectAreaCheckers.Where(i => i.AreaID == inspectAreaChecker.AreaID).Count();
+            InspectAreaChecker inspectAreaChecker = db.InspectAreaCheckers.Find(areaCheckerId);
+            var isLastAreaChecker = db.InspectAreaCheckers.Where(i => i.AreaId == inspectAreaChecker.AreaId).Count();
             if(isLastAreaChecker <= 1)
             {
                 ModelState.AddModelError("", "區域唯一的主管無法刪除");

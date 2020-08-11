@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,6 +8,11 @@ namespace InspectSystem.Models
     [Table("InspectMembers")]
     public class InspectMembers
     {
+        public InspectMembers()
+        {
+            this.InspectAreas = new HashSet<InspectAreas>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
@@ -18,8 +24,10 @@ namespace InspectSystem.Models
         [Display(Name = "員工姓名")]
         public string MemberName { get; set; }
         [Display(Name = "所屬部門")]
-        public string Department { get; set; }
+        public string DptId { get; set; }
         [NotMapped]
         public string DptName { get; set; }
+
+        public virtual ICollection<InspectAreas> InspectAreas { get; set; }
     }
 }

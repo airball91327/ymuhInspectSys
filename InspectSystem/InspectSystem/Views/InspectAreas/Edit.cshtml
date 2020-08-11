@@ -14,13 +14,13 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AreaID)
+        @Html.HiddenFor(model => model.AreaId)
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AreaID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AreaId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AreaID, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.EditorFor(model => model.AreaId, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
             </div>
         </div>
 
@@ -29,6 +29,15 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.AreaName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 form-inline">
+                @Html.RadioButtonFor(model => model.Status, "Y") 開啟
+                @Html.RadioButtonFor(model => model.Status, "N") 關閉
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
             </div>
         </div>
 

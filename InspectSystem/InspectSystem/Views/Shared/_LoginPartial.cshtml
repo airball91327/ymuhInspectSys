@@ -1,16 +1,4 @@
 ﻿@using WebMatrix.WebData
-@{ 
-    // Get real name.
-    // 先取得該使用者的 FormsIdentity
-    //FormsIdentity id = (FormsIdentity)User.Identity;
-    // 再取出使用者的 FormsAuthenticationTicket
-    //FormsAuthenticationTicket ticket = id.Ticket;
-    // 將儲存在 FormsAuthenticationTicket 中的角色定義取出，並轉成字串陣列
-    //char[] charSpilt = new char[] { ',', '{', '}', '[', ']', '"', ':', '\\' };
-    //string[] roles = ticket.UserData.Split(charSpilt, StringSplitOptions.RemoveEmptyEntries);
-    // 取得userData最後的資料userName
-    //string userName = roles.Last();
-}
 
 @if (Request.IsAuthenticated)
 {
