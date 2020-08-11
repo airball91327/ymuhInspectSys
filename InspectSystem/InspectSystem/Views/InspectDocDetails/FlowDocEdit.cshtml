@@ -32,18 +32,18 @@
         <h3>簽核作業</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.FlowStatusID)
-        @Html.HiddenFor(model => model.DocID)
-        @Html.HiddenFor(model => model.StepID)
-        @Html.HiddenFor(model => model.StepOwnerID)
-        @Html.HiddenFor(model => model.WorkerID)
-        @Html.HiddenFor(model => model.EditorID)
+        @Html.HiddenFor(model => model.FlowStatusId)
+        @Html.HiddenFor(model => model.DocId)
+        @Html.HiddenFor(model => model.StepId)
+        @Html.HiddenFor(model => model.StepOwnerId)
+        @Html.HiddenFor(model => model.EngId)
+        @Html.HiddenFor(model => model.EditorId)
         @Html.HiddenFor(model => model.EditorName)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.InspectDocs.WorkerName, htmlAttributes: new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.InspectDocs.EngName, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9 myDisplayStyle">
-                @Html.DisplayFor(model => model.InspectDocs.WorkerName)
+                @Html.DisplayFor(model => model.InspectDocs.EngName)
             </div>
         </div>
 

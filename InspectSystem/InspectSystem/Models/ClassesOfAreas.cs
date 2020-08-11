@@ -15,11 +15,11 @@ namespace InspectSystem.Models
         [Required]
         [ForeignKey("InspectAreas")]
         [Display(Name = "區域代碼")]
-        public int AreaID { get; set; }
+        public int AreaId { get; set; }
         [Required]
         [ForeignKey("InspectClasses")]
         [Display(Name = "類別代碼")]
-        public int ClassID { get; set; }
+        public int ClassId { get; set; }
         [NotMapped]
         [Display(Name = "是否已儲存")]
         public Boolean IsSaved { get; set; } // To show the class is saved or not in edit view.

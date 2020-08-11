@@ -21,7 +21,7 @@
     <div class="tab">
         @foreach (var item in Model)
         {
-            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocID')" id="@item.ClassID">
+            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocId')" id="@item.ClassId">
                 @item.InspectClasses.ClassName
                 @if (item.CountErrors != 0)
                 {
@@ -29,7 +29,7 @@
                 }
             </button>
         }
-        <button class="tablinks" id="flowListBtn" onclick="getFlowList(event, '@ViewBag.DocID')">流程資訊</button>
+        <button class="tablinks" id="flowListBtn" onclick="getFlowList(event, '@ViewBag.DocId')">流程資訊</button>
     </div>
 
     <div class="tabcontent" id="tabContent">

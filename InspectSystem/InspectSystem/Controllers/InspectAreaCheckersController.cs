@@ -54,7 +54,7 @@ namespace InspectSystem.Controllers
                 }
             }
             ViewData["CheckerId"] = new SelectList(list, "Value", "Text", "");
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectAreaChecker.AreaId);
             return View(inspectAreaChecker);
         }
 
@@ -63,12 +63,12 @@ namespace InspectSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AreaCheckerID,AreaID,CheckerID,CheckerName,Email")] InspectAreaChecker inspectAreaChecker)
+        public ActionResult Edit([Bind(Include = "AreaCheckerId,AreaId,CheckerId,CheckerName,Email")] InspectAreaChecker inspectAreaChecker)
         {
             if (ModelState.IsValid)
             {
-                var newAreaCheckerID = (inspectAreaChecker.CheckerId) * 100 +(inspectAreaChecker.AreaId);
-                if( newAreaCheckerID == inspectAreaChecker.AreaCheckerId ) // Did not change area or checker.
+                var newAreaCheckerId = (inspectAreaChecker.CheckerId) * 100 +(inspectAreaChecker.AreaId);
+                if( newAreaCheckerId == inspectAreaChecker.AreaCheckerId ) // Did not change area or checker.
                 {
                     db.Entry(inspectAreaChecker).State = EntityState.Modified;
                     db.SaveChanges();
@@ -76,7 +76,7 @@ namespace InspectSystem.Controllers
                 }
                 else
                 {
-                    var isNewIdExist = db.InspectAreaCheckers.Find(newAreaCheckerID);
+                    var isNewIdExist = db.InspectAreaCheckers.Find(newAreaCheckerId);
                     if(isNewIdExist == null)
                     {
                         db.Entry(inspectAreaChecker).State = EntityState.Modified;
@@ -86,13 +86,13 @@ namespace InspectSystem.Controllers
                     else
                     {
                         ModelState.AddModelError("", "此項資料已存在");
-                        ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
+                        ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectAreaChecker.AreaId);
                         return View(inspectAreaChecker);
                     }
                 }
                 
             }
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectAreaChecker.AreaId);
             return View(inspectAreaChecker);
         }
 
@@ -116,7 +116,7 @@ namespace InspectSystem.Controllers
                 }
             }
             ViewData["CheckerId"] = new SelectList(list, "Value", "Text", list.First().Value);
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName");
             return View();
         }
 
@@ -125,7 +125,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AreaCheckerID,AreaID,CheckerID,CheckerName,Email")] InspectAreaChecker inspectAreaChecker)
+        public ActionResult Create([Bind(Include = "AreaCheckerId,AreaId,CheckerId,CheckerName,Email")] InspectAreaChecker inspectAreaChecker)
         {
             inspectAreaChecker.AreaCheckerId = (inspectAreaChecker.CheckerId) * 100 + (inspectAreaChecker.AreaId);
             if (ModelState.IsValid)
@@ -134,14 +134,14 @@ namespace InspectSystem.Controllers
                 if( isDataExist != null )
                 {
                     ModelState.AddModelError("", "此項資料已存在");
-                    ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
+                    ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectAreaChecker.AreaId);
                     return View(inspectAreaChecker);
                 }
                 db.InspectAreaCheckers.Add(inspectAreaChecker);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectAreaChecker.AreaId);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectAreaChecker.AreaId);
             return View(inspectAreaChecker);
         }
 

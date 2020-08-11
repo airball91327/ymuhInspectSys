@@ -19,7 +19,7 @@ namespace InspectSystem.Controllers
         public ActionResult Index()
         {
             var inspectPrecautions = db.InspectPrecautions.Include(i => i.InspectAreas)
-                                                          .OrderBy(i => i.AreaID);
+                                                          .OrderBy(i => i.AreaId);
             return View(inspectPrecautions.ToList());
         }
 
@@ -41,7 +41,7 @@ namespace InspectSystem.Controllers
         // GET: InspectPrecautions/Create
         public ActionResult Create()
         {
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName");
             return View();
         }
 
@@ -50,7 +50,7 @@ namespace InspectSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PrecautionID,AreaID,Content")] InspectPrecautions inspectPrecautions)
+        public ActionResult Create([Bind(Include = "PrecautionID,AreaId,Content")] InspectPrecautions inspectPrecautions)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace InspectSystem.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectPrecautions.AreaID);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectPrecautions.AreaId);
             return View(inspectPrecautions);
         }
 
@@ -75,7 +75,7 @@ namespace InspectSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectPrecautions.AreaID);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectPrecautions.AreaId);
             return View(inspectPrecautions);
         }
 
@@ -84,7 +84,7 @@ namespace InspectSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PrecautionID,AreaID,Content")] InspectPrecautions inspectPrecautions)
+        public ActionResult Edit([Bind(Include = "PrecautionID,AreaId,Content")] InspectPrecautions inspectPrecautions)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace InspectSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName", inspectPrecautions.AreaID);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectPrecautions.AreaId);
             return View(inspectPrecautions);
         }
 

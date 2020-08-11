@@ -19,13 +19,13 @@
             @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WorkerID)
+            @Html.DisplayNameFor(model => model.EngId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WorkerName)
+            @Html.DisplayNameFor(model => model.EngName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CheckerID)
+            @Html.DisplayNameFor(model => model.CheckerId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CheckerName)
@@ -45,19 +45,19 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WorkerID)
+            @Html.DisplayFor(modelItem => item.EngId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WorkerName)
+            @Html.DisplayFor(modelItem => item.EngName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CheckerID)
+            @Html.DisplayFor(modelItem => item.CheckerId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CheckerName)
         </td>
         <td>
-            @Html.ActionLink("巡檢人員更改", "Edit", new { id=item.DocID })
+            @Html.ActionLink("巡檢人員更改", "Edit", new { id=item.DocId })
 
         </td>
     </tr>

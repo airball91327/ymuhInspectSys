@@ -21,14 +21,14 @@ namespace InspectSystem.Controllers
         // GET: InspectDocDtlValSearch
         public ActionResult Index()
         {
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName");
             return View();
         }
 
         // GET: InspectDocDtlValSearch/GetData          
         public JsonResult GetData(int? draw, int? start, int length,    //←此三個為DataTables自動傳遞參數
                                   DateTime startDate, DateTime endDate, int areaId, int classId,
-                                  int itemId, int fieldId)
+                                  int ItemId, int FieldId)
                                   //↑為表單的查詢條件
         {
             //查詢&排序後的總筆數
@@ -56,21 +56,21 @@ namespace InspectSystem.Controllers
                     fromDoc = (fromDate * 100) + 1;
                     toDoc = (toDate * 100) + 99;
                 }
-                var searchList = db.InspectDocDetails.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc).ToList();
+                var searchList = db.InspectDocDetails.Where(i => i.DocId >= fromDoc && i.DocId <= toDoc).ToList();
 
                 /* 查詢區域、類別 */
-                searchList = searchList.Where(s => s.AreaID == areaId &&
-                                                   s.ClassID == classId).ToList();
+                searchList = searchList.Where(s => s.AreaId == areaId &&
+                                                   s.ClassId == classId).ToList();
                 /* 查詢項目 */
-                if (itemId != 0)
+                if (ItemId != 0)
                 {
-                    searchList = searchList.Where(s => s.ItemID == itemId).ToList();
+                    searchList = searchList.Where(s => s.ItemId == ItemId).ToList();
                 }
 
                 /* 查詢欄位 */
-                if (fieldId != 0)
+                if (FieldId != 0)
                 {
-                    searchList = searchList.Where(s => s.FieldID == fieldId).ToList();
+                    searchList = searchList.Where(s => s.FieldId == FieldId).ToList();
                 }
 
                 ///* 查詢欄位關鍵字 */
@@ -97,15 +97,15 @@ namespace InspectSystem.Controllers
 
                 var resultList = searchList.AsEnumerable().Select(s => new
                 {
-                    Date = s.InspectDocs.Date.ToString("yyyy/MM/dd"),   // ToString() is not supported in Linq to Entities, 
+                    Date = s.InspectDocs.ApplyDate.ToString("yyyy/MM/dd"),   // ToString() is not supported in Linq to Entities, 
                     AreaName = s.AreaName,                              // need to change type to IEnumerable by using AsEnumerable(),
                     ClassName = s.ClassName,                            // and then can use ToString(), 
                     ItemName = s.ItemName,                              // because AsEnumerable() is Linq to Objects.
                     FieldName = s.FieldName,
                     Value = s.Value,
                     UnitOfData = s.UnitOfData,
-                    DocID = s.DocID,
-                    AreaID = s.AreaID
+                    DocId = s.DocId,
+                    AreaId = s.AreaId
                 }).ToList();
 
                 // Deal DataTable sorting. 
@@ -138,31 +138,31 @@ namespace InspectSystem.Controllers
 
         // POST: InspectDocDtlValSearch/GetClasses
         [HttpPost]
-        public JsonResult GetClasses(int AreaID)
+        public JsonResult GetClasses(int AreaId)
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            db.ClassesOfAreas.Where(c => c.AreaID == AreaID)
+            db.ClassesOfAreas.Where(c => c.AreaId == AreaId)
                              .OrderBy(c => c.InspectClasses.ClassOrder).ToList()
                 .ForEach(c => {
                     list.Add(new SelectListItem { Text = c.InspectClasses.ClassName,
-                                                  Value = c.ClassID.ToString() });
+                                                  Value = c.ClassId.ToString() });
                 });
             return Json(list);
         }
 
         // POST: InspectDocDtlValSearch/GetItems
         [HttpPost]
-        public JsonResult GetItems(int AreaID, string ClassID)
+        public JsonResult GetItems(int AreaId, string ClassId)
         {
-            int classId = System.Convert.ToInt32(ClassID);
+            int classId = System.Convert.ToInt32(ClassId);
             List<SelectListItem> list = new List<SelectListItem>();
-            db.InspectItems.Where(i => i.AreaID == AreaID && i.ClassID == classId)
+            db.InspectItems.Where(i => i.AreaId == AreaId && i.ClassId == classId)
                            .OrderBy(i => i.ItemOrder).ToList()
                 .ForEach(i => {
                     list.Add(new SelectListItem
                     {
                         Text = i.ItemName,
-                        Value = i.ItemID.ToString()
+                        Value = i.ItemId.ToString()
                     });
                 });
             return Json(list);
@@ -170,27 +170,26 @@ namespace InspectSystem.Controllers
 
         // POST: InspectDocDtlValSearch/GetFields
         [HttpPost]
-        public JsonResult GetFields(int AreaID, string ClassID, string ItemID)
+        public JsonResult GetFields(int AreaId, string ClassId, string ItemId)
         {
-            int classId = System.Convert.ToInt32(ClassID);
-            int itemId = System.Convert.ToInt32(ItemID);
-            int ACID = (AreaID * 100) + classId;
+            int classId = System.Convert.ToInt32(ClassId);
+            int itemId = System.Convert.ToInt32(ItemId);
             List<SelectListItem> list = new List<SelectListItem>();
-            db.InspectFields.Where(i => i.ACID == ACID && i.ItemID == itemId).ToList()
+            db.InspectFields.Where(i => i.AreaId == AreaId && i.ClassId == classId && i.ItemId == itemId).ToList()
                 .ForEach(i => {
                     if(i.FieldName != null && i.FieldName != "" && i.FieldStatus != false)   //擷取有輸入名稱、後台設定為顯示的欄位
                     {
                         list.Add(new SelectListItem
                         {
                             Text = i.FieldName,
-                            Value = i.FieldID.ToString()
+                            Value = i.FieldId.ToString()
                         });
                     }
                 });
             return Json(list);
         }
 
-        public ActionResult ExportToExcel(DateTime startDate, DateTime endDate, int areaId, int classId, int itemId, int fieldId)
+        public ActionResult ExportToExcel(DateTime startDate, DateTime endDate, int areaId, int classId, int ItemId, int FieldId)
         {
             /* 查詢日期 */
             int fromDate = System.Convert.ToInt32(startDate.ToString("yyyyMMdd"));
@@ -206,28 +205,28 @@ namespace InspectSystem.Controllers
                 fromDoc = (fromDate * 100) + 1;
                 toDoc = (toDate * 100) + 99;
             }
-            var searchList = db.InspectDocDetails.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc);
+            var searchList = db.InspectDocDetails.Where(i => i.DocId >= fromDoc && i.DocId <= toDoc);
 
             /* 查詢區域、類別 */
-            searchList = searchList.Where(s => s.AreaID == areaId &&
-                                               s.ClassID == classId);
+            searchList = searchList.Where(s => s.AreaId == areaId &&
+                                               s.ClassId == classId);
             /* 查詢項目 */
-            if (itemId != 0)
+            if (ItemId != 0)
             {
-                searchList = searchList.Where(s => s.ItemID == itemId);
+                searchList = searchList.Where(s => s.ItemId == ItemId);
             }
 
             /* 查詢欄位 */
-            if (fieldId != 0)
+            if (FieldId != 0)
             {
-                searchList = searchList.Where(s => s.FieldID == fieldId);
+                searchList = searchList.Where(s => s.FieldId == FieldId);
             }
 
             //ClosedXML的用法 先new一個Excel Workbook
             using (XLWorkbook workbook = new XLWorkbook())
             {
                 //取得要塞入Excel內的資料
-                var data = searchList.Select(c => new {c.DocID, c.AreaName, c.ClassName, c.ItemName, c.FieldName,
+                var data = searchList.Select(c => new {c.DocId, c.AreaName, c.ClassName, c.ItemName, c.FieldName,
                                                        c.UnitOfData, c.Value, c.IsFunctional, c.ErrorDescription});
 
                 //一個wrokbook內至少會有一個worksheet,並將資料Insert至這個位於A1這個位置上

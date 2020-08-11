@@ -13,7 +13,7 @@
 <h3 style="font-weight: bold">@ViewBag.AreaName</h3>
 <hr />
 <div class="container" style="padding-top: 20px">
-    <a class="btn btn-primary" href="@Url.Action("Index", new { docID = ViewBag.DocID })">回到編輯畫面</a>
+    <a class="btn btn-primary" href="@Url.Action("Index", new { DocId = ViewBag.DocId })">回到編輯畫面</a>
 </div>
 <hr />
 
@@ -21,7 +21,7 @@
     <div class="tab">
         @foreach (var item in Model)
         {
-            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocID')" id="@item.ClassID">
+            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocId')" id="@item.ClassId">
                 @item.InspectClasses.ClassName
                 @if (item.CountErrors != 0)
                 {
@@ -70,7 +70,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @Html.Action("FlowDocEdit", "InspectDocDetails", new { docID = ViewBag.DocID })
+                    @Html.Action("FlowDocEdit", "InspectDocDetails", new { DocId = ViewBag.DocId })
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>

@@ -47,7 +47,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClassID,ClassName")] InspectClasses inspectClasses)
+        public ActionResult Create([Bind(Include = "ClassId,ClassName")] InspectClasses inspectClasses)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClassID,ClassName,ClassOrder")] InspectClasses inspectClasses)
+        public ActionResult Edit([Bind(Include = "ClassId,ClassName,ClassOrder")] InspectClasses inspectClasses)
         {
             if (ModelState.IsValid)
             {
@@ -144,7 +144,7 @@ namespace InspectSystem.Controllers
                     .Where(r =>
                         r.ClassOrder <= newIndex &&
                         r.ClassOrder > oldIndex &&
-                        r.ClassID != currClass.ClassID
+                        r.ClassId != currClass.ClassId
                     ).ToList();
 
                 foreach (var item in ClassList)
@@ -168,7 +168,7 @@ namespace InspectSystem.Controllers
                     .Where(r =>
                         r.ClassOrder < oldIndex &&
                         r.ClassOrder >= newIndex &&
-                        r.ClassID != currClass.ClassID
+                        r.ClassId != currClass.ClassId
                     ).ToList();
 
                 foreach (var item in classList)

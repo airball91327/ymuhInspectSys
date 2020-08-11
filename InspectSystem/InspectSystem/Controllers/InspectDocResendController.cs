@@ -18,42 +18,38 @@ namespace InspectSystem.Controllers
         private BMEDcontext db = new BMEDcontext();
 
         // GET: InspectDocResend
-        public ActionResult Index(int docID)
+        public ActionResult Index(int DocId)
         {
-            var DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocID == docID).ToList();
-            var theEditDoc = db.InspectDocs.Find(docID);
-            int areaID = theEditDoc.AreaID;
-            ViewBag.AreaID = areaID;
-            ViewBag.AreaName = theEditDoc.InspectAreas.AreaName;
-            ViewBag.DocID = docID;
+            var DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId).ToList();
+            var theEditDoc = db.InspectDocs.Find(DocId);
+            int areaID = theEditDoc.AreaId;
+            ViewBag.AreaId = areaID;
+            ViewBag.AreaName = theEditDoc.AreaName;
+            ViewBag.DocId = DocId;
 
             // If the temp data has been deleted.
             if (DocDetailList.Count == 0)
             {
                 /* New DocDetailsTemp and add to DB, when first into system. */
-                int firstACID = areaID * 100 + 1;
-                int nextACID = firstACID + 100;
 
-                var allItems = db.InspectItems.Where(i => i.ACID >= firstACID &&
-                                                          i.ACID < nextACID &&
+                var allItems = db.InspectItems.Where(i => i.AreaId >= areaID &&
                                                           i.ItemStatus == true);
-                var allFields = db.InspectFields.Where(i => i.ACID >= firstACID &&
-                                                            i.ACID < nextACID &&
+                var allFields = db.InspectFields.Where(i => i.AreaId >= areaID &&
                                                             i.FieldStatus == true);
                 var insertFields =
                     from f in allFields
-                    join i in allItems on f.ACID equals i.ACID
-                    where f.ItemID == i.ItemID
+                    join i in allItems on f.AreaId equals i.AreaId
+                    where f.ItemId == i.ItemId
                     select new
                     {
-                        f.ClassesOfAreas.AreaID,
-                        f.ClassesOfAreas.InspectAreas.AreaName,
-                        f.ClassesOfAreas.ClassID,
-                        f.ClassesOfAreas.InspectClasses.ClassName,
-                        f.ItemID,
+                        f.AreaId,
+                        f.InspectAreas.AreaName,
+                        f.ClassId,
+                        f.InspectClasses.ClassName,
+                        f.ItemId,
                         i.ItemName,
                         i.ItemOrder,
-                        f.FieldID,
+                        f.FieldId,
                         f.FieldName,
                         f.UnitOfData,
                         f.DataType,
@@ -71,10 +67,11 @@ namespace InspectSystem.Controllers
                     /* If field is dropdown, set dropdownlist items to string and save to DB. */
                     if (item.DataType == "dropdownlist")
                     {
-                        int itemACID = (item.AreaID) * 100 + item.ClassID;
-                        var itemDropDownList = db.InspectFieldDropDown.Where(i => i.ACID == itemACID &&
-                                                                              i.ItemID == item.ItemID &&
-                                                                              i.FieldID == item.FieldID).ToList();
+                        int itemACID = (item.AreaId) * 100 + item.ClassId;
+                        var itemDropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == item.AreaId &&
+                                                                                  i.ClassId == item.ClassId &&
+                                                                                  i.ItemId == item.ItemId &&
+                                                                                  i.FieldId == item.FieldId).ToList();
                         foreach (var dropItem in itemDropDownList)
                         {
                             dropDownItems += dropItem.Value.ToString() + ";";
@@ -83,14 +80,14 @@ namespace InspectSystem.Controllers
 
                     inspectDocDetailsTemporary.Add(new InspectDocDetailsTemporary()
                     {
-                        DocID = docID,
-                        AreaID = item.AreaID,
+                        DocId = DocId,
+                        AreaId = item.AreaId,
                         AreaName = item.AreaName,
-                        ClassID = item.ClassID,
+                        ClassId = item.ClassId,
                         ClassName = item.ClassName,
-                        ItemID = item.ItemID,
+                        ItemId = item.ItemId,
                         ItemName = item.ItemName,
-                        FieldID = item.FieldID,
+                        FieldId = item.FieldId,
                         FieldName = item.FieldName,
                         UnitOfData = item.UnitOfData,
                         IsFunctional = isFunctional,
@@ -111,12 +108,12 @@ namespace InspectSystem.Controllers
             }
 
             /* Find Classes from DocDetailsTemp and set values to List<ClassesOfAreas> ClassList. */
-            DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocID == docID).ToList();
-            var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassID).Select(g => g.FirstOrDefault()).ToList();
+            DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId).ToList();
+            var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassId).Select(g => g.FirstOrDefault()).ToList();
             List<ClassesOfAreas> ClassList = new List<ClassesOfAreas>();
             foreach (var itemClass in ClassesOfDocTemp)
             {
-                var addClass = db.ClassesOfAreas.Where(c => c.AreaID == areaID && c.ClassID == itemClass.ClassID).FirstOrDefault();
+                var addClass = db.ClassesOfAreas.Where(c => c.AreaId == areaID && c.ClassId == itemClass.ClassId).FirstOrDefault();
                 ClassList.Add(addClass);
             }
             var ClassesOfAreas = ClassList.OrderBy(c => c.InspectClasses.ClassOrder);
@@ -124,8 +121,8 @@ namespace InspectSystem.Controllers
             /* Check all class is saved or not. */
             foreach (var item in ClassesOfAreas)
             {
-                var findDocTemps = db.InspectDocDetailsTemporary.Where(i => i.DocID == docID &&
-                                                                            i.ClassID == item.ClassID);
+                var findDocTemps = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId &&
+                                                                            i.ClassId == item.ClassId);
                 /* If find temp save of the class, set IsSaved to true. */
                 if (findDocTemps.Count() != 0)
                 {
@@ -168,7 +165,7 @@ namespace InspectSystem.Controllers
             /* Count errors for every class, and set count result to "CountErrors". */
             foreach (var item in ClassesOfAreas)
             {
-                var toFindErrors = DocDetailList.Where(d => d.ClassID == item.ClassID &&
+                var toFindErrors = DocDetailList.Where(d => d.ClassId == item.ClassId &&
                                                            d.IsFunctional == "n");
                 item.CountErrors = toFindErrors.Count();
             }
@@ -181,14 +178,14 @@ namespace InspectSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TempSave(List<InspectDocDetailsTemporary> inspectDocDetailsTemporary)
         {
-            var areaID = inspectDocDetailsTemporary.First().AreaID;
-            var docID = inspectDocDetailsTemporary.First().DocID;
-            var classID = inspectDocDetailsTemporary.First().ClassID;
+            var areaID = inspectDocDetailsTemporary.First().AreaId;
+            var DocId = inspectDocDetailsTemporary.First().DocId;
+            var classID = inspectDocDetailsTemporary.First().ClassId;
 
             if (ModelState.IsValid)
             {
-                var findTemp = db.InspectDocDetailsTemporary.Where(i => i.DocID == docID &&
-                                                                        i.ClassID == classID);
+                var findTemp = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId &&
+                                                                        i.ClassId == classID);
                 /* If can't find temp data, insert data to database. */
                 if (findTemp.Any() == false)
                 {
@@ -207,36 +204,36 @@ namespace InspectSystem.Controllers
 
                 db.SaveChanges();
                 TempData["SaveMsg"] = "暫存完成";
-                return RedirectToAction("Index", new { DocID = docID });
+                return RedirectToAction("Index", new { DocId = DocId });
             }
             TempData["SaveMsg"] = "暫存失敗";
-            return RedirectToAction("Index", new { DocID = docID });
+            return RedirectToAction("Index", new { DocId = DocId });
         }
 
         // GET: InspectDocResend/DocDetails
-        public ActionResult DocDetails(int docID)
+        public ActionResult DocDetails(int DocId)
         {
-            var DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocID == docID).ToList();
-            int length = docID.ToString().Length;
-            int areaID = System.Convert.ToInt32(docID.ToString().Substring(length - 2));
+            var DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId).ToList();
+            int length = DocId.ToString().Length;
+            int areaID = System.Convert.ToInt32(DocId.ToString().Substring(length - 2));
 
             if (DocDetailList.Count == 0)
             {
                 TempData["SaveMsg"] = "尚未有資料儲存";
-                return RedirectToAction("Index", new { DocID = docID });
+                return RedirectToAction("Index", new { DocId = DocId });
             }
             else
             {
-                ViewBag.AreaID = DocDetailList.First().AreaID;
+                ViewBag.AreaId = DocDetailList.First().AreaId;
                 ViewBag.AreaName = DocDetailList.First().AreaName;
-                ViewBag.DocID = docID;
+                ViewBag.DocId = DocId;
 
                 /* Find Classes from DocDetails and set values to List<ClassesOfAreas> ClassList. */
-                var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassID).Select(g => g.FirstOrDefault()).ToList();
+                var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassId).Select(g => g.FirstOrDefault()).ToList();
                 List<ClassesOfAreas> ClassList = new List<ClassesOfAreas>();
                 foreach (var itemClass in ClassesOfDocTemp)
                 {
-                    var addClass = db.ClassesOfAreas.Where(c => c.AreaID == areaID && c.ClassID == itemClass.ClassID).FirstOrDefault();
+                    var addClass = db.ClassesOfAreas.Where(c => c.AreaId == areaID && c.ClassId == itemClass.ClassId).FirstOrDefault();
                     ClassList.Add(addClass);
                 }
                 var ClassesOfAreas = ClassList.OrderBy(c => c.InspectClasses.ClassOrder);
@@ -244,7 +241,7 @@ namespace InspectSystem.Controllers
                 /* Count errors for every class, and set count result to "CountErrors". */
                 foreach (var item in ClassesOfAreas)
                 {
-                    var toFindErrors = DocDetailList.Where(d => d.ClassID == item.ClassID &&
+                    var toFindErrors = DocDetailList.Where(d => d.ClassId == item.ClassId &&
                                                                d.IsFunctional == "n");
                     item.CountErrors = toFindErrors.Count();
                 }

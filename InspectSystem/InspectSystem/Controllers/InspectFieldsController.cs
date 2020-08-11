@@ -22,15 +22,15 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectFields/Search
-        /* Use ACID and ItemID to search the fields. */
-        public ActionResult Search(int acid, int itemid)
+        /* Use ACID and ItemId to search the fields. */
+        public ActionResult Search(int acid, int ItemId)
         {
-            var SearchResult = db.InspectFields
-                                 .Where(i => i.ACID == acid &&
-                                             i.ItemID == itemid);
-            ViewBag.ACID = acid;
-            ViewBag.ItemID = itemid;
-            return PartialView(SearchResult.ToList());
+            //var SearchResult = db.InspectFields
+            //                     .Where(i => i.ACID == acid &&
+            //                                 i.ItemId == ItemId);
+            //ViewBag.ACID = acid;
+            //ViewBag.ItemId = ItemId;
+            return PartialView(/*SearchResult.ToList()*/);
         }
 
         /* Unused code
@@ -51,18 +51,17 @@ namespace InspectSystem.Controllers
         */
 
         // GET: InspectFields/Create
-        public ActionResult Create(int acid, int itemid)
+        public ActionResult Create(int acid, int ItemId)
         {
-            /* Pass the ACID, ItemID, ItemName for View to print. */
+            /* Pass the ACID, ItemId, ItemName for View to print. */
             ViewBag.CreateACID = acid;
-            ViewBag.CreateItemID = itemid;
-            ViewBag.ItemNameForCreate = db.InspectItems.Find(acid, itemid).ItemName;
+            ViewBag.CreateItemId = ItemId;
+            ViewBag.ItemNameForCreate = db.InspectItems.Find(acid, ItemId).ItemName;
 
             /* Set the default values for create field. */
             InspectFields inspectFields = new InspectFields
             {
-                ACID = acid,
-                ItemID = itemid,
+                ItemId = ItemId,
                 MaxValue = 0,
                 MinValue = 0,
                 FieldStatus = true,
@@ -80,12 +79,11 @@ namespace InspectSystem.Controllers
         public ActionResult Create(InspectFields inspectFields, FormCollection collection)
         {
             // Set variables
-            int ACID = inspectFields.ACID;
-            int itemID = inspectFields.ItemID;
+            int ItemId = inspectFields.ItemId;
 
-            int fieldCount = db.InspectFields.Count(fc => fc.ACID == ACID && fc.ItemID == itemID);
-            int fieldID = fieldCount + 1;
-            inspectFields.FieldID = fieldID;
+            int fieldCount = db.InspectFields.Count(fc => fc.ACID == ACID && fc.ItemId == ItemId);
+            int FieldId = fieldCount + 1;
+            inspectFields.FieldId = FieldId;
 
             if (ModelState.IsValid)
             {
@@ -102,9 +100,8 @@ namespace InspectSystem.Controllers
                             {
                                 InspectFieldDropDown inspectFieldDropDown = new InspectFieldDropDown
                                 {
-                                    ACID = ACID,
-                                    ItemID = itemID,
-                                    FieldID = fieldID,
+                                    ItemId = ItemId,
+                                    FieldId = FieldId,
                                     Value = collection["textbox" + i]
                                 };
                                 db.InspectFieldDropDown.Add(inspectFieldDropDown);
@@ -115,28 +112,28 @@ namespace InspectSystem.Controllers
 
                 db.InspectFields.Add(inspectFields);
                 db.SaveChanges();
-                return RedirectToAction("Search", new { acid = ACID, itemid = itemID });
+                return RedirectToAction("Search", new { ItemId = ItemId });
             }
-            return RedirectToAction("Search", new { acid = ACID, itemid = itemID });
+            return RedirectToAction("Search", new { ItemId = ItemId });
         }
 
         // GET: InspectFields/Edit/5
-        public ActionResult Edit(int? ACID, int? itemID, int? fieldID)
+        public ActionResult Edit(int? ACID, int? ItemId, int? FieldId)
         {
 
-            ViewBag.ItemNameForEdit = db.InspectItems.Find(ACID, itemID).ItemName;
+            ViewBag.ItemNameForEdit = db.InspectItems.Find(ACID, ItemId).ItemName;
 
             var DropDownList = db.InspectFieldDropDown.Where(i => i.ACID == ACID &&
-                                                                  i.ItemID == itemID &&
-                                                                  i.FieldID == fieldID)
+                                                                  i.ItemId == ItemId &&
+                                                                  i.FieldId == FieldId)
                                                       .OrderBy(i => i.Id);
             TempData["DropDownList"] = DropDownList.ToList();
 
-            if (ACID == null || itemID == null || fieldID == null)
+            if (ACID == null || ItemId == null || FieldId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectFields inspectFields = db.InspectFields.Find(ACID, itemID, fieldID);
+            InspectFields inspectFields = db.InspectFields.Find(ACID, ItemId, FieldId);
             if (inspectFields == null)
             {
                 return HttpNotFound();
@@ -152,8 +149,8 @@ namespace InspectSystem.Controllers
         public ActionResult Edit(InspectFields inspectFields, FormCollection collection)
         {
             var ACID = inspectFields.ACID;
-            var itemID = inspectFields.ItemID;
-            var fieldID = inspectFields.FieldID;
+            var ItemId = inspectFields.ItemId;
+            var FieldId = inspectFields.FieldId;
 
             if (ModelState.IsValid)
             {
@@ -162,8 +159,8 @@ namespace InspectSystem.Controllers
                     /* for datatype dropdownlist, and dynamic inset textbox. */
                     var inputCount = 0;
                     var DropDownList = db.InspectFieldDropDown.Where(i => i.ACID == ACID &&
-                                                                          i.ItemID == itemID &&
-                                                                          i.FieldID == fieldID)
+                                                                          i.ItemId == ItemId &&
+                                                                          i.FieldId == FieldId)
                                                               .OrderBy(i => i.Id);
 
                     if (int.TryParse(collection["TextBoxCount"], out inputCount))
@@ -188,8 +185,8 @@ namespace InspectSystem.Controllers
                                     InspectFieldDropDown inspectFieldDropDown = new InspectFieldDropDown
                                     {
                                         ACID = ACID,
-                                        ItemID = itemID,
-                                        FieldID = fieldID,
+                                        ItemId = ItemId,
+                                        FieldId = FieldId,
                                         Value = collection["textbox" + j]
                                     };
                                     db.InspectFieldDropDown.Add(inspectFieldDropDown);
@@ -234,9 +231,9 @@ namespace InspectSystem.Controllers
 
                 db.Entry(inspectFields).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Search",new { acid = ACID, itemid = itemID });
+                return RedirectToAction("Search",new { acid = ACID, ItemId = ItemId });
             }
-            return RedirectToAction("Search", new { acid = ACID, itemid = itemID });
+            return RedirectToAction("Search", new { acid = ACID, ItemId = ItemId });
         }
 
         /* Unused code

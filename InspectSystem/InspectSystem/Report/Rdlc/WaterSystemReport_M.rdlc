@@ -446,14 +446,14 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="DocID">
+                    <Textbox Name="DocId">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!DocID.Value</Value>
+                              <Value>=Fields!DocId.Value</Value>
                               <Style>
                                 <FontFamily>標楷體</FontFamily>
                                 <FontSize>12pt</FontSize>
@@ -465,7 +465,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>DocID</rd:DefaultName>
+                      <rd:DefaultName>DocId</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -939,8 +939,8 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="DocID">
-          <DataField>DocID</DataField>
+        <Field Name="DocId">
+          <DataField>DocId</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="AreaName">

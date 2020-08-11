@@ -10,31 +10,31 @@ namespace InspectSystem.Models
         [Key, Column(Order = 1)]
         [ForeignKey("InspectDocs")]
         [Display(Name = "表單編號")]
-        public int DocID { get; set; }
+        public int DocId { get; set; }
         [Key, Column(Order = 2)]
         [Display(Name = "關卡號")]
-        public int StepID { get; set; }
+        public int StepId { get; set; }
         [Required]
         [Display(Name = "關卡人員ID")]
-        public int StepOwnerID { get; set; }
+        public int StepOwnerId { get; set; }
         [NotMapped]
         [Display(Name = "關卡人員")]
         public string StepOwnerName { get; set; }
         [Required]
         [Display(Name = "巡檢人員ID")]
-        public int WorkerID { get; set; }
+        public int EngId { get; set; }
         [Required]
         [Display(Name = "簽核主管ID")]
-        public int CheckerID { get; set; }
+        public int CheckerId { get; set; }
         [Display(Name = "意見描述")]
         public string Opinions { get; set; }
         [Required]
         [ForeignKey("InspectFlowStatusTable")]
         [Display(Name = "流程狀態編號")]
-        public int FlowStatusID { get; set; }
+        public int FlowStatusId { get; set; }
         [Required]
         [Display(Name ="異動人員ID")]
-        public int EditorID { get; set; }
+        public int EditorId { get; set; }
         [Display(Name ="異動人員")]
         public string EditorName { get; set; }
         [Display(Name ="異動時間")]

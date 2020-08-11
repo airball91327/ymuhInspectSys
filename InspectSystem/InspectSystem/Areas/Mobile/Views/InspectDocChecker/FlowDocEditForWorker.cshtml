@@ -16,23 +16,23 @@
         </h3>
         <hr />
         <div class="container">
-            <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("Index", "InspectDocEdit", new { area = "Mobile", docID = Model.DocID })">回項目選擇</a>
+            <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("Index", "InspectDocEdit", new { area = "Mobile", DocId = Model.DocId })">回項目選擇</a>
         </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.FlowStatusID)
-        @Html.HiddenFor(model => model.DocID)
-        @Html.HiddenFor(model => model.StepID)
-        @Html.HiddenFor(model => model.StepOwnerID)
-        @Html.HiddenFor(model => model.WorkerID)
-        @Html.HiddenFor(model => model.CheckerID)
-        @Html.HiddenFor(model => model.EditorID)
+        @Html.HiddenFor(model => model.FlowStatusId)
+        @Html.HiddenFor(model => model.DocId)
+        @Html.HiddenFor(model => model.StepId)
+        @Html.HiddenFor(model => model.StepOwnerId)
+        @Html.HiddenFor(model => model.EngId)
+        @Html.HiddenFor(model => model.CheckerId)
+        @Html.HiddenFor(model => model.EditorId)
         @Html.HiddenFor(model => model.EditorName)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.InspectDocs.WorkerName, htmlAttributes: new { @class = "control-label col-xs-3" })
+            @Html.LabelFor(model => model.InspectDocs.EngName, htmlAttributes: new { @class = "control-label col-xs-3" })
             <div class="col-xs-9">
-                @Html.DisplayFor(model => model.InspectDocs.WorkerName)
+                @Html.DisplayFor(model => model.InspectDocs.EngName)
             </div>
         </div>
 

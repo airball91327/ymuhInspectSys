@@ -5,19 +5,19 @@
 
         var id = $(this).attr("id");
         var value = $(this).val();
-        var docID = document.getElementById("InspectDocDetails[" + id + "].DocID").value;
-        var areaID = document.getElementById("InspectDocDetails[" + id + "].AreaID").value;
-        var classID = document.getElementById("InspectDocDetails[" + id + "].ClassID").value;
-        var itemID = document.getElementById("InspectDocDetails[" + id + "].ItemID").value;
-        var fieldID = document.getElementById("InspectDocDetails[" + id + "].FieldID").value;
+        var DocId = document.getElementById("InspectDocDetails[" + id + "].DocId").value;
+        var areaID = document.getElementById("InspectDocDetails[" + id + "].AreaId").value;
+        var classID = document.getElementById("InspectDocDetails[" + id + "].ClassId").value;
+        var ItemId = document.getElementById("InspectDocDetails[" + id + "].ItemId").value;
+        var FieldId = document.getElementById("InspectDocDetails[" + id + "].FieldId").value;
 
         var countFields = document.getElementById("countFields").value;
         //console.log("countFields:" + countFields); //For debug
         for (var i = parseInt(id); i < countFields; i++) {
             //console.log("i:"+ i); //For debug
-            //console.log("itemID:" + document.getElementById("InspectDocDetailsTemporary[" + i + "].ItemID").value); //For debug
-            //console.log("FieldID:" + document.getElementById("InspectDocDetailsTemporary[" + i + "].FieldID").value); //For debug
-            if (itemID == document.getElementById("InspectDocDetails[" + i + "].ItemID").value) {
+            //console.log("ItemId:" + document.getElementById("InspectDocDetailsTemporary[" + i + "].ItemId").value); //For debug
+            //console.log("FieldId:" + document.getElementById("InspectDocDetailsTemporary[" + i + "].FieldId").value); //For debug
+            if (ItemId == document.getElementById("InspectDocDetails[" + i + "].ItemId").value) {
                 var radios = document.getElementsByName("InspectDocDetails[" + i + "].IsFunctional");
                 var targetId = "InspectDocDetails[" + i + "].ErrorDescription";
                 if (radios.length == 2) {
@@ -29,7 +29,7 @@
         $.ajax({
             type: "GET",
             url: "../InspectDocEdit/CheckValue",
-            data: { DocID: docID, ClassID: classID, ItemID: itemID, FieldID: fieldID, Value: value },
+            data: { DocId: DocId, ClassId: classID, ItemId: ItemId, FieldId: FieldId, Value: value },
             success: function (result) {
                 //console.log(result); //For debug
                 //console.log(id); //For debug

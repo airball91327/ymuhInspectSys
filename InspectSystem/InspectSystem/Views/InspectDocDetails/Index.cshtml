@@ -25,7 +25,7 @@
     <div class="tab">
         @foreach (var item in Model)
         {
-            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocID')" id="@item.ClassID">
+            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocId')" id="@item.ClassId">
                 @if (item.IsSaved == true)
                 {
                     <span class="glyphicon glyphicon-ok"></span>
@@ -37,7 +37,7 @@
                 }
             </button>
         }
-        <button class="tablinks" id="sendToChecker" value="@ViewBag.AllSaved" onclick="location.href='@Url.Action("DocDetails", new { DocID = ViewBag.DocID })'">送出審核</button>
+        <button class="tablinks" id="sendToChecker" value="@ViewBag.AllSaved" onclick="location.href='@Url.Action("DocDetails", new { DocId = ViewBag.DocId })'">送出審核</button>
     </div>
 
     <div class="tabcontent" id="tabContent">
@@ -60,7 +60,7 @@
                     <h2 class="modal-title">注意事項</h2>
                 </div>
                 <div class="modal-body">
-                    @Html.Action("AreaPrecautions", new { areaID = ViewBag.AreaID })
+                    @Html.Action("AreaPrecautions", new { areaID = ViewBag.AreaId })
                 </div>
                 <div class="modal-footer">
                     <div style="text-align:center">

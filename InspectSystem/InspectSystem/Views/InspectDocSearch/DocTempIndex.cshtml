@@ -21,7 +21,7 @@
     <div class="tab">
         @foreach (var item in Model)
         {
-            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocID')" id="@item.ClassID">
+            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocId')" id="@item.ClassId">
                 @item.InspectClasses.ClassName
                 @if (item.CountErrors != 0)
                 {

@@ -29,7 +29,7 @@
                         @foreach (var fieldItem in DocFields)
                         {
                             /* Display all the FieldName belong the current Item. */
-                            if (item.ItemID == fieldItem.ItemID)
+                            if (item.ItemId == fieldItem.ItemId)
                             {
                                 <tr>
                                     <td class="col-md-6">
@@ -43,7 +43,7 @@
                                         @foreach (var docItem in Model.InspectDocDetailsTemporary)
                                         {
                                             /* Display textbox or checkbox for all fields, except boolean type. */
-                                            if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                            if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId &&
                                                 fieldItem.DataType != "boolean")
                                             {
                                                 switch (fieldItem.DataType)
@@ -77,7 +77,7 @@
                                                 }
                                                 i++;
                                             }
-                                            else if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                            else if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId &&
                                                      fieldItem.DataType == "boolean")
                                             {
                                                 i++; // Skip an array space to let the boolean type insert later.
@@ -93,13 +93,13 @@
                     @foreach (var fieldItem in DocFields)
                     {
                         /* Display all the FieldName belong the current Item. */
-                        if (item.ItemID == fieldItem.ItemID)
+                        if (item.ItemId == fieldItem.ItemId)
                         {
 
                             foreach (var docItem in Model.InspectDocDetailsTemporary)
                             {
                                 /* Display textbox or checkbox for all fields. */
-                                if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID)
+                                if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId)
                                 {
                                     if (fieldItem.DataType == "boolean")
                                     {

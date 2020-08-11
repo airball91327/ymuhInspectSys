@@ -23,7 +23,7 @@
     <div class="tab">
         @foreach (var item in Model)
         {
-            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocID')" id="@item.ClassID">
+            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocId')" id="@item.ClassId">
                 @if (item.IsSaved == true)
                 {
                     <span class="glyphicon glyphicon-ok"></span>
@@ -54,7 +54,7 @@
                     <h2 class="modal-title">注意事項</h2>
                 </div>
                 <div class="modal-body">
-                    @Html.Action("AreaPrecautions", new { areaID = ViewBag.AreaID })
+                    @Html.Action("AreaPrecautions", new { areaID = ViewBag.AreaId })
                 </div>
                 <div class="modal-footer">
                     <div style="text-align:center">

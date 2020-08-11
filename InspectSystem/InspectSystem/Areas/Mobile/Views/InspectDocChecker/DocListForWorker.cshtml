@@ -23,10 +23,10 @@
 <h4 class="text-center"><b>審核退回</b></h4>
 @foreach (var item in Model)
 {
-    if (item.FlowStatusID == 0)
+    if (item.FlowStatusId == 0)
     {
         <div class="tab row">
-            <button class="col-xs-12" onclick="location.href='@Url.Action("Index", "InspectDocEdit", new { area = "Mobile", docID = item.DocID })'">
+            <button class="col-xs-12" onclick="location.href='@Url.Action("Index", "InspectDocEdit", new { area = "Mobile", DocId = item.DocId })'">
 
                 <div>
                     <h4 class="col-xs-12">
@@ -50,8 +50,8 @@
                 </div>
 
                 <div>
-                    <span class="col-xs-4">@Html.DisplayNameFor(model => model.WorkerName)</span>
-                    <span class="col-xs-8">@Html.DisplayFor(modelItem => item.WorkerName)</span>
+                    <span class="col-xs-4">@Html.DisplayNameFor(model => model.EngName)</span>
+                    <span class="col-xs-8">@Html.DisplayFor(modelItem => item.EngName)</span>
                 </div>
 
                 <div>
@@ -66,10 +66,10 @@
 <h4 class="text-center"><b>尚未送出</b></h4>
 @foreach (var item in Model)
 {
-    if (item.FlowStatusID == 3)
+    if (item.FlowStatusId == 3)
     {
         <div class="tab row">
-            <button class="col-xs-12" onclick="location.href='@Url.Action("Index", "InspectDocResend", new { area = "Mobile", docID = item.DocID })'">
+            <button class="col-xs-12" onclick="location.href='@Url.Action("Index", "InspectDocResend", new { area = "Mobile", DocId = item.DocId })'">
 
                 <div>
                     <h4 class="col-xs-12">
@@ -88,8 +88,8 @@
                 </div>
 
                 <div>
-                    <span class="col-xs-4">@Html.DisplayNameFor(model => model.WorkerName)</span>
-                    <span class="col-xs-8">@Html.DisplayFor(modelItem => item.WorkerName)</span>
+                    <span class="col-xs-4">@Html.DisplayNameFor(model => model.EngName)</span>
+                    <span class="col-xs-8">@Html.DisplayFor(modelItem => item.EngName)</span>
                 </div>
 
                 <div>

@@ -77,8 +77,8 @@ namespace InspectSystem.Models
         {
             BMEDcontext db = new BMEDcontext();
             Boolean checkResult = false;
-            var acid = (AreaID) * 100 + ClassID;
-            checkResult = db.InspectFields.Find(acid, ItemID, FieldID).ShowPastValue;
+            var acid = (AreaId) * 100 + ClassId;
+            checkResult = db.InspectFields.Find(acid, ItemId, FieldId).ShowPastValue;
 
             return checkResult;
         }
@@ -88,8 +88,8 @@ namespace InspectSystem.Models
         {
             BMEDcontext db = new BMEDcontext();
             var pastValue = "";
-            var targetDocId = DocID - 100;
-            var findDocDetails = db.InspectDocDetails.Find(targetDocId, ClassID, ItemID, FieldID);
+            var targetDocId = DocId - 100;
+            var findDocDetails = db.InspectDocDetails.Find(targetDocId, ClassId, ItemId, FieldId);
             // If has past value
             if(findDocDetails != null)
             {

@@ -52,13 +52,13 @@
     {
         <div class="col-md-4">
             <div class="w3-display-container">
-                <a href="#" class="w3-button w3-round-large w3-opacity w3-hover-opacity-off" onclick="confirmToWork('@Url.Action("Index", new { areaID = item.AreaID})')">
-                    @if (item.AreaID == 4)
+                <a href="#" class="w3-button w3-round-large w3-opacity w3-hover-opacity-off" onclick="confirmToWork('@Url.Action("Index", new { areaID = item.AreaId})')">
+                    @if (item.AreaId == 4)
                     {
                         <img src="~/Content/NYMU.jpg" class="img-responsive w3-round" />
                         <p class="w3-display-middle imgText">@Html.DisplayFor(modelItem => item.AreaName)</p>
                     }
-                    else if (item.AreaID == 5)
+                    else if (item.AreaId == 5)
                     {
                         <img src="~/Content/NYMU.jpg" class="img-responsive w3-round" />
                         <p class="w3-display-middle imgText">@Html.DisplayFor(modelItem => item.AreaName)</p>

@@ -27,8 +27,8 @@ namespace InspectSystem.Controllers
         {
             int UserID = WebSecurity.CurrentUserId;
             /* Find All not completed documents. */
-            var CheckingDocs = db.InspectDocs.Where(i => i.CheckerID == UserID &&
-                                                         i.FlowStatusID != 2);
+            var CheckingDocs = db.InspectDocs.Where(i => i.CheckerId == UserID &&
+                                                         i.FlowStatusId != 2);
 
             return View(CheckingDocs.ToList());
         }
@@ -38,30 +38,30 @@ namespace InspectSystem.Controllers
         {
             int UserID = WebSecurity.CurrentUserId;
             /* Find all not completed or not send documents. */
-            var CheckingDocs = db.InspectDocs.Where(i => i.WorkerID == UserID &&
-                                                         i.FlowStatusID != 2 &&
-                                                         i.FlowStatusID != 1);
+            var CheckingDocs = db.InspectDocs.Where(i => i.EngId == UserID &&
+                                                         i.FlowStatusId != 2 &&
+                                                         i.FlowStatusId != 1);
             return View(CheckingDocs.ToList());
         }
 
         // GET: InspectDocChecker/DocDetailsChecker
-        public ActionResult DocDetailsChecker(int docID)
+        public ActionResult DocDetailsChecker(int DocId)
         {
             /* Set variables from DB. */
-            var DocDetailList = db.InspectDocDetails.Where(i => i.DocID == docID).ToList();
-            int length = docID.ToString().Length;
-            int areaID = System.Convert.ToInt32(docID.ToString().Substring(length - 2));
+            var DocDetailList = db.InspectDocDetails.Where(i => i.DocId == DocId).ToList();
+            int length = DocId.ToString().Length;
+            int areaID = System.Convert.ToInt32(DocId.ToString().Substring(length - 2));
 
-            ViewBag.AreaID = DocDetailList.First().AreaID;
+            ViewBag.AreaId = DocDetailList.First().AreaId;
             ViewBag.AreaName = DocDetailList.First().AreaName;
-            ViewBag.DocID = docID;
+            ViewBag.DocId = DocId;
 
             /* Find Classes from DocDetails and set values to List<ClassesOfAreas> ClassList. */
-            var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassID).Select(g => g.FirstOrDefault()).ToList();
+            var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassId).Select(g => g.FirstOrDefault()).ToList();
             List<ClassesOfAreas> ClassList = new List<ClassesOfAreas>();
             foreach(var itemClass in ClassesOfDocTemp)
             {
-                var addClass = db.ClassesOfAreas.Where(c => c.AreaID == areaID && c.ClassID == itemClass.ClassID).FirstOrDefault();
+                var addClass = db.ClassesOfAreas.Where(c => c.AreaId == areaID && c.ClassId == itemClass.ClassId).FirstOrDefault();
                 ClassList.Add(addClass);
             }
             var ClassesOfAreas = ClassList.OrderBy(c => c.InspectClasses.ClassOrder);
@@ -69,7 +69,7 @@ namespace InspectSystem.Controllers
             /* Count errors for every class, and set count result to "CountErrors". */
             foreach(var item in ClassesOfAreas)
             {
-                var toFindErrors = DocDetailList.Where(d => d.ClassID == item.ClassID &&
+                var toFindErrors = DocDetailList.Where(d => d.ClassId == item.ClassId &&
                                                            d.IsFunctional == "n");
                 item.CountErrors = toFindErrors.Count();
             }
@@ -77,17 +77,17 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectDocChecker/ClassContentOfArea
-        public ActionResult ClassContentOfArea(int ACID, int docID)
+        public ActionResult ClassContentOfArea(int ACID, int DocId)
         {
             ViewBag.ClassName = db.ClassesOfAreas.Find(ACID).InspectClasses.ClassName;
 
             /* Find the data. */
-            var classID = db.ClassesOfAreas.Find(ACID).ClassID;
-            var inspectDocDetails = db.InspectDocDetails.Where(i => i.DocID == docID &&
-                                                                    i.ClassID == classID);
+            var classID = db.ClassesOfAreas.Find(ACID).ClassId;
+            var inspectDocDetails = db.InspectDocDetails.Where(i => i.DocId == DocId &&
+                                                                    i.ClassId == classID);
 
             /* Get items and fields from DocDetails. */
-            ViewBag.itemsByDocDetails = inspectDocDetails.GroupBy(i => i.ItemID)
+            ViewBag.itemsByDocDetails = inspectDocDetails.GroupBy(i => i.ItemId)
                                                          .Select(g => g.FirstOrDefault())
                                                          .OrderBy(s => s.ItemOrder).ToList();
             ViewBag.fieldsByDocDetails = inspectDocDetails.ToList();
@@ -101,18 +101,18 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectDocChecker/GetFlowList
-        public ActionResult GetFlowList(int docID)
+        public ActionResult GetFlowList(int DocId)
         {
-            var flowList = db.InspectDocFlows.Where(i => i.DocID == docID).OrderBy(i => i.StepID);
-            var findDoc = db.InspectDocs.Find(docID);
+            var flowList = db.InspectDocFlows.Where(i => i.DocId == DocId).OrderBy(i => i.StepId);
+            var findDoc = db.InspectDocs.Find(DocId);
 
             foreach( var item in flowList)
             {
-                if(item.StepOwnerID == item.WorkerID)
+                if(item.StepOwnerId == item.EngId)
                 {
-                    item.StepOwnerName = findDoc.WorkerName;
+                    item.StepOwnerName = findDoc.EngName;
                 }
-                else if(item.StepOwnerID == item.CheckerID)
+                else if(item.StepOwnerId == item.CheckerId)
                 {
                     item.StepOwnerName = findDoc.CheckerName;
                 }
@@ -122,14 +122,14 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectDocChecker/FlowDocEditForChecker
-        public ActionResult FlowDocEditForChecker(int docID)
+        public ActionResult FlowDocEditForChecker(int DocId)
         {
             /* Find FlowDoc and set step to next. */
-            var flowDoc = db.InspectDocFlows.Where(i => i.DocID == docID)
-                                            .OrderByDescending(i => i.StepID).First();
+            var flowDoc = db.InspectDocFlows.Where(i => i.DocId == DocId)
+                                            .OrderByDescending(i => i.StepId).First();
 
             AppUser u = db.AppUsers.Find(WebSecurity.CurrentUserId);
-            flowDoc.EditorID = WebSecurity.CurrentUserId;
+            flowDoc.EditorId = WebSecurity.CurrentUserId;
             flowDoc.Opinions = "";
             flowDoc.EditorName = u.FullName;
 
@@ -137,14 +137,14 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectDocChecker/FlowDocEditForWorker
-        public ActionResult FlowDocEditForWorker(int docID)
+        public ActionResult FlowDocEditForWorker(int DocId)
         {
             /* Find FlowDoc and set step to next. */
-            var flowDoc = db.InspectDocFlows.Where(i => i.DocID == docID)
-                                            .OrderByDescending(i => i.StepID).First();
+            var flowDoc = db.InspectDocFlows.Where(i => i.DocId == DocId)
+                                            .OrderByDescending(i => i.StepId).First();
 
             AppUser u = db.AppUsers.Find(WebSecurity.CurrentUserId);
-            flowDoc.EditorID = WebSecurity.CurrentUserId;
+            flowDoc.EditorId = WebSecurity.CurrentUserId;
             flowDoc.Opinions = "";
             flowDoc.EditorName = u.FullName;
 
@@ -156,29 +156,29 @@ namespace InspectSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> FlowDocEditForChecker(InspectDocFlow inspectDocFlow)
         {
-            int userID = inspectDocFlow.EditorID;
-            int docID = inspectDocFlow.DocID;
-            var inspectDoc = db.InspectDocs.Find(docID);
-            int nextFlowStatusID = System.Convert.ToInt32(Request.Form["NextFlowStatusID"]);
+            int userID = inspectDocFlow.EditorId;
+            int DocId = inspectDocFlow.DocId;
+            var inspectDoc = db.InspectDocs.Find(DocId);
+            int nextFlowStatusId = System.Convert.ToInt32(Request.Form["NextFlowStatusId"]);
 
             /* Insert edit time, and change flow status for inspect doc. */
             inspectDocFlow.EditTime = DateTime.UtcNow.AddHours(08);
-            inspectDoc.FlowStatusID = nextFlowStatusID;
+            inspectDoc.FlowStatusId = nextFlowStatusId;
 
             /* If doc is send back to worker. */
-            if(nextFlowStatusID == 0)
+            if(nextFlowStatusId == 0)
             {
                 /* New next flow for worker. */
                 InspectDocFlow nextDocFlow = new InspectDocFlow()
                 {
-                    DocID = docID,
-                    StepID = inspectDocFlow.StepID + 1,
-                    StepOwnerID = inspectDocFlow.WorkerID,
-                    WorkerID = inspectDocFlow.WorkerID,
-                    CheckerID = inspectDocFlow.CheckerID,
+                    DocId = DocId,
+                    StepId = inspectDocFlow.StepId + 1,
+                    StepOwnerId = inspectDocFlow.EngId,
+                    EngId = inspectDocFlow.EngId,
+                    CheckerId = inspectDocFlow.CheckerId,
                     Opinions = "",
-                    FlowStatusID = nextFlowStatusID,
-                    EditorID = 0,
+                    FlowStatusId = nextFlowStatusId,
+                    EditorId = 0,
                     EditorName = "",
                     EditTime = null,
                 };
@@ -191,20 +191,20 @@ namespace InspectSystem.Controllers
                     //Send Mail
                     Mail mail = new Mail();
                     //string body = "";
-                    //mail.from = inspectDocFlow.CheckerID + "@cch.org.tw";
+                    //mail.from = inspectDocFlow.CheckerId + "@cch.org.tw";
                     ////For Test
-                    //if(inspectDocFlow.WorkerID == 344027)
+                    //if(inspectDocFlow.EngId == 344027)
                     //{
                     //    mail.to = "airball91327@gmail.com";
                     //}
                     //else
                     //{
-                    //    mail.to = inspectDocFlow.WorkerID + "@cch.org.tw";
+                    //    mail.to = inspectDocFlow.EngId + "@cch.org.tw";
                     //}
                     //mail.subject = "巡檢系統[退件通知]";
-                    //body += "<p>表單編號：" + inspectDoc.DocID + "</p>";
+                    //body += "<p>表單編號：" + inspectDoc.DocId + "</p>";
                     //body += "<p>日期：" + inspectDoc.Date.ToString("yyyy/MM/dd") + "</p>";
-                    //body += "<p>區域：" + db.InspectAreas.Find(inspectDoc.AreaID).AreaName + "</p>";
+                    //body += "<p>區域：" + db.InspectAreas.Find(inspectDoc.AreaId).AreaName + "</p>";
                     //body += "<p><a href='https://inspectsys.azurewebsites.net/'" + ">處理案件</a></p>";
                     //body += "<br/>";
                     //body += "<h3>此封信件為系統通知郵件，請勿回覆。</h3>";
@@ -221,19 +221,19 @@ namespace InspectSystem.Controllers
                     //HttpResponseMessage response = await client.PostAsync(url, content);
                 }
             }
-            else if(nextFlowStatusID == 2) // If doc closed.
+            else if(nextFlowStatusId == 2) // If doc closed.
             {
                 /* New next flow for closed. */
                 InspectDocFlow nextDocFlow = new InspectDocFlow()
                 {
-                    DocID = docID,
-                    StepID = inspectDocFlow.StepID + 1,
-                    StepOwnerID = inspectDocFlow.WorkerID,
-                    WorkerID = inspectDocFlow.WorkerID,
-                    CheckerID = inspectDocFlow.CheckerID,
+                    DocId = DocId,
+                    StepId = inspectDocFlow.StepId + 1,
+                    StepOwnerId = inspectDocFlow.EngId,
+                    EngId = inspectDocFlow.EngId,
+                    CheckerId = inspectDocFlow.CheckerId,
                     Opinions = "",
-                    FlowStatusID = nextFlowStatusID,
-                    EditorID = inspectDocFlow.EditorID,
+                    FlowStatusId = nextFlowStatusId,
+                    EditorId = inspectDocFlow.EditorId,
                     EditorName = inspectDocFlow.EditorName,
                     EditTime = inspectDocFlow.EditTime,
                 };
@@ -253,11 +253,11 @@ namespace InspectSystem.Controllers
                 db.SaveChanges();
 
                 /* return save success message. */
-                if(inspectDocFlow.FlowStatusID == 2)
+                if(inspectDocFlow.FlowStatusId == 2)
                 {
                     TempData["SendMsg"] = "文件已結案";
                 }
-                else if(inspectDocFlow.FlowStatusID == 0)
+                else if(inspectDocFlow.FlowStatusId == 0)
                 {
                     TempData["SendMsg"] = "文件已退回";
                 }
@@ -275,25 +275,25 @@ namespace InspectSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult FlowDocEditForWorker(InspectDocFlow inspectDocFlow)
         {
-            int userID = inspectDocFlow.EditorID;
-            int docID = inspectDocFlow.DocID;
-            var inspectDoc = db.InspectDocs.Find(docID);
+            int userID = inspectDocFlow.EditorId;
+            int DocId = inspectDocFlow.DocId;
+            var inspectDoc = db.InspectDocs.Find(DocId);
 
             /* Insert edit time, and change flow status to "checking" for doc. */
             inspectDocFlow.EditTime = DateTime.UtcNow.AddHours(08);
-            inspectDoc.FlowStatusID = 1;
+            inspectDoc.FlowStatusId = 1;
 
             /* New next flow for checker. */
             InspectDocFlow nextDocFlow = new InspectDocFlow()
             {
-                DocID = docID,
-                StepID = inspectDocFlow.StepID + 1,
-                StepOwnerID = inspectDocFlow.CheckerID,
-                WorkerID = inspectDocFlow.WorkerID,
-                CheckerID = inspectDocFlow.CheckerID,
+                DocId = DocId,
+                StepId = inspectDocFlow.StepId + 1,
+                StepOwnerId = inspectDocFlow.CheckerId,
+                EngId = inspectDocFlow.EngId,
+                CheckerId = inspectDocFlow.CheckerId,
                 Opinions = "",
-                FlowStatusID = 1,
-                EditorID = 0,
+                FlowStatusId = 1,
+                EditorId = 0,
                 EditorName = "",
                 EditTime = null,
             };

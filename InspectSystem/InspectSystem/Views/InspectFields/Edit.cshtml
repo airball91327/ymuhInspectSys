@@ -6,8 +6,8 @@
 @{
     Layout = null;
     int ACID = Model.ACID;
-    int itemID = Model.ItemID;
-    int zoneNo = ACID * 100 + itemID;
+    int ItemId = Model.ItemId;
+    int zoneNo = ACID * 100 + ItemId;
     string editModalNo = "editModalNo" + zoneNo;
     string fieldDivNo = "fieldDivNo" + zoneNo;
 
@@ -64,8 +64,8 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             @Html.HiddenFor(model => model.ACID)
-            @Html.HiddenFor(model => model.ItemID)
-            @Html.HiddenFor(model => model.FieldID)
+            @Html.HiddenFor(model => model.ItemId)
+            @Html.HiddenFor(model => model.FieldId)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })

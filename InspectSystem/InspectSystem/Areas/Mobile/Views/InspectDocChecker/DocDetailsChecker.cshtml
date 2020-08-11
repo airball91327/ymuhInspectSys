@@ -19,7 +19,7 @@
 <div class="container">
     @foreach (var item in Model)
     {
-        <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("ClassContentOfArea", new { area = "Mobile", acid = @item.ACID, docID = @ViewBag.DocID })" id="@item.ClassID">
+        <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("ClassContentOfArea", new { area = "Mobile", acid = @item.ACID, DocId = @ViewBag.DocId })" id="@item.ClassId">
             @item.InspectClasses.ClassName
             @if (item.CountErrors != 0)
             {
@@ -27,6 +27,6 @@
             }
         </a>
     }
-    <a class="btn btn-primary btn-block btn-lg" id="flowListBtn" href="@Url.Action("GetFlowList", new { area = "Mobile", docID = ViewBag.DocID })">流程資訊</a>
-    <a class="btn btn-primary btn-block btn-lg" id="flowDocBtn" href="@Url.Action("FlowDocEditForChecker", new { area = "Mobile", docID = ViewBag.DocID })">簽核作業</a>
+    <a class="btn btn-primary btn-block btn-lg" id="flowListBtn" href="@Url.Action("GetFlowList", new { area = "Mobile", DocId = ViewBag.DocId })">流程資訊</a>
+    <a class="btn btn-primary btn-block btn-lg" id="flowDocBtn" href="@Url.Action("FlowDocEditForChecker", new { area = "Mobile", DocId = ViewBag.DocId })">簽核作業</a>
 </div>

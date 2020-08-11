@@ -22,7 +22,7 @@
     <div class="tab">
         @foreach (var item in Model)
         {
-            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocID')" id="@item.ClassID">
+            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocId')" id="@item.ClassId">
                 @item.InspectClasses.ClassName
                 @if (item.CountErrors != 0)
                 {
@@ -30,7 +30,7 @@
                 }
             </button>
         }
-        <button class="tablinks" id="flowListBtn" onclick="getFlowList(event, '@ViewBag.DocID')">流程資訊</button>
+        <button class="tablinks" id="flowListBtn" onclick="getFlowList(event, '@ViewBag.DocId')">流程資訊</button>
         <!-- Trigger the flowDoc modal with a button -->
         <button class="tablinks" data-toggle="modal" data-target="#flowDocModal" id="flowDocBtn">簽核作業</button>
     </div>
@@ -72,7 +72,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @Html.Action("FlowDocEditForChecker", new { docID = ViewBag.DocID })
+                    @Html.Action("FlowDocEditForChecker", new { DocId = ViewBag.DocId })
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>

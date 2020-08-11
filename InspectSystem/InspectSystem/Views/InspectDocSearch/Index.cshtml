@@ -36,14 +36,14 @@
                 <div class="form-group col-md-3">
                     <label class="control-label col-md-3">區域:</label>
                     <div class="col-md-9">
-                        @Html.DropDownList("AreaID", null, "所有", htmlAttributes: new { @class = "form-control", id = "AreaID" })
+                        @Html.DropDownList("AreaId", null, "所有", htmlAttributes: new { @class = "form-control", id = "AreaId" })
                     </div>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="control-label col-md-5">流程狀態:</label>
                     <div class="col-md-7">
-                        @Html.DropDownList("FlowStatusID", null, "所有", htmlAttributes: new { @class = "form-control", id = "FlowStatusID" })
+                        @Html.DropDownList("FlowStatusId", null, "所有", htmlAttributes: new { @class = "form-control", id = "FlowStatusId" })
                     </div>
                 </div>
 
@@ -69,13 +69,13 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WorkerID)
+                @Html.DisplayNameFor(model => model.EngId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WorkerName)
+                @Html.DisplayNameFor(model => model.EngName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckerID)
+                @Html.DisplayNameFor(model => model.CheckerId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CheckerName)
@@ -97,13 +97,13 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WorkerID)
+                @Html.DisplayNameFor(model => model.EngId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WorkerName)
+                @Html.DisplayNameFor(model => model.EngName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckerID)
+                @Html.DisplayNameFor(model => model.CheckerId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CheckerName)
@@ -165,17 +165,17 @@
                         data: function (d) {
                             d.startDate = $("input[name=startDate]").val();
                             d.endDate = $("input[name=endDate]").val();
-                            d.areaId = $("#AreaID").val();
-                            d.flowStatusId = $("#FlowStatusID").val();
+                            d.areaId = $("#AreaId").val();
+                            d.FlowStatusId = $("#FlowStatusId").val();
                         }
                     },
                     columns: [ //Server端的DataBinding名稱
                         { data: "AreaName" },
                         { data: "FlowStatusName" },
                         { data: "Date" },
-                        { data: "WorkerID" },
-                        { data: "WorkerName" },
-                        { data: "CheckerID" },
+                        { data: "EngId" },
+                        { data: "EngName" },
+                        { data: "CheckerId" },
                         { data: "CheckerName" },
                         {
                             targets: -1,
@@ -192,9 +192,9 @@
                 ///* For debug. */
                 //var startDate = $("input[name=startDate]").val();
                 //var endDate = $("input[name=endDate]").val();
-                //var areaId = $("#AreaID").val();
-                //var flowStatusId = $("#FlowStatusID").val();
-                //console.log("startDate:" + startDate + "\n" + "endDate:" + endDate + "\n" + "areaId:" + areaId + "\n" + "flowStatusId:" + flowStatusId);
+                //var areaId = $("#AreaId").val();
+                //var FlowStatusId = $("#FlowStatusId").val();
+                //console.log("startDate:" + startDate + "\n" + "endDate:" + endDate + "\n" + "areaId:" + areaId + "\n" + "FlowStatusId:" + FlowStatusId);
                 ///* For debug. */
 
                 //按下表單的查詢按鈕後才發出Ajax載入資料
@@ -206,20 +206,20 @@
             $('#docTable tbody').on('click', 'button', function () {
                 var data = table.row($(this).parents('tr')).data();
 
-                if (data.FlowStatusID == 3) // Worker is editing.
+                if (data.FlowStatusId == 3) // Worker is editing.
                 {
-                    var url = "@Url.Action("DocTempIndex")" + "?DocID=" + data.DocID;
+                    var url = "@Url.Action("DocTempIndex")" + "?DocId=" + data.DocId;
                     window.location = url;
                 }
                 else
                 {
-                    var url = "@Url.Action("DocDetailsIndex")" + "?DocID=" + data.DocID;
+                    var url = "@Url.Action("DocDetailsIndex")" + "?DocId=" + data.DocId;
                     window.location = url;
                 }
 
-                //console.log("DocID is: " + data.DocID +
-                //    " AreaID is: " + data.AreaID +
-                //    " FlowStatusID is: " + data.FlowStatusID);    // For Debug.
+                //console.log("DocId is: " + data.DocId +
+                //    " AreaId is: " + data.AreaId +
+                //    " FlowStatusId is: " + data.FlowStatusId);    // For Debug.
 
             });
 

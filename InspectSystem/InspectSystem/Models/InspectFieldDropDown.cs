@@ -23,10 +23,10 @@ namespace InspectSystem.Models
         public int ClassId { get; set; }
         [Required]
         [Display(Name = "項目代碼")]
-        public int ItemID { get; set; }
+        public int ItemId { get; set; }
         [Required]
         [Display(Name = "欄位代碼")]
-        public int FieldID { get; set; }
+        public int FieldId { get; set; }
         [Display(Name = "選項內容")]
         public string Value { get; set; }
     }

@@ -6,8 +6,8 @@
 @{
     Layout = null;
     int ACID = ViewBag.CreateACID;
-    int itemID = ViewBag.CreateItemID;
-    int zoneNo = ACID * 100 + itemID;
+    int ItemId = ViewBag.CreateItemId;
+    int zoneNo = ACID * 100 + ItemId;
     string createModalNo = "createModalNo" + zoneNo;
     string fieldDivNo = "fieldDivNo" + zoneNo;
 }
@@ -54,7 +54,7 @@
                 @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.HiddenFor(model => model.ACID)
-                    @Html.HiddenFor(model => model.ItemID)
+                    @Html.HiddenFor(model => model.ItemId)
                     <p style="margin-top : 7px">@ViewBag.ItemNameForCreate</p>
                 </div>
             </div>

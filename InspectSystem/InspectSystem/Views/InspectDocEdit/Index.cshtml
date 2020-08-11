@@ -36,7 +36,7 @@
 <h3 style="font-weight: bold">@ViewBag.AreaName</h3>
 <hr />
 <div class="container">
-    <a class="btn btn-primary" href="@Url.Action("DocDetails", "InspectDocEdit", new { docID = ViewBag.DocID })">回詳細內容</a>
+    <a class="btn btn-primary" href="@Url.Action("DocDetails", "InspectDocEdit", new { DocId = ViewBag.DocId })">回詳細內容</a>
 </div>
 <hr />
 
@@ -44,7 +44,7 @@
     <div class="tab">
         @foreach (var item in Model)
         {
-            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocID')" id="@item.ClassID">
+            <button class="tablinks" onclick="openClassContent(event, '@item.ACID', '@ViewBag.DocId')" id="@item.ClassId">
                 @item.InspectClasses.ClassName
                 @if (item.CountErrors != 0)
                 {
@@ -52,7 +52,7 @@
                 }
             </button>
         }
-        <button class="tablinks" id="flowListBtn" onclick="getFlowList(event, '@ViewBag.DocID')">流程資訊</button>
+        <button class="tablinks" id="flowListBtn" onclick="getFlowList(event, '@ViewBag.DocId')">流程資訊</button>
         <!-- Trigger the flowDoc modal with a button -->
         <button class="tablinks" data-toggle="modal" data-target="#flowDocModal" id="flowDocBtn">簽核作業</button>
     </div>
@@ -77,7 +77,7 @@
                     <h2 class="modal-title">注意事項</h2>
                 </div>
                 <div class="modal-body">
-                    @Html.Action("AreaPrecautions", "InspectDocDetails", new { areaID = ViewBag.AreaID })
+                    @Html.Action("AreaPrecautions", "InspectDocDetails", new { areaID = ViewBag.AreaId })
                 </div>
                 <div class="modal-footer">
                     <div style="text-align:center">
@@ -122,7 +122,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @Html.Action("FlowDocEditForWorker", "InspectDocChecker", new { docID = ViewBag.DocID })
+                    @Html.Action("FlowDocEditForWorker", "InspectDocChecker", new { DocId = ViewBag.DocId })
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>

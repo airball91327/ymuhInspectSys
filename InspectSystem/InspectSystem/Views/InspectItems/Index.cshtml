@@ -45,16 +45,16 @@
             var cName = document.createTextNode(className);
 
             /* input element, hidden areaID */
-            var inputAreaID = document.createElement("input");
-            inputAreaID.setAttribute("type", "hidden");
-            inputAreaID.setAttribute("name", "areaID");
-            inputAreaID.setAttribute("value", "@TempData["AreaListValue"]");
+            var inputAreaId = document.createElement("input");
+            inputAreaId.setAttribute("type", "hidden");
+            inputAreaId.setAttribute("name", "areaID");
+            inputAreaId.setAttribute("value", "@TempData["AreaListValue"]");
 
             /* input element, hidden classID */
-            var inputClassID = document.createElement("input");
-            inputClassID.setAttribute("type", "hidden");
-            inputClassID.setAttribute("name", "classID");
-            inputClassID.setAttribute("value", "@TempData["ClassListValue"]");
+            var inputClassId = document.createElement("input");
+            inputClassId.setAttribute("type", "hidden");
+            inputClassId.setAttribute("name", "classID");
+            inputClassId.setAttribute("value", "@TempData["ClassListValue"]");
 
             /* input element, itemName */
             var inputitemName = document.createElement("input");
@@ -88,9 +88,9 @@
             backBtn.appendChild(btnText);
 
             /* Insert elements to cells */
-            newCell1.appendChild(inputAreaID);
+            newCell1.appendChild(inputAreaId);
             newCell1.appendChild(aName);
-            newCell2.appendChild(inputClassID);
+            newCell2.appendChild(inputClassId);
             newCell2.appendChild(cName);
             newCell3.appendChild(inputitemName);
             newCell4.appendChild(inputitemStatus);
@@ -224,11 +224,11 @@
                 string displayRow = "displayRow" + row;
                 string editRow = "editRow" + row;
                 string hideACIDNo = "hideACIDNo" + row;
-                string hideItemIDNo = "hideItemIDNo" + row;
+                string hideItemIdNo = "hideItemIdNo" + row;
                 string fieldPanelNo = "fieldPanelNo" + row;
                 int acid = item.ACID;
-                int itemid = item.ItemID;
-                int zoneNo = acid * 100 + itemid;
+                int ItemId = item.ItemId;
+                int zoneNo = acid * 100 + ItemId;
                 string fieldDivNo = "fieldDivNo" + zoneNo;
 
                 <tr>
@@ -237,7 +237,7 @@
                         @Html.AntiForgeryToken()
 
                         @Html.HiddenFor(modelItem => item.ACID, new { id = hideACIDNo })
-                        @Html.HiddenFor(modelItem => item.ItemID, new { id = hideItemIDNo })
+                        @Html.HiddenFor(modelItem => item.ItemId, new { id = hideItemIdNo })
                         <td class="col-md-2">
                             @Html.DisplayFor(modelItem => item.InspectAreas.AreaName)
                         </td>

@@ -4,7 +4,7 @@
 <script src="~/Scripts/InspectFieldsSearch.js"></script>
 
 @{
-    int zoneNo = (ViewBag.ACID * 100) + ViewBag.ItemID;
+    int zoneNo = (ViewBag.ACID * 100) + ViewBag.ItemId;
     string editModalNo = "editModalNo" + zoneNo;
     string editModalContentNo = "editModalContentNo" + zoneNo;
     string createModalNo = "createModalNo" + zoneNo;
@@ -21,7 +21,7 @@
 
 <script>
     var fieldCreateACID = @ViewBag.ACID;
-    var fieldCreateItemID = @ViewBag.ItemID;
+    var fieldCreateItemId = @ViewBag.ItemId;
 </script>
 
 <div class="container">
@@ -63,13 +63,13 @@
 
         int rowNo = (zoneNo * 100) + row;
         string hideACIDNo = "hideACIDNo" + rowNo;
-        string hideItemIDNo = "hideItemIDNo" + rowNo;
-        string hideFieldIDNo = "hideFieldIDNo" + rowNo;
+        string hideItemIdNo = "hideItemIdNo" + rowNo;
+        string hideFieldIdNo = "hideFieldIdNo" + rowNo;
 
         <tr>
             @Html.HiddenFor(modelItem => item.ACID, new { id = hideACIDNo })
-            @Html.HiddenFor(modelItem => item.ItemID, new { id = hideItemIDNo })
-            @Html.HiddenFor(modelItem => item.FieldID, new { id = hideFieldIDNo })
+            @Html.HiddenFor(modelItem => item.ItemId, new { id = hideItemIdNo })
+            @Html.HiddenFor(modelItem => item.FieldId, new { id = hideFieldIdNo })
             <td>
                 @Html.DisplayFor(modelItem => item.FieldName)
             </td>

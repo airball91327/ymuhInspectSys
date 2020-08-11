@@ -34,19 +34,19 @@
         </h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.CheckerID)
-        @Html.HiddenFor(model => model.DocID)
-        @Html.HiddenFor(model => model.StepID)
-        @Html.HiddenFor(model => model.StepOwnerID)
-        @Html.HiddenFor(model => model.WorkerID)
-        @Html.HiddenFor(model => model.EditorID)
+        @Html.HiddenFor(model => model.CheckerId)
+        @Html.HiddenFor(model => model.DocId)
+        @Html.HiddenFor(model => model.StepId)
+        @Html.HiddenFor(model => model.StepOwnerId)
+        @Html.HiddenFor(model => model.EngId)
+        @Html.HiddenFor(model => model.EditorId)
         @Html.HiddenFor(model => model.EditorName)
-        @Html.HiddenFor(model => model.FlowStatusID)
+        @Html.HiddenFor(model => model.FlowStatusId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.InspectDocs.WorkerName, htmlAttributes: new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.InspectDocs.EngName, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9 myDisplayStyle">
-                @Html.DisplayFor(model => model.InspectDocs.WorkerName)
+                @Html.DisplayFor(model => model.InspectDocs.EngName)
             </div>
         </div>
 
@@ -61,8 +61,8 @@
         <div class="form-group">
             <label class="control-label col-md-3">審核結果</label>
             <div class="col-md-9" style="margin-top : 7px">
-                @Html.RadioButton("NextFlowStatusID", "0")退回文件
-                @Html.RadioButton("NextFlowStatusID", "2")結案
+                @Html.RadioButton("NextFlowStatusId", "0")退回文件
+                @Html.RadioButton("NextFlowStatusId", "2")結案
                 <p id="errorMsg" style="color: red"></p>
             </div>
         </div>

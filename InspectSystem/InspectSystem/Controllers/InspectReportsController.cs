@@ -20,7 +20,7 @@ namespace InspectSystem.Controllers
         // GET: InspectReports
         public ActionResult Index()
         {
-            var reportSource = db.InspectDocDetails.Where(i => i.ClassID == 6);
+            var reportSource = db.InspectDocDetails.Where(i => i.ClassId == 6);
 
             //建立ReportViewer物件
             var reportViewer = new ReportViewer()

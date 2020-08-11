@@ -37,7 +37,7 @@
             @Html.DisplayNameFor(model => model.EndTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WorkerName)
+            @Html.DisplayNameFor(model => model.EngName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CheckerName)
@@ -46,7 +46,7 @@
     </tr>
     @foreach (var item in Model)
     {
-        if (item.FlowStatusID == 0)
+        if (item.FlowStatusId == 0)
         {
             <tr>
                 <td>
@@ -62,13 +62,13 @@
                     @Html.DisplayFor(modelItem => item.EndTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.WorkerName)
+                    @Html.DisplayFor(modelItem => item.EngName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckerName)
                 </td>
                 <td>
-                    <a class="btn btn-primary" href="@Url.Action("DocDetails", "InspectDocEdit", new { docID = item.DocID })">詳細內容</a>
+                    <a class="btn btn-primary" href="@Url.Action("DocDetails", "InspectDocEdit", new { DocId = item.DocId })">詳細內容</a>
                 </td>
             </tr>
         }
@@ -91,7 +91,7 @@
             @Html.DisplayNameFor(model => model.EndTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WorkerName)
+            @Html.DisplayNameFor(model => model.EngName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CheckerName)
@@ -100,7 +100,7 @@
     </tr>
     @foreach (var item in Model)
     {
-        if (item.FlowStatusID == 3)
+        if (item.FlowStatusId == 3)
         {
             <tr>
                 <td>
@@ -116,13 +116,13 @@
                     @Html.DisplayFor(modelItem => item.EndTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.WorkerName)
+                    @Html.DisplayFor(modelItem => item.EngName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckerName)
                 </td>
                 <td>
-                    <a class="btn btn-primary" href="@Url.Action("Index", "InspectDocResend", new { docID = item.DocID })">詳細內容</a>
+                    <a class="btn btn-primary" href="@Url.Action("Index", "InspectDocResend", new { DocId = item.DocId })">詳細內容</a>
                 </td>
             </tr>
         }

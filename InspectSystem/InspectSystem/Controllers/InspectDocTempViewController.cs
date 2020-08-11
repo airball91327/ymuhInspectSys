@@ -16,17 +16,17 @@ namespace InspectSystem.Controllers
         private BMEDcontext db = new BMEDcontext();
 
         // GET: InspectDocTempView/ClassContentOfArea
-        public ActionResult ClassContentOfArea(int ACID, int docID)
+        public ActionResult ClassContentOfArea(int ACID, int DocId)
         {
             ViewBag.ClassName = db.ClassesOfAreas.Find(ACID).InspectClasses.ClassName;
 
             /* Find the data. */
-            var classID = db.ClassesOfAreas.Find(ACID).ClassID;
-            var inspectDocDetailsTemp = db.InspectDocDetailsTemporary.Where(i => i.DocID == docID &&
-                                                                    i.ClassID == classID);
+            var classID = db.ClassesOfAreas.Find(ACID).ClassId;
+            var inspectDocDetailsTemp = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId &&
+                                                                    i.ClassId == classID);
 
             /* Get items and fields from DocDetails. */
-            ViewBag.itemsByDocDetails = inspectDocDetailsTemp.GroupBy(i => i.ItemID)
+            ViewBag.itemsByDocDetails = inspectDocDetailsTemp.GroupBy(i => i.ItemId)
                                                              .Select(g => g.FirstOrDefault())
                                                              .OrderBy(s => s.ItemOrder).ToList();
             ViewBag.fieldsByDocDetails = inspectDocDetailsTemp.ToList();

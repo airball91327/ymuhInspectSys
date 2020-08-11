@@ -21,14 +21,14 @@ namespace InspectSystem.Controllers
         // GET: InspectDocSearch
         public ActionResult Index()
         {
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
-            ViewBag.FlowStatusID = new SelectList(db.InspectFlowStatus, "FlowStatusID", "FlowStatusName");
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName");
+            ViewBag.FlowStatusId = new SelectList(db.InspectFlowStatus, "FlowStatusId", "FlowStatusName");
             return View();
         }
 
         // GET: InspectDocSearch/GetData          
         public JsonResult GetData(int? draw, int? start, int length,    //←此三個為DataTables自動傳遞參數
-                                  DateTime startDate, DateTime endDate, int? areaId, int? flowStatusId)
+                                  DateTime startDate, DateTime endDate, int? areaId, int? FlowStatusId)
                                   //↑為表單的查詢條件
         {
             //查詢&排序後的總筆數
@@ -56,41 +56,41 @@ namespace InspectSystem.Controllers
                     fromDoc = (fromDate * 100) + 1;
                     toDoc = (toDate * 100) + 99;
                 }
-                var searchList = db.InspectDocs.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc).ToList();
+                var searchList = db.InspectDocs.Where(i => i.DocId >= fromDoc && i.DocId <= toDoc).ToList();
 
                 /* 查詢區域 */
                 if (areaId != null)
                 {
-                    searchList = searchList.Where(r => r.AreaID == areaId).ToList();
+                    searchList = searchList.Where(r => r.AreaId == areaId).ToList();
                 }
                 /* 查詢文件狀態 */
-                if(flowStatusId != null)
+                if(FlowStatusId != null)
                 {
-                    searchList = searchList.Where(r => r.FlowStatusID == flowStatusId).ToList();
+                    searchList = searchList.Where(r => r.FlowStatusId == FlowStatusId).ToList();
                 }
 
                 var resultList = searchList.AsEnumerable().Select(s => new
                 {
-                    AreaName = s.InspectAreas.AreaName,
+                    AreaName = s.AreaName,
                     FlowStatusName = s.InspectFlowStatusTable.FlowStatusName,
-                    Date = s.Date.ToString("yyyy/MM/dd"),       // ToString() is not supported in Linq to Entities, 
-                    WorkerID = s.WorkerID,                      // need to change type to IEnumerable by using AsEnumerable(),
-                    WorkerName = s.WorkerName,                  // and then can use ToString(), 
-                    CheckerID = s.CheckerID,                    // because AsEnumerable() is Linq to Objects.
+                    Date = s.ApplyDate.ToString("yyyy/MM/dd"),       // ToString() is not supported in Linq to Entities, 
+                    EngId = s.EngId,                      // need to change type to IEnumerable by using AsEnumerable(),
+                    EngName = s.EngName,                  // and then can use ToString(), 
+                    CheckerId = s.CheckerId,                    // because AsEnumerable() is Linq to Objects.
                     CheckerName = s.CheckerName,
-                    DocID = s.DocID,
-                    AreaID = s.AreaID,
-                    FlowStatusID = s.FlowStatusID
+                    DocId = s.DocId,
+                    AreaId = s.AreaId,
+                    FlowStatusId = s.FlowStatusId
                 }).ToList();
 
                 // Deal DataTable sorting. 
                 if(sortColName == "AreaName")
                 {
-                    sortColName = "AreaID";
+                    sortColName = "AreaId";
                 }
                 else if(sortColName == "FlowStatusName")
                 {
-                    sortColName = "FlowStatusID";
+                    sortColName = "FlowStatusId";
                 }
                 resultList = resultList.AsEnumerable().OrderBy($@"{sortColName} {asc_desc}").ToList();
 
@@ -114,23 +114,23 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectDocSearch/DocDetailsIndex
-        public ActionResult DocDetailsIndex(int docID)
+        public ActionResult DocDetailsIndex(int DocId)
         {
             /* Set variables from DB. */
-            var DocDetailList = db.InspectDocDetails.Where(i => i.DocID == docID).ToList();
-            int length = docID.ToString().Length;
-            int areaID = System.Convert.ToInt32(docID.ToString().Substring(length - 2));
+            var DocDetailList = db.InspectDocDetails.Where(i => i.DocId == DocId).ToList();
+            int length = DocId.ToString().Length;
+            int areaID = System.Convert.ToInt32(DocId.ToString().Substring(length - 2));
 
-            ViewBag.AreaID = DocDetailList.First().AreaID;
+            ViewBag.AreaId = DocDetailList.First().AreaId;
             ViewBag.AreaName = DocDetailList.First().AreaName;
-            ViewBag.DocID = docID;
+            ViewBag.DocId = DocId;
 
             /* Find Classes from DocDetails and set values to List<ClassesOfAreas> ClassList. */
-            var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassID).Select(g => g.FirstOrDefault()).ToList();
+            var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassId).Select(g => g.FirstOrDefault()).ToList();
             List<ClassesOfAreas> ClassList = new List<ClassesOfAreas>();
             foreach (var itemClass in ClassesOfDocTemp)
             {
-                var addClass = db.ClassesOfAreas.Where(c => c.AreaID == areaID && c.ClassID == itemClass.ClassID).FirstOrDefault();
+                var addClass = db.ClassesOfAreas.Where(c => c.AreaId == areaID && c.ClassId == itemClass.ClassId).FirstOrDefault();
                 ClassList.Add(addClass);
             }
             var ClassesOfAreas = ClassList.OrderBy(c => c.InspectClasses.ClassOrder);
@@ -138,7 +138,7 @@ namespace InspectSystem.Controllers
             /* Count errors for every class, and set count result to "CountErrors". */
             foreach (var item in ClassesOfAreas)
             {
-                var toFindErrors = DocDetailList.Where(d => d.ClassID == item.ClassID &&
+                var toFindErrors = DocDetailList.Where(d => d.ClassId == item.ClassId &&
                                                            d.IsFunctional == "n");
                 item.CountErrors = toFindErrors.Count();
             }
@@ -146,29 +146,29 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectDocSearch/DocTempIndex
-        public ActionResult DocTempIndex(int docID)
+        public ActionResult DocTempIndex(int DocId)
         {
-            var DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocID == docID).ToList();
-            int length = docID.ToString().Length;
-            int areaID = System.Convert.ToInt32(docID.ToString().Substring(length - 2));
+            var DocDetailList = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId).ToList();
+            int length = DocId.ToString().Length;
+            int areaID = System.Convert.ToInt32(DocId.ToString().Substring(length - 2));
 
             if (DocDetailList.Count == 0)
             {
                 TempData["SaveMsg"] = "尚未有資料儲存";
-                return RedirectToAction("Index", new { AreaID = areaID });
+                return RedirectToAction("Index", new { AreaId = areaID });
             }
             else
             {
-                ViewBag.AreaID = DocDetailList.First().AreaID;
+                ViewBag.AreaId = DocDetailList.First().AreaId;
                 ViewBag.AreaName = DocDetailList.First().AreaName;
-                ViewBag.DocID = docID;
+                ViewBag.DocId = DocId;
 
                 /* Find Classes from DocDetails and set values to List<ClassesOfAreas> ClassList. */
-                var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassID).Select(g => g.FirstOrDefault()).ToList();
+                var ClassesOfDocTemp = DocDetailList.GroupBy(c => c.ClassId).Select(g => g.FirstOrDefault()).ToList();
                 List<ClassesOfAreas> ClassList = new List<ClassesOfAreas>();
                 foreach (var itemClass in ClassesOfDocTemp)
                 {
-                    var addClass = db.ClassesOfAreas.Where(c => c.AreaID == areaID && c.ClassID == itemClass.ClassID).FirstOrDefault();
+                    var addClass = db.ClassesOfAreas.Where(c => c.AreaId == areaID && c.ClassId == itemClass.ClassId).FirstOrDefault();
                     ClassList.Add(addClass);
                 }
                 var ClassesOfAreas = ClassList.OrderBy(c => c.InspectClasses.ClassOrder);
@@ -176,7 +176,7 @@ namespace InspectSystem.Controllers
                 /* Count errors for every class, and set count result to "CountErrors". */
                 foreach (var item in ClassesOfAreas)
                 {
-                    var toFindErrors = DocDetailList.Where(d => d.ClassID == item.ClassID &&
+                    var toFindErrors = DocDetailList.Where(d => d.ClassId == item.ClassId &&
                                                                d.IsFunctional == "n");
                     item.CountErrors = toFindErrors.Count();
                 }

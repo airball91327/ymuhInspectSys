@@ -21,9 +21,9 @@
 <h3>@ViewBag.ClassName</h3>
 <hr />
 <div class="btn-group btn-group-justified">
-    <a class="btn btn-primary btn-lg" href="@Url.Action("Index", new { area = "Mobile", docID = ViewBag.DocID })">回項目選擇</a>
+    <a class="btn btn-primary btn-lg" href="@Url.Action("Index", new { area = "Mobile", DocId = ViewBag.DocId })">回項目選擇</a>
     <a class="btn btn-primary btn-lg" href="@backToList">回審核列表</a>
-    <a class="btn btn-primary btn-lg" href="@Url.Action("ClassContentOfAreaEdit", new { area = "Mobile", acid = ViewBag.ACID, docID = ViewBag.DocID })">編輯</a>
+    <a class="btn btn-primary btn-lg" href="@Url.Action("ClassContentOfAreaEdit", new { area = "Mobile", acid = ViewBag.ACID, DocId = ViewBag.DocId })">編輯</a>
 </div>
 <hr />
 <hr />
@@ -45,7 +45,7 @@
                     @foreach (var fieldItem in DocFields)
                     {
                         /* Display all the FieldName belong the current Item. */
-                        if (item.ItemID == fieldItem.ItemID)
+                        if (item.ItemId == fieldItem.ItemId)
                         {
                             <tr>
                                 <td style="padding-left:15px">
@@ -59,7 +59,7 @@
                                     @foreach (var docItem in Model.InspectDocDetails)
                                     {
                                         /* Display textbox or checkbox for all fields, except boolean type. */
-                                        if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                        if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId &&
                                             fieldItem.DataType != "boolean")
                                         {
                                             switch (fieldItem.DataType)
@@ -93,7 +93,7 @@
                                             }
                                             i++;
                                         }
-                                        else if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                        else if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId &&
                                                  fieldItem.DataType == "boolean")
                                         {
                                             i++; // Skip an array space to let the boolean type insert later.
@@ -108,13 +108,13 @@
                     @foreach (var fieldItem in DocFields)
                     {
                         /* Display all the FieldName belong the current Item. */
-                        if (item.ItemID == fieldItem.ItemID)
+                        if (item.ItemId == fieldItem.ItemId)
                         {
 
                             foreach (var docItem in Model.InspectDocDetails)
                             {
                                 /* Display textbox or checkbox for all fields. */
-                                if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID)
+                                if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId)
                                 {
                                     if (fieldItem.DataType == "boolean")
                                     {

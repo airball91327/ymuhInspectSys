@@ -15,7 +15,7 @@
 
 <h3>@ViewBag.ClassName</h3>
 <hr />
-<a class="btn btn-primary btn-lg" href="@Url.Action("SelectClass", new { area = "Mobile", AreaID = ViewBag.AreaID })">回到上頁</a>
+<a class="btn btn-primary btn-lg" href="@Url.Action("SelectClass", new { area = "Mobile", AreaId = ViewBag.AreaId })">回到上頁</a>
 <!-- Trigger the precautions modal with the button -->
 <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#precautionModal" id="modalBtn">注意事項</button>
 <hr />
@@ -40,7 +40,7 @@
                         @foreach (var fieldItem in DocFields)
                         {
                             /* Display all the FieldName belong the current Item. */
-                            if (item.ItemID == fieldItem.ItemID)
+                            if (item.ItemId == fieldItem.ItemId)
                             {
                                 <div class="col-xs clearfix">
                                     <span class="col-xs-3 fieldTitle  clearfix">
@@ -53,17 +53,17 @@
                                     @foreach (var docItem in Model.InspectDocDetailsTemporary)
                                     {
                                         /* Display textbox or checkbox for all fields, except boolean type. */
-                                        if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                        if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId &&
                                             fieldItem.DataType != "boolean")
                                         {
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].DocID", docItem.DocID)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].AreaID", docItem.AreaID, new { id = "InspectDocDetailsTemporary[" + i + "].AreaID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].DocId", docItem.DocId)
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].AreaId", docItem.AreaId, new { id = "InspectDocDetailsTemporary[" + i + "].AreaId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + i + "].AreaName", docItem.AreaName)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].ClassID", docItem.ClassID, new { id = "InspectDocDetailsTemporary[" + i + "].ClassID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].ClassId", docItem.ClassId, new { id = "InspectDocDetailsTemporary[" + i + "].ClassId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + i + "].ClassName", docItem.ClassName)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].ItemID", docItem.ItemID, new { id = "InspectDocDetailsTemporary[" + i + "].ItemID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].ItemId", docItem.ItemId, new { id = "InspectDocDetailsTemporary[" + i + "].ItemId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + i + "].ItemName", docItem.ItemName)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].FieldID", docItem.FieldID, new { id = "InspectDocDetailsTemporary[" + i + "].FieldID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + i + "].FieldId", docItem.FieldId, new { id = "InspectDocDetailsTemporary[" + i + "].FieldId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + i + "].FieldName", docItem.FieldName)
                                             @Html.Hidden("InspectDocDetailsTemporary[" + i + "].UnitOfData", docItem.UnitOfData)
                                             @Html.Hidden("InspectDocDetailsTemporary[" + i + "].IsFunctional", docItem.IsFunctional)
@@ -148,7 +148,7 @@
                                             }
                                             i++;
                                         }
-                                        else if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID &&
+                                        else if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId &&
                                                  fieldItem.DataType == "boolean")
                                         {
                                             i++; // Skip an array space to let the boolean type insert later.
@@ -162,24 +162,24 @@
                         @foreach (var fieldItem in DocFields)
                         {
                             /* Display all the FieldName belong the current Item. */
-                            if (item.ItemID == fieldItem.ItemID)
+                            if (item.ItemId == fieldItem.ItemId)
                             {
 
                                 foreach (var docItem in Model.InspectDocDetailsTemporary)
                                 {
                                     /* Display textbox or checkbox for all fields. */
-                                    if (docItem.ItemID == item.ItemID && docItem.FieldID == fieldItem.FieldID)
+                                    if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId)
                                     {
                                         if (fieldItem.DataType == "boolean")
                                         {
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].DocID", docItem.DocID)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].AreaID", docItem.AreaID, new { id = "InspectDocDetailsTemporary[" + j + "].AreaID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].DocId", docItem.DocId)
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].AreaId", docItem.AreaId, new { id = "InspectDocDetailsTemporary[" + j + "].AreaId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + j + "].AreaName", docItem.AreaName)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].ClassID", docItem.ClassID, new { id = "InspectDocDetailsTemporary[" + j + "].ClassID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].ClassId", docItem.ClassId, new { id = "InspectDocDetailsTemporary[" + j + "].ClassId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + j + "].ClassName", docItem.ClassName)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].ItemID", docItem.ItemID, new { id = "InspectDocDetailsTemporary[" + j + "].ItemID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].ItemId", docItem.ItemId, new { id = "InspectDocDetailsTemporary[" + j + "].ItemId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + j + "].ItemName", docItem.ItemName)
-                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].FieldID", docItem.FieldID, new { id = "InspectDocDetailsTemporary[" + j + "].FieldID" })
+                                            @Html.Hidden("InspectDocDetailsTemporary[" + j + "].FieldId", docItem.FieldId, new { id = "InspectDocDetailsTemporary[" + j + "].FieldId" })
                                             @Html.Hidden("InspectDocDetailsTemporary[" + j + "].FieldName", docItem.FieldName)
                                             @Html.Hidden("InspectDocDetailsTemporary[" + j + "].UnitOfData", docItem.UnitOfData)
                                             @Html.Hidden("InspectDocDetailsTemporary[" + j + "].ItemOrder", docItem.ItemOrder)
@@ -234,7 +234,7 @@
                     <h2 class="modal-title">注意事項</h2>
                 </div>
                 <div class="modal-body">
-                    @Html.Action("AreaPrecautions", new { area = "Mobile", areaID = ViewBag.AreaID })
+                    @Html.Action("AreaPrecautions", new { area = "Mobile", areaID = ViewBag.AreaId })
                 </div>
                 <div class="modal-footer">
                     <div style="text-align:center">

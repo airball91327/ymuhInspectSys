@@ -18,8 +18,8 @@ namespace InspectSystem.Controllers
         // GET: InspectDocs
         public ActionResult Index()
         {
-            var inspectDocs = db.InspectDocs.Include(i => i.InspectAreas).Include(i => i.InspectFlowStatusTable);
-            var editingDocs = inspectDocs.Where(i => i.FlowStatusID == 3); // 編輯中文件
+            var inspectDocs = db.InspectDocs.Include(i => i.InspectFlowStatusTable);
+            var editingDocs = inspectDocs.Where(i => i.FlowStatusId == 3); // 編輯中文件
             return View(editingDocs.ToList());
         }
 
@@ -36,13 +36,13 @@ namespace InspectSystem.Controllers
                 return HttpNotFound();
             }
             /* Find members of the area. */
-            var workersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == inspectDocs.AreaID);
+            var workersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == inspectDocs.AreaId);
             var workerList = workersOfArea.Select(w => new
             {
-                WorkerID = w.MemberId,
-                WorkerName = w.InspectMembers.MemberName
+                EngId = w.MemberId,
+                EngName = w.InspectMembers.MemberName
             });
-            ViewBag.WorkerID = new SelectList(workerList, "WorkerID", "WorkerName", inspectDocs.WorkerID);
+            ViewBag.EngId = new SelectList(workerList, "EngId", "EngName", inspectDocs.EngId);
             return View(inspectDocs);
         }
 
@@ -51,7 +51,7 @@ namespace InspectSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DocID,Date,EndTime,AreaID,WorkerID,WorkerName,CheckerID,CheckerName,FlowStatusID")] InspectDocs inspectDocs)
+        public ActionResult Edit([Bind(Include = "DocId,Date,EndTime,AreaId,EngId,EngName,CheckerId,CheckerName,FlowStatusId")] InspectDocs inspectDocs)
         {
             if (ModelState.IsValid)
             {
@@ -60,13 +60,13 @@ namespace InspectSystem.Controllers
                 return RedirectToAction("Index");
             }
             /* Find members of the area. */
-            var workersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == inspectDocs.AreaID);
+            var workersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == inspectDocs.AreaId);
             var workerList = workersOfArea.Select(w => new
             {
-                WorkerID = w.MemberId,
-                WorkerName = w.InspectMembers.MemberName
+                EngId = w.MemberId,
+                EngName = w.InspectMembers.MemberName
             });
-            ViewBag.WorkerID = new SelectList(workerList, "WorkerID", "WorkerName", inspectDocs.WorkerID);
+            ViewBag.EngId = new SelectList(workerList, "EngId", "EngName", inspectDocs.EngId);
             return View(inspectDocs);
         }
 
@@ -74,8 +74,8 @@ namespace InspectSystem.Controllers
         public ActionResult Create()
         {
             /* Set default selected area and the members of area. */
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
-            var membersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == db.InspectAreas.FirstOrDefault().AreaID);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName");
+            var membersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == db.InspectAreas.FirstOrDefault().AreaId);
             var defaultMembers = membersOfArea.Select(m => new
             {
                 MemberId = m.MemberId,
@@ -93,24 +93,24 @@ namespace InspectSystem.Controllers
         public ActionResult Create(InspectDocs inspectDocs)
         {
             /* Find data from DB and set to variables. */
-            var workerID = System.Convert.ToInt32(Request.Form["MemberID"]);
-            var findAreaChecker = db.InspectAreaCheckers.Where(i => i.AreaID == inspectDocs.AreaID).First();
-            var findWorkerName = db.InspectMembers.Find(workerID).MemberName;
-            string date = inspectDocs.Date.ToString("yyyyMMdd");
-            int docID = System.Convert.ToInt32(date) * 100 + inspectDocs.AreaID;
+            var EngId = System.Convert.ToInt32(Request.Form["MemberID"]);
+            var findAreaChecker = db.InspectAreaCheckers.Where(i => i.AreaId == inspectDocs.AreaId).First();
+            var findEngName = db.InspectMembers.Find(EngId).MemberName;
+            string date = inspectDocs.ApplyDate.ToString("yyyyMMdd");
+            int DocId = System.Convert.ToInt32(date) * 100 + inspectDocs.AreaId;
 
             /* Check doc is exist or not. */
-            var isDocExist = db.InspectDocs.Find(docID);
+            var isDocExist = db.InspectDocs.Find(DocId);
             if(isDocExist == null)
             {
                 /* Set doc details.*/
-                inspectDocs.DocID = docID;
-                inspectDocs.AreaName = db.InspectAreas.Find(inspectDocs.AreaID).AreaName;
-                inspectDocs.WorkerID = workerID;
-                inspectDocs.WorkerName = findWorkerName;
-                inspectDocs.CheckerID = findAreaChecker.CheckerID;
+                inspectDocs.DocId = DocId;
+                inspectDocs.AreaName = db.InspectAreas.Find(inspectDocs.AreaId).AreaName;
+                inspectDocs.EngId = EngId;
+                inspectDocs.EngName = findEngName;
+                inspectDocs.CheckerId = findAreaChecker.CheckerId;
                 inspectDocs.CheckerName = findAreaChecker.CheckerName;
-                inspectDocs.FlowStatusID = 3;        // Default flow status:"編輯中"
+                inspectDocs.FlowStatusId = 3;        // Default flow status:"編輯中"
 
                 if (ModelState.IsValid)
                 {
@@ -125,8 +125,8 @@ namespace InspectSystem.Controllers
             }           
 
             /* Set default selected area and the members of area. */
-            ViewBag.AreaID = new SelectList(db.InspectAreas, "AreaID", "AreaName");
-            var membersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == inspectDocs.AreaID);
+            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName");
+            var membersOfArea = db.InspectMemberAreas.Where(i => i.AreaId == inspectDocs.AreaId);
             var defaultMembers = membersOfArea.Select(m => new
             {
                 MemberId = m.MemberId,

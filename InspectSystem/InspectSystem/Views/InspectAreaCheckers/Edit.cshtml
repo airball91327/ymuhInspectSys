@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.InspectAreas.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("AreaID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("AreaId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,8 +58,8 @@
 
     <script>
         $(function () {
-            $("#CheckerID").change(function () {
-                $("#CheckerName").val($("#CheckerID :selected").text());
+            $("#CheckerId").change(function () {
+                $("#CheckerName").val($("#CheckerId :selected").text());
             });
         });
     </script>

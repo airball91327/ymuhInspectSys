@@ -279,7 +279,7 @@ namespace InspectSystem.Report {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class WaterSystemReport_MDataTable : global::System.Data.TypedTableBase<WaterSystemReport_MRow> {
             
-            private global::System.Data.DataColumn columnDocID;
+            private global::System.Data.DataColumn columnDocId;
             
             private global::System.Data.DataColumn columnAreaName;
             
@@ -336,9 +336,9 @@ namespace InspectSystem.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn DocIDColumn {
+            public global::System.Data.DataColumn DocIdColumn {
                 get {
-                    return this.columnDocID;
+                    return this.columnDocId;
                 }
             }
             
@@ -459,10 +459,10 @@ namespace InspectSystem.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public WaterSystemReport_MRow AddWaterSystemReport_MRow(string DocID, string AreaName, string ClassName, string ItemName, string FieldName, string Value, string UnitOfData, string IsFunctional, string ErrorDescription, string MinValue, string MaxValue) {
+            public WaterSystemReport_MRow AddWaterSystemReport_MRow(string DocId, string AreaName, string ClassName, string ItemName, string FieldName, string Value, string UnitOfData, string IsFunctional, string ErrorDescription, string MinValue, string MaxValue) {
                 WaterSystemReport_MRow rowWaterSystemReport_MRow = ((WaterSystemReport_MRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        DocID,
+                        DocId,
                         AreaName,
                         ClassName,
                         ItemName,
@@ -495,7 +495,7 @@ namespace InspectSystem.Report {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columnDocID = base.Columns["DocID"];
+                this.columnDocId = base.Columns["DocId"];
                 this.columnAreaName = base.Columns["AreaName"];
                 this.columnClassName = base.Columns["ClassName"];
                 this.columnItemName = base.Columns["ItemName"];
@@ -511,8 +511,8 @@ namespace InspectSystem.Report {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnDocID = new global::System.Data.DataColumn("DocID", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDocID);
+                this.columnDocId = new global::System.Data.DataColumn("DocId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDocId);
                 this.columnAreaName = new global::System.Data.DataColumn("AreaName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAreaName);
                 this.columnClassName = new global::System.Data.DataColumn("ClassName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -675,17 +675,17 @@ namespace InspectSystem.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string DocID {
+            public string DocId {
                 get {
                     try {
-                        return ((string)(this[this.tableWaterSystemReport_M.DocIDColumn]));
+                        return ((string)(this[this.tableWaterSystemReport_M.DocIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'WaterSystemReport_M\' 中資料行 \'DocID\' 的值是 DBNull。", e);
+                        throw new global::System.Data.StrongTypingException("資料表 \'WaterSystemReport_M\' 中資料行 \'DocId\' 的值是 DBNull。", e);
                     }
                 }
                 set {
-                    this[this.tableWaterSystemReport_M.DocIDColumn] = value;
+                    this[this.tableWaterSystemReport_M.DocIdColumn] = value;
                 }
             }
             
@@ -851,14 +851,14 @@ namespace InspectSystem.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsDocIDNull() {
-                return this.IsNull(this.tableWaterSystemReport_M.DocIDColumn);
+            public bool IsDocIdNull() {
+                return this.IsNull(this.tableWaterSystemReport_M.DocIdColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetDocIDNull() {
-                this[this.tableWaterSystemReport_M.DocIDColumn] = global::System.Convert.DBNull;
+            public void SetDocIdNull() {
+                this[this.tableWaterSystemReport_M.DocIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

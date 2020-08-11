@@ -11,7 +11,7 @@
 <h3>流程資訊</h3>
 <hr />
 <div class="container">
-    <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("Index", new { area = "Mobile", docID = Model.First().DocID})">回項目選擇</a>
+    <a class="btn btn-primary btn-block btn-lg" href="@Url.Action("Index", new { area = "Mobile", DocId = Model.First().DocId})">回項目選擇</a>
 </div>
 <hr />
 
@@ -22,8 +22,8 @@
 
             <div>
                 <h4>
-                    @Html.DisplayNameFor(model => model.StepID)
-                    @Html.DisplayFor(modelItem => item.StepID)
+                    @Html.DisplayNameFor(model => model.StepId)
+                    @Html.DisplayFor(modelItem => item.StepId)
                 </h4>
             </div>
 

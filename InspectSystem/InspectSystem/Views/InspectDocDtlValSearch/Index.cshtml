@@ -31,7 +31,7 @@
                 <div class="form-group col-md-3">
                     <label class="control-label col-md-2">區域:</label>
                     <div class="col-md-10">
-                        @Html.DropDownList("AreaID", null, htmlAttributes: new { @class = "form-control", id = "AreaID", required = "required" })
+                        @Html.DropDownList("AreaId", null, htmlAttributes: new { @class = "form-control", id = "AreaId", required = "required" })
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                 <div class="form-group col-md-3">
                     <label class="control-label col-md-2">項目:</label>
                     <div class="col-md-10">
-                        <select class="form-control" id="itemId">
+                        <select class="form-control" id="ItemId">
                             <option>請先選擇區域</option>
                         </select>
                     </div>
@@ -56,7 +56,7 @@
                 <div class="form-group col-md-3">
                     <label class="control-label col-md-2">欄位:</label>
                     <div class="col-md-10">
-                        <select class="form-control" id="fieldId">
+                        <select class="form-control" id="FieldId">
                             <option>請先選擇區域</option>
                         </select>
                     </div>
@@ -207,10 +207,10 @@
                         data: function (d) {
                             d.startDate = $("input[name=startDate]").val();
                             d.endDate = $("input[name=endDate]").val();
-                            d.areaId = $("#AreaID").val();
+                            d.areaId = $("#AreaId").val();
                             d.classId = $("#classId").val();
-                            d.itemId = $("#itemId").val();
-                            d.fieldId = $("#fieldId").val();
+                            d.ItemId = $("#ItemId").val();
+                            d.FieldId = $("#FieldId").val();
                         }
                     },
                     columns: [ //Server端的DataBinding名稱
@@ -230,9 +230,9 @@
                 ///* For debug. */
                 //var startDate = $("input[name=startDate]").val();
                 //var endDate = $("input[name=endDate]").val();
-                //var areaId = $("#AreaID").val();
-                //var flowStatusId = $("#FlowStatusID").val();
-                //console.log("startDate:" + startDate + "\n" + "endDate:" + endDate + "\n" + "areaId:" + areaId + "\n" + "flowStatusId:" + flowStatusId);
+                //var areaId = $("#AreaId").val();
+                //var FlowStatusId = $("#FlowStatusId").val();
+                //console.log("startDate:" + startDate + "\n" + "endDate:" + endDate + "\n" + "areaId:" + areaId + "\n" + "FlowStatusId:" + FlowStatusId);
                 ///* For debug. */
 
                 //按下表單的查詢按鈕後才發出Ajax載入資料
@@ -240,13 +240,13 @@
             });
 
             // Get class, item and field according to area.
-            $('#AreaID').change(function () {
+            $('#AreaId').change(function () {
 
                 $.ajax({
                     url: '../InspectDocDtlValSearch/GetClasses',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: $(this).val() },
+                    data: { AreaId: $(this).val() },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
@@ -272,11 +272,11 @@
                     url: '../InspectDocDtlValSearch/GetItems',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId },
+                    data: { AreaId: areaId, ClassId: classId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
-                        var select = $('#itemId');
+                        var select = $('#ItemId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();                           // remove any existing options
@@ -293,16 +293,16 @@
                     }
                 });
 
-                var itemId = $('#itemId').val();
+                var ItemId = $('#ItemId').val();
                 $.ajax({
                     url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
+                    data: { AreaId: areaId, ClassId: classId, ItemId: ItemId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
-                        var select = $('#fieldId');
+                        var select = $('#FieldId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();                           // remove any existing options
@@ -324,17 +324,17 @@
             /* While class dropdown is changed, get items and fields of the class. */
             $('#classId').change(function () {
 
-                var areaId = $("#AreaID").val();
+                var areaId = $("#AreaId").val();
                 var classId = $(this).val();
                 $.ajax({
                     url: '../InspectDocDtlValSearch/GetItems',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId },
+                    data: { AreaId: areaId, ClassId: classId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
-                        var select = $('#itemId');
+                        var select = $('#ItemId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();                           // remove any existing options
@@ -351,16 +351,16 @@
                     }
                 });
 
-                var itemId = $('#itemId').val();
+                var ItemId = $('#ItemId').val();
                 $.ajax({
                     url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
+                    data: { AreaId: areaId, ClassId: classId, ItemId: ItemId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
-                        var select = $('#fieldId');
+                        var select = $('#FieldId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();                           // remove any existing options
@@ -380,20 +380,20 @@
             });
 
             /* While item dropdown is changed, get fields of the item. */
-            $('#itemId').change(function () {
+            $('#ItemId').change(function () {
 
-                var areaId = $("#AreaID").val();
+                var areaId = $("#AreaId").val();
                 var classId = $("#classId").val();
-                var itemId = $(this).val();
+                var ItemId = $(this).val();
                 $.ajax({
                     url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
+                    data: { AreaId: areaId, ClassId: classId, ItemId: ItemId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
-                        var select = $('#fieldId');
+                        var select = $('#FieldId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();                           // remove any existing options
@@ -413,13 +413,13 @@
             });
 
             /* While page loaded, get area, class, item default dropdowns. */
-            var areaId = $("#AreaID").val();
+            var areaId = $("#AreaId").val();
             if (areaId != "") {
                 $.ajax({
                     url: '../InspectDocDtlValSearch/GetClasses',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId },
+                    data: { AreaId: areaId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
@@ -444,11 +444,11 @@
                     url: '../InspectDocDtlValSearch/GetItems',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId },
+                    data: { AreaId: areaId, ClassId: classId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
-                        var select = $('#itemId');
+                        var select = $('#ItemId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();                           // remove any existing options
@@ -465,16 +465,16 @@
                     }
                 });
 
-                var itemId = $('#itemId').val();
+                var ItemId = $('#ItemId').val();
                 $.ajax({
                     url: '../InspectDocDtlValSearch/GetFields',
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
+                    data: { AreaId: areaId, ClassId: classId, ItemId: ItemId },
                     async: false,
                     success: function (response) {
                         //console.log(response); // ForDebug
-                        var select = $('#fieldId');
+                        var select = $('#FieldId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();                           // remove any existing options
@@ -496,10 +496,10 @@
             $("#exportBtn").click(function () {
                 var StartDate = $("input[name=startDate]").val();
                 var EndDate = $("input[name=endDate]").val();
-                var AreaId = $("#AreaID").val();
+                var AreaId = $("#AreaId").val();
                 var ClassId = $("#classId").val();
-                var ItemId = $("#itemId").val();
-                var FieldId = $("#fieldId").val();
+                var ItemId = $("#ItemId").val();
+                var FieldId = $("#FieldId").val();
 
                 $.ajax({
                     url: "@Url.Action("ExportToExcel")",
@@ -508,13 +508,13 @@
                         endDate: EndDate,
                         areaId: AreaId,
                         classId: ClassId,
-                        itemId: ItemId,
-                        fieldId: FieldId
+                        ItemId: ItemId,
+                        FieldId: FieldId
                     },
                     success: function (response, textStatus, jqXHR) {
 
                         window.location.href = '@Url.Action("ExportToExcel")' + '?startDate=' + StartDate + '&endDate=' + EndDate
-                            + '&areaId=' + AreaId + '&classId=' + ClassId + '&itemId=' + ItemId + '&fieldId=' + FieldId;
+                            + '&areaId=' + AreaId + '&classId=' + ClassId + '&ItemId=' + ItemId + '&FieldId=' + FieldId;
                     },
                     error: function (xhr, status, error) {
                         alert(error);

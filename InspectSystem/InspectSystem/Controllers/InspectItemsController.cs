@@ -33,8 +33,8 @@ namespace InspectSystem.Controllers
             var inspectClassOrder = db.InspectClasses.OrderBy(i => i.ClassOrder);
 
             //DropDownList for user to select area and class
-            ViewBag.AreaList = new SelectList(db.InspectAreas, "AreaID", "AreaName", TempData["AreaListValue"]);
-            ViewBag.ClassList = new SelectList(inspectClassOrder, "ClassID", "ClassName", TempData["ClassListValue"]);
+            ViewBag.AreaList = new SelectList(db.InspectAreas, "AreaId", "AreaName", TempData["AreaListValue"]);
+            ViewBag.ClassList = new SelectList(inspectClassOrder, "ClassId", "ClassName", TempData["ClassListValue"]);
 
             return View(InspectItems.ToList());
         }
@@ -52,8 +52,8 @@ namespace InspectSystem.Controllers
                                  .Include(i => i.InspectAreas)
                                  .Include(i => i.InspectClasses);
             var SearchResult = InspectItems
-                               .Where(s => s.AreaID == AreaListValue &&
-                                           s.ClassID == ClassListValue).OrderBy(s => s.ItemOrder);
+                               .Where(s => s.AreaId == AreaListValue &&
+                                           s.ClassId == ClassListValue).OrderBy(s => s.ItemOrder);
             TempData["SearchResult"]  = SearchResult.ToList(); 
 
             return RedirectToAction("Index");
@@ -71,8 +71,8 @@ namespace InspectSystem.Controllers
                                  .Include(i => i.InspectAreas)
                                  .Include(i => i.InspectClasses);
             var SearchResult = InspectItems
-                               .Where(s => s.AreaID == AreaListValue &&
-                                           s.ClassID == ClassListValue).OrderBy(s => s.ItemOrder);
+                               .Where(s => s.AreaId == AreaListValue &&
+                                           s.ClassId == ClassListValue).OrderBy(s => s.ItemOrder);
             TempData["SearchResult"] = SearchResult.ToList();
 
             return RedirectToAction("Index");
@@ -80,13 +80,13 @@ namespace InspectSystem.Controllers
 
         /* Unused code
         // GET: InspectItems/Details/5
-        public ActionResult Details(int? id, int? Itemid)
+        public ActionResult Details(int? id, int? ItemId)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectItems inspectItems = db.InspectItems.Find(id, Itemid);
+            InspectItems inspectItems = db.InspectItems.Find(id, ItemId);
             if (inspectItems == null)
             {
                 return HttpNotFound();
@@ -103,17 +103,18 @@ namespace InspectSystem.Controllers
         public ActionResult Create(InspectItems inspectItems)
         {
 
-            Boolean itemStatus = true;
+            bool itemStatus = true;
 
             //Get the value from Request.
             int areaID = System.Convert.ToInt32(Request.Form["areaID"]);
             int classID = System.Convert.ToInt32(Request.Form["classID"]);
             int ACID = (areaID) * 100 + classID;
 
-            /* Use ACID to search the DB for existing items to declare the itemID for create. */
-            int itemCount = db.InspectItems.Count(ic => ic.ACID == ACID);
-            int itemID = itemCount + 1;
-            int itemOrder = itemID;
+            /* Use ACID to search the DB for existing items to declare the ItemId for create. */
+            //int itemCount = db.InspectItems.Count(ic => ic.ACID == ACID);
+            int itemCount = 0;
+            int ItemId = itemCount + 1;
+            int itemOrder = ItemId;
 
             /* If CheckBox is not selected, it will return nothing, 
                so use the condition to give value to checkbox's request. */
@@ -127,10 +128,10 @@ namespace InspectSystem.Controllers
             }
 
             //Insert the values to create items
-            inspectItems.ACID = ACID;
-            inspectItems.AreaID = areaID;
-            inspectItems.ClassID = classID;
-            inspectItems.ItemID = itemID;
+            //inspectItems.ACID = ACID;
+            inspectItems.AreaId = areaID;
+            inspectItems.ClassId = classID;
+            inspectItems.ItemId = ItemId;
             inspectItems.ItemName = Request.Form["itemName"];
             inspectItems.ItemStatus = itemStatus;
             inspectItems.ItemOrder = itemOrder;
@@ -142,8 +143,8 @@ namespace InspectSystem.Controllers
                 classesOfAreas = new ClassesOfAreas
                 {
                     ACID = ACID,
-                    AreaID = areaID,
-                    ClassID = classID
+                    AreaId = areaID,
+                    ClassId = classID
                 };
                 db.ClassesOfAreas.Add(classesOfAreas);
                 db.SaveChanges();
@@ -168,8 +169,8 @@ namespace InspectSystem.Controllers
 
             //找出要更改數值的資料
             int ACID = System.Convert.ToInt32(Request.Form["item.ACID"]);
-            int itemID = System.Convert.ToInt32(Request.Form["item.ItemID"]);
-            InspectItems inspectItems = db.InspectItems.Find(ACID, itemID);
+            int ItemId = System.Convert.ToInt32(Request.Form["item.ItemId"]);
+            InspectItems inspectItems = db.InspectItems.Find(ACID, ItemId);
 
             //處理Request.Form無法處理Checkbox回傳值的問題
             if( Request.Form["item.ItemStatus"].Contains("true") == true )
@@ -196,56 +197,56 @@ namespace InspectSystem.Controllers
         [HttpPost]
         public ActionResult SetItemOrder(int oldIndex, int newIndex, int acid)
         {
-            if (oldIndex < newIndex)
-            {
-                var currItem = db.InspectItems.SingleOrDefault(i => i.ItemOrder == oldIndex &&
-                                                                    i.ACID == acid);
-                if (currItem == null)
-                {
-                    var msg = "排序錯誤";
-                    return Json(msg);
-                }
+            //if (oldIndex < newIndex)
+            //{
+            //    var currItem = db.InspectItems.SingleOrDefault(i => i.ItemOrder == oldIndex &&
+            //                                                        i.ACID == acid);
+            //    if (currItem == null)
+            //    {
+            //        var msg = "排序錯誤";
+            //        return Json(msg);
+            //    }
 
-                var ItemList = db.InspectItems
-                    .Where(i =>
-                        i.ItemOrder <= newIndex &&
-                        i.ItemOrder > oldIndex &&
-                        i.ACID == acid &&
-                        i.ItemID != currItem.ItemID
-                    ).ToList();
+            //    var ItemList = db.InspectItems
+            //        .Where(i =>
+            //            i.ItemOrder <= newIndex &&
+            //            i.ItemOrder > oldIndex &&
+            //            i.ACID == acid &&
+            //            i.ItemId != currItem.ItemId
+            //        ).ToList();
 
-                foreach (var item in ItemList)
-                {
-                    item.ItemOrder--;
-                }
+            //    foreach (var item in ItemList)
+            //    {
+            //        item.ItemOrder--;
+            //    }
 
-                currItem.ItemOrder = newIndex;
-                db.SaveChanges();
-            }
-            else
-            {
-                var currItem = db.InspectItems.SingleOrDefault(i => i.ItemOrder == oldIndex &&
-                                                                    i.ACID == acid);
-                if (currItem == null)
-                {
-                    var msg = "排序錯誤";
-                    return Json(msg);
-                }
+            //    currItem.ItemOrder = newIndex;
+            //    db.SaveChanges();
+            //}
+            //else
+            //{
+            //    var currItem = db.InspectItems.SingleOrDefault(i => i.ItemOrder == oldIndex &&
+            //                                                        i.ACID == acid);
+            //    if (currItem == null)
+            //    {
+            //        var msg = "排序錯誤";
+            //        return Json(msg);
+            //    }
 
-                var ItemList = db.InspectItems
-                    .Where(i =>
-                        i.ItemOrder < oldIndex &&
-                        i.ItemOrder >= newIndex &&
-                        i.ACID == acid &&
-                        i.ItemID != currItem.ItemID
-                    ).ToList();
+            //    var ItemList = db.InspectItems
+            //        .Where(i =>
+            //            i.ItemOrder < oldIndex &&
+            //            i.ItemOrder >= newIndex &&
+            //            i.ACID == acid &&
+            //            i.ItemId != currItem.ItemId
+            //        ).ToList();
 
-                foreach (var item in ItemList)
-                    item.ItemOrder++;
+            //    foreach (var item in ItemList)
+            //        item.ItemOrder++;
 
-                currItem.ItemOrder = newIndex;
-                db.SaveChanges();
-            }
+            //    currItem.ItemOrder = newIndex;
+            //    db.SaveChanges();
+            //}
             return RedirectToAction("ReloadPage");
         }
 
