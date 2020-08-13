@@ -228,6 +228,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\InspectAreaCheckersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InspectAreasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\InspectDocCheckerController.cs" />
     <Compile Include="Areas\Mobile\Controllers\InspectDocDetailsController.cs" />
     <Compile Include="Areas\Mobile\Controllers\InspectDocEditController.cs" />
@@ -477,6 +480,7 @@
     <Content Include="Content\MyStyleForPostLoader.css" />
     <Content Include="Content\NYMU.jpg" />
     <Content Include="Content\post-loader.gif" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\w3.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -693,6 +697,14 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\InspectAreas\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectAreas\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectAreas\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectAreaCheckers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectAreaCheckers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectAreaCheckers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectAreaCheckers\Index.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -987,6 +999,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Mobile\Models\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>

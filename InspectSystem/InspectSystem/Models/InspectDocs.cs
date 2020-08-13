@@ -55,6 +55,6 @@ namespace InspectSystem.Models
         public virtual ICollection<InspectDocDetailsTemporary> InspectDocDetailsTemporary { get; set; }
         public virtual ICollection<InspectDocFlow> InspectDocFlows { get; set; }
 
-        public virtual InspectFlowStatus InspectFlowStatusTable { get; set; }
+        public virtual InspectFlowStatus InspectFlowStatus { get; set; }
     }
 }

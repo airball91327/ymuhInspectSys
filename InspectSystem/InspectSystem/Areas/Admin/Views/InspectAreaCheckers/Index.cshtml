@@ -1,0 +1,45 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectAreaChecker>
+
+@{
+    ViewBag.Title = "各區域簽核主管列表";
+}
+
+<h2><b>各區域簽核主管列表</b></h2>
+
+<a class="btn btn-primary" href="@Url.Action("Create")">新增簽核主管</a><br />
+<br />
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectAreas.AreaName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InspectAreas.AreaName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("編輯簽核主管", "Edit", new { areaCheckerId = item.AreaCheckerId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("刪除", "Delete", new { areaCheckerId = item.AreaCheckerId }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>

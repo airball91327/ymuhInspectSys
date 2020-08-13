@@ -22,18 +22,24 @@ namespace InspectSystem.Controllers
         }
 
         // GET: InspectFields/Search
-        /* Use ACID and ItemId to search the fields. */
-        public ActionResult Search(int acid, int ItemId)
+        /// <summary>
+        /// Search inspectFields.
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="shiftId"></param>
+        /// <param name="classId"></param>
+        /// <param name="itemId"></param>
+        /// <returns>The search results of inspectFields' list.</returns>
+        public ActionResult Search(int areaId, int shiftId, int classId, int itemId)
         {
-            //var SearchResult = db.InspectFields
-            //                     .Where(i => i.ACID == acid &&
-            //                                 i.ItemId == ItemId);
-            //ViewBag.ACID = acid;
-            //ViewBag.ItemId = ItemId;
-            return PartialView(/*SearchResult.ToList()*/);
+            var SearchResult = db.InspectFields.Where(i => i.AreaId == areaId && i.ShiftId == shiftId &&
+                                                           i.ClassId == classId && i.ItemId == itemId);
+
+            ViewBag.ItemId = itemId;
+            return PartialView(SearchResult.ToList());
         }
 
-        /* Unused code
+        // Not been used.
         // GET: InspectFields/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,7 +54,7 @@ namespace InspectSystem.Controllers
             }
             return PartialView(inspectFields);
         }
-        */
+        
 
         // GET: InspectFields/Create
         public ActionResult Create(int acid, int ItemId)
@@ -72,16 +78,18 @@ namespace InspectSystem.Controllers
         }
 
         // POST: InspectFields/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(InspectFields inspectFields, FormCollection collection)
         {
             // Set variables
-            int ItemId = inspectFields.ItemId;
+            int areaId = inspectFields.AreaId;
+            int shiftId = inspectFields.ShiftId;
+            int classId = inspectFields.ClassId;
+            int itemId = inspectFields.ItemId;
 
-            int fieldCount = db.InspectFields.Count(fc => fc.ACID == ACID && fc.ItemId == ItemId);
+            int fieldCount = db.InspectFields.Where(fc => fc.AreaId == areaId && fc.ShiftId == shiftId &&
+                                                          fc.ClassId == classId && fc.ItemId == itemId).Count();
             int FieldId = fieldCount + 1;
             inspectFields.FieldId = FieldId;
 
@@ -100,7 +108,7 @@ namespace InspectSystem.Controllers
                             {
                                 InspectFieldDropDown inspectFieldDropDown = new InspectFieldDropDown
                                 {
-                                    ItemId = ItemId,
+                                    ItemId = itemId,
                                     FieldId = FieldId,
                                     Value = collection["textbox" + i]
                                 };
@@ -112,28 +120,28 @@ namespace InspectSystem.Controllers
 
                 db.InspectFields.Add(inspectFields);
                 db.SaveChanges();
-                return RedirectToAction("Search", new { ItemId = ItemId });
+                return RedirectToAction("Search", new { ItemId = itemId });
             }
-            return RedirectToAction("Search", new { ItemId = ItemId });
+            return RedirectToAction("Search", new { ItemId = itemId });
         }
 
         // GET: InspectFields/Edit/5
-        public ActionResult Edit(int? ACID, int? ItemId, int? FieldId)
+        public ActionResult Edit(int? AreaId, int? ShiftId, int? ClassId, int? ItemId, int? FieldId)
         {
 
-            ViewBag.ItemNameForEdit = db.InspectItems.Find(ACID, ItemId).ItemName;
+            ViewBag.ItemNameForEdit = db.InspectItems.Find(AreaId, ShiftId, ClassId, ItemId).ItemName;
 
-            var DropDownList = db.InspectFieldDropDown.Where(i => i.ACID == ACID &&
-                                                                  i.ItemId == ItemId &&
+            var DropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId &&
+                                                                  i.ClassId == ClassId && i.ItemId == ItemId &&
                                                                   i.FieldId == FieldId)
                                                       .OrderBy(i => i.Id);
             TempData["DropDownList"] = DropDownList.ToList();
 
-            if (ACID == null || ItemId == null || FieldId == null)
+            if (AreaId == null || ShiftId == null || ClassId == null || ItemId == null || FieldId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectFields inspectFields = db.InspectFields.Find(ACID, ItemId, FieldId);
+            InspectFields inspectFields = db.InspectFields.Find(AreaId, ShiftId, ClassId, ItemId, FieldId);
             if (inspectFields == null)
             {
                 return HttpNotFound();
@@ -142,15 +150,16 @@ namespace InspectSystem.Controllers
         }
 
         // POST: InspectFields/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(InspectFields inspectFields, FormCollection collection)
         {
-            var ACID = inspectFields.ACID;
-            var ItemId = inspectFields.ItemId;
-            var FieldId = inspectFields.FieldId;
+            // Set variables
+            int areaId = inspectFields.AreaId;
+            int shiftId = inspectFields.ShiftId;
+            int classId = inspectFields.ClassId;
+            int itemId = inspectFields.ItemId;
+            var fieldId = inspectFields.FieldId;
 
             if (ModelState.IsValid)
             {
@@ -158,9 +167,9 @@ namespace InspectSystem.Controllers
                 {
                     /* for datatype dropdownlist, and dynamic inset textbox. */
                     var inputCount = 0;
-                    var DropDownList = db.InspectFieldDropDown.Where(i => i.ACID == ACID &&
-                                                                          i.ItemId == ItemId &&
-                                                                          i.FieldId == FieldId)
+                    var DropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == areaId && i.ShiftId == shiftId &&
+                                                                          i.ClassId == classId && i.ItemId == itemId &&
+                                                                          i.FieldId == fieldId)
                                                               .OrderBy(i => i.Id);
 
                     if (int.TryParse(collection["TextBoxCount"], out inputCount))
@@ -184,9 +193,11 @@ namespace InspectSystem.Controllers
                                 {
                                     InspectFieldDropDown inspectFieldDropDown = new InspectFieldDropDown
                                     {
-                                        ACID = ACID,
-                                        ItemId = ItemId,
-                                        FieldId = FieldId,
+                                        AreaId = areaId,
+                                        ShiftId = shiftId,
+                                        ClassId = classId,
+                                        ItemId = itemId,
+                                        FieldId = fieldId,
                                         Value = collection["textbox" + j]
                                     };
                                     db.InspectFieldDropDown.Add(inspectFieldDropDown);
@@ -231,38 +242,10 @@ namespace InspectSystem.Controllers
 
                 db.Entry(inspectFields).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Search",new { acid = ACID, ItemId = ItemId });
+                return RedirectToAction("Search",new { areaId = areaId, shiftId = shiftId, classId = classId, itemId = itemId });
             }
-            return RedirectToAction("Search", new { acid = ACID, ItemId = ItemId });
+            return RedirectToAction("Search", new { areaId = areaId, shiftId = shiftId, classId = classId, itemId = itemId });
         }
-
-        /* Unused code
-        // GET: InspectFields/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            InspectFields inspectFields = db.InspectFields.Find(id);
-            if (inspectFields == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView(inspectFields);
-        }
-
-        // POST: InspectFields/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            InspectFields inspectFields = db.InspectFields.Find(id);
-            db.InspectFields.Remove(inspectFields);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        */
 
         protected override void Dispose(bool disposing)
         {

@@ -72,8 +72,8 @@ namespace InspectSystem.Controllers
                 var resultList = searchList.AsEnumerable().Select(s => new
                 {
                     AreaName = s.AreaName,
-                    FlowStatusName = s.InspectFlowStatusTable.FlowStatusName,
-                    Date = s.ApplyDate.ToString("yyyy/MM/dd"),       // ToString() is not supported in Linq to Entities, 
+                    FlowStatusName = s.InspectFlowStatus.FlowStatusName,
+                    ApplyDate = s.ApplyDate.ToString("yyyy/MM/dd"),       // ToString() is not supported in Linq to Entities, 
                     EngId = s.EngId,                      // need to change type to IEnumerable by using AsEnumerable(),
                     EngName = s.EngName,                  // and then can use ToString(), 
                     CheckerId = s.CheckerId,                    // because AsEnumerable() is Linq to Objects.

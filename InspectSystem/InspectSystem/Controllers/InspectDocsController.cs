@@ -18,7 +18,7 @@ namespace InspectSystem.Controllers
         // GET: InspectDocs
         public ActionResult Index()
         {
-            var inspectDocs = db.InspectDocs.Include(i => i.InspectFlowStatusTable);
+            var inspectDocs = db.InspectDocs.Include(i => i.InspectFlowStatus);
             var editingDocs = inspectDocs.Where(i => i.FlowStatusId == 3); // 編輯中文件
             return View(editingDocs.ToList());
         }
