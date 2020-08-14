@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="~/Content/MyMegaDropDownStyle.css" />
 
     <style>
+        .setHeaderStyle {
+            color: blue;
+        }
+
         .navbar-layout-content {
             font-size: 15px;
         }
@@ -28,9 +32,6 @@
         .layout-dropdown-menu  > li > a:focus {
             color: #ffffff;
             background-color: #ff0000;
-        }
-        #pnlLOGIN > a {
-            color: red !important;
         }
     </style>
 </head>
@@ -57,36 +58,25 @@
                             @Html.ActionLink("欄位數值搜尋", "Index", "InspectDocDtlValSearch", new { @class = "dropdown-item" })
                         </div>
                     </li>
-                    <li class="nav-item dropdown mega-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#"  id="dropdownAdminMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             後台維護功能
-                            <span class="caret" id="dropdownSymbol"></span>
                         </a>
-                        <ul class="dropdown-menu mega-dropdown-menu">
-                            <li class="col-sm-offset-1 col-sm-3">
-                                <ul>
-                                    <li class="dropdown-header">表單維護</li>
-                                    <li>@Html.ActionLink("巡檢區域維護", "Index", "InspectAreas")</li>
-                                    <li>@Html.ActionLink("巡檢類別維護", "Index", "InspectClasses")</li>
-                                    <li>@Html.ActionLink("巡檢項目維護", "Index", "InspectItems")</li>
-                                    <li>@Html.ActionLink("注意事項維護", "Index", "InspectPrecautions")</li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-3">
-                                <ul>
-                                    <li class="dropdown-header">人員維護</li>
-                                    <li>@Html.ActionLink("巡檢人員列表", "Index", "InspectMembers")</li>
-                                    <li>@Html.ActionLink("各區審核主管維護", "Index", "InspectAreaCheckers")</li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-3">
-                                <ul>
-                                    <li class="dropdown-header">文件維護</li>
-                                    <li>@Html.ActionLink("巡檢文件編輯", "Index", "InspectDocs")</li>
-                                    <li>@Html.ActionLink("新增巡檢文件", "Create", "InspectDocs")</li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <div class="dropdown-menu" aria-labelledby="dropdownAdminMenuLink">
+                            <h6 class="dropdown-header setHeaderStyle">表單維護</h6>
+                            @Html.ActionLink("巡檢區域維護", "Index", "InspectAreas", new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢類別維護", "Index", "InspectClasses", new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢項目維護", "Index", "InspectItems", new { @class = "dropdown-item" })
+                            @Html.ActionLink("注意事項維護", "Index", "InspectPrecautions", new { @class = "dropdown-item" })
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header setHeaderStyle">人員維護</h6>
+                            @Html.ActionLink("巡檢人員列表", "Index", "InspectMembers", new { @class = "dropdown-item" })
+                            @Html.ActionLink("各區審核主管維護", "Index", "InspectAreaCheckers", new { @class = "dropdown-item" })
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header setHeaderStyle">文件維護</h6>
+                            @Html.ActionLink("巡檢文件編輯", "Index", "InspectDocs", new { @class = "dropdown-item" })
+                            @Html.ActionLink("新增巡檢文件", "Create", "InspectDocs", new { @class = "dropdown-item" })
+                        </div>
                     </li>
                 </ul>
 
@@ -110,11 +100,11 @@
         $(document).ready(function () {
             $(".dropdown").hover(
                 function () {
-                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("200");
                     $(this).toggleClass('open');
                 },
                 function () {
-                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("200");
                     $(this).toggleClass('open');
                 }
             );

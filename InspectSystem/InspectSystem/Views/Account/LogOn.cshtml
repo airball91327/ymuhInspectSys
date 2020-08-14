@@ -26,18 +26,17 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            @*@Html.LabelFor(m => m.UserName, new { @class = "control-label" })*@
-            <div>
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "使用者帳號", autofocus = "autofocus" })
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-            </div>
+        @*@Html.LabelFor(m => m.UserName, new { @class = "control-label" })*@
+        <div>
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "使用者帳號", autofocus = "autofocus" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+        </div>
 
-
-            @*@Html.LabelFor(m => m.Password, new { @class = "control-label" })*@
-            <div>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "密碼" })
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-            </div>
+        @*@Html.LabelFor(m => m.Password, new { @class = "control-label" })*@
+        <div>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "密碼" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
 
         @*<div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -47,11 +46,13 @@
                     </div>
                 </div>
             </div>*@
+
         <div class="form-group">
             <div>
                 【登入帳號/密碼同ERP系統】
             </div>
         </div>
+
         <div class="form-group">
             <div>
                 <input type="submit" value="登入" class="btn btn-lg btn-primary btn-block" />
