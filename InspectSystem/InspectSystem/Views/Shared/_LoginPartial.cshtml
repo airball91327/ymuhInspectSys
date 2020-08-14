@@ -2,24 +2,15 @@
 
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "form-inline" }))
     {
         @Html.AntiForgeryToken()
-
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello " + Html.Action("GetFullName", "AppUsers", new { Area = "" }) + "!", "Index", "Home", new { Area = "" }, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li>
-                <a href="javascript:document.getElementById('logoutForm').submit()">登出</a>
-            </li>
-        </ul>
+        @Html.ActionLink("Hello " + Html.Action("GetFullName", "AppUsers", new { Area = "" }) + "!", "Index", "Home", new { Area = "" }, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+        <a class="btn btn-outline-light" href="javascript:document.getElementById('logoutForm').submit()">登出</a>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        @*<li>@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
-        <li>@Html.ActionLink("登入", "Login", "Account", routeValues: new { Area = "" }, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    @*<li>@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+    <li>@Html.ActionLink("登入", "Login", "Account", routeValues: new { Area = "" }, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
 }
