@@ -480,8 +480,10 @@
     <Content Include="Content\MyStyleForPostLoader.css" />
     <Content Include="Content\NYMU.jpg" />
     <Content Include="Content\post-loader.gif" />
+    <Content Include="Content\signin.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\w3.css" />
+    <Content Include="Content\YMUH_Logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

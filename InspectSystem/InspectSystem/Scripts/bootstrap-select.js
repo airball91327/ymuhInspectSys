@@ -388,7 +388,7 @@
     MENURIGHT: 'dropdown-menu-right',
     MENULEFT: 'dropdown-menu-left',
     // to-do: replace with more advanced template/customization options
-    BUTTONCLASS: version.major === '4' ? 'btn-light' : 'btn-default',
+    BUTTONCLASS: version.major === '4' ? 'btn-light' : 'btn-secondary',
     POPOVERHEADER: version.major === '4' ? 'popover-header' : 'popover-title'
   }
 
@@ -485,7 +485,7 @@
     doneButtonText: 'Close',
     multipleSeparator: ', ',
     styleBase: 'btn',
-    style: 'btn-default',
+    style: 'btn-secondary',
     size: 'auto',
     title: null,
     selectedTextFormat: 'values',

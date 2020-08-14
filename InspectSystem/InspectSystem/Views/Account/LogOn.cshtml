@@ -1,9 +1,12 @@
-﻿@using InspectSystem.Models
-@model LogOnModel
+﻿@model LogOnModel
+
+@using InspectSystem.Models
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "登入";
 }
+
+<link rel="stylesheet" href="~/Content/signin.css" />
 <style>
     /* Style the scale of checkbox. */
     input[type=checkbox] {
@@ -14,31 +17,29 @@
     }
 </style>
 
-<h2>@ViewBag.Title</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("LogOn", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
+<div id="loginForm">
+    @using (Html.BeginForm("LogOn", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+    {
+        <img class="mb-4" src="~/Content/YMUH_Logo.png"/>
+        <h1 class="h3 mb-3 font-weight-normal">@ViewBag.Title</h1>
+        @Html.AntiForgeryToken()
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-8">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                @*<div class="form-group">
+            @*@Html.LabelFor(m => m.UserName, new { @class = "control-label" })*@
+            <div>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "使用者帳號", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            </div>
+
+
+            @*@Html.LabelFor(m => m.Password, new { @class = "control-label" })*@
+            <div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "密碼" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+        @*<div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <div class="checkbox">
                         @Html.CheckBoxFor(m => m.RememberMe)
@@ -46,25 +47,17 @@
                     </div>
                 </div>
             </div>*@
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        【登入帳號/密碼同ERP系統】
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        <input type="submit" value="登入" class="btn btn-default" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        @*@Html.ActionLink("忘記密碼?", "ForgetPassword")*@
-                        @*<a style="margin-left:10px" href="~/manual.pdf" target="_blank">操作手冊下載</a>*@
-                    </div>
-                </div>
-            }
-        </section>
-    </div>
+        <div class="form-group">
+            <div>
+                【登入帳號/密碼同ERP系統】
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="submit" value="登入" class="btn btn-lg btn-primary btn-block" />
+            </div>
+        </div>
+    }
 </div>
 
 @section Scripts {
