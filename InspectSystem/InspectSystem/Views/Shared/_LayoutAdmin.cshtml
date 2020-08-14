@@ -12,26 +12,15 @@
     <style>
         .setHeaderStyle {
             color: blue;
+            font-weight:bold;
         }
-
         .navbar-layout-content {
             font-size: 15px;
         }
+        .layout-dropdown-menu  > a:hover,
+        .layout-dropdown-menu  > a:focus {
 
-        .layout-dropdown-menu {
-            background-color: #222;
-        }
-
-        .layout-dropdown-menu  > li > a {
-            color: #9d9d9d;
-            padding: 7px 15px;
-            font-size: 16px;
-        }
-
-        .layout-dropdown-menu  > li > a:hover,
-        .layout-dropdown-menu  > li > a:focus {
-            color: #ffffff;
-            background-color: #ff0000;
+            background-color: aliceblue;
         }
     </style>
 </head>
@@ -53,7 +42,7 @@
                         <a class="nav-link dropdown-toggle" href="@Url.Action("Index", "InspectDocSearch")" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             搜尋
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @Html.ActionLink("巡檢表單搜尋", "Index", "InspectDocSearch", new { @class = "dropdown-item" })
                             @Html.ActionLink("欄位數值搜尋", "Index", "InspectDocDtlValSearch", new { @class = "dropdown-item" })
                         </div>
@@ -62,7 +51,7 @@
                         <a class="nav-link dropdown-toggle" href="#"  id="dropdownAdminMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             後台維護功能
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownAdminMenuLink">
+                        <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="dropdownAdminMenuLink">
                             <h6 class="dropdown-header setHeaderStyle">表單維護</h6>
                             @Html.ActionLink("巡檢區域維護", "Index", "InspectAreas", new { @class = "dropdown-item" })
                             @Html.ActionLink("巡檢類別維護", "Index", "InspectClasses", new { @class = "dropdown-item" })
@@ -80,7 +69,7 @@
                     </li>
                 </ul>
 
-                <div class="mr-sm-2" id="pnlLOGIN">@Html.Partial("_LoginPartial")</div>
+                <div class="mr-sm-2">@Html.Partial("_LoginPartial")</div>
             </div>
         </div>
     </div>
