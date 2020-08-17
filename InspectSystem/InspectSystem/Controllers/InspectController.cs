@@ -6,13 +6,12 @@ using System.Web.Mvc;
 
 namespace InspectSystem.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class InspectController : Controller
     {
+        // GET: Inspect
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }
