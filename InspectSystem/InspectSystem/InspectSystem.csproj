@@ -270,6 +270,13 @@
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InspectAreaChecker.cs" />
+    <Compile Include="Models\VentilatorDocIdTable.cs" />
+    <Compile Include="Models\VentilatorDoc.cs" />
+    <Compile Include="Models\VentilatorDocDetail.cs" />
+    <Compile Include="Models\VentilatorField.cs" />
+    <Compile Include="Models\VentilatorItem.cs" />
+    <Compile Include="Models\VentilatorClass.cs" />
+    <Compile Include="Models\VentilatorStatus.cs" />
     <Compile Include="Models\InspectAreas.cs" />
     <Compile Include="Models\InspectClasses.cs" />
     <Compile Include="Models\InspectDocDetails.cs" />
