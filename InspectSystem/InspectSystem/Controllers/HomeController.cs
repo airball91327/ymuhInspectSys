@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InspectSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,5 +15,13 @@ namespace InspectSystem.Controllers
             return View();
         }
 
+        public ActionResult Index2()
+        {
+            UnsignCountsVModel v = new UnsignCountsVModel();
+            v.VentilatorCount = 0;
+            v.InspectCount = 0;
+
+            return View(v);
+        }
     }
 }

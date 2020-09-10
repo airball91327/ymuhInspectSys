@@ -7,7 +7,6 @@
     <title>@ViewBag.Title -  巡檢系統</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" href="~/Content/MyMegaDropDownStyle.css" />
 
     <style>
         .setHeaderStyle {
@@ -35,7 +34,7 @@
             </div>
             <div class="navbar-collapse collapse" id="navbarTogglerMain01">
                 <ul class="nav navbar-nav navbar-layout-content mr-auto">
-                    <li class="nav-item">@Html.ActionLink("巡檢作業", "SelectAreas", "InspectDocDetails", new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("個人首頁", "Index2", "Home", new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("工程師審核作業", "DocListForWorker", "InspectDocChecker", new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("主管審核作業", "DocListForChecker", "InspectDocChecker", new { @class = "nav-link" })</li>
                     <li class="nav-item dropdown">

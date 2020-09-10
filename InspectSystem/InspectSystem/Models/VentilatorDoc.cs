@@ -46,6 +46,9 @@ namespace InspectSystem.Models
         public string AssetNo { get; set; }
         [Display(Name = "設備名稱")]
         public string AssetName { get; set; }
+        [Required]
+        [Display(Name = "文件狀態")]
+        public string DocStatus { get; set; }
 
         public virtual VentilatorStatus VentilatorStatus { get; set; }
         public virtual ICollection<VentilatorDocDetail> VentilatorDocDetail { get; set; }

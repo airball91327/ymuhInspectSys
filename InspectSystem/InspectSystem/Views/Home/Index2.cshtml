@@ -1,0 +1,51 @@
+﻿@model InspectSystem.Models.UnsignCountsVModel
+@{
+    ViewBag.Title = "簽核列表";
+}
+
+<div class="container">
+    <h4>簽核列表</h4>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">呼吸器 <span class="badge badge-primary">@Model.VentilatorCount</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">巡檢 <span class="badge badge-primary">@Model.InspectCount</span></a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="container tab-pane fade show active">
+            <h4>呼吸器</h4>
+            @*<p>@Html.Action("Index", "VentilatorDoc")</p>*@
+        </div>
+        <div id="menu1" class="container tab-pane fade ">
+            <h4>巡檢</h4>
+            @*<p>@Html.Action("Index", "Keeps")</p>*@
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$('.combobox').combobox();
+        });
+
+        //$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        //    var target = $(e.target).attr("href") // activated tab
+        //    if (target == "#home") {
+        //        $("#pnlREPAIRLIST").html('');
+        //        $("#btnQTY").trigger("click");
+        //    }
+        //    else if (target == "#menu1") {
+        //        $("#pnlKEEPLIST").html('');
+        //        $("#btnQTY2").trigger("click");
+        //    }
+        //});
+    </script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}
+
