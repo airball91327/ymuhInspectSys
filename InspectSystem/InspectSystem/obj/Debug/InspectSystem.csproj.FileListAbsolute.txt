@@ -292,7 +292,6 @@ J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\roslyn\vbc.exe.co
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\roslyn\vbc.rsp
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\roslyn\VBCSCompiler.exe
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\roslyn\VBCSCompiler.exe.config
-J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Antlr3.Runtime.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\ClosedXML.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\DocumentFormat.OpenXml.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\EntityFramework.dll
@@ -321,10 +320,8 @@ J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.Web.Hel
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.Web.Infrastructure.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Newtonsoft.Json.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Owin.dll
-J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\ReportViewerForMvc.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.IO.FileSystem.Primitives.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.IO.Packaging.dll
-J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Linq.Dynamic.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Web.Helpers.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Web.Mvc.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Web.Optimization.dll
@@ -364,7 +361,6 @@ J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\VSLangProj80.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.ManagedInterfaces.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.WCFReference.Interop.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.Debugger.Interop.11.0.dll
-J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Threading.Tasks.Dataflow.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.GraphModel.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.MSXML.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.Build.Utilities.Core.dll
@@ -383,7 +379,6 @@ J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Web.WebPag
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Web.WebPages.Razor.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Web.Mvc.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\System.Web.Optimization.xml
-J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Antlr3.Runtime.pdb
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\WebMatrix.Data.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\WebMatrix.WebData.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Newtonsoft.Json.xml
