@@ -252,9 +252,11 @@
     <Compile Include="Controllers\InspectMembersController.cs" />
     <Compile Include="Controllers\InspectPrecautionsController.cs" />
     <Compile Include="Controllers\InspectReportsController.cs" />
+    <Compile Include="Controllers\VentilatorDocsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppRoles.cs" />
     <Compile Include="Models\AppUser.cs" />
@@ -272,6 +274,7 @@
     <Compile Include="Models\VentilatorField.cs" />
     <Compile Include="Models\VentilatorItem.cs" />
     <Compile Include="Models\VentilatorClass.cs" />
+    <Compile Include="Models\VentilatorQryVModel.cs" />
     <Compile Include="Models\VentilatorStatus.cs" />
     <Compile Include="Models\InspectAreas.cs" />
     <Compile Include="Models\InspectClasses.cs" />
@@ -991,6 +994,12 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\VentilatorDocs\Create.cshtml" />
+    <Content Include="Views\VentilatorDocs\Delete.cshtml" />
+    <Content Include="Views\VentilatorDocs\Details.cshtml" />
+    <Content Include="Views\VentilatorDocs\Edit.cshtml" />
+    <Content Include="Views\VentilatorDocs\Index.cshtml" />
+    <Content Include="Views\VentilatorDocs\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

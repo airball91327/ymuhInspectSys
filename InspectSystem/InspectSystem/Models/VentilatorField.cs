@@ -9,10 +9,6 @@ namespace InspectSystem.Models
     [Table("VentilatorField")]
     public class VentilatorField
     {
-        public VentilatorField()
-        {
-
-        }
 
         [Key, Column(Order = 1)]
         [Required]
@@ -52,5 +48,7 @@ namespace InspectSystem.Models
         public DateTime? Rtt { get; set; }
 
         public virtual VentilatorStatus VentilatorStatus { get; set; }
+        public virtual VentilatorClass VentilatorClass { get; set; }
+        public virtual VentilatorItem VentilatorItem { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace InspectSystem.Models
         public DateTime? Rtt { get; set; }
 
         public virtual VentilatorStatus VentilatorStatus { get; set; }
-
+        public virtual VentilatorClass VentilatorClass { get; set; }
         public virtual ICollection<VentilatorField> VentilatorField { get; set; }
     }
 }

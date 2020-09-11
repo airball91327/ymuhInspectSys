@@ -30,7 +30,7 @@ namespace InspectSystem.Models
         public string ClassName { get; set; }
         [Display(Name = "類別排列順序")]
         public int? ClassOrder { get; set; }
-        [Key, Column(Order = 3)]
+        [Key, Column(Order = 4)]
         [Required]
         [Display(Name = "項目代碼")]
         public int ItemId { get; set; }
@@ -39,7 +39,7 @@ namespace InspectSystem.Models
         public string ItemName { get; set; }
         [Display(Name = "項目排列順序")]
         public int? ItemOrder { get; set; }
-        [Key, Column(Order = 4)]
+        [Key, Column(Order = 5)]
         [Required]
         [Display(Name = "欄位代碼")]
         public int FieldId { get; set; }

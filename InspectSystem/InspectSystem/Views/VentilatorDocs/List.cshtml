@@ -1,0 +1,87 @@
+﻿@model IEnumerable<InspectSystem.Models.VentilatorDoc>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VentilatorStatus.StatusName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CloseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EngId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EngName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DocStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VentilatorStatus.StatusName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplyDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CloseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EngId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EngName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssetNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssetName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
