@@ -35,7 +35,15 @@
             <div class="navbar-collapse collapse" id="navbarTogglerMain01">
                 <ul class="nav navbar-nav navbar-layout-content mr-auto">
                     <li class="nav-item">@Html.ActionLink("個人首頁", "Index2", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("工程師審核作業", "DocListForWorker", "InspectDocChecker", new { @class = "nav-link" })</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            新增表單
+                        </a>
+                        <div class="dropdown-menu layout-dropdown-menu">
+                            @Html.ActionLink("巡檢表單", "Create", "InspectDocSearch", new { @class = "dropdown-item" })
+                            @Html.ActionLink("呼吸器表單", "Create", "VentilatorDoc", new { @class = "dropdown-item" })
+                        </div>
+                    </li>
                     <li class="nav-item">@Html.ActionLink("主管審核作業", "DocListForChecker", "InspectDocChecker", new { @class = "nav-link" })</li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="@Url.Action("Index", "InspectDocSearch")" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,7 +55,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#"  id="dropdownAdminMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAdminMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             後台維護功能
                         </a>
                         <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="dropdownAdminMenuLink">
@@ -72,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top:1.2em">
         @RenderBody()
         <hr />
         <footer>

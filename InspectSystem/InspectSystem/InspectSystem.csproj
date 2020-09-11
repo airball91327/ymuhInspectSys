@@ -479,11 +479,11 @@
     <Content Include="Content\MobileStyle\MyMobileTabStyle.css" />
     <Content Include="Content\MobileStyle\MyStyleForClassContentOfArea.css" />
     <Content Include="Content\MobileStyle\MyStyleForDocDetail.css" />
-    <Content Include="Content\myDataTableStyle.css" />
-    <Content Include="Content\MyMegaDropDownStyle.css" />
-    <Content Include="Content\MyStyleForClassContentOfArea.css" />
-    <Content Include="Content\MyStyleForDocDetail.css" />
-    <Content Include="Content\MyStyleForPostLoader.css" />
+    <Content Include="Content\MyStyles\myDataTableStyle.css" />
+    <Content Include="Content\MyStyles\MyMegaDropDownStyle.css" />
+    <Content Include="Content\MyStyles\MyStyleForClassContentOfArea.css" />
+    <Content Include="Content\MyStyles\MyStyleForDocDetail.css" />
+    <Content Include="Content\MyStyles\MyStyleForPostLoader.css" />
     <Content Include="Content\post-loader.gif" />
     <Content Include="Content\signin.css" />
     <Content Include="Content\w3.css" />

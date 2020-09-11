@@ -13,6 +13,7 @@ namespace InspectSystem.Models
         {
         }
 
+        // 需刪除
         public virtual DbSet<InspectAreas> InspectAreas { get; set; }
         public virtual DbSet<InspectClasses> InspectClasses { get; set; }
         public virtual DbSet<InspectItems> InspectItems { get; set; }
@@ -30,7 +31,19 @@ namespace InspectSystem.Models
         public virtual DbSet<InspectShifts> InspectShifts { get; set; }
         public virtual DbSet<ShiftsInAreas> ShiftsInAreas { get; set; }
         public virtual DbSet<ClassesOfAreas> ClassesOfAreas { get; set; }
+        // 需刪除
 
+        // 呼吸器相關
+        public virtual DbSet<VentilatorDoc> VentilatorDoc { get; set; }
+        public virtual DbSet<VentilatorDocIdTable> VentilatorDocIdTable { get; set; }
+        public virtual DbSet<VentilatorDocDetail> VentilatorDocDetail { get; set; }
+        public virtual DbSet<VentilatorStatus> VentilatorStatus { get; set; }
+        public virtual DbSet<VentilatorClass> VentilatorClass { get; set; }
+        public virtual DbSet<VentilatorItem> VentilatorItem { get; set; }
+        public virtual DbSet<VentilatorField> VentilatorField { get; set; }
+
+
+        // 使用者相關
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<AppRoles> AppRoles { get; set; }
         public virtual DbSet<UsersInRoles> UsersInRoles { get; set; }
