@@ -20,7 +20,7 @@
 <div id="loginForm">
     @using (Html.BeginForm("LogOn", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
     {
-        <img class="mb-4" src="~/Content/YMUH_Logo.png"/>
+        <img class="mb-4" src="~/Content/Images/YMUH_Logo.png"/>
         <h1 class="h3 mb-3 font-weight-normal">@ViewBag.Title</h1>
         @Html.AntiForgeryToken()
 
