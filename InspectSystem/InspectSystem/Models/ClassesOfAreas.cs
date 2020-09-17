@@ -27,7 +27,7 @@ namespace InspectSystem.Models
         [Display(Name = "不正常數量")]
         public int CountErrors { get; set; } // To show the errors of class in detail view for checker.
 
-        public virtual InspectAreas InspectAreas { get; set; }
-        public virtual InspectClasses InspectClasses { get; set; }
+        public virtual InspectArea InspectAreas { get; set; }
+        public virtual InspectClass InspectClasses { get; set; }
     }
 }

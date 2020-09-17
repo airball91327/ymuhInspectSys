@@ -5,31 +5,20 @@ using System.Web.Mvc;
 
 namespace InspectSystem.Models
 {
-    [Table("InspectFields")]
-    public class InspectFields
+    [Table("InspectField")]
+    public class InspectField
     {
         [Key, Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
-        [ForeignKey("InspectAreas")]
-        [Display(Name = "區域代碼")]
         public int AreaId { get; set; }
         [Key, Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
-        [ForeignKey("InspectShifts")]
-        [Display(Name = "班別代碼")]
         public int ShiftId { get; set; }
         [Key, Column(Order = 3)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
-        [ForeignKey("InspectClasses")]
-        [Display(Name = "類別代碼")]
         public int ClassId { get; set; }
         [Key, Column(Order = 4)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
-        [Display(Name = "項目代碼")]
         public int ItemId { get; set; }
         [NotMapped]
         [Display(Name = "項目名稱")]
@@ -57,12 +46,12 @@ namespace InspectSystem.Models
         [Display(Name = "是否必填")]
         public bool IsRequired { get; set; }
         [Display(Name = "顯示昨日數值")]
-        public bool ShowPastValue { get; set; }
+        public bool? ShowPastValue { get; set; }
         public int? Rtp { get; set; }
         public DateTime? Rtt { get; set; }
 
-        public virtual InspectAreas InspectAreas { get; set; }
-        public virtual InspectClasses InspectClasses { get; set; }
-        public virtual InspectShifts InspectShifts { get; set; }
+        public virtual ShiftsInAreas ShiftsInAreas { get; set; }
+        public virtual InspectClass InspectClass { get; set; }
+        public virtual InspectItem InspectItem { get; set; }
     }
 }

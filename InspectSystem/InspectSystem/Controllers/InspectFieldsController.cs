@@ -47,7 +47,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectFields inspectFields = db.InspectFields.Find(id);
+            InspectField inspectFields = db.InspectFields.Find(id);
             if (inspectFields == null)
             {
                 return HttpNotFound();
@@ -65,7 +65,7 @@ namespace InspectSystem.Controllers
             ViewBag.ItemNameForCreate = db.InspectItems.Find(acid, ItemId).ItemName;
 
             /* Set the default values for create field. */
-            InspectFields inspectFields = new InspectFields
+            InspectField inspectFields = new InspectField
             {
                 ItemId = ItemId,
                 MaxValue = 0,
@@ -80,7 +80,7 @@ namespace InspectSystem.Controllers
         // POST: InspectFields/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(InspectFields inspectFields, FormCollection collection)
+        public ActionResult Create(InspectField inspectFields, FormCollection collection)
         {
             // Set variables
             int areaId = inspectFields.AreaId;
@@ -141,7 +141,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectFields inspectFields = db.InspectFields.Find(AreaId, ShiftId, ClassId, ItemId, FieldId);
+            InspectField inspectFields = db.InspectFields.Find(AreaId, ShiftId, ClassId, ItemId, FieldId);
             if (inspectFields == null)
             {
                 return HttpNotFound();
@@ -152,7 +152,7 @@ namespace InspectSystem.Controllers
         // POST: InspectFields/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(InspectFields inspectFields, FormCollection collection)
+        public ActionResult Edit(InspectField inspectFields, FormCollection collection)
         {
             // Set variables
             int areaId = inspectFields.AreaId;

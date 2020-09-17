@@ -10,7 +10,7 @@ namespace InspectSystem.Models
     {
         public InspectMembers()
         {
-            this.InspectAreas = new HashSet<InspectAreas>();
+            this.InspectAreas = new HashSet<InspectArea>();
         }
 
         [Key]
@@ -28,6 +28,6 @@ namespace InspectSystem.Models
         [NotMapped]
         public string DptName { get; set; }
 
-        public virtual ICollection<InspectAreas> InspectAreas { get; set; }
+        public virtual ICollection<InspectArea> InspectAreas { get; set; }
     }
 }

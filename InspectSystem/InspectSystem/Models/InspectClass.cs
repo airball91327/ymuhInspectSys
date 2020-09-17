@@ -5,12 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InspectSystem.Models
 {
-    [Table("ShiftsInAreas")]
-    public class ShiftsInAreas
+    [Table("InspectClass")]
+    public class InspectClass
     {
-        public ShiftsInAreas()
+        public InspectClass()
         {
-            this.InspectClass = new HashSet<InspectClass>();
             this.InspectItem = new HashSet<InspectItem>();
             this.InspectField = new HashSet<InspectField>();
         }
@@ -19,17 +18,23 @@ namespace InspectSystem.Models
         public int AreaId { get; set; }
         [Key, Column(Order = 2)]
         public int ShiftId { get; set; }
+        [Key, Column(Order = 3)]
+        [Display(Name = "類別代碼")]
+        public int ClassId { get; set; }
+        [Required]
+        [Display(Name = "類別名稱")]
+        public string ClassName { get; set; }
         [Required]
         [Display(Name = "狀態")]
-        public bool Status { get; set; }
+        public bool ClassStatus { get; set; }
+        [Required]
+        [Display(Name = "排列順序")]
+        public int ClassOrder { get; set; }
         public int? Rtp { get; set; }
         public DateTime? Rtt { get; set; }
 
-        public virtual InspectArea InspectArea { get; set; }
-        public virtual InspectShift InspectShift { get; set; }
-        public virtual ICollection<InspectClass> InspectClass { get; set; }
+        public virtual ShiftsInAreas ShiftsInAreas { get; set; }
         public virtual ICollection<InspectItem> InspectItem { get; set; }
         public virtual ICollection<InspectField> InspectField { get; set; }
-
     }
 }

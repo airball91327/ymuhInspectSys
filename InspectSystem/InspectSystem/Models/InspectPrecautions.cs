@@ -12,13 +12,13 @@ namespace InspectSystem.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PrecautionId { get; set; }
         [Required]
-        [ForeignKey("InspectAreas")]
+        [ForeignKey("InspectArea")]
         [Display(Name = "區域代碼")]
         public int AreaId { get; set; }
         [Required]
         [Display(Name = "注意事項")]
         public string Content { get; set; }
 
-        public virtual InspectAreas InspectAreas { get; set; }
+        public virtual InspectArea InspectAreas { get; set; }
     }
 }

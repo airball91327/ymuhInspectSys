@@ -8,39 +8,33 @@ namespace InspectSystem.Models
     public class InspectDocFlow
     {
         [Key, Column(Order = 1)]
-        [ForeignKey("InspectDocs")]
         [Display(Name = "表單編號")]
         public int DocId { get; set; }
         [Key, Column(Order = 2)]
+        [Display(Name = "班別")]
+        public int ShiftId { get; set; }
+        [Key, Column(Order = 3)]
         [Display(Name = "關卡號")]
         public int StepId { get; set; }
         [Required]
         [Display(Name = "關卡人員ID")]
-        public int StepOwnerId { get; set; }
+        public int UserId { get; set; }
         [NotMapped]
         [Display(Name = "關卡人員")]
-        public string StepOwnerName { get; set; }
-        [Required]
-        [Display(Name = "巡檢人員ID")]
-        public int EngId { get; set; }
-        [Required]
-        [Display(Name = "簽核主管ID")]
-        public int CheckerId { get; set; }
+        public string UserFullName { get; set; }
         [Display(Name = "意見描述")]
         public string Opinions { get; set; }
         [Required]
-        [ForeignKey("InspectFlowStatusTable")]
-        [Display(Name = "流程狀態編號")]
-        public int FlowStatusId { get; set; }
-        [Required]
+        [Display(Name = "流程狀態")]
+        public string FlowStatusId { get; set; }
         [Display(Name ="異動人員ID")]
-        public int EditorId { get; set; }
-        [Display(Name ="異動人員")]
-        public string EditorName { get; set; }
+        public int? Rtp { get; set; }
         [Display(Name ="異動時間")]
-        public DateTime? EditTime { get; set; }
+        public DateTime? Rtt { get; set; }
+        [Display(Name = "關卡")]
+        public string Cls { get; set; }
 
-        public virtual InspectFlowStatus InspectFlowStatusTable { get; set; }
-        public virtual InspectDocs InspectDocs { get; set; }
+        public virtual InspectFlowStatus InspectFlowStatus { get; set; }
+        public virtual InspectDoc InspectDoc { get; set; }
     }
 }

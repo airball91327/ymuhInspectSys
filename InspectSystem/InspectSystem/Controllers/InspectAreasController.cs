@@ -29,7 +29,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectAreas inspectAreas = db.InspectAreas.Find(id);
+            InspectArea inspectAreas = db.InspectAreas.Find(id);
             if (inspectAreas == null)
             {
                 return HttpNotFound();
@@ -48,7 +48,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AreaId,AreaName,CheckerId,CheckerName")] InspectAreas inspectAreas)
+        public ActionResult Create([Bind(Include = "AreaId,AreaName,CheckerId,CheckerName")] InspectArea inspectAreas)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectAreas inspectAreas = db.InspectAreas.Find(id);
+            InspectArea inspectAreas = db.InspectAreas.Find(id);
             if (inspectAreas == null)
             {
                 return HttpNotFound();
@@ -94,7 +94,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AreaId,AreaName,Status")] InspectAreas inspectAreas)
+        public ActionResult Edit([Bind(Include = "AreaId,AreaName,Status")] InspectArea inspectAreas)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +114,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectAreas inspectAreas = db.InspectAreas.Find(id);
+            InspectArea inspectAreas = db.InspectAreas.Find(id);
             if (inspectAreas == null)
             {
                 return HttpNotFound();
@@ -127,7 +127,7 @@ namespace InspectSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            InspectAreas inspectAreas = db.InspectAreas.Find(id);
+            InspectArea inspectAreas = db.InspectAreas.Find(id);
             db.InspectAreas.Remove(inspectAreas);
             db.SaveChanges();
             return RedirectToAction("Index");

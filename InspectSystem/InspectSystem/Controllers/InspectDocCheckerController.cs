@@ -92,7 +92,7 @@ namespace InspectSystem.Controllers
                                                          .OrderBy(s => s.ItemOrder).ToList();
             ViewBag.fieldsByDocDetails = inspectDocDetails.ToList();
 
-            InspectDocDetailsViewModels inspectDocDetailsViewModels = new InspectDocDetailsViewModels()
+            InspectDocDetailViewModels inspectDocDetailsViewModels = new InspectDocDetailViewModels()
             {
                 InspectDocDetails = inspectDocDetails.ToList(),
             };

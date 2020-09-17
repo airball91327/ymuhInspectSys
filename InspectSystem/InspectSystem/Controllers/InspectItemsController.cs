@@ -100,7 +100,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(InspectItems inspectItems)
+        public ActionResult Create(InspectItem inspectItems)
         {
 
             bool itemStatus = true;
@@ -170,7 +170,7 @@ namespace InspectSystem.Controllers
             //找出要更改數值的資料
             int ACID = System.Convert.ToInt32(Request.Form["item.ACID"]);
             int ItemId = System.Convert.ToInt32(Request.Form["item.ItemId"]);
-            InspectItems inspectItems = db.InspectItems.Find(ACID, ItemId);
+            InspectItem inspectItems = db.InspectItems.Find(ACID, ItemId);
 
             //處理Request.Form無法處理Checkbox回傳值的問題
             if( Request.Form["item.ItemStatus"].Contains("true") == true )

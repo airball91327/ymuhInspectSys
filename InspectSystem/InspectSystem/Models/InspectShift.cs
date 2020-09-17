@@ -5,13 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InspectSystem.Models
 {
-    [Table("InspectShifts")]
-    public class InspectShifts
+    [Table("InspectShift")]
+    public class InspectShift
     {
-        public InspectShifts()
+        public InspectShift()
         {
-            this.InspectFields = new HashSet<InspectFields>();
-            this.InspectItems = new HashSet<InspectItems>();
             this.ShiftsInAreas = new HashSet<ShiftsInAreas>();
         }
 
@@ -22,14 +20,9 @@ namespace InspectSystem.Models
         [Required]
         [Display(Name = "班別名稱")]
         public string ShiftName { get; set; }
-        [Required]
-        [Display(Name = "排列順序")]
-        public int ShiftOrder { get; set; }
         public int? Rtp { get; set; }
         public DateTime? Rtt { get; set; }
 
-        public virtual ICollection<InspectFields> InspectFields { get; set; }
-        public virtual ICollection<InspectItems> InspectItems { get; set; }
         public virtual ICollection<ShiftsInAreas> ShiftsInAreas { get; set; }
 
     }

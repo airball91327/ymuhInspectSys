@@ -62,7 +62,7 @@ namespace InspectSystem.Controllers
                                                          .OrderBy(s => s.ItemOrder).ToList();
             ViewBag.fieldsByDocDetails = inspectDocDetails.ToList();
 
-            InspectDocDetailsViewModels inspectDocDetailsViewModels = new InspectDocDetailsViewModels()
+            InspectDocDetailViewModels inspectDocDetailsViewModels = new InspectDocDetailViewModels()
             {
                 InspectDocDetails = inspectDocDetails,
             };
@@ -73,7 +73,7 @@ namespace InspectSystem.Controllers
         // POST: InspectDocEdit/SaveData
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveData(List<InspectDocDetails> inspectDocDetails)
+        public ActionResult SaveData(List<InspectDocDetail> inspectDocDetails)
         {
             var areaID = inspectDocDetails.First().AreaId;
             int DocId = inspectDocDetails.First().DocId;

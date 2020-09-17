@@ -30,7 +30,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectDocs inspectDocs = db.InspectDocs.Find(id);
+            InspectDoc inspectDocs = db.InspectDocs.Find(id);
             if (inspectDocs == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace InspectSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DocId,Date,EndTime,AreaId,EngId,EngName,CheckerId,CheckerName,FlowStatusId")] InspectDocs inspectDocs)
+        public ActionResult Edit([Bind(Include = "DocId,Date,EndTime,AreaId,EngId,EngName,CheckerId,CheckerName,FlowStatusId")] InspectDoc inspectDocs)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace InspectSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(InspectDocs inspectDocs)
+        public ActionResult Create(InspectDoc inspectDocs)
         {
             /* Find data from DB and set to variables. */
             var EngId = System.Convert.ToInt32(Request.Form["MemberID"]);

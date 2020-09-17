@@ -59,7 +59,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
                         f.IsRequired
                     };
                 //int countFields = insertFields.ToList().Count; // For Debug
-                var inspectDocDetailsTemporary = new List<InspectDocDetailsTemporary>();
+                var inspectDocDetailsTemporary = new List<InspectDocDetailTemp>();
                 foreach (var item in insertFields)
                 {
                     string isFunctional = null; // Set default value.
@@ -79,7 +79,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
                         }
                     }
 
-                    inspectDocDetailsTemporary.Add(new InspectDocDetailsTemporary()
+                    inspectDocDetailsTemporary.Add(new InspectDocDetailTemp()
                     {
                         DocId = DocId,
                         AreaId = item.AreaId,
@@ -192,7 +192,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
                                                              .OrderBy(s => s.ItemOrder).ToList();
             ViewBag.fieldsByDocDetails = inspectDocDetailsTemp.ToList();
 
-            InspectDocDetailsViewModels inspectDocDetailsViewModels = new InspectDocDetailsViewModels()
+            InspectDocDetailViewModels inspectDocDetailsViewModels = new InspectDocDetailViewModels()
             {
                 InspectDocDetailsTemporary = inspectDocDetailsTemp.ToList(),
             };
@@ -219,7 +219,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
             ViewBag.fieldsByDocDetails = inspectDocDetailsTemp.ToList();
 
 
-            InspectDocDetailsViewModels inspectDocDetailsViewModels = new InspectDocDetailsViewModels()
+            InspectDocDetailViewModels inspectDocDetailsViewModels = new InspectDocDetailViewModels()
             {
                 InspectDocDetailsTemporary = inspectDocDetailsTemp,
             };
@@ -230,7 +230,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
         // POST: Mobile/InspectDocResend/TempSave
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TempSave(List<InspectDocDetailsTemporary> inspectDocDetailsTemporary)
+        public ActionResult TempSave(List<InspectDocDetailTemp> inspectDocDetailsTemporary)
         {
             var areaID = inspectDocDetailsTemporary.First().AreaId;
             var DocId = inspectDocDetailsTemporary.First().DocId;
@@ -346,7 +346,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
             var DocDetailTempList = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId).ToList();
             var areaID = DocDetailTempList.First().AreaId;
             var classID = DocDetailTempList.First().ClassId;
-            List<InspectDocDetails> inspectDocDetails = new List<InspectDocDetails>();
+            List<InspectDocDetail> inspectDocDetails = new List<InspectDocDetail>();
             var findDocDetails = db.InspectDocDetails.Where(i => i.DocId == DocId);
             var findDoc = db.InspectDocs.Find(DocId);
             var CheckerId = System.Convert.ToInt32(Request.Form["AreaCheckerNames"]);
@@ -355,7 +355,7 @@ namespace InspectSystem.Areas.Mobile.Controllers
             /* Copy temp data to inspectDocDetails list. */
             foreach (var item in DocDetailTempList)
             {
-                inspectDocDetails.Add(new InspectDocDetails()
+                inspectDocDetails.Add(new InspectDocDetail()
                 {
                     DocId = item.DocId,
                     AreaId = item.AreaId,

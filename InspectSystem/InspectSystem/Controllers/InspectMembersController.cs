@@ -70,7 +70,7 @@ namespace InspectSystem.Controllers
             var q = ( from a in db.InspectAreas select a.AreaId )
                     .Except( from m in db.InspectMemberAreas where m.MemberId == id select m.AreaId ).ToList();
             /* Insert Areas into dropdownlist. */
-            List<InspectAreas> areaList = new List<InspectAreas>();
+            List<InspectArea> areaList = new List<InspectArea>();
             foreach(var item in q)
             {
                 areaList.Add(db.InspectAreas.Find(item));
@@ -98,7 +98,7 @@ namespace InspectSystem.Controllers
             var q = (from a in db.InspectAreas select a.AreaId)
                     .Except(from m in db.InspectMemberAreas where m.MemberId == id select m.AreaId);
             /* Insert Areas into dropdownlist. */
-            List<InspectAreas> areaList = new List<InspectAreas>();
+            List<InspectArea> areaList = new List<InspectArea>();
             foreach (var item in q)
             {
                 areaList.Add(db.InspectAreas.Find(item));
@@ -130,7 +130,7 @@ namespace InspectSystem.Controllers
             ViewData["MemberId"] = new SelectList(list, "Value", "Text", list.First().Value);
 
             /* Insert Areas into dropdownlist. */
-            List<InspectAreas> areaList = new List<InspectAreas>();
+            List<InspectArea> areaList = new List<InspectArea>();
             foreach (var item in db.InspectAreas)
             {
                 areaList.Add(item);
@@ -186,7 +186,7 @@ namespace InspectSystem.Controllers
             ViewData["MemberId"] = new SelectList(list, "Value", "Text", list.First().Value);
 
             /* Insert Areas into dropdownlist. */
-            List<InspectAreas> areaList = new List<InspectAreas>();
+            List<InspectArea> areaList = new List<InspectArea>();
             foreach (var item in db.InspectAreas)
             {
                 areaList.Add(item);
@@ -224,7 +224,7 @@ namespace InspectSystem.Controllers
                     .Except(from m in db.InspectMemberAreas where m.MemberId == id && 
                                                                   m.AreaId != areaID select m.AreaId).ToList();
             /* Insert Areas into dropdownlist. */
-            List<InspectAreas> areaList = new List<InspectAreas>();
+            List<InspectArea> areaList = new List<InspectArea>();
             foreach (var item in q)
             {
                 areaList.Add(db.InspectAreas.Find(item));
@@ -264,7 +264,7 @@ namespace InspectSystem.Controllers
                     .Except(from m in db.InspectMemberAreas where m.MemberId == id &&
                                                                   m.AreaId != areaID select m.AreaId);
             /* Insert Areas into dropdownlist. */
-            List<InspectAreas> areaList = new List<InspectAreas>();
+            List<InspectArea> areaList = new List<InspectArea>();
             foreach (var item in q)
             {
                 areaList.Add(db.InspectAreas.Find(item));

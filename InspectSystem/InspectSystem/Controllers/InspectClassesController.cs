@@ -28,7 +28,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectClasses inspectClasses = db.InspectClasses.Find(id);
+            InspectClass inspectClasses = db.InspectClasses.Find(id);
             if (inspectClasses == null)
             {
                 return HttpNotFound();
@@ -47,7 +47,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClassId,ClassName")] InspectClasses inspectClasses)
+        public ActionResult Create([Bind(Include = "ClassId,ClassName")] InspectClass inspectClasses)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectClasses inspectClasses = db.InspectClasses.Find(id);
+            InspectClass inspectClasses = db.InspectClasses.Find(id);
             if (inspectClasses == null)
             {
                 return HttpNotFound();
@@ -90,7 +90,7 @@ namespace InspectSystem.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClassId,ClassName,ClassOrder")] InspectClasses inspectClasses)
+        public ActionResult Edit([Bind(Include = "ClassId,ClassName,ClassOrder")] InspectClass inspectClasses)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectClasses inspectClasses = db.InspectClasses.Find(id);
+            InspectClass inspectClasses = db.InspectClasses.Find(id);
             if (inspectClasses == null)
             {
                 return HttpNotFound();
@@ -121,7 +121,7 @@ namespace InspectSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            InspectClasses inspectClasses = db.InspectClasses.Find(id);
+            InspectClass inspectClasses = db.InspectClasses.Find(id);
             db.InspectClasses.Remove(inspectClasses);
             db.SaveChanges();
             return RedirectToAction("Index");

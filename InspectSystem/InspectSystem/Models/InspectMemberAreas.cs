@@ -18,7 +18,7 @@ namespace InspectSystem.Models
         [Display(Name = "巡檢區域")]
         public int AreaId { get; set; }
 
-        public virtual InspectAreas InspectAreas { get; set; }
+        public virtual InspectArea InspectAreas { get; set; }
         public virtual InspectMembers InspectMembers { get; set; }
     }
 }

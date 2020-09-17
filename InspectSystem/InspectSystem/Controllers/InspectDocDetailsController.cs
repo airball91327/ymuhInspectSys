@@ -59,7 +59,7 @@ namespace InspectSystem.Controllers
                     CheckerId = findAreaChecker.CheckerId;
                     checkerName = findAreaChecker.CheckerName;
                 }
-                var inspectDocs = new InspectDocs() {
+                var inspectDocs = new InspectDoc() {
                     DocId = DocId,
                     ApplyDate = DateTime.UtcNow.AddHours(08),
                     AreaId = areaID,
@@ -100,7 +100,7 @@ namespace InspectSystem.Controllers
                         f.IsRequired
                     };
                 //int countFields = insertFields.ToList().Count; // For Debug
-                var inspectDocDetailsTemporary = new List<InspectDocDetailsTemporary>();
+                var inspectDocDetailsTemporary = new List<InspectDocDetailTemp>();
                 foreach(var item in insertFields)
                 {
                     string isFunctional = null; // Set default value.
@@ -120,7 +120,7 @@ namespace InspectSystem.Controllers
                         }
                     }
 
-                    inspectDocDetailsTemporary.Add(new InspectDocDetailsTemporary()
+                    inspectDocDetailsTemporary.Add(new InspectDocDetailTemp()
                     {
                         DocId = DocId,
                         AreaId = item.AreaId,
@@ -212,12 +212,12 @@ namespace InspectSystem.Controllers
             /* Get the user's inspect areas. */
             int EngId = WebSecurity.CurrentUserId;
             var getInspectAreas = db.InspectMemberAreas.Where(i => i.MemberId == EngId).ToList();
-            List<InspectAreas> inspectAreasList = new List<InspectAreas>();
+            List<InspectArea> inspectAreasList = new List<InspectArea>();
             foreach(var item in getInspectAreas)
             {
                 var areaId = db.InspectAreas.Find(item.AreaId).AreaId;
                 var areaName = db.InspectAreas.Find(item.AreaId).AreaName;
-                inspectAreasList.Add(new InspectAreas { AreaId = areaId, AreaName = areaName });
+                inspectAreasList.Add(new InspectArea { AreaId = areaId, AreaName = areaName });
             }
             return View(inspectAreasList);
         }
@@ -238,7 +238,7 @@ namespace InspectSystem.Controllers
                                                              .OrderBy(s => s.ItemOrder).ToList();
             ViewBag.fieldsByDocDetails = inspectDocDetailsTemp.ToList();
             
-            InspectDocDetailsViewModels inspectDocDetailsViewModels = new InspectDocDetailsViewModels()
+            InspectDocDetailViewModels inspectDocDetailsViewModels = new InspectDocDetailViewModels()
             {
                     InspectDocDetailsTemporary = inspectDocDetailsTemp,
             };
@@ -249,7 +249,7 @@ namespace InspectSystem.Controllers
         // POST: InspectDocDetails/TempSave
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TempSave(List<InspectDocDetailsTemporary> inspectDocDetailsTemporary)
+        public ActionResult TempSave(List<InspectDocDetailTemp> inspectDocDetailsTemporary)
         {
             var areaID = inspectDocDetailsTemporary.First().AreaId;
             var DocId = inspectDocDetailsTemporary.First().DocId;
@@ -286,7 +286,7 @@ namespace InspectSystem.Controllers
         // POST: InspectDocDetails/SaveBeforeSend
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveBeforeSend(List<InspectDocDetailsTemporary> inspectDocDetailsTemporary)
+        public ActionResult SaveBeforeSend(List<InspectDocDetailTemp> inspectDocDetailsTemporary)
         {
             var areaID = inspectDocDetailsTemporary.First().AreaId;
             var DocId = inspectDocDetailsTemporary.First().DocId;
@@ -457,7 +457,7 @@ namespace InspectSystem.Controllers
             var DocDetailTempList = db.InspectDocDetailsTemporary.Where(i => i.DocId == DocId).ToList();
             var areaID = DocDetailTempList.First().AreaId;
             var classID = DocDetailTempList.First().ClassId;
-            List<InspectDocDetails> inspectDocDetails = new List<InspectDocDetails>();
+            List<InspectDocDetail> inspectDocDetails = new List<InspectDocDetail>();
             var findDocDetails = db.InspectDocDetails.Where(i => i.DocId == DocId);
             var findDoc = db.InspectDocs.Find(DocId);
             var CheckerId = System.Convert.ToInt32(Request.Form["AreaCheckerNames"]);
@@ -466,7 +466,7 @@ namespace InspectSystem.Controllers
             /* Copy temp data to inspectDocDetails list. */
             foreach (var item in DocDetailTempList)
             {
-                inspectDocDetails.Add(new InspectDocDetails()
+                inspectDocDetails.Add(new InspectDocDetail()
                 {
                     DocId = item.DocId,
                     AreaId = item.AreaId,

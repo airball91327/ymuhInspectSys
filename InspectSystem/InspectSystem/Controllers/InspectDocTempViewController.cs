@@ -31,7 +31,7 @@ namespace InspectSystem.Controllers
                                                              .OrderBy(s => s.ItemOrder).ToList();
             ViewBag.fieldsByDocDetails = inspectDocDetailsTemp.ToList();
 
-            InspectDocDetailsViewModels inspectDocDetailsViewModels = new InspectDocDetailsViewModels()
+            InspectDocDetailViewModels inspectDocDetailsViewModels = new InspectDocDetailViewModels()
             {
                 InspectDocDetailsTemporary = inspectDocDetailsTemp.ToList(),
             };

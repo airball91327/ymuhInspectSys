@@ -58,7 +58,7 @@ namespace InspectSystem.Controllers
                         f.IsRequired
                     };
                 //int countFields = insertFields.ToList().Count; // For Debug
-                var inspectDocDetailsTemporary = new List<InspectDocDetailsTemporary>();
+                var inspectDocDetailsTemporary = new List<InspectDocDetailTemp>();
                 foreach (var item in insertFields)
                 {
                     string isFunctional = null; // Set default value.
@@ -78,7 +78,7 @@ namespace InspectSystem.Controllers
                         }
                     }
 
-                    inspectDocDetailsTemporary.Add(new InspectDocDetailsTemporary()
+                    inspectDocDetailsTemporary.Add(new InspectDocDetailTemp()
                     {
                         DocId = DocId,
                         AreaId = item.AreaId,
@@ -176,7 +176,7 @@ namespace InspectSystem.Controllers
         // POST: InspectDocResend/TempSave
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TempSave(List<InspectDocDetailsTemporary> inspectDocDetailsTemporary)
+        public ActionResult TempSave(List<InspectDocDetailTemp> inspectDocDetailsTemporary)
         {
             var areaID = inspectDocDetailsTemporary.First().AreaId;
             var DocId = inspectDocDetailsTemporary.First().DocId;

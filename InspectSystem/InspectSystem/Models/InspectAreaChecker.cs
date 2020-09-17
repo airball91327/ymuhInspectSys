@@ -26,6 +26,6 @@ namespace InspectSystem.Models
         [EmailAddress(ErrorMessage = "無效的Email格式")]
         public string Email { get; set; }
 
-        public virtual InspectAreas InspectAreas { get; set; }
+        public virtual InspectArea InspectAreas { get; set; }
     }
 }
