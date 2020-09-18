@@ -34,24 +34,24 @@
             </div>
             <div class="navbar-collapse collapse" id="navbarTogglerMain01">
                 <ul class="nav navbar-nav navbar-layout-content mr-auto">
-                    <li class="nav-item">@Html.ActionLink("個人首頁", "Index2", "Home", new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("個人首頁", "Index2", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             新增表單
                         </a>
                         <div class="dropdown-menu layout-dropdown-menu">
-                            @Html.ActionLink("巡檢表單", "Create", "InspectDocSearch", new { @class = "dropdown-item" })
-                            @Html.ActionLink("呼吸器表單", "Create", "VentilatorDoc", new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢表單", "Create", "InspectDocIdTable", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("呼吸器表單", "Create", "VentilatorDoc", new { area = "" }, new { @class = "dropdown-item" })
                         </div>
                     </li>
-                    <li class="nav-item">@Html.ActionLink("主管審核作業", "DocListForChecker", "InspectDocChecker", new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("主管審核作業", "DocListForChecker", "InspectDocChecker", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="@Url.Action("Index", "InspectDocSearch")" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             搜尋
                         </a>
                         <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            @Html.ActionLink("巡檢表單搜尋", "Index", "InspectDocSearch", new { @class = "dropdown-item" })
-                            @Html.ActionLink("欄位數值搜尋", "Index", "InspectDocDtlValSearch", new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢表單搜尋", "Index", "InspectDocSearch", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("欄位數值搜尋", "Index", "InspectDocDtlValSearch", new { area = "" }, new { @class = "dropdown-item" })
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -60,18 +60,18 @@
                         </a>
                         <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="dropdownAdminMenuLink">
                             <h6 class="dropdown-header setHeaderStyle">表單維護</h6>
-                            @Html.ActionLink("巡檢區域維護", "Index", "InspectAreas", new { @class = "dropdown-item" })
-                            @Html.ActionLink("巡檢類別維護", "Index", "InspectClasses", new { @class = "dropdown-item" })
-                            @Html.ActionLink("巡檢項目維護", "Index", "InspectItems", new { @class = "dropdown-item" })
-                            @Html.ActionLink("注意事項維護", "Index", "InspectPrecautions", new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢區域維護", "Index", "InspectAreas", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢類別維護", "Index", "InspectClasses", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢項目維護", "Index", "InspectItems", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("注意事項維護", "Index", "InspectPrecautions", new { area = "" }, new { @class = "dropdown-item" })
                             <div class="dropdown-divider"></div>
                             <h6 class="dropdown-header setHeaderStyle">人員維護</h6>
-                            @Html.ActionLink("巡檢人員列表", "Index", "InspectMembers", new { @class = "dropdown-item" })
-                            @Html.ActionLink("各區審核主管維護", "Index", "InspectAreaCheckers", new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢人員列表", "Index", "InspectMembers", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("各區審核主管維護", "Index", "InspectAreaCheckers", new { area = "" }, new { @class = "dropdown-item" })
                             <div class="dropdown-divider"></div>
                             <h6 class="dropdown-header setHeaderStyle">文件維護</h6>
-                            @Html.ActionLink("巡檢文件編輯", "Index", "InspectDocs", new { @class = "dropdown-item" })
-                            @Html.ActionLink("新增巡檢文件", "Create", "InspectDocs", new { @class = "dropdown-item" })
+                            @Html.ActionLink("巡檢文件編輯", "Index", "InspectDocs", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("新增巡檢文件", "Create", "InspectDocs", new { area = "" }, new { @class = "dropdown-item" })
                         </div>
                     </li>
                 </ul>

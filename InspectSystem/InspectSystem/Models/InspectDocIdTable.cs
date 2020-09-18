@@ -14,18 +14,19 @@ namespace InspectSystem.Models
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "表單編號")]
         public string DocId { get; set; }
         [Required]
         [Display(Name = "申請日期")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ApplyDate { get; set; }
         [Display(Name = "結案日期")]
         [DataType(DataType.DateTime)]
         public DateTime? CloseDate { get; set; }
         [Required]
-        [Display(Name = "區域代碼")]
+        [Display(Name = "巡檢區域")]
         public int AreaId { get; set; }
         [Required]
         [Display(Name = "區域名稱")]

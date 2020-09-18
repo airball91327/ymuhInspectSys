@@ -16,11 +16,9 @@ namespace InspectSystem.Models
         }
 
         [Key, Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "表單編號")]
         public string DocId { get; set; }
         [Key, Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "班別")]
         public int ShiftId { get; set; }
         [Required]

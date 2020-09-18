@@ -1,0 +1,51 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectDocIdTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CloseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplyDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CloseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DocId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DocId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DocId })
+        </td>
+    </tr>
+}
+
+</table>

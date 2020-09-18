@@ -1,10 +1,13 @@
-﻿@{
+﻿@Scripts.Render("~/bundles/jquery")
+
+
+@{
     /* Separate layouts for Supervisor, Engineer and Admin. */
     if (Roles.IsUserInRole("Admin"))
     {
         Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     }
-    else if(Roles.IsUserInRole("MedMgr") == true || Roles.IsUserInRole("Manager") == true)
+    else if (Roles.IsUserInRole("MedMgr") == true || Roles.IsUserInRole("Manager") == true)
     {
         Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
     }

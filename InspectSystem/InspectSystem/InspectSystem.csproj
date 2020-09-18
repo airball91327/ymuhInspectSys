@@ -229,6 +229,8 @@
     <Compile Include="Controllers\AppRolesController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InspectDocController.cs" />
+    <Compile Include="Controllers\InspectDocIdTableController.cs" />
     <Compile Include="Controllers\InspectPrecautionsController.cs" />
     <Compile Include="Controllers\VentilatorDocsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -257,7 +259,7 @@
     <Compile Include="Models\InspectClass.cs" />
     <Compile Include="Models\InspectDocDetail.cs" />
     <Compile Include="Models\InspectDocDetailTemp.cs" />
-    <Compile Include="Models\InspectDocDetailViewModels.cs" />
+    <Compile Include="Models\InspectDocDetailViewModel.cs" />
     <Compile Include="Models\InspectDocFlow.cs" />
     <Compile Include="Models\InspectDoc.cs" />
     <Compile Include="Models\InspectFieldDropDown.cs" />
@@ -590,6 +592,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\HtmltoExcel.js" />
     <Content Include="Scripts\i18n\defaults-am_ET.js" />
     <Content Include="Scripts\i18n\defaults-am_ET.min.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
@@ -884,6 +887,16 @@
     <Content Include="Views\VentilatorDocs\Edit.cshtml" />
     <Content Include="Views\VentilatorDocs\Index.cshtml" />
     <Content Include="Views\VentilatorDocs\List.cshtml" />
+    <Content Include="Views\InspectDoc\Create.cshtml" />
+    <Content Include="Views\InspectDoc\Delete.cshtml" />
+    <Content Include="Views\InspectDoc\Details.cshtml" />
+    <Content Include="Views\InspectDoc\Edit.cshtml" />
+    <Content Include="Views\InspectDoc\Index.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Create.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Delete.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Details.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Edit.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
