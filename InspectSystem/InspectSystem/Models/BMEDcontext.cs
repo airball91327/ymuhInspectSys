@@ -28,11 +28,6 @@ namespace InspectSystem.Models
         public virtual DbSet<InspectDocFlow> InspectDocFlow { get; set; }
         public virtual DbSet<InspectFlowStatus> InspectFlowStatus { get; set; }
         public virtual DbSet<InspectPrecautions> InspectPrecautions { get; set; }
-        //未使用
-        //public virtual DbSet<InspectAreaChecker> InspectAreaCheckers { get; set; }
-        //public virtual DbSet<InspectMembers> InspectMembers { get; set; }
-        //public virtual DbSet<InspectMemberAreas> InspectMemberAreas { get; set; }
-        //public virtual DbSet<ClassesOfAreas> ClassesOfAreas { get; set; }
 
         // 呼吸器相關
         public virtual DbSet<VentilatorDoc> VentilatorDoc { get; set; }

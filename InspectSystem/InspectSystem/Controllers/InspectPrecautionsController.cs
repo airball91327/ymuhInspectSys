@@ -18,7 +18,7 @@ namespace InspectSystem.Controllers
         // GET: InspectPrecautions
         public ActionResult Index()
         {
-            var inspectPrecautions = db.InspectPrecautions.Include(i => i.InspectAreas)
+            var inspectPrecautions = db.InspectPrecautions.Include(i => i.InspectArea)
                                                           .OrderBy(i => i.AreaId);
             return View(inspectPrecautions.ToList());
         }
@@ -41,7 +41,7 @@ namespace InspectSystem.Controllers
         // GET: InspectPrecautions/Create
         public ActionResult Create()
         {
-            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName");
+            ViewBag.AreaId = new SelectList(db.InspectArea, "AreaId", "AreaName");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace InspectSystem.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectPrecautions.AreaId);
+            ViewBag.AreaId = new SelectList(db.InspectArea, "AreaId", "AreaName", inspectPrecautions.AreaId);
             return View(inspectPrecautions);
         }
 
@@ -75,7 +75,7 @@ namespace InspectSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectPrecautions.AreaId);
+            ViewBag.AreaId = new SelectList(db.InspectArea, "AreaId", "AreaName", inspectPrecautions.AreaId);
             return View(inspectPrecautions);
         }
 
@@ -92,7 +92,7 @@ namespace InspectSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AreaId = new SelectList(db.InspectAreas, "AreaId", "AreaName", inspectPrecautions.AreaId);
+            ViewBag.AreaId = new SelectList(db.InspectArea, "AreaId", "AreaName", inspectPrecautions.AreaId);
             return View(inspectPrecautions);
         }
 

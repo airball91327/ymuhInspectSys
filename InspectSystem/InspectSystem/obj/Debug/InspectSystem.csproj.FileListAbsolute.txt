@@ -714,3 +714,5 @@ C:\Users\User\source\repos\airball91327\ymuhInspectSys\InspectSystem\InspectSyst
 C:\Users\User\source\repos\airball91327\ymuhInspectSys\InspectSystem\InspectSystem\obj\Debug\InspectSystem.csproj.CopyComplete
 C:\Users\User\source\repos\airball91327\ymuhInspectSys\InspectSystem\InspectSystem\obj\Debug\InspectSystem.dll
 C:\Users\User\source\repos\airball91327\ymuhInspectSys\InspectSystem\InspectSystem\obj\Debug\InspectSystem.pdb
+J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\obj\Debug\InspectSystem.Migrations.Initial.resources
+J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\obj\Debug\InspectSystem.csproj.GenerateResource.cache

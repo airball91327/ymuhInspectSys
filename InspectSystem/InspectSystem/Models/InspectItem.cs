@@ -38,7 +38,6 @@ namespace InspectSystem.Models
         public int? Rtp { get; set; }
         public DateTime? Rtt { get; set; }
 
-        public virtual ShiftsInAreas ShiftsInAreas { get; set; }
         public virtual InspectClass InspectClass { get; set; }
         public virtual ICollection<InspectField> InspectField { get; set; }
     }

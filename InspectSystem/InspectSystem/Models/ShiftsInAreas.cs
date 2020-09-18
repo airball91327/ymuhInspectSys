@@ -11,8 +11,6 @@ namespace InspectSystem.Models
         public ShiftsInAreas()
         {
             this.InspectClass = new HashSet<InspectClass>();
-            this.InspectItem = new HashSet<InspectItem>();
-            this.InspectField = new HashSet<InspectField>();
         }
 
         [Key, Column(Order = 1)]
@@ -28,8 +26,6 @@ namespace InspectSystem.Models
         public virtual InspectArea InspectArea { get; set; }
         public virtual InspectShift InspectShift { get; set; }
         public virtual ICollection<InspectClass> InspectClass { get; set; }
-        public virtual ICollection<InspectItem> InspectItem { get; set; }
-        public virtual ICollection<InspectField> InspectField { get; set; }
 
     }
 }
