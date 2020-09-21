@@ -148,6 +148,18 @@ namespace InspectSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Get Inspect DocId by insert values.
+        /// </summary>
+        /// <returns></returns>
+        private string GetDocId(int AreaId, DateTime ApplyDate)
+        {
+            string docId = null;
+
+
+            return docId;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
