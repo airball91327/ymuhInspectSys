@@ -465,6 +465,7 @@
     <Content Include="Content\MyStyles\MyStyleForPostLoader.css" />
     <Content Include="Content\post-loader.gif" />
     <Content Include="Content\signin.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\w3.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -748,6 +749,7 @@
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.toast.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

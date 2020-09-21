@@ -68,8 +68,12 @@ namespace InspectSystem.Controllers
             if (ModelState.IsValid)
             {
                 db.InspectDocIdTable.Add(inspectDocIdTable);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //await db.SaveChangesAsync();
+                return new JsonResult
+                {
+                    Data = new { success = true, error = "" },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
             // Get inspect area list.
             var inspectAreas = db.InspectArea.Where(a => a.AreaStatus == true).ToList();

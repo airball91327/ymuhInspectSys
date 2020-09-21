@@ -9,7 +9,7 @@
 @using (Ajax.BeginForm(new AjaxOptions
 {
     HttpMethod = "POST",
-    LoadingElementId = "$.Toast.showToast({'title':'作業進行中，請稍待...','icon':'loading','duration':0})",
+    OnBegin = "formShowToast",
     OnSuccess = "showmsg"
 }))
 {
@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ApplyDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ApplyDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ApplyDate, new { htmlAttributes = new { @class = "form-control", max = Model.ApplyDate.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.ApplyDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,10 +49,30 @@
 </div>
 
 @Scripts.Render("~/bundles/jqueryval")
-<script>
-    $(function () {
-        $('#AreaId').change(function () {
-            $('#AreaName').val($('#AreaId option:selected').text());
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#AreaId').change(function () {
+                $('#AreaName').val($('#AreaId option:selected').text());
+            });
         });
-    });
-</script>
+
+        function showmsg(data) {
+            if (data.success !== null) {
+                if (!data.success)
+                    alert(data.error);
+                else {
+                    alert("巡檢單已產生!! [關閉後頁面回到首頁]");
+                    location.replace("../Home/Index");
+                }
+
+            }
+        }
+        function formShowToast() {
+            $.Toast.showToast({ 'title': '作業進行中，請稍待...', 'icon': 'loading', 'duration': 0 });
+        };
+    </script>
+}
