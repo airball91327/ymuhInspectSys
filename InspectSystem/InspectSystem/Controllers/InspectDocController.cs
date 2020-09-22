@@ -11,6 +11,7 @@ using InspectSystem.Models;
 
 namespace InspectSystem.Controllers
 {
+    [Authorize]
     public class InspectDocController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
