@@ -246,6 +246,7 @@
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InspectDocIdTable.cs" />
+    <Compile Include="Models\InspectDocStatus.cs" />
     <Compile Include="Models\UnsignCountsVModel.cs" />
     <Compile Include="Models\VentilatorDocIdTable.cs" />
     <Compile Include="Models\VentilatorDoc.cs" />

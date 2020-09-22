@@ -12,7 +12,6 @@ namespace InspectSystem.Models
         {
             this.InspectDocDetail = new HashSet<InspectDocDetail>();
             this.InspectDocDetailTemp = new HashSet<InspectDocDetailTemp>();
-            this.InspectDocFlow = new HashSet<InspectDocFlow>();
         }
 
         [Key, Column(Order = 1)]
@@ -44,6 +43,5 @@ namespace InspectSystem.Models
         public virtual InspectDocIdTable InspectDocIdTable { get; set; }
         public virtual ICollection<InspectDocDetail> InspectDocDetail { get; set; }
         public virtual ICollection<InspectDocDetailTemp> InspectDocDetailTemp { get; set; }
-        public virtual ICollection<InspectDocFlow> InspectDocFlow { get; set; }
     }
 }

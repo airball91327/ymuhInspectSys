@@ -11,9 +11,6 @@ namespace InspectSystem.Models
         [Display(Name = "表單編號")]
         public int DocId { get; set; }
         [Key, Column(Order = 2)]
-        [Display(Name = "班別")]
-        public int ShiftId { get; set; }
-        [Key, Column(Order = 3)]
         [Display(Name = "關卡號")]
         public int StepId { get; set; }
         [Required]
@@ -35,6 +32,6 @@ namespace InspectSystem.Models
         public string Cls { get; set; }
 
         public virtual InspectFlowStatus InspectFlowStatus { get; set; }
-        public virtual InspectDoc InspectDoc { get; set; }
+        public virtual InspectDocIdTable InspectDocIdTable { get; set; }
     }
 }

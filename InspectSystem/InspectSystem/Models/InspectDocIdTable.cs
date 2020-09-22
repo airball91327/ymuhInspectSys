@@ -11,6 +11,7 @@ namespace InspectSystem.Models
         public InspectDocIdTable()
         {
             this.InspectDoc = new HashSet<InspectDoc>();
+            this.InspectDocFlow = new HashSet<InspectDocFlow>();
         }
 
         [Key]
@@ -31,7 +32,13 @@ namespace InspectSystem.Models
         [Required]
         [Display(Name = "區域名稱")]
         public string AreaName { get; set; }
+        [Display(Name = "現在班別")]
+        public int ShiftId { get; set; }
+        [Display(Name = "案件狀態")]
+        public string DocStatusId { get; set; }
 
+        public virtual InspectDocStatus InspectDocStatus { get; set; }
         public virtual ICollection<InspectDoc> InspectDoc { get; set; }
+        public virtual ICollection<InspectDocFlow> InspectDocFlow { get; set; }
     }
 }
