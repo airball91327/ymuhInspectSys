@@ -246,6 +246,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InspectDocQryVModel.cs" />
     <Compile Include="Models\InspectDocIdTable.cs" />
     <Compile Include="Models\InspectDocStatus.cs" />
     <Compile Include="Models\UnsignCountsVModel.cs" />
@@ -901,6 +902,7 @@
     <Content Include="Views\InspectDocIdTable\Details.cshtml" />
     <Content Include="Views\InspectDocIdTable\Edit.cshtml" />
     <Content Include="Views\InspectDocIdTable\Index.cshtml" />
+    <Content Include="Views\InspectDoc\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

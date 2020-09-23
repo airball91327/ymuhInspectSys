@@ -9,7 +9,7 @@
 @using (Ajax.BeginForm(new AjaxOptions
 {
     HttpMethod = "POST",
-    OnBegin = "formShowToast",
+    OnBegin = "$.Toast.showToast({ 'title': '巡檢單產生中，請稍待...', 'icon': 'loading', 'duration': 0 })",
     OnSuccess = "showmsg"
 }))
 {
@@ -73,8 +73,5 @@
 
             }
         }
-        function formShowToast() {
-            $.Toast.showToast({ 'title': '作業進行中，請稍待...', 'icon': 'loading', 'duration': 0 });
-        };
     </script>
 }

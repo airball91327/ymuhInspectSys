@@ -1,0 +1,73 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectDoc>
+
+@{
+    Layout = null;
+}
+
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectDocIdTable.AreaName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EngId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EngName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShiftName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CloseDate)
+        </th>
+        <th>
+            功能
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DocId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InspectDocIdTable.AreaName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplyDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShiftName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CloseDate)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("預覽", "Views", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary", target = "_blank" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -17,8 +17,7 @@
 
     <div class="tab-content">
         <div id="home" class="container tab-pane fade show active">
-            <h4>巡檢</h4>
-            @*<p>@Html.Action("Index", "InspectDoc")</p>*@
+            <p>@Html.Action("Index", "InspectDoc")</p>
         </div>
         <div id="menu1" class="container tab-pane fade ">
             <h4>呼吸器</h4>
@@ -29,23 +28,26 @@
 
 
 @section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             //$('.combobox').combobox();
+            $('#formINSPECT').submit();
         });
-
-        //$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        //    var target = $(e.target).attr("href") // activated tab
-        //    if (target == "#home") {
-        //        $("#pnlREPAIRLIST").html('');
-        //        $("#btnQTY").trigger("click");
-        //    }
-        //    else if (target == "#menu1") {
-        //        $("#pnlKEEPLIST").html('');
-        //        $("#btnQTY2").trigger("click");
-        //    }
-        //});
+        function showmsg(data) {
+            if (data.success == null) {
+                // search success.
+                $.Toast.hideToast();
+            }
+            else {
+                if (data.success === false) {
+                    alert(data.error);
+                    $.Toast.hideToast();
+                }
+            }
+        }
     </script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 }
 

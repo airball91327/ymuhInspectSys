@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using InspectSystem.Models;
+using InspectSystem.Filters;
+using WebGrease.Css.Extensions;
 
 namespace InspectSystem.Controllers
 {
@@ -19,8 +21,56 @@ namespace InspectSystem.Controllers
         // GET: InspectDoc
         public async Task<ActionResult> Index()
         {
-            var inspectDoc = db.InspectDoc.Include(i => i.InspectDocIdTable);
-            return View(await inspectDoc.ToListAsync());
+            // Get shift list.
+            var inspectShifts = db.InspectShift.ToList();
+            List<SelectListItem> listItem = new List<SelectListItem>();
+            foreach (var item in inspectShifts)
+            {
+                listItem.Add(new SelectListItem()
+                {
+                    Value = item.ShiftId.ToString(),
+                    Text = item.ShiftName
+                });
+            }
+            ViewData["ShiftId"] = new SelectList(listItem, "Value", "Text");
+            //
+            return View();
+        }
+
+        // POST: InspectDoc
+        [HttpPost]
+        [MyErrorHandler]
+        public async Task<ActionResult> Index(InspectDocQryVModel qry)
+        {
+            // query variables.
+            string docid = qry.DocId;
+            string shiftId = qry.ShiftId; 
+
+            // Get all inspect docs.
+            var inspectDocs = await db.InspectDoc.Include(d => d.InspectDocIdTable).ToListAsync();
+            var inspectShifts = await db.InspectShift.ToListAsync();
+            // query conditions.
+            if (!string.IsNullOrEmpty(docid))   //案件編號(關鍵字)
+            {
+                docid = docid.Trim();
+                inspectDocs = inspectDocs.Where(d => d.DocId.Contains(docid)).ToList();
+            }
+            if (!string.IsNullOrEmpty(shiftId))    //班別
+            {
+                int sid = Convert.ToInt32(shiftId);
+                inspectDocs = inspectDocs.Where(d => d.ShiftId == sid).ToList();
+            }
+            //
+            foreach (var doc in inspectDocs)
+            {
+                var shift = inspectShifts.Where(s => s.ShiftId == doc.ShiftId).FirstOrDefault();
+                if (shift != null)
+                {
+                    doc.ShiftName = shift.ShiftName;
+                }
+            }
+
+            return PartialView("List", inspectDocs);
         }
 
         // GET: InspectDoc/Details/5
