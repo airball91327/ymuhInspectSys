@@ -62,8 +62,10 @@
 
         function showmsg(data) {
             if (data.success !== null) {
-                if (!data.success)
+                if (!data.success) {
                     alert(data.error);
+                    $.Toast.hideToast();
+                }
                 else {
                     alert("巡檢單已產生!! [關閉後頁面回到首頁]");
                     location.replace("../Home/Index");
