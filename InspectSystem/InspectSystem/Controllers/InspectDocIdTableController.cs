@@ -123,7 +123,7 @@ namespace InspectSystem.Controllers
                         detailTemp.AreaId = field.AreaId;
                         detailTemp.AreaName = shiftsInAreas.InspectArea.AreaName;
                         detailTemp.ShiftId = field.ShiftId;
-                        detailTemp.ShfitName = shiftsInAreas.InspectShift.ShiftName;
+                        detailTemp.ShiftName = shiftsInAreas.InspectShift.ShiftName;
                         detailTemp.ClassId = field.ClassId;
                         detailTemp.ClassName = field.InspectItem.InspectClass.ClassName;
                         detailTemp.ClassOrder = field.InspectItem.InspectClass.ClassOrder;

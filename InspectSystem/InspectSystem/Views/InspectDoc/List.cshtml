@@ -64,8 +64,8 @@
                 @Html.DisplayFor(modelItem => item.CloseDate)
             </td>
             <td>
-                @Html.ActionLink("編輯", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("預覽", "Views", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary", target = "_blank" })
+                @Html.ActionLink("編輯", "Edit", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("預覽", "Views", new { id = item.DocId }, new { @class = "btn btn-primary", target = "_blank" })
             </td>
         </tr>
     }

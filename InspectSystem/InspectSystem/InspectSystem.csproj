@@ -230,6 +230,7 @@
     <Compile Include="Controllers\AppUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InspectDocController.cs" />
+    <Compile Include="Controllers\InspectDocDetailTempController.cs" />
     <Compile Include="Controllers\InspectDocIdTableController.cs" />
     <Compile Include="Controllers\InspectPrecautionsController.cs" />
     <Compile Include="Controllers\VentilatorDocsController.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InspectClassVModel.cs" />
     <Compile Include="Models\InspectDocQryVModel.cs" />
     <Compile Include="Models\InspectDocIdTable.cs" />
     <Compile Include="Models\InspectDocStatus.cs" />
@@ -462,8 +464,9 @@
     <Content Include="Content\MobileStyle\MyStyleForClassContentOfArea.css" />
     <Content Include="Content\MobileStyle\MyStyleForDocDetail.css" />
     <Content Include="Content\MyStyles\myDataTableStyle.css" />
+    <Content Include="Content\MyStyles\MyDocEditStyle.css" />
     <Content Include="Content\MyStyles\MyMegaDropDownStyle.css" />
-    <Content Include="Content\MyStyles\MyStyleForClassContentOfArea.css" />
+    <Content Include="Content\MyStyles\MyStyleForClassContent.css" />
     <Content Include="Content\MyStyles\MyStyleForDocDetail.css" />
     <Content Include="Content\MyStyles\MyStyleForPostLoader.css" />
     <Content Include="Content\post-loader.gif" />
@@ -484,7 +487,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\ClassContentOfAreaDocEdit.js" />
+    <Content Include="Scripts\Inspect\ClassContentOfAreaDocEdit.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -561,7 +564,7 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
-    <Content Include="Scripts\DocCheckerDocDetails.js" />
+    <Content Include="Scripts\Inspect\DocCheckerDocDetails.js" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
@@ -729,13 +732,13 @@
     <Content Include="Scripts\i18n\defaults-am_ET.js.map" />
     <Content Include="Scripts\bootstrap-select.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\ClassContentOfArea.js" />
-    <Content Include="Scripts\InspectDocDetailsIndex.js" />
-    <Content Include="Scripts\InspectDocEditIndex.js" />
-    <Content Include="Scripts\InspectDocTempView.js" />
-    <Content Include="Scripts\InspectFields.js" />
-    <Content Include="Scripts\InspectFieldsSearch.js" />
-    <Content Include="Scripts\InspectItemsIndex.js" />
+    <Content Include="Scripts\Inspect\GetClassContents.js" />
+    <Content Include="Scripts\Inspect\InspectDocDetailsIndex.js" />
+    <Content Include="Scripts\Inspect\InspectDocEditIndex.js" />
+    <Content Include="Scripts\Inspect\InspectDocTempView.js" />
+    <Content Include="Scripts\Inspect\InspectFields.js" />
+    <Content Include="Scripts\Inspect\InspectFieldsSearch.js" />
+    <Content Include="Scripts\Inspect\InspectItemsIndex.js" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
@@ -761,9 +764,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jszip\jszip.min.js" />
-    <Content Include="Scripts\Mobile\CheckErrorDescription.js" />
-    <Content Include="Scripts\Mobile\CheckFormModified.js" />
-    <Content Include="Scripts\Mobile\InspectDocDetailsSelectClass.js" />
+    <Content Include="Scripts\Inspect\CheckErrorDescription.js" />
+    <Content Include="Scripts\Inspect\CheckFormModified.js" />
+    <Content Include="Scripts\Inspect\InspectDocDetailsSelectClass.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
@@ -903,6 +906,12 @@
     <Content Include="Views\InspectDocIdTable\Edit.cshtml" />
     <Content Include="Views\InspectDocIdTable\Index.cshtml" />
     <Content Include="Views\InspectDoc\List.cshtml" />
+    <Content Include="Views\InspectDocDetailTemp\Create.cshtml" />
+    <Content Include="Views\InspectDocDetailTemp\Delete.cshtml" />
+    <Content Include="Views\InspectDocDetailTemp\Details.cshtml" />
+    <Content Include="Views\InspectDocDetailTemp\Edit.cshtml" />
+    <Content Include="Views\InspectDocDetailTemp\Index.cshtml" />
+    <Content Include="Views\InspectDocDetailTemp\GetClassContents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

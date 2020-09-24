@@ -60,7 +60,7 @@ namespace InspectSystem.Controllers
                 int sid = Convert.ToInt32(shiftId);
                 inspectDocs = inspectDocs.Where(d => d.ShiftId == sid).ToList();
             }
-            //
+            // 對應班別中文名稱
             foreach (var doc in inspectDocs)
             {
                 var shift = inspectShifts.Where(s => s.ShiftId == doc.ShiftId).FirstOrDefault();
@@ -119,13 +119,48 @@ namespace InspectSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectDoc inspectDoc = await db.InspectDoc.FindAsync(id);
-            if (inspectDoc == null)
+            InspectDocIdTable inspectDocIdTable = await db.InspectDocIdTable.FindAsync(id);
+            if (inspectDocIdTable == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DocId = new SelectList(db.InspectDocIdTable, "DocId", "AreaName", inspectDoc.DocId);
-            return View(inspectDoc);
+            // Set variables.
+            var shiftId = inspectDocIdTable.ShiftId;
+            var docStatusId = inspectDocIdTable.DocStatusId;
+            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == id && d.ShiftId == shiftId).ToList();
+            var docDetailTempsClasses = docDetailTemps.GroupBy(t => t.ClassId).Select(g => g.FirstOrDefault())
+                                                      .OrderBy(d => d.ClassOrder).ToList();
+            var shiftName = docDetailTemps.First().ShiftName;
+            var areaName = inspectDocIdTable.AreaName;
+            List<InspectClassVModel> inspectClassVs = new List<InspectClassVModel>();
+            InspectClassVModel classVModel;
+            //
+            foreach(var item in docDetailTempsClasses)
+            {
+                var classErrors = docDetailTemps.Where(d => d.ClassId == item.ClassId &&
+                                                            d.IsFunctional == "N");
+                classVModel = new InspectClassVModel();
+                classVModel.DocId = item.DocId;
+                classVModel.AreaId = item.AreaId;
+                classVModel.ShiftId = item.ShiftId;
+                classVModel.ClassId = item.ClassId;
+                classVModel.ClassName = item.ClassName;
+                classVModel.ClassOrder = item.ClassOrder;
+                classVModel.CountErrors = classErrors.Count();
+                inspectClassVs.Add(classVModel);
+            }
+            //
+            ViewBag.Header = areaName + "【" + shiftName + "】";
+            if (docStatusId == "2") //交班中
+            {
+
+            }
+            else
+            {
+
+            }
+
+            return View(inspectClassVs);
         }
 
         // POST: InspectDoc/Edit/5

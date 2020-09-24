@@ -21,7 +21,7 @@ namespace InspectSystem.Models
         public int ShiftId { get; set; }
         [Required]
         [Display(Name = "班別")]
-        public string ShfitName { get; set; }
+        public string ShiftName { get; set; }
         [Key, Column(Order = 3)]
         [Display(Name = "類別代碼")]
         public int ClassId { get; set; }

@@ -21,7 +21,7 @@ namespace InspectSystem.Models
         public int ShiftId { get; set; }
         [Required]
         [Display(Name = "班別")]
-        public string ShfitName { get; set; }
+        public string ShiftName { get; set; }
         [Key, Column(Order = 3)]
         [Display(Name = "類別代碼")]
         public int ClassId { get; set; }
@@ -69,31 +69,39 @@ namespace InspectSystem.Models
 
         public virtual InspectDoc InspectDocs { get; set; }
 
-        /* Check that this field is needed to show past value or not. */
-        //public Boolean ToShowPastValue()
-        //{           
-        //    BMEDcontext db = new BMEDcontext();
-        //    Boolean checkResult = false;
-        //    var acid = (AreaId) * 100 + ClassId;
-        //    checkResult = db.InspectFields.Find(acid, ItemId, FieldId).ShowPastValue;
+        /// <summary>
+        /// Check that this field is needed to show past value or not.
+        /// </summary>
+        /// <returns></returns>
+        public bool ToShowPastValue()
+        {
+            BMEDcontext db = new BMEDcontext();
+            bool checkResult = false;
+            var result = db.InspectField.Find(AreaId, ShiftId, ClassId, ItemId, FieldId).ShowPastValue;
+            if (result != null)
+            {
+                checkResult = result.Value;
+            }
+            return checkResult;
+        }
 
-        //    return checkResult;
-        //}
+        /// <summary>
+        /// Get the past value of the field.
+        /// </summary>
+        /// <returns></returns>
+        public string PastValue()
+        {
+            BMEDcontext db = new BMEDcontext();
+            var pastValue = "";
+            //var targetDocId = DocId - 100;
+            //var findDocDetails = db.InspectDocDetails.Find(targetDocId, ClassId, ItemId, FieldId);
+            //// If has past value
+            //if (findDocDetails != null)
+            //{
+            //    pastValue = findDocDetails.Value;
+            //}
 
-        /* Get the past value of the field. */
-        //public string PastValue()
-        //{
-        //    BMEDcontext db = new BMEDcontext();
-        //    var pastValue = "";
-        //    var targetDocId = DocId - 100;
-        //    var findDocDetails = db.InspectDocDetails.Find(targetDocId, ClassId, ItemId, FieldId);
-        //    // If has past value
-        //    if (findDocDetails != null)
-        //    {
-        //        pastValue = findDocDetails.Value;
-        //    }
-
-        //    return pastValue;
-        //}
+            return pastValue;
+        }
     }
 }
