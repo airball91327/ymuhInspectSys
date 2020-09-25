@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using InspectSystem.Models;
 using WebMatrix.WebData;
 using InspectSystem.Filters;
+using System.Runtime.CompilerServices;
 
 namespace InspectSystem.Controllers
 {
@@ -21,7 +22,67 @@ namespace InspectSystem.Controllers
         // GET: InspectDocIdTable
         public async Task<ActionResult> Index()
         {
-            return View(await db.InspectDocIdTable.ToListAsync());
+            // Get shift list.
+            var inspectShifts = db.InspectShift.ToList();
+            List<SelectListItem> listItem = new List<SelectListItem>();
+            foreach (var item in inspectShifts)
+            {
+                listItem.Add(new SelectListItem()
+                {
+                    Value = item.ShiftId.ToString(),
+                    Text = item.ShiftName
+                });
+            }
+            ViewData["ShiftId"] = new SelectList(listItem, "Value", "Text");
+            //
+            return View();
+        }
+
+        // POST: InspectDocIdTable
+        [HttpPost]
+        [MyErrorHandler]
+        public async Task<ActionResult> Index(InspectDocQryVModel qry)
+        {
+            // query variables.
+            string docid = qry.DocId;
+            string shiftId = qry.ShiftId;
+
+            // Get all inspect docs.
+            var inspectDocIdTable = await db.InspectDocIdTable.Include(d => d.InspectDoc).ToListAsync();
+            var inspectShifts = await db.InspectShift.ToListAsync();
+            var inspectFlows = await db.InspectDocFlow.ToListAsync();
+            // Get user's docs.
+            inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" && df.UserId == WebSecurity.CurrentUserId).ToList();
+            inspectDocIdTable = inspectFlows.Join(inspectDocIdTable, f => f.DocId, d => d.DocId, (f, d) => d).ToList();
+            // query conditions.
+            if (!string.IsNullOrEmpty(docid))   //案件編號(關鍵字)
+            {
+                docid = docid.Trim();
+                inspectDocIdTable = inspectDocIdTable.Where(d => d.DocId.Contains(docid)).ToList();
+            }
+            if (!string.IsNullOrEmpty(shiftId))    //目前班別
+            {
+                int sid = Convert.ToInt32(shiftId);
+                inspectDocIdTable = inspectDocIdTable.Where(d => d.ShiftId == sid).ToList();
+            }
+            // 對應班別中文名稱、目前巡檢工程師
+            foreach (var doc in inspectDocIdTable)
+            {
+                var shift = inspectShifts.Where(s => s.ShiftId == doc.ShiftId).FirstOrDefault();
+                if (shift != null)
+                {
+                    doc.ShiftName = shift.ShiftName;
+                }
+                var inspectDoc = db.InspectDoc.Find(doc.DocId, doc.ShiftId);
+                if (inspectDoc != null)
+                {
+                    var user = db.AppUsers.Find(inspectDoc.EngId);
+                    doc.EngUserName = user != null ? user.UserName : "";
+                    doc.EngFullName = user != null ? user.FullName : "";
+                }
+            }
+
+            return PartialView("List", inspectDocIdTable);
         }
 
         // GET: InspectDocIdTable/Details/5
@@ -153,6 +214,29 @@ namespace InspectSystem.Controllers
                         //
                         db.InspectDocDetailTemp.Add(detailTemp);
                     }
+                    await db.SaveChangesAsync();
+
+                    //Create first Flow.
+                    InspectDocFlow flow = new InspectDocFlow();
+                    flow.DocId = docId;
+                    flow.StepId = 1;
+                    flow.UserId = WebSecurity.CurrentUserId;
+                    flow.FlowStatusId = "1";  // 流程狀態"已處理"
+                    flow.Rtp = WebSecurity.CurrentUserId;
+                    flow.Rtt = DateTime.Now;
+                    flow.Cls = "申請人";
+                    db.InspectDocFlow.Add(flow);
+
+                    // Create next flow.
+                    flow = new InspectDocFlow();
+                    flow.DocId = docId;
+                    flow.StepId = 2;
+                    flow.UserId = WebSecurity.CurrentUserId;
+                    flow.FlowStatusId = "?";  // 狀態"未處理"
+                    flow.Rtt = DateTime.Now;
+                    flow.Cls = "巡檢工程師";
+                    flow.Opinions = "【白天班】";
+                    db.InspectDocFlow.Add(flow);
                     await db.SaveChangesAsync();
 
                     return new JsonResult

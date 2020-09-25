@@ -9,7 +9,7 @@ namespace InspectSystem.Models
     {
         [Key, Column(Order = 1)]
         [Display(Name = "表單編號")]
-        public int DocId { get; set; }
+        public string DocId { get; set; }
         [Key, Column(Order = 2)]
         [Display(Name = "關卡號")]
         public int StepId { get; set; }

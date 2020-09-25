@@ -60,15 +60,6 @@ namespace InspectSystem.Controllers
                 int sid = Convert.ToInt32(shiftId);
                 inspectDocs = inspectDocs.Where(d => d.ShiftId == sid).ToList();
             }
-            // 對應班別中文名稱
-            foreach (var doc in inspectDocs)
-            {
-                var shift = inspectShifts.Where(s => s.ShiftId == doc.ShiftId).FirstOrDefault();
-                if (shift != null)
-                {
-                    doc.ShiftName = shift.ShiftName;
-                }
-            }
 
             return PartialView("List", inspectDocs);
         }
@@ -137,8 +128,50 @@ namespace InspectSystem.Controllers
             //
             foreach(var item in docDetailTempsClasses)
             {
+                // Get class error fields.
                 var classErrors = docDetailTemps.Where(d => d.ClassId == item.ClassId &&
-                                                            d.IsFunctional == "N");
+                                                            d.IsFunctional == "N").ToList();
+                // Get details of class.
+                var findDocTemps = docDetailTemps.Where(d => d.ClassId == item.ClassId).ToList();
+
+                /* Check all the required fields. */
+                if (findDocTemps.Count() > 0)
+                {
+                    bool isDataCompleted = true;
+                    foreach (var tempItem in findDocTemps)
+                    {
+                        // If required field has no data or isFunctional didn't selected, set isDataCompleted to false.
+                        if (tempItem.IsRequired == true && tempItem.DataType != "boolean" && tempItem.Value == null)
+                        {
+                            isDataCompleted = false;
+                            break;
+                        }
+                        else if (tempItem.DataType == "boolean" && tempItem.IsFunctional == null)
+                        {
+                            isDataCompleted = false;
+                            break;
+                        }
+                    }
+                    if (isDataCompleted == true)
+                    {
+                        item.IsSaved = true;
+                    }
+                }
+                else
+                {
+                    item.IsSaved = false;
+                }
+                // Check all classes are fill out or not.
+                var isAllSaved = docDetailTempsClasses.Where(c => c.IsSaved == false).ToList();
+                if (isAllSaved.Count() <= 0)
+                {
+                    ViewBag.AllSaved = "true";
+                }
+                else
+                {
+                    ViewBag.AllSaved = "false";
+                }
+                // Insert values to classVModel.
                 classVModel = new InspectClassVModel();
                 classVModel.DocId = item.DocId;
                 classVModel.AreaId = item.AreaId;
@@ -146,6 +179,7 @@ namespace InspectSystem.Controllers
                 classVModel.ClassId = item.ClassId;
                 classVModel.ClassName = item.ClassName;
                 classVModel.ClassOrder = item.ClassOrder;
+                classVModel.IsSaved = item.IsSaved;
                 classVModel.CountErrors = classErrors.Count();
                 inspectClassVs.Add(classVModel);
             }

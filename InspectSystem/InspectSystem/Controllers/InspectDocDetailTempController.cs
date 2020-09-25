@@ -23,8 +23,34 @@ namespace InspectSystem.Controllers
             return View(await inspectDocDetailTemp.ToListAsync());
         }
 
-        // Get: InspectDocDetailTemp/GetClassContents/5
-        public ActionResult GetClassContents(string docId, string shiftId, string classId)
+        // Get: InspectDocDetailTemp/GetClassContentEdit/5
+        public ActionResult GetClassContentEdit(string docId, string shiftId, string classId)
+        {
+            int iShiftId = Convert.ToInt32(shiftId);
+            int iClassId = Convert.ToInt32(classId);
+            // Get inspect DocDetailTemp list.
+            var docDetailTemp = db.InspectDocDetailTemp.Where(t => t.DocId == docId && t.ShiftId == iShiftId &&
+                                                                   t.ClassId == iClassId).ToList();
+            if (docDetailTemp.Count() > 0)
+            {
+                ViewBag.ClassName = docDetailTemp.First().ClassName;
+                // Get items and fields from DocDetailTemp list. 
+                ViewData["itemsByDocDetailTemps"] = docDetailTemp.GroupBy(i => i.ItemId)
+                                                                 .Select(g => g.FirstOrDefault())
+                                                                 .OrderBy(s => s.ItemOrder).ToList();
+                ViewData["fieldsByDocDetailTemps"] = docDetailTemp.ToList();
+            }
+
+            InspectDocDetailViewModel inspectDocDetailViewModel = new InspectDocDetailViewModel()
+            {
+                InspectDocDetailTemp = docDetailTemp
+            };
+
+            return PartialView(inspectDocDetailViewModel);
+        }
+
+        // Get: InspectDocDetailTemp/GetClassContentViews/5
+        public ActionResult GetClassContentViews(string docId, string shiftId, string classId)
         {
             int iShiftId = Convert.ToInt32(shiftId);
             int iClassId = Convert.ToInt32(classId);
@@ -77,6 +103,42 @@ namespace InspectSystem.Controllers
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
             }
+        }
+
+        // GET: InspectDocDetailTemp/Edit
+        public ActionResult Edit(string docId, string shiftId)
+        {
+            int sid = Convert.ToInt32(shiftId);
+            // Set variables.
+            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == docId && d.ShiftId == sid).ToList();
+            var docDetailTempsClasses = docDetailTemps.GroupBy(t => t.ClassId).Select(g => g.FirstOrDefault())
+                                                      .OrderBy(d => d.ClassOrder).ToList();
+            var shiftName = docDetailTemps.First().ShiftName;
+            var areaName = docDetailTemps.First().AreaName;
+            List<InspectClassVModel> inspectClassVs = new List<InspectClassVModel>();
+            InspectClassVModel classVModel;
+            //
+            foreach (var item in docDetailTempsClasses)
+            {
+                // Get class error fields.
+                var classErrors = docDetailTemps.Where(d => d.ClassId == item.ClassId &&
+                                                            d.IsFunctional == "N").ToList();
+                // Get details of class.
+                var findDocTemps = docDetailTemps.Where(d => d.ClassId == item.ClassId).ToList();
+                // Insert values to classVModel.
+                classVModel = new InspectClassVModel();
+                classVModel.DocId = item.DocId;
+                classVModel.AreaId = item.AreaId;
+                classVModel.ShiftId = item.ShiftId;
+                classVModel.ClassId = item.ClassId;
+                classVModel.ClassName = item.ClassName;
+                classVModel.ClassOrder = item.ClassOrder;
+                classVModel.CountErrors = classErrors.Count();
+                inspectClassVs.Add(classVModel);
+            }
+            ViewBag.Header = areaName + "【" + shiftName + "】";
+
+            return View(inspectClassVs);
         }
 
         protected override void Dispose(bool disposing)

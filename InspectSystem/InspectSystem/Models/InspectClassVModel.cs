@@ -19,7 +19,7 @@ namespace InspectSystem.Models
         public string ClassName { get; set; }
         [Display(Name = "排列順序")]
         public int ClassOrder { get; set; }
-        [Display(Name = "是否已儲存")]
+        [Display(Name = "必填欄位是否儲存")]
         public bool IsSaved { get; set; } // To show the class is saved or not in edit view.
         [Display(Name = "不正常數量")]
         public int CountErrors { get; set; } // To show the errors of class in detail view for checker.

@@ -40,10 +40,6 @@ namespace InspectSystem.Models
         [Display(Name = "簽核主管")]
         public string CheckerName { get; set; }
 
-        [NotMapped]
-        [Display(Name = "目前班別")]
-        public string ShiftName { get; set; }
-
         public virtual InspectDocIdTable InspectDocIdTable { get; set; }
         public virtual ICollection<InspectDocDetail> InspectDocDetail { get; set; }
         public virtual ICollection<InspectDocDetailTemp> InspectDocDetailTemp { get; set; }

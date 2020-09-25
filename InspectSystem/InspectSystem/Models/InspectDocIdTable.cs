@@ -37,6 +37,16 @@ namespace InspectSystem.Models
         [Display(Name = "案件狀態")]
         public string DocStatusId { get; set; }
 
+        [NotMapped]
+        [Display(Name = "目前班別")]
+        public string ShiftName { get; set; }
+        [NotMapped]
+        [Display(Name = "巡檢人員ID")]
+        public string EngUserName { get; set; }
+        [NotMapped]
+        [Display(Name = "巡檢人員")]
+        public string EngFullName { get; set; }
+
         public virtual InspectDocStatus InspectDocStatus { get; set; }
         public virtual ICollection<InspectDoc> InspectDoc { get; set; }
         public virtual ICollection<InspectDocFlow> InspectDocFlow { get; set; }

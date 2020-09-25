@@ -4,6 +4,8 @@
     ViewBag.Title = "巡檢單編輯";
 }
 <link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
+<link rel="stylesheet" type="text/css" href="~/Font-awesome-5.14.0/css/all.min.css">
+<script src="~/Font-awesome-5.14.0/js/all.min.js"></script>
 <script src="~/Scripts/ScrollToTop.js"></script>
 
 <div class="container">
@@ -14,6 +16,10 @@
         @foreach (var item in Model)
         {
             <button class="btn btn-large btn-primary tablinks" data-toggle="tab" href="#inspectEdit" onclick="showClassContents(event, '@item.DocId', '@item.ShiftId', '@item.ClassId')" id="@item.ClassId">
+                @if (item.IsSaved == true)
+                {
+                    <span class="far fa-check-circle"></span>
+                }
                 @item.ClassName
                 @if (item.CountErrors != 0)
                 {
@@ -22,6 +28,7 @@
             </button>
         }
 
+        <button class="btn btn-large btn-info" id="btnNextFlow" value="@ViewBag.AllSaved">送出交班</button>
         <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectFlow">流程資訊</button>
         <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectNextFlow">簽核作業</button>
     </div>
@@ -51,6 +58,23 @@
             //Default class content is first item from tablinks.
             var tabs = document.getElementsByClassName("tablinks");
             tabs.item(0).click();
+            //
+            var value = $("#btnNextFlow").val();
+            if (value == "true") {
+                $("#btnNextFlow").removeAttr("disabled");
+            }
+            else {
+                $("#btnNextFlow").attr("disabled", true);
+            }
+            //
+            $("#btnNextFlow").click(function () {
+                var docId = '@Model.First().DocId';
+                var shiftId = '@Model.First().ShiftId';
+                var url = '@Url.Action("Edit", "InspectDocDetailTemp")';
+                url = url + "?docId=" + docId + "&shiftId=" + shiftId;
+                alert(url);
+                location.href = url;
+            });
         });
         function showmsg(data) {
             if (data.success == null) {
@@ -65,18 +89,7 @@
             }
         }
         function showClassContents(evt, docId, shiftId, classId) {
-            // Declare all variables
-            //var i, tablinks;
-
-            //// Get all elements with class="tablinks" and remove the class "active"
-            //tablinks = document.getElementsByClassName("tablinks");
-            //for (i = 0; i < tablinks.length; i++) {
-            //    tablinks[i].className = tablinks[i].className.replace(" active", "");
-            //}
-
-            //// Add an "active" class to the link button clicked.
-            //evt.currentTarget.className += " active";
-            var url = '@Url.Action("GetClassContents", "InspectDocDetailTemp")';
+            var url = '@Url.Action("GetClassContentEdit", "InspectDocDetailTemp")';
             $.ajax({
                 type: "GET",
                 url: url,

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectClassVModel>
+
+@{
+    ViewBag.Title = "巡檢單編輯";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
+<link rel="stylesheet" type="text/css" href="~/Font-awesome-5.14.0/css/all.min.css">
+<script src="~/Font-awesome-5.14.0/js/all.min.js"></script>
+<script src="~/Scripts/ScrollToTop.js"></script>
+
+<div class="container">
+
+    <h3>@ViewBag.Header</h3>
+
+    <div id="tab" class="btn-group" data-toggle="buttons-radio">
+        @foreach (var item in Model)
+        {
+            <button class="btn btn-large btn-primary tablinks" data-toggle="tab" href="#inspectViews" onclick="showClassContents(event, '@item.DocId', '@item.ShiftId', '@item.ClassId')" id="@item.ClassId">
+                @item.ClassName
+                @if (item.CountErrors != 0)
+                {
+                    <span class="badge badge-pill badge-danger">@item.CountErrors</span>
+                }
+            </button>
+        }
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectFlow">流程資訊</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectNextFlow">簽核作業</button>
+    </div>
+
+    <div class="tab-content card">
+        <div id="inspectViews" class="tab-pane fade show active">
+
+        </div>
+        <div id="inspectFlow" class="tab-pane fade ">
+            <h4>流程資訊</h4>
+        </div>
+        <div id="inspectNextFlow" class="tab-pane fade ">
+            <h4>簽核作業</h4>
+        </div>
+    </div>
+</div>
+
+<button onclick="topFunction()" id="goToTopBtn" title="Go to top">回頁首</button>
+
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Default class content is first item from tablinks.
+            var tabs = document.getElementsByClassName("tablinks");
+            tabs.item(0).click();
+        });
+        function showmsg(data) {
+            if (data.success == null) {
+                // search success.
+                $.Toast.hideToast();
+            }
+            else {
+                if (data.success === false) {
+                    alert(data.error);
+                    $.Toast.hideToast();
+                }
+            }
+        }
+        function showClassContents(evt, docId, shiftId, classId) {
+            var url = '@Url.Action("GetClassContentViews", "InspectDocDetailTemp")';
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { docId: docId, shiftId: shiftId, classId: classId },
+                beforeSend: function () {
+                    $.Toast.showToast({ 'title': '讀取中，請稍待...', 'icon': 'loading', 'duration': 0 });
+                },
+                complete: function () {
+                    $.Toast.hideToast();
+                },
+                success: function (result) {
+                    $("#inspectViews").html(result);
+                },
+                error: function (msg) {
+                    alert("讀取錯誤!");
+                }
+            });
+        }
+    </script>
+}

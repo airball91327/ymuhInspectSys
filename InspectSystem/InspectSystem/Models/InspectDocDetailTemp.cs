@@ -69,6 +69,10 @@ namespace InspectSystem.Models
 
         public virtual InspectDoc InspectDocs { get; set; }
 
+        [NotMapped]
+        [Display(Name = "必填欄位是否儲存")]
+        public bool IsSaved { get; set; } // To show the class is saved or not in edit view.
+
         /// <summary>
         /// Check that this field is needed to show past value or not.
         /// </summary>
