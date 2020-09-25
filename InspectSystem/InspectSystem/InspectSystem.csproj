@@ -230,6 +230,7 @@
     <Compile Include="Controllers\AppUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InspectDocController.cs" />
+    <Compile Include="Controllers\InspectDocDetailController.cs" />
     <Compile Include="Controllers\InspectDocDetailTempController.cs" />
     <Compile Include="Controllers\InspectDocIdTableController.cs" />
     <Compile Include="Controllers\InspectPrecautionsController.cs" />
@@ -906,12 +907,12 @@
     <Content Include="Views\InspectDocIdTable\Edit.cshtml" />
     <Content Include="Views\InspectDocIdTable\Index.cshtml" />
     <Content Include="Views\InspectDoc\List.cshtml" />
-    <Content Include="Views\InspectDocDetailTemp\Create.cshtml" />
-    <Content Include="Views\InspectDocDetailTemp\Delete.cshtml" />
-    <Content Include="Views\InspectDocDetailTemp\Details.cshtml" />
-    <Content Include="Views\InspectDocDetailTemp\Edit.cshtml" />
-    <Content Include="Views\InspectDocDetailTemp\Index.cshtml" />
     <Content Include="Views\InspectDocDetailTemp\GetClassContents.cshtml" />
+    <Content Include="Views\InspectDocDetail\Create.cshtml" />
+    <Content Include="Views\InspectDocDetail\Delete.cshtml" />
+    <Content Include="Views\InspectDocDetail\Details.cshtml" />
+    <Content Include="Views\InspectDocDetail\Edit.cshtml" />
+    <Content Include="Views\InspectDocDetail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

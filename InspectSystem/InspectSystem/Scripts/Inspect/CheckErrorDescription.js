@@ -7,9 +7,8 @@
         var cutName = objName.split(".", 1);
         var targetId = cutName + ".ErrorDescription";
         var value = this.value;
-        //console.log(value);
         // Controll ErrorDescription textbox.
-        if (value == "n") {
+        if (value == "N") {
             document.getElementById(targetId).setAttribute("Required", "Required");
         }
         else {

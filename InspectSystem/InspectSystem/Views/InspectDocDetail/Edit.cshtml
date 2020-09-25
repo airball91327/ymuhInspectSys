@@ -1,4 +1,4 @@
-﻿@model InspectSystem.Models.InspectDocDetailTemp
+﻿@model InspectSystem.Models.InspectDocDetail
 
 @{
     ViewBag.Title = "Edit";
@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>InspectDocDetailTemp</h4>
+        <h4>InspectDocDetail</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.DocId)
