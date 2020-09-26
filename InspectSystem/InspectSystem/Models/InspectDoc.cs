@@ -39,6 +39,8 @@ namespace InspectSystem.Models
         public int? CheckerId { get; set; }
         [Display(Name = "簽核主管")]
         public string CheckerName { get; set; }
+        [Display(Name = "交班事項")]
+        public string Note { get; set; }
 
         public virtual InspectDocIdTable InspectDocIdTable { get; set; }
         public virtual ICollection<InspectDocDetail> InspectDocDetail { get; set; }

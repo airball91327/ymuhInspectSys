@@ -1,4 +1,5 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectClassVModel>
+﻿
+@model IEnumerable<InspectSystem.Models.InspectClassVModel>
 
 @{
     ViewBag.Title = "巡檢單編輯";
@@ -15,11 +16,7 @@
     <div id="tab" class="btn-group" data-toggle="buttons-radio">
         @foreach (var item in Model)
         {
-            <button class="btn btn-large btn-primary tablinks" data-toggle="tab" href="#inspectEdit" onclick="showClassContents(event, '@item.DocId', '@item.ShiftId', '@item.ClassId')" id="@item.ClassId">
-                @if (item.IsSaved == true)
-                {
-                    <span class="far fa-check-circle"></span>
-                }
+            <button class="btn btn-large btn-primary tablinks" data-toggle="tab" href="#inspectViews" onclick="showClassContents(event, '@item.DocId', '@item.ShiftId', '@item.ClassId')" id="@item.ClassId">
                 @item.ClassName
                 @if (item.CountErrors != 0)
                 {
@@ -27,13 +24,19 @@
                 }
             </button>
         }
-   
-        <button class="btn btn-large btn-info" id="btnNextFlow" value="@ViewBag.AllSaved">送出交班</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectFlow">流程資訊</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectNextFlow">交班作業</button>
     </div>
 
     <div class="tab-content card">
-        <div id="inspectEdit" class="tab-pane fade show active">
+        <div id="inspectViews" class="tab-pane fade show active">
 
+        </div>
+        <div id="inspectFlow" class="tab-pane fade ">
+            @Html.Action("FlowList", "InspectDocFlow", new { docId = Model.First().DocId })
+        </div>
+        <div id="inspectNextFlow" class="tab-pane fade ">
+            @Html.Action("NextShiftConfirm", "InspectDocFlow", new { docId = Model.First().DocId, shiftId = Model.First().ShiftId })
         </div>
     </div>
 </div>
@@ -50,22 +53,6 @@
             //Default class content is first item from tablinks.
             var tabs = document.getElementsByClassName("tablinks");
             tabs.item(0).click();
-            //
-            var value = $("#btnNextFlow").val();
-            if (value == "true") {
-                $("#btnNextFlow").removeAttr("disabled");
-            }
-            else {
-                $("#btnNextFlow").attr("disabled", true);
-            }
-            //
-            $("#btnNextFlow").click(function () {
-                var docId = '@Model.First().DocId';
-                var shiftId = '@Model.First().ShiftId';
-                var url = '@Url.Action("Edit", "InspectDocDetailTemp")';
-                url = url + "?docId=" + docId + "&shiftId=" + shiftId;
-                location.href = url;
-            });
         });
         function showmsg(data) {
             if (data.success == null) {
@@ -80,7 +67,7 @@
             }
         }
         function showClassContents(evt, docId, shiftId, classId) {
-            var url = '@Url.Action("GetClassContentEdit", "InspectDocDetailTemp")';
+            var url = '@Url.Action("GetClassContentViews", "InspectDocDetailTemp")';
             $.ajax({
                 type: "GET",
                 url: url,
@@ -92,7 +79,7 @@
                     $.Toast.hideToast();
                 },
                 success: function (result) {
-                    $("#inspectEdit").html(result);
+                    $("#inspectViews").html(result);
                 },
                 error: function (msg) {
                     alert("讀取錯誤!");

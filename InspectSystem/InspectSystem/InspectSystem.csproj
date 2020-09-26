@@ -232,6 +232,7 @@
     <Compile Include="Controllers\InspectDocController.cs" />
     <Compile Include="Controllers\InspectDocDetailController.cs" />
     <Compile Include="Controllers\InspectDocDetailTempController.cs" />
+    <Compile Include="Controllers\InspectDocFlowController.cs" />
     <Compile Include="Controllers\InspectDocIdTableController.cs" />
     <Compile Include="Controllers\InspectPrecautionsController.cs" />
     <Compile Include="Controllers\VentilatorDocsController.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppRoles.cs" />
     <Compile Include="Models\AppUser.cs" />
+    <Compile Include="Models\AssignVModel.cs" />
     <Compile Include="Models\BMEDcontext.cs" />
     <Compile Include="Models\DB_GEN_STAFF_PW.cs" />
     <Compile Include="Models\Department.cs" />
@@ -2586,9 +2588,6 @@
     <Content Include="Views\VentilatorDocs\Edit.cshtml" />
     <Content Include="Views\VentilatorDocs\Index.cshtml" />
     <Content Include="Views\VentilatorDocs\List.cshtml" />
-    <Content Include="Views\InspectDoc\Create.cshtml" />
-    <Content Include="Views\InspectDoc\Delete.cshtml" />
-    <Content Include="Views\InspectDoc\Details.cshtml" />
     <Content Include="Views\InspectDoc\Edit.cshtml" />
     <Content Include="Views\InspectDoc\Index.cshtml" />
     <Content Include="Views\InspectDocIdTable\Create.cshtml" />
@@ -2598,13 +2597,12 @@
     <Content Include="Views\InspectDocIdTable\Index.cshtml" />
     <Content Include="Views\InspectDoc\List.cshtml" />
     <Content Include="Views\InspectDocDetailTemp\GetClassContentEdit.cshtml" />
-    <Content Include="Views\InspectDocDetail\Create.cshtml" />
-    <Content Include="Views\InspectDocDetail\Delete.cshtml" />
-    <Content Include="Views\InspectDocDetail\Details.cshtml" />
-    <Content Include="Views\InspectDocDetail\Edit.cshtml" />
-    <Content Include="Views\InspectDocDetail\Index.cshtml" />
     <Content Include="Views\InspectDocDetailTemp\Edit.cshtml" />
     <Content Include="Views\InspectDocDetailTemp\GetClassContentViews.cshtml" />
+    <Content Include="Views\InspectDocFlow\FlowList.cshtml" />
+    <Content Include="Views\InspectDocFlow\NextShift.cshtml" />
+    <Content Include="Views\InspectDoc\ShiftConfirm.cshtml" />
+    <Content Include="Views\InspectDocFlow\NextShiftConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2612,6 +2610,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\InspectDocDetail\" />
     <Folder Include="Views\Validations\" />
   </ItemGroup>
   <ItemGroup>

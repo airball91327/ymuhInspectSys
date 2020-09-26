@@ -26,6 +26,9 @@ namespace InspectSystem.Models
         public string FlowStatusId { get; set; }
         [Display(Name ="異動人員ID")]
         public int? Rtp { get; set; }
+        [NotMapped]
+        [Display(Name = "異動人員")]
+        public string RtpFullName { get; set; }
         [Display(Name ="異動時間")]
         public DateTime? Rtt { get; set; }
         [Display(Name = "關卡")]

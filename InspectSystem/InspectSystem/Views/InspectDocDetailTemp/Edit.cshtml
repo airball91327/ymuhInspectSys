@@ -23,8 +23,9 @@
                 }
             </button>
         }
+        <a class="btn btn-large btn-info" href="@Url.Action("Edit", "InspectDoc", new { id = Model.First().DocId })">回編輯畫面</a>
         <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectFlow">流程資訊</button>
-        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectNextFlow">簽核作業</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectNextFlow">交班作業</button>
     </div>
 
     <div class="tab-content card">
@@ -32,10 +33,10 @@
 
         </div>
         <div id="inspectFlow" class="tab-pane fade ">
-            <h4>流程資訊</h4>
+            @Html.Action("FlowList", "InspectDocFlow", new { docId = Model.First().DocId })
         </div>
         <div id="inspectNextFlow" class="tab-pane fade ">
-            <h4>簽核作業</h4>
+            @Html.Action("NextShift", "InspectDocFlow", new { docId = Model.First().DocId, shiftId = Model.First().ShiftId })
         </div>
     </div>
 </div>

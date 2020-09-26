@@ -11,6 +11,7 @@ using InspectSystem.Models;
 
 namespace InspectSystem.Controllers
 {
+    [Authorize]
     public class InspectDocDetailController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
@@ -22,105 +23,16 @@ namespace InspectSystem.Controllers
             return View(await inspectDocDetail.ToListAsync());
         }
 
-        // GET: InspectDocDetail/Details/5
-        public async Task<ActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            InspectDocDetail inspectDocDetail = await db.InspectDocDetail.FindAsync(id);
-            if (inspectDocDetail == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inspectDocDetail);
-        }
-
-        // GET: InspectDocDetail/Create
-        public ActionResult Create()
-        {
-            ViewBag.DocId = new SelectList(db.InspectDoc, "DocId", "EngName");
-            return View();
-        }
-
-        // POST: InspectDocDetail/Create
-        // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
-        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DocId,ShiftId,ClassId,ItemId,FieldId,AreaId,AreaName,ShiftName,ClassName,ClassOrder,ItemName,ItemOrder,FieldName,DataType,UnitOfData,MinValue,MaxValue,IsRequired,Value,IsFunctional,ErrorDescription,RepairDocId,DropDownItems")] InspectDocDetail inspectDocDetail)
-        {
-            if (ModelState.IsValid)
-            {
-                db.InspectDocDetail.Add(inspectDocDetail);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.DocId = new SelectList(db.InspectDoc, "DocId", "EngName", inspectDocDetail.DocId);
-            return View(inspectDocDetail);
-        }
-
-        // GET: InspectDocDetail/Edit/5
-        public async Task<ActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            InspectDocDetail inspectDocDetail = await db.InspectDocDetail.FindAsync(id);
-            if (inspectDocDetail == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.DocId = new SelectList(db.InspectDoc, "DocId", "EngName", inspectDocDetail.DocId);
-            return View(inspectDocDetail);
-        }
-
-        // POST: InspectDocDetail/Edit/5
-        // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
-        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DocId,ShiftId,ClassId,ItemId,FieldId,AreaId,AreaName,ShiftName,ClassName,ClassOrder,ItemName,ItemOrder,FieldName,DataType,UnitOfData,MinValue,MaxValue,IsRequired,Value,IsFunctional,ErrorDescription,RepairDocId,DropDownItems")] InspectDocDetail inspectDocDetail)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(inspectDocDetail).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.DocId = new SelectList(db.InspectDoc, "DocId", "EngName", inspectDocDetail.DocId);
-            return View(inspectDocDetail);
-        }
-
-        // GET: InspectDocDetail/Delete/5
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            InspectDocDetail inspectDocDetail = await db.InspectDocDetail.FindAsync(id);
-            if (inspectDocDetail == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inspectDocDetail);
-        }
-
-        // POST: InspectDocDetail/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            InspectDocDetail inspectDocDetail = await db.InspectDocDetail.FindAsync(id);
-            db.InspectDocDetail.Remove(inspectDocDetail);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
+        /// <summary>
+        /// Check the field input value is in the set range or not.
+        /// </summary>
+        /// <param name="docId"></param>
+        /// <param name="shiftId"></param>
+        /// <param name="classId"></param>
+        /// <param name="itemId"></param>
+        /// <param name="fieldId"></param>
+        /// <param name="value"></param>
+        /// <returns>string of the html to display the message.</returns>
         //GET: InspectDocDetail/CheckValue
         public ActionResult CheckValue(string docId, int shiftId, int classId, int itemId, int fieldId, string value)
         {

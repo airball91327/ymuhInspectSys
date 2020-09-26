@@ -1,0 +1,51 @@
+﻿@model InspectSystem.Models.Assign
+
+<h3 style="margin-top:0.5em">交班作業</h3>
+<hr />
+
+@using (Ajax.BeginForm("NextShift", "InspectDocFlow", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnBegin = "$.Toast.showToast({ 'title': '處理中，請稍待...', 'icon': 'loading', 'duration': 0 })",
+    OnSuccess = "showflowmsg"
+}, new { id = "nextShiftForm" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.DocId)
+    @Html.HiddenFor(model => model.ShiftId)
+    @Html.HiddenFor(model => model.ClsNow)
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShiftOpn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.ShiftOpn, 5, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ShiftOpn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="確定送出" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    function showflowmsg(data) {
+        var url = '@Url.Action("Index", "Home")';
+        if (data.success !== null) {
+            if (!data.success) {
+                alert(data.error);
+                $.Toast.hideToast();
+            }
+            else {
+                alert("巡檢單已送出!! [關閉後頁面回到首頁]");
+                location.replace(url);
+            }
+
+        }
+    }
+</script>

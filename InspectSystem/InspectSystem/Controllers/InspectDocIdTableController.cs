@@ -54,6 +54,18 @@ namespace InspectSystem.Controllers
             // Get user's docs.
             inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" && df.UserId == WebSecurity.CurrentUserId).ToList();
             inspectDocIdTable = inspectFlows.Join(inspectDocIdTable, f => f.DocId, d => d.DocId, (f, d) => d).ToList();
+            //Get Shifting docs.
+            var shiftingDoc = db.InspectDocIdTable.Include(d => d.InspectDoc).Where(i => i.DocStatusId == "2")
+                                                  .Join(db.InspectDoc, dt => dt.DocId, d => d.DocId, 
+                                                  (dt, d) => new 
+                                                  { 
+                                                      docIdTable = dt,
+                                                      doc = d
+                                                  })
+                                                  .Where(r => r.doc.CheckerId == null || r.doc.CheckerId == WebSecurity.CurrentUserId)
+                                                  .Select(r => r.docIdTable).ToList();
+            inspectDocIdTable.AddRange(shiftingDoc);
+            inspectDocIdTable = inspectDocIdTable.GroupBy(d => d.DocId).Select(d => d.FirstOrDefault()).ToList();
             // query conditions.
             if (!string.IsNullOrEmpty(docid))   //案件編號(關鍵字)
             {
