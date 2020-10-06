@@ -209,11 +209,37 @@ namespace InspectSystem.Controllers
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
             }
+            else
+            {
+                // Edit InspectDoc
+                if (user != null)
+                {
+                    inspectDoc.CheckerId = user.Id;
+                    inspectDoc.CheckerName = user.FullName;
+                    db.Entry(inspectDoc).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
             //
             try
             {
                 if (nextShiftId == 0)   // Now is the last shift.
                 {
+                    // Edit docIdTable's doc status.
+                    docIdTable.DocStatusId = "3";
+                    db.Entry(docIdTable).State = EntityState.Modified;
+                    // Create next flow.
+                    InspectDocFlow flow = new InspectDocFlow();
+                    flow.DocId = df.DocId;
+                    flow.StepId = df.StepId + 1;
+                    flow.UserId = WebSecurity.CurrentUserId;
+                    flow.FlowStatusId = "?";
+                    flow.Rtp = WebSecurity.CurrentUserId;
+                    flow.Rtt = DateTime.Now;
+                    flow.Cls = "巡檢工程師";
+                    db.InspectDocFlow.Add(flow);
+                    db.SaveChanges();
+                    //
                     return new JsonResult
                     {
                         Data = new { success = true, error = "" },

@@ -150,12 +150,14 @@ namespace InspectSystem.Controllers
             {
                 return View("ShiftConfirm", inspectClassVs);
             }
-            else
+            else if (docStatusId == "3") //簽核中
             {
-
+                return View("ShiftConfirm", inspectClassVs);
             }
-
-            return View(inspectClassVs);
+            else //巡檢中
+            {
+                return View(inspectClassVs);
+            }
         }
 
         // POST: InspectDoc/Edit/5
