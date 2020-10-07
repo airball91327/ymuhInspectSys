@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 
 namespace InspectSystem.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
+        private BMEDcontext db = new BMEDcontext();
+
         public ActionResult Index()
         {
             return View();
@@ -19,7 +22,10 @@ namespace InspectSystem.Controllers
         {
             UnsignCountsVModel v = new UnsignCountsVModel();
             v.VentilatorCount = 0;
-            v.InspectCount = 0;
+
+            var insCount = db.InspectDocFlow.Where(df => df.FlowStatusId == "?")
+                                            .Where(df => df.UserId == WebSecurity.CurrentUserId).Count();
+            v.InspectCount = insCount;
 
             return View(v);
         }

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectDocDetail>
+
+@{
+    ViewBag.Title = "預覽";
+    int iTabCount = 1;
+    int iPanelCount = 1;
+}
+
+<div class="container">
+    @if (Model.Count() <= 0)
+    {
+        <p style="color:red">尚無資料!</p>
+    }
+    else
+    {
+        <h4>@ViewBag.AreaName</h4>
+
+        <ul class="nav nav-tabs">
+            @foreach (var modelItem in Model)
+            {
+                string tabId = "shiftTab" + iTabCount;
+                string panelHref = "#shiftPanel" + iTabCount;
+                if (iTabCount == 1)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="@panelHref" id="@tabId">@modelItem.ShiftName</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="@panelHref" id="@tabId">@modelItem.ShiftName</a>
+                    </li>
+                }
+                iTabCount++;
+            }
+        </ul>
+
+        <div class="tab-content">
+            @foreach (var modelItem in Model)
+            {
+                string panelId = "shiftPanel" + iPanelCount;
+                if (iPanelCount == 1)
+                {
+                    <div id="@panelId" class="container tab-pane fade show active">
+                        @*<p>@Html.Action("Index", "InspectDocIdTable")</p>*@
+                        <p>@panelId</p>
+                    </div>
+                }
+                else
+                {
+                    <div id="@panelId" class="container tab-pane fade">
+                        @*<p>@Html.Action("Index", "InspectDocIdTable")</p>*@
+                        <p>@panelId</p>
+                    </div>
+                }
+                iPanelCount++;
+            }
+        </div>
+    }
+</div>

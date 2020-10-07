@@ -2591,7 +2591,6 @@
     <Content Include="Views\InspectDoc\Edit.cshtml" />
     <Content Include="Views\InspectDoc\Index.cshtml" />
     <Content Include="Views\InspectDocIdTable\Create.cshtml" />
-    <Content Include="Views\InspectDocIdTable\Delete.cshtml" />
     <Content Include="Views\InspectDocIdTable\List.cshtml" />
     <Content Include="Views\InspectDocIdTable\Edit.cshtml" />
     <Content Include="Views\InspectDocIdTable\Index.cshtml" />
@@ -2603,6 +2602,7 @@
     <Content Include="Views\InspectDocFlow\NextShift.cshtml" />
     <Content Include="Views\InspectDoc\ShiftConfirm.cshtml" />
     <Content Include="Views\InspectDocFlow\NextShiftConfirm.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Views.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -97,8 +97,8 @@ namespace InspectSystem.Controllers
             return PartialView("List", inspectDocIdTable);
         }
 
-        // GET: InspectDocIdTable/Details/5
-        public async Task<ActionResult> Details(string id)
+        // GET: InspectDocIdTable/Views/5
+        public async Task<ActionResult> Views(string id)
         {
             if (id == null)
             {
@@ -109,7 +109,18 @@ namespace InspectSystem.Controllers
             {
                 return HttpNotFound();
             }
-            return View(inspectDocIdTable);
+            //
+            List<InspectDocDetail> dtlShifts = new List<InspectDocDetail>();
+            var docDetails = db.InspectDocDetail.Where(d => d.DocId == inspectDocIdTable.DocId).ToList();
+            if (docDetails.Count() > 0)
+            {
+                var docDetailShifts = docDetails.GroupBy(t => t.ShiftId).Select(g => g.FirstOrDefault())
+                                .OrderBy(d => d.ShiftId).ToList();
+                ViewBag.AreaName = docDetails.First().AreaName;
+                dtlShifts = docDetailShifts;
+            }
+
+            return View(dtlShifts);
         }
 
         // GET: InspectDocIdTable/Create
@@ -282,49 +293,11 @@ namespace InspectSystem.Controllers
             {
                 return HttpNotFound();
             }
+            //
+            var docDetails = db.InspectDocDetail.Where(d => d.DocId == inspectDocIdTable.DocId).ToList();
+            var docDetailShifts = docDetails.GroupBy(t => t.ShiftId).Select(g => g.FirstOrDefault())
+                                            .OrderBy(d => d.ShiftId).ToList();
             return View(inspectDocIdTable);
-        }
-
-        // POST: InspectDocIdTable/Edit/5
-        // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
-        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DocId,ApplyDate,CloseDate,AreaId,AreaName")] InspectDocIdTable inspectDocIdTable)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(inspectDocIdTable).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(inspectDocIdTable);
-        }
-
-        // GET: InspectDocIdTable/Delete/5
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            InspectDocIdTable inspectDocIdTable = await db.InspectDocIdTable.FindAsync(id);
-            if (inspectDocIdTable == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inspectDocIdTable);
-        }
-
-        // POST: InspectDocIdTable/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            InspectDocIdTable inspectDocIdTable = await db.InspectDocIdTable.FindAsync(id);
-            db.InspectDocIdTable.Remove(inspectDocIdTable);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
         }
 
         /// <summary>
