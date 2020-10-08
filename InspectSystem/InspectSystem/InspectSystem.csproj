@@ -2603,6 +2603,7 @@
     <Content Include="Views\InspectDoc\ShiftConfirm.cshtml" />
     <Content Include="Views\InspectDocFlow\NextShiftConfirm.cshtml" />
     <Content Include="Views\InspectDocIdTable\Views.cshtml" />
+    <Content Include="Views\InspectDocDetail\GetShiftViews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2610,7 +2611,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\InspectDocDetail\" />
     <Folder Include="Views\Validations\" />
   </ItemGroup>
   <ItemGroup>

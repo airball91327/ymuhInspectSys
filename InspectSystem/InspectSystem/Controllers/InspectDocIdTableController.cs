@@ -294,10 +294,16 @@ namespace InspectSystem.Controllers
                 return HttpNotFound();
             }
             //
+            List<InspectDocDetail> dtlShifts = new List<InspectDocDetail>();
             var docDetails = db.InspectDocDetail.Where(d => d.DocId == inspectDocIdTable.DocId).ToList();
-            var docDetailShifts = docDetails.GroupBy(t => t.ShiftId).Select(g => g.FirstOrDefault())
-                                            .OrderBy(d => d.ShiftId).ToList();
-            return View(inspectDocIdTable);
+            if (docDetails.Count() > 0)
+            {
+                var docDetailShifts = docDetails.GroupBy(t => t.ShiftId).Select(g => g.FirstOrDefault())
+                                .OrderBy(d => d.ShiftId).ToList();
+                ViewBag.AreaName = docDetails.First().AreaName;
+                dtlShifts = docDetailShifts;
+            }
+            return View(dtlShifts);
         }
 
         /// <summary>

@@ -43,15 +43,13 @@
                 if (iPanelCount == 1)
                 {
                     <div id="@panelId" class="container tab-pane fade show active">
-                        @*<p>@Html.Action("Index", "InspectDocIdTable")</p>*@
-                        <p>@panelId</p>
+                        <p>@Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })</p>
                     </div>
                 }
                 else
                 {
                     <div id="@panelId" class="container tab-pane fade">
-                        @*<p>@Html.Action("Index", "InspectDocIdTable")</p>*@
-                        <p>@panelId</p>
+                        <p>@Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })</p>
                     </div>
                 }
                 iPanelCount++;

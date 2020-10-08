@@ -23,6 +23,33 @@ namespace InspectSystem.Controllers
             return View(await inspectDocDetail.ToListAsync());
         }
 
+        // Get: InspectDocDetail/GetShiftViews/5
+        public ActionResult GetShiftViews(string docId, string shiftId)
+        {
+            int iShiftId = Convert.ToInt32(shiftId);
+            // Get inspect DocDetail list.
+            var docDetail = db.InspectDocDetail.Where(t => t.DocId == docId && t.ShiftId == iShiftId).ToList();
+            if (docDetail.Count() > 0)
+            {
+                ViewBag.ShiftName = docDetail.First().ShiftName;
+                // Get classes, items and fields from DocDetail list. 
+                ViewData["classesOfDocDetails"] = docDetail.GroupBy(i => i.ClassId)
+                                                 .Select(g => g.FirstOrDefault())
+                                                 .OrderBy(s => s.ClassOrder).ToList();
+                ViewData["itemsOfDocDetails"] = docDetail.GroupBy(i => i.ItemId)
+                                                                 .Select(g => g.FirstOrDefault())
+                                                                 .OrderBy(s => s.ItemOrder).ToList();
+                ViewData["fieldsOfDocDetails"] = docDetail.ToList();
+            }
+
+            InspectDocDetailViewModel inspectDocDetailViewModel = new InspectDocDetailViewModel()
+            {
+                InspectDocDetail = docDetail
+            };
+
+            return PartialView(inspectDocDetailViewModel);
+        }
+
         /// <summary>
         /// Check the field input value is in the set range or not.
         /// </summary>

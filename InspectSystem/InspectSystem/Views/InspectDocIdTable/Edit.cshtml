@@ -1,61 +1,65 @@
-﻿@model InspectSystem.Models.InspectDocIdTable
+﻿@model IEnumerable<InspectSystem.Models.InspectDocDetail>
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "預覽";
+    int iTabCount = 1;
+    int iPanelCount = 1;
 }
 
-<h2>Edit</h2>
+<div class="container">
+    @if (Model.Count() <= 0)
+    {
+        <p style="color:red">尚無資料!</p>
+    }
+    else
+    {
+        <h4>@ViewBag.AreaName</h4>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>InspectDocIdTable</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.DocId)
+        <ul class="nav nav-tabs">
+            @foreach (var modelItem in Model)
+            {
+                string tabId = "shiftTab" + iTabCount;
+                string panelHref = "#shiftPanel" + iTabCount;
+                if (iTabCount == 1)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="@panelHref" id="@tabId">@modelItem.ShiftName</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="@panelHref" id="@tabId">@modelItem.ShiftName</a>
+                    </li>
+                }
+                iTabCount++;
+            }
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#nextFlow" id="nextFlowTab">簽核作業</a>
+            </li>
+        </ul>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApplyDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApplyDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApplyDate, "", new { @class = "text-danger" })
+        <div class="tab-content">
+            @foreach (var modelItem in Model)
+            {
+                string panelId = "shiftPanel" + iPanelCount;
+                if (iPanelCount == 1)
+                {
+                    <div id="@panelId" class="container tab-pane fade show active">
+                        <p>@Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })</p>
+                    </div>
+                }
+                else
+                {
+                    <div id="@panelId" class="container tab-pane fade">
+                        <p>@Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })</p>
+                    </div>
+                }
+                iPanelCount++;
+            }
+            <div id="nextFlow" class="container tab-pane fade">
+                <p>簽核作業畫面</p>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CloseDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CloseDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CloseDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AreaId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AreaId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AreaName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
