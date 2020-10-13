@@ -14,7 +14,7 @@ $.fn.addItems = function (data) {
 
 $(function () {
     //$('#btnSelUsr').hide();
-    jQuery.noConflict();
+    //jQuery.noConflict();
     $('#FlowCls').change(function () {
         $('#btnSelUsr').hide();
         var select = $('#FlowUid');
