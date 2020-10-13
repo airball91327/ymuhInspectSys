@@ -254,6 +254,7 @@
     <Compile Include="Models\InspectDocQryVModel.cs" />
     <Compile Include="Models\InspectDocIdTable.cs" />
     <Compile Include="Models\InspectDocStatus.cs" />
+    <Compile Include="Models\SelectUserVModel.cs" />
     <Compile Include="Models\UnsignCountsVModel.cs" />
     <Compile Include="Models\VentilatorDocIdTable.cs" />
     <Compile Include="Models\VentilatorDoc.cs" />
@@ -462,6 +463,7 @@
     <Content Include="Content\Images\220px-NYMU_Hospital.jpg" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\NYMU.jpg" />
+    <Content Include="Content\Images\opc-ajax-loader.gif" />
     <Content Include="Content\Images\YMUH_Logo.png" />
     <Content Include="Content\MobileStyle\MyMobileTabStyle.css" />
     <Content Include="Content\MobileStyle\MyStyleForClassContentOfArea.css" />
@@ -2424,7 +2426,6 @@
     <Content Include="Scripts\i18n\defaults-ar_AR.js.map" />
     <Content Include="Scripts\i18n\defaults-am_ET.js.map" />
     <Content Include="Scripts\bootstrap-select.js.map" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Inspect\GetClassContentEdit.js" />
     <Content Include="Scripts\Inspect\InspectDocDetailsIndex.js" />
     <Content Include="Scripts\Inspect\InspectDocEditIndex.js" />
@@ -2432,25 +2433,19 @@
     <Content Include="Scripts\Inspect\InspectFields.js" />
     <Content Include="Scripts\Inspect\InspectFieldsSearch.js" />
     <Content Include="Scripts\Inspect\InspectItemsIndex.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\Inspect\InspectNextFlow.js" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.toast.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -2460,7 +2455,6 @@
     <Content Include="Scripts\Inspect\CheckErrorDescription.js" />
     <Content Include="Scripts\Inspect\CheckFormModified.js" />
     <Content Include="Scripts\Inspect\InspectDocDetailsSelectClass.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -2474,6 +2468,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ScrollToTop.js" />
+    <Content Include="Scripts\SelectUser.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -2604,6 +2599,8 @@
     <Content Include="Views\InspectDocFlow\NextShiftConfirm.cshtml" />
     <Content Include="Views\InspectDocIdTable\Views.cshtml" />
     <Content Include="Views\InspectDocDetail\GetShiftViews.cshtml" />
+    <Content Include="Views\InspectDocFlow\NextFlow.cshtml" />
+    <Content Include="Views\AppUsers\SelectUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

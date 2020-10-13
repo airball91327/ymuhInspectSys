@@ -35,6 +35,9 @@
                 iTabCount++;
             }
             <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#flowList" id="flowListTab">流程資訊</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#nextFlow" id="nextFlowTab">簽核作業</a>
             </li>
         </ul>
@@ -46,20 +49,28 @@
                 if (iPanelCount == 1)
                 {
                     <div id="@panelId" class="container tab-pane fade show active">
-                        <p>@Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })</p>
+                        @Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })
                     </div>
                 }
                 else
                 {
                     <div id="@panelId" class="container tab-pane fade">
-                        <p>@Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })</p>
+                        @Html.Action("GetShiftViews", "InspectDocDetail", new { docId = modelItem.DocId, shiftId = modelItem.ShiftId })
                     </div>
                 }
                 iPanelCount++;
             }
+            <div id="flowList" class="container tab-pane fade">
+                @Html.Action("FlowList", "InspectDocFlow", new { docId = Model.First().DocId })
+            </div>
             <div id="nextFlow" class="container tab-pane fade">
-                <p>簽核作業畫面</p>
+                @Html.Action("NextFlow", "InspectDocFlow", new { docId = Model.First().DocId })
             </div>
         </div>
     }
 </div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+}

@@ -5,10 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title -  巡檢系統</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
 
     <style>
         .setHeaderStyle {
@@ -43,7 +44,6 @@
                         </a>
                         <div class="dropdown-menu layout-dropdown-menu">
                             @Html.ActionLink("巡檢表單", "Create", "InspectDocIdTable", new { area = "" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("呼吸器表單", "Create", "VentilatorDoc", new { area = "" }, new { @class = "dropdown-item" })
                         </div>
                     </li>
                     <li class="nav-item">@Html.ActionLink("主管審核作業", "DocListForChecker", "InspectDocChecker", new { area = "" }, new { @class = "nav-link" })</li>

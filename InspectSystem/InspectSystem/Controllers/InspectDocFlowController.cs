@@ -342,6 +342,43 @@ namespace InspectSystem.Controllers
             }
         }
 
+        // GET: InspectDocFlow/NextFlow
+        public ActionResult NextFlow(string docId)
+        {
+            Assign assign = new Assign();
+            assign.DocId = docId;
+            assign.CanClose = true;
+            List<SelectListItem> listItem = new List<SelectListItem>();
+            listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
+            listItem.Add(new SelectListItem { Text = "巡檢工程師", Value = "巡檢工程師" });
+            listItem.Add(new SelectListItem { Text = "組長", Value = "組長" });
+            listItem.Add(new SelectListItem { Text = "主管", Value = "主管" });
+            //
+            InspectDocFlow flow = db.InspectDocFlow.Where(f => f.DocId == docId && f.FlowStatusId == "?").ToList().FirstOrDefault();
+            if (flow != null)
+            {
+                assign.ClsNow = flow.Cls;
+                if (flow.Cls == "驗收人" || flow.Cls == "主管")
+                {
+                    listItem.Add(new SelectListItem { Text = "結案", Value = "結案" });
+                }
+                if (flow.Cls == "巡檢工程師")
+                {
+                    listItem.Clear();
+                    listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
+                    listItem.Add(new SelectListItem { Text = "組長", Value = "組長" });
+                    listItem.Add(new SelectListItem { Text = "主管", Value = "主管" });
+                }
+            }
+            ViewData["FlowCls"] = new SelectList(listItem, "Value", "Text", "");
+            //
+            List<SelectListItem> listItem2 = new List<SelectListItem>();
+            listItem2.Add(new SelectListItem { Text = "", Value = "" });
+            ViewData["FlowUid"] = new SelectList(listItem2, "Value", "Text", "");
+
+            return PartialView(assign);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

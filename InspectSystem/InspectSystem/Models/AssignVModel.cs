@@ -31,6 +31,7 @@ namespace InspectSystem.Models
         [Display(Name = "允許驗收人結案?")]
         public bool CanClose { get; set; }
         public string AssetNo { get; set; }
+
         [Display(Name = "班別")]
         public string ShiftId { get; set; }
         [Display(Name = "下一個班別")]
