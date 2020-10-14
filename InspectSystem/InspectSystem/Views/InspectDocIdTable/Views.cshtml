@@ -6,6 +6,9 @@
     int iPanelCount = 1;
 }
 
+<script src="~/Scripts/ScrollToTop.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
+
 <div class="container">
     @if (Model.Count() <= 0)
     {
@@ -34,6 +37,9 @@
                 }
                 iTabCount++;
             }
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#flowList" id="flowListTab">流程資訊</a>
+            </li>
         </ul>
 
         <div class="tab-content">
@@ -54,6 +60,11 @@
                 }
                 iPanelCount++;
             }
+            <div id="flowList" class="container tab-pane fade">
+                @Html.Action("FlowList", "InspectDocFlow", new { docId = Model.First().DocId })
+            </div>
         </div>
     }
 </div>
+
+<button onclick="topFunction()" id="goToTopBtn" title="Go to top">回頁首</button>

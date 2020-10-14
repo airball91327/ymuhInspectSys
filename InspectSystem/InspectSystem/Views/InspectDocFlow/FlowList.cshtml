@@ -6,56 +6,59 @@
 
 <h3 style="margin-top:0.5em">流程資訊</h3>
 
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StepId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserFullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Opinions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InspectFlowStatus.FlowStatusDes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RtpFullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rtt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cls)
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div style="overflow-x:auto;">
+    <table class="table table-hover">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StepId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserFullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Opinions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InspectFlowStatus.FlowStatusDes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RtpFullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rtt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cls)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.StepId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opinions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InspectFlowStatus.FlowStatusDes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RtpFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rtt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cls)
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StepId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserFullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opinions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InspectFlowStatus.FlowStatusDes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RtpFullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rtt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cls)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

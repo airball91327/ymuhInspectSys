@@ -39,8 +39,10 @@
         <div class="form-group form-inline">
             @Html.LabelFor(model => model.FlowCls, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FlowCls, null, "請選擇", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FlowCls, "", new { @class = "text-danger" })
+                <div class="form-inline">
+                    @Html.DropDownListFor(model => model.FlowCls, null, "請選擇", new { @class = "form-control col-sm-3" })
+                    @Html.ValidationMessageFor(model => model.FlowCls, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -48,7 +50,7 @@
             @Html.LabelFor(model => model.FlowUid, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10 text-left">
                 <div class="form-inline">
-                    @Html.DropDownListFor(model => model.FlowUid, null, "請選擇", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.FlowUid, null, "請選擇", new { @class = "form-control col-sm-3" })
                     <input id="btnSelUsr" type="button" value="..." class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSELUSER" />
                     @Html.ValidationMessageFor(model => model.FlowUid, "", new { @class = "text-danger" })
                 </div>

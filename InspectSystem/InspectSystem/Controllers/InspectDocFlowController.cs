@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using InspectSystem.Models;
 using InspectSystem.Filters;
 using WebMatrix.WebData;
+using System.Web.Security;
 
 namespace InspectSystem.Controllers
 {
@@ -352,13 +353,13 @@ namespace InspectSystem.Controllers
             listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
             listItem.Add(new SelectListItem { Text = "巡檢工程師", Value = "巡檢工程師" });
             listItem.Add(new SelectListItem { Text = "組長", Value = "組長" });
-            listItem.Add(new SelectListItem { Text = "主管", Value = "主管" });
+            listItem.Add(new SelectListItem { Text = "設備主管", Value = "設備主管" });
             //
             InspectDocFlow flow = db.InspectDocFlow.Where(f => f.DocId == docId && f.FlowStatusId == "?").ToList().FirstOrDefault();
             if (flow != null)
             {
                 assign.ClsNow = flow.Cls;
-                if (flow.Cls == "驗收人" || flow.Cls == "主管")
+                if (flow.Cls == "驗收人" || flow.Cls == "設備主管")
                 {
                     listItem.Add(new SelectListItem { Text = "結案", Value = "結案" });
                 }
@@ -367,7 +368,7 @@ namespace InspectSystem.Controllers
                     listItem.Clear();
                     listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
                     listItem.Add(new SelectListItem { Text = "組長", Value = "組長" });
-                    listItem.Add(new SelectListItem { Text = "主管", Value = "主管" });
+                    listItem.Add(new SelectListItem { Text = "設備主管", Value = "設備主管" });
                 }
             }
             ViewData["FlowCls"] = new SelectList(listItem, "Value", "Text", "");
@@ -377,6 +378,166 @@ namespace InspectSystem.Controllers
             ViewData["FlowUid"] = new SelectList(listItem2, "Value", "Text", "");
 
             return PartialView(assign);
+        }
+
+        [HttpPost]
+        [MyErrorHandler]
+        public ActionResult NextFlow(Assign assign)
+        {
+            if (ModelState.IsValid)
+            {
+                if (assign.FlowCls == "結案" || assign.FlowCls == "廢除")
+                {
+                    assign.FlowUid = WebSecurity.CurrentUserId;
+                }
+                InspectDocFlow df = db.InspectDocFlow.Where(f => f.DocId == assign.DocId && f.FlowStatusId == "?").FirstOrDefault();
+                if (assign.FlowCls == "結案")
+                {
+                    InspectDocIdTable inspectDocId = db.InspectDocIdTable.Find(assign.DocId);
+                    var inspectDocs = db.InspectDoc.Where(d => d.DocId == assign.DocId).ToList();
+                    // Update close date.
+                    inspectDocId.CloseDate = DateTime.Now;
+                    inspectDocId.DocStatusId = "4";
+                    foreach(var doc in inspectDocs)
+                    {
+                        doc.CloseDate = DateTime.Now;
+                        db.Entry(doc).State = EntityState.Modified;
+                    }
+                    //
+                    df.Opinions = "[" + assign.AssignCls + "]" + Environment.NewLine + assign.AssignOpn;
+                    df.FlowStatusId = "2";
+                    df.Rtt = DateTime.Now;
+                    df.Rtp = WebSecurity.CurrentUserId;
+                    db.Entry(df).State = EntityState.Modified;
+                    db.Entry(inspectDocId).State = EntityState.Modified;
+                    db.SaveChanges();
+                    //Send Mail
+                    //Tmail mail = new Tmail();
+                    //string body = "";
+                    //string sto = "";
+                    //AppUser u;
+                    //u = db.AppUsers.Find(WebSecurity.CurrentUserId);
+                    //mail.from = new System.Net.Mail.MailAddress(u.Email); //u.Email
+                    //db.RepairFlows.Where(f => f.DocId == assign.DocId)
+                    //    .ToList()
+                    //    .ForEach(f =>
+                    //    {
+                    //        if (!f.Cls.Contains("工程師"))
+                    //        {
+                    //            u = db.AppUsers.Find(f.UserId);
+                    //            sto += u.Email + ",";
+                    //        }
+                    //    });
+                    //mail.sto = sto.TrimEnd(new char[] { ',' });
+                    //mail.message.Subject = "醫療儀器管理資訊系統[請修案-結案通知]：儀器名稱： " + repair.AssetName;
+                    //body += "<p>申請人：" + repair.UserName + "</p>";
+                    //body += "<p>財產編號：" + repair.AssetNo + "</p>";
+                    //body += "<p>儀器名稱：" + repair.AssetName + "</p>";
+                    //body += "<p>放置地點：" + repair.PlaceLoc + "</p>";
+                    //body += "<p>故障描述：" + repair.TroubleDes + "</p>";
+                    //body += "<p>處理描述：" + rd.DealDes + "</p>";
+                    //body += "<p><a href='https://mdms.ymuh.ym.edu.tw/'>檢視案件</a></p>";
+                    //body += "<br/>";
+                    //body += "<h3>此封信件為系統通知郵件，請勿回覆。</h3>";
+                    //mail.message.Body = body;
+                    //mail.message.IsBodyHtml = true;
+                    //mail.SendMail();
+                }
+                else if (assign.FlowCls == "廢除")
+                {
+                    //Do nothing.
+                }
+                else
+                {
+                    //轉送下一關卡
+                    df.Opinions = "[" + assign.AssignCls + "]" + Environment.NewLine + assign.AssignOpn;
+                    df.FlowStatusId = "1";
+                    df.Rtt = DateTime.Now;
+                    df.Rtp = WebSecurity.CurrentUserId;
+                    db.Entry(df).State = EntityState.Modified;
+                    db.SaveChanges();
+                    //
+                    InspectDocFlow flow = new InspectDocFlow();
+                    flow.DocId = assign.DocId;
+                    flow.StepId = df.StepId + 1;
+                    flow.UserId = assign.FlowUid.Value;
+                    flow.FlowStatusId = "?";
+                    flow.Cls = assign.FlowCls;
+                    flow.Rtt = DateTime.Now;
+                    db.InspectDocFlow.Add(flow);
+                    db.SaveChanges();
+                }
+                return new JsonResult
+                {
+                    Data = new { success = true, error = "" },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+            else
+            {
+                string msg = "";
+                foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                {
+                    msg += error.ErrorMessage + Environment.NewLine;
+                }
+                throw new Exception(msg);
+            }
+        }
+
+        [MyErrorHandler]
+        public JsonResult GetNextEmp(string cls, string docid)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            List<string> s;
+            SelectListItem li;
+            AppUser u;
+            InspectDocIdTable r = db.InspectDocIdTable.Find(docid);
+            string g = "";
+
+            switch (cls)
+            {
+                case "設備主管":
+                    s = Roles.GetUsersInRole("MedMgr").ToList();
+                    list = new List<SelectListItem>();
+                    foreach (string l in s)
+                    {
+                        u = db.AppUsers.Find(WebSecurity.GetUserId(l));
+                        if (u != null)
+                        {
+                            li = new SelectListItem();
+                            li.Text = "(" + u.UserName + ")" + u.FullName;
+                            li.Value = WebSecurity.GetUserId(l).ToString();
+                            list.Add(li);
+                        }
+                    }
+                    break;
+                case "巡檢工程師":
+                    list = new List<SelectListItem>();
+                    var inspectDocFlow = db.InspectDocFlow.Where(f => f.DocId == docid && f.Cls.Contains("工程師")).ToList();
+                    if (inspectDocFlow.Count() > 0)
+                    {
+                        var engId = inspectDocFlow.OrderBy(f => f.StepId).Last().UserId;
+                        u = db.AppUsers.Find(engId);
+                        if (u != null)
+                        {
+                            li = new SelectListItem();
+                            li.Text = "(" + u.UserName + ")" + u.FullName;
+                            li.Value = engId.ToString();
+                            list.Add(li);
+                        }
+                    }
+                    break;
+                case "驗收人":
+                    list = new List<SelectListItem>();
+                    break;
+                case "組長":
+                    list = new List<SelectListItem>();
+                    break;
+                default:
+                    list = new List<SelectListItem>();
+                    break;
+            }
+            return Json(list);
         }
 
         protected override void Dispose(bool disposing)

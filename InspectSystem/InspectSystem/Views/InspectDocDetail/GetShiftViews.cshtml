@@ -9,12 +9,13 @@
 }
 
 @{
-    var currentItemName = "0";
-    int i = 0, j = 0;
+
 }
 
 @foreach (var docClass in DocClasses)
 {
+    var currentItemName = "0";
+    int i = 0, j = 0;
     <div class="card border-primary">
         <div class="card-header text-white bg-primary border-primary">
             @docClass.ClassName
@@ -22,7 +23,8 @@
 
         <div class="card-body">
             <div class="container col-md-12">
-                @foreach (var item in DocItems)
+                @foreach (var item in DocItems.Where(d => d.ClassId == docClass.ClassId).GroupBy(d => d.ItemId)
+                                              .Select(g => g.FirstOrDefault()).OrderBy(s => s.ItemOrder))
                 {
                     /* Display the ItemName when ItemName is not the same. */
                     if (item.ItemName != currentItemName)
@@ -33,7 +35,7 @@
                             </div>
                             <div class="col-md-6">
                                 <table class="table no-border" style="margin-bottom: 0px">
-                                    @foreach (var fieldItem in DocFields)
+                                    @foreach (var fieldItem in DocFields.Where(d => d.ClassId == item.ClassId))
                                     {
                                         /* Display all the FieldName belong the current Item. */
                                         if (item.ItemId == fieldItem.ItemId)
@@ -47,7 +49,7 @@
                                                 </td>
 
                                                 <td>
-                                                    @foreach (var docItem in Model.InspectDocDetail)
+                                                    @foreach (var docItem in Model.InspectDocDetail.Where(d => d.ClassId == fieldItem.ClassId))
                                                     {
                                                         /* Display textbox or checkbox for all fields, except boolean type. */
                                                         if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId &&
@@ -97,13 +99,13 @@
                                 </table>
                             </div>
                             <div class="col-md-4" style="padding-top: 8px">
-                                @foreach (var fieldItem in DocFields)
+                                @foreach (var fieldItem in DocFields.Where(d => d.ClassId == item.ClassId))
                                 {
                                     /* Display all the FieldName belong the current Item. */
                                     if (item.ItemId == fieldItem.ItemId)
                                     {
 
-                                        foreach (var docItem in Model.InspectDocDetail)
+                                        foreach (var docItem in Model.InspectDocDetail.Where(d => d.ClassId == fieldItem.ClassId))
                                         {
                                             /* Display textbox or checkbox for all fields. */
                                             if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId)

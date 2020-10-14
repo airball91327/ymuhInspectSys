@@ -36,9 +36,7 @@ namespace InspectSystem.Controllers
                 ViewData["classesOfDocDetails"] = docDetail.GroupBy(i => i.ClassId)
                                                  .Select(g => g.FirstOrDefault())
                                                  .OrderBy(s => s.ClassOrder).ToList();
-                ViewData["itemsOfDocDetails"] = docDetail.GroupBy(i => i.ItemId)
-                                                                 .Select(g => g.FirstOrDefault())
-                                                                 .OrderBy(s => s.ItemOrder).ToList();
+                ViewData["itemsOfDocDetails"] = docDetail.ToList();
                 ViewData["fieldsOfDocDetails"] = docDetail.ToList();
             }
 
