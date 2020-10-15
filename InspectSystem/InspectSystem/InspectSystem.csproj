@@ -235,6 +235,9 @@
     <Compile Include="Controllers\InspectDocFlowController.cs" />
     <Compile Include="Controllers\InspectDocIdTableController.cs" />
     <Compile Include="Controllers\InspectPrecautionsController.cs" />
+    <Compile Include="Controllers\InspectReportController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SearchDocDetailController.cs" />
     <Compile Include="Controllers\VentilatorDocsController.cs" />
     <Compile Include="Filters\MyErrorHandler.cs" />
     <Compile Include="Global.asax.cs">
@@ -2601,6 +2604,8 @@
     <Content Include="Views\InspectDocDetail\GetShiftViews.cshtml" />
     <Content Include="Views\InspectDocFlow\NextFlow.cshtml" />
     <Content Include="Views\AppUsers\SelectUser.cshtml" />
+    <Content Include="Views\SearchDocDetail\Index.cshtml" />
+    <Content Include="Views\Search\InspectDocIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2608,6 +2613,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\InspectReport\" />
     <Folder Include="Views\Validations\" />
   </ItemGroup>
   <ItemGroup>

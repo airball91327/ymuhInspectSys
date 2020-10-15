@@ -352,14 +352,14 @@ namespace InspectSystem.Controllers
             List<SelectListItem> listItem = new List<SelectListItem>();
             listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
             listItem.Add(new SelectListItem { Text = "巡檢工程師", Value = "巡檢工程師" });
-            listItem.Add(new SelectListItem { Text = "組長", Value = "組長" });
-            listItem.Add(new SelectListItem { Text = "設備主管", Value = "設備主管" });
+            listItem.Add(new SelectListItem { Text = "工務組長", Value = "工務組長" });
+            listItem.Add(new SelectListItem { Text = "單位主管", Value = "單位主管" });
             //
             InspectDocFlow flow = db.InspectDocFlow.Where(f => f.DocId == docId && f.FlowStatusId == "?").ToList().FirstOrDefault();
             if (flow != null)
             {
                 assign.ClsNow = flow.Cls;
-                if (flow.Cls == "驗收人" || flow.Cls == "設備主管")
+                if (flow.Cls == "驗收人" || flow.Cls == "單位主管")
                 {
                     listItem.Add(new SelectListItem { Text = "結案", Value = "結案" });
                 }
@@ -367,8 +367,8 @@ namespace InspectSystem.Controllers
                 {
                     listItem.Clear();
                     listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
-                    listItem.Add(new SelectListItem { Text = "組長", Value = "組長" });
-                    listItem.Add(new SelectListItem { Text = "設備主管", Value = "設備主管" });
+                    listItem.Add(new SelectListItem { Text = "工務組長", Value = "工務組長" });
+                    listItem.Add(new SelectListItem { Text = "單位主管", Value = "單位主管" });
                 }
             }
             ViewData["FlowCls"] = new SelectList(listItem, "Value", "Text", "");
@@ -496,7 +496,7 @@ namespace InspectSystem.Controllers
 
             switch (cls)
             {
-                case "設備主管":
+                case "單位主管": //設備主管
                     s = Roles.GetUsersInRole("MedMgr").ToList();
                     list = new List<SelectListItem>();
                     foreach (string l in s)
@@ -530,7 +530,7 @@ namespace InspectSystem.Controllers
                 case "驗收人":
                     list = new List<SelectListItem>();
                     break;
-                case "組長":
+                case "工務組長":
                     list = new List<SelectListItem>();
                     break;
                 default:

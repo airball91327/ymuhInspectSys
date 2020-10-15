@@ -26,7 +26,7 @@ $(function () {
             select.html(appenddata);
         }
         else {
-            if ($(this).val() === "驗收人" || $(this).val() === "組長") {
+            if ($(this).val() === "驗收人" || $(this).val() === "工務組長") {
                 $('#btnSelUsr').show();
             }
             $('#imgLOADING').show();

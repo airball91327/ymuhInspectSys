@@ -53,6 +53,12 @@ namespace InspectSystem.Controllers
             var inspectFlows = await db.InspectDocFlow.ToListAsync();
             // Get user's docs.
             inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" && df.UserId == WebSecurity.CurrentUserId).ToList();
+            inspectFlows = inspectFlows.Join(inspectDocIdTable, f => f.DocId, d => d.DocId,
+                                       (f, d) => new 
+                                       { 
+                                           docidTable = d,
+                                           flow = f
+                                       }).Where(d => d.docidTable.DocStatusId != "2").Select(d => d.flow).ToList();
             inspectDocIdTable = inspectFlows.Join(inspectDocIdTable, f => f.DocId, d => d.DocId, (f, d) => d).ToList();
             //Get Shifting docs.
             var shiftingDoc = db.InspectDocIdTable.Include(d => d.InspectDoc).Where(i => i.DocStatusId == "2")
@@ -62,6 +68,7 @@ namespace InspectSystem.Controllers
                                                       docIdTable = dt,
                                                       doc = d
                                                   })
+                                                  .Where(r => r.doc.ShiftId == r.docIdTable.ShiftId)
                                                   .Where(r => r.doc.CheckerId == null || r.doc.CheckerId == WebSecurity.CurrentUserId)
                                                   .Select(r => r.docIdTable).ToList();
             inspectDocIdTable.AddRange(shiftingDoc);
