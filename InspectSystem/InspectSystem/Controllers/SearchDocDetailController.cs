@@ -28,7 +28,6 @@ namespace InspectSystem.Controllers
         public JsonResult GetData(int? draw, int? start, int length,    //←此三個為DataTables自動傳遞參數
                                   DateTime startDate, DateTime endDate, int areaId, int shiftId,
                                   int classId, int itemId, int fieldId)
-        //↑為表單的查詢條件
         {
             //查詢&排序後的總筆數
             int recordsTotal = 0;
@@ -39,81 +38,109 @@ namespace InspectSystem.Controllers
             //升冪或降冪
             string asc_desc = string.IsNullOrEmpty(Request.QueryString["order[0][dir]"]) ? "asc" : Request.QueryString["order[0][dir]"];//防呆
 
-            try
+            //DateTime applyDateFrom = DateTime.Now;
+            //DateTime applyDateTo = DateTime.Now;
+            ///* Dealing search by date. */
+            //if (startDate != null && endDate != null)// If 2 date inputs have been insert, compare 2 dates.
+            //{
+            //    DateTime date1 = DateTime.Parse(startDate);
+            //    DateTime date2 = DateTime.Parse(endDate);
+            //    int result = DateTime.Compare(date1, date2);
+            //    if (result < 0)
+            //    {
+            //        applyDateFrom = date1.Date;
+            //        applyDateTo = date2.Date;
+            //    }
+            //    else if (result == 0)
+            //    {
+            //        applyDateFrom = date1.Date;
+            //        applyDateTo = date1.Date;
+            //    }
+            //    else
+            //    {
+            //        applyDateFrom = date2.Date;
+            //        applyDateTo = date1.Date;
+            //    }
+            //}
+            //else if (startDate == null && endDate != null)
+            //{
+            //    applyDateFrom = DateTime.Parse(endDate);
+            //    applyDateTo = DateTime.Parse(endDate);
+            //}
+            //else if (startDate != null && endDate == null)
+            //{
+            //    applyDateFrom = DateTime.Parse(startDate);
+            //    applyDateTo = DateTime.Parse(startDate);
+            //}
+
+            ///* 查詢日期 */
+            var searchList = db.InspectDocDetail.ToList();
+
+            ///* 查詢區域、類別 */
+            //searchList = searchList.Where(s => s.AreaId == areaId &&
+            //                                    s.ClassId == classId);
+            ///* 查詢項目 */
+            //if (itemId != 0)
+            //{
+            //    searchList = searchList.Where(s => s.ItemID == itemId);
+            //}
+
+            ///* 查詢欄位 */
+            //if (fieldId != 0)
+            //{
+            //    searchList = searchList.Where(s => s.FieldID == fieldId);
+            //}            
+
+            /* 處理儲存正常或不正常的欄位，把Value拿來顯示是否正常. */
+            foreach (var item in searchList)
             {
-                /* 查詢日期 */
-                var searchList = db.InspectDocDetail.Where(i => i. >= fromDoc && i.DocID <= toDoc);
-
-                /* 查詢區域、類別 */
-                searchList = searchList.Where(s => s.AreaID == areaId &&
-                                                   s.ClassID == classId);
-                /* 查詢項目 */
-                if (itemId != 0)
+                if (item.DataType == "boolean")
                 {
-                    searchList = searchList.Where(s => s.ItemID == itemId);
-                }
-
-                /* 查詢欄位 */
-                if (fieldId != 0)
-                {
-                    searchList = searchList.Where(s => s.FieldID == fieldId);
-                }            
-
-                /* 處理儲存正常或不正常的欄位，把Value拿來顯示是否正常. */
-                foreach (var item in searchList)
-                {
-                    if (item.DataType == "boolean")
+                    if (item.IsFunctional == "y")
                     {
-                        if (item.IsFunctional == "y")
-                        {
-                            item.Value = "正常";
-                        }
-                        else
-                        {
-                            item.Value = "不正常";
-                        }
+                        item.Value = "正常";
+                    }
+                    else
+                    {
+                        item.Value = "不正常";
                     }
                 }
-
-                var resultList = searchList.AsEnumerable().Select(s => new
-                {
-                    Date = s.InspectDocs.Date.ToString("yyyy/MM/dd"),   // ToString() is not supported in Linq to Entities, 
-                    AreaName = s.AreaName,                              // need to change type to IEnumerable by using AsEnumerable(),
-                    ClassName = s.ClassName,                            // and then can use ToString(), 
-                    ItemName = s.ItemName,                              // because AsEnumerable() is Linq to Objects.
-                    FieldName = s.FieldName,
-                    Value = s.Value,
-                    UnitOfData = s.UnitOfData,
-                    DocID = s.DocID,
-                    AreaID = s.AreaID
-                }).ToList();
-
-                // Deal DataTable sorting. 
-                resultList = resultList.AsEnumerable().OrderBy($@"{sortColName} {asc_desc}").ToList();
-
-                recordsTotal = resultList.Count();//查詢後的總筆數
-
-                // 分頁處理
-                if (length != -1) //-1為顯示所有資料
-                {
-                    resultList = resultList.Skip(start ?? 0).Take(length).ToList();   //分頁後的資料 
-                }
-
-                //回傳Json資料
-                var returnObj =
-                    new
-                    {
-                        draw = draw,
-                        recordsTotal = recordsTotal,
-                        recordsFiltered = recordsTotal,
-                        data = resultList
-                    };
-                return Json(returnObj, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+
+            var resultList = searchList.Select(s => new
             {
-                throw;
+                ApplyDate = s.InspectDocs.ApplyDate.ToString("yyyy/MM/dd"),   // ToString() is not supported in Linq to Entities, 
+                AreaName = s.AreaName,                                        // need to change type to IEnumerable by using AsEnumerable(),
+                ClassName = s.ClassName,                                      // and then can use ToString(), 
+                ItemName = s.ItemName,                                        // because AsEnumerable() is Linq to Objects.
+                FieldName = s.FieldName,
+                Value = s.Value,
+                UnitOfData = s.UnitOfData,
+                DocId = s.DocId,
+                AreaId = s.AreaId
+            }).ToList();
+
+            // Deal DataTable sorting. 
+            resultList = resultList.AsEnumerable().OrderBy($@"{sortColName} {asc_desc}").ToList();
+
+            recordsTotal = resultList.Count();//查詢後的總筆數
+
+            // 分頁處理
+            if (length != -1) //-1為顯示所有資料
+            {
+                resultList = resultList.Skip(start ?? 0).Take(length).ToList();   //分頁後的資料 
             }
+
+            //回傳Json資料
+            var returnObj =
+                new
+                {
+                    draw = draw,
+                    recordsTotal = recordsTotal,
+                    recordsFiltered = recordsTotal,
+                    data = resultList
+                };
+            return Json(returnObj, JsonRequestBehavior.AllowGet);
         }
 
         // POST: SearchDocDetail/GetClasses
@@ -176,30 +203,30 @@ namespace InspectSystem.Controllers
         public ActionResult ExportToExcel(DateTime startDate, DateTime endDate, int areaId, int classId, int itemId, int fieldId)
         {
             /* 查詢日期 */
+            var searchList = db.InspectDocDetail.ToList();
+            //var searchList = db.InspectDocDetail.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc);
 
-            var searchList = db.InspectDocDetail.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc);
+            ///* 查詢區域、類別 */
+            //searchList = searchList.Where(s => s.AreaID == areaId &&
+            //                                   s.ClassID == classId);
+            ///* 查詢項目 */
+            //if (itemId != 0)
+            //{
+            //    searchList = searchList.Where(s => s.ItemID == itemId);
+            //}
 
-            /* 查詢區域、類別 */
-            searchList = searchList.Where(s => s.AreaID == areaId &&
-                                               s.ClassID == classId);
-            /* 查詢項目 */
-            if (itemId != 0)
-            {
-                searchList = searchList.Where(s => s.ItemID == itemId);
-            }
-
-            /* 查詢欄位 */
-            if (fieldId != 0)
-            {
-                searchList = searchList.Where(s => s.FieldID == fieldId);
-            }
+            ///* 查詢欄位 */
+            //if (fieldId != 0)
+            //{
+            //    searchList = searchList.Where(s => s.FieldID == fieldId);
+            //}
 
             //ClosedXML的用法 先new一個Excel Workbook
             using (XLWorkbook workbook = new XLWorkbook())
             {
                 //取得要塞入Excel內的資料
                 var data = searchList.Select(c => new {
-                    c.DocID,
+                    c.DocId,
                     c.AreaName,
                     c.ClassName,
                     c.ItemName,

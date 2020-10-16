@@ -1,131 +1,141 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectDoc>
+﻿@model InspectSystem.Models.InspectDocIdTableVModel
 
 @{
     ViewBag.Title = "巡檢表單搜尋";
 }
 
-<style>
-    .control-label {
-        padding: 6px 2px 6px 2px;
-        text-align: center;
-    }
-
-    .dateForm {
-        padding: 6px 2px 6px 2px;
-    }
-</style>
-
 <h2>
     <b>巡檢表單搜尋</b>
 </h2>
 
-<div class="panel panel-primary">
-    <div class="panel-body">
-        <form name="searchForm" action="" method="post">
-            <div class="form-inline">
+<div class="card">
 
-                <div class="form-group col-md-5">
-                    <label class="control-label col-md-2">日期:</label>
-                    <div class="col-md-10">
-                        <input class="form-control dateForm" type="date" name="startDate" id="startDate" required />
-                        <span> ~ </span>
-                        <input class="form-control dateForm" type="date" name="endDate" id="endDate" required />
+    <div class="card-header">
+        <form name="searchForm" action="#" method="post" id="searchForm">
+            <div class="container form-horizontal">
+
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label class="control-label col-md-auto">日期:</label>
+                        <div class="col-md-auto form-inline">
+                            <input class="form-control dateForm" type="date" name="startDate" id="startDate" required />
+                            <span> ~ </span>
+                            <input class="form-control dateForm" type="date" name="endDate" id="endDate" required />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-auto">區域:</label>
+                        <div class="col-md-auto">
+                            @Html.DropDownList("AreaId", null, "所有", htmlAttributes: new { @class = "form-control", id = "AreaId" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-auto">流程狀態:</label>
+                        <div class="col-md-auto">
+                            @Html.DropDownList("FlowStatusId", null, "所有", htmlAttributes: new { @class = "form-control", id = "FlowStatusId" })
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group col-md-3">
-                    <label class="control-label col-md-3">區域:</label>
-                    <div class="col-md-9">
-                        @Html.DropDownList("AreaId", null, "所有", htmlAttributes: new { @class = "form-control", id = "AreaID" })
+                <div class="row">
+                    <div class="form-group col-md-1">
+                        <div class="col-md-12">
+                            <input type="button" class="btn btn-primary" id="btnQuery" value="查詢" />
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group col-md-3">
-                    <label class="control-label col-md-5">流程狀態:</label>
-                    <div class="col-md-7">
-                        @Html.DropDownList("FlowStatusId", null, "所有", htmlAttributes: new { @class = "form-control", id = "FlowStatusID" })
-                    </div>
-                </div>
-
-                <div class="form-group col-md-1">
-                    <input type="button" class="btn btn-primary" id="btnQuery" value="查詢" style="width: 120%" />
-                </div>
-
             </div>
+
         </form>
     </div>
-</div>
 
-<table class="table table-hover table-striped" id="docTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InspectAreas.AreaName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InspectFlowStatusTable.FlowStatusName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkerID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckerID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckerName)
-            </th>
-            <th>
-                詳細內容
-            </th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InspectAreas.AreaName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InspectFlowStatusTable.FlowStatusName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkerID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckerID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckerName)
-            </th>
-            <th>
-                詳細內容
-            </th>
-        </tr>
-    </tfoot>
-</table>
+    <div class="card-body">
+        <table class="table table-hover table-striped nowrap" id="docTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DocId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApplyDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CloseDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AreaId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ShiftId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DocStatusId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FlowStatusId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EngUserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EngFullName)
+                    </th>
+                    <th>
+                        詳細內容
+                    </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DocId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApplyDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CloseDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AreaId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ShiftId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DocStatusId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FlowStatusId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EngUserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EngFullName)
+                    </th>
+                    <th>
+                        詳細內容
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
 
 @section scripts{
     <script type="text/javascript" src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/myDataTableStyle.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/MyStyles/myDataTableStyle.css" />
 
     <script>
         $(document).ready(function () {
+            var getDocDataURL = '@Url.Action("GetDocs", "Search")'
 
             // Set default value to startDate and endDate.
-            document.getElementById("startDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
-            document.getElementById("endDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
+            //document.getElementById("startDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
+            //document.getElementById("endDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
 
             // Setting DataTable.
             var table =
@@ -134,7 +144,7 @@
                     serverSide: true,   //ServerSide模式
                     searching: false,   //filter功能
                     ordering: true,     //排序功能
-                    order: [[2, "asc"]],//初始排序
+                    order: [[1, "asc"]],//初始排序
                     deferLoading: 0,    //初始化DataTable時，不發出ajax
                     language: {
                         emptyTable: "無資料...",
@@ -159,24 +169,25 @@
                         }
                     },
                     ajax: {
-                        method: "get",
-                        url: "/InspectDocSearch/GetData",
-                        "dataSrc": "data",
+                        url: getDocDataURL,
+                        type: "POST",
                         data: function (d) {
-                            d.startDate = $("input[name=startDate]").val();
-                            d.endDate = $("input[name=endDate]").val();
-                            d.areaId = $("#AreaID").val();
-                            d.flowStatusId = $("#FlowStatusID").val();
+                            var frm_data = $('#searchForm').serializeArray();
+                            $.each(frm_data, function (key, val) {
+                                d[val.name] = val.value;
+                            });
                         }
                     },
                     columns: [ //Server端的DataBinding名稱
+                        { data: "DocId" },
+                        { data: "ApplyDate" },
+                        { data: "CloseDate" },
                         { data: "AreaName" },
-                        { data: "FlowStatusName" },
-                        { data: "Date" },
-                        { data: "WorkerID" },
-                        { data: "WorkerName" },
-                        { data: "CheckerID" },
-                        { data: "CheckerName" },
+                        { data: "ShiftName" },
+                        { data: "DocStatusDes" },
+                        { data: "FlowStatusDes" },
+                        { data: "EngUserName" },
+                        { data: "EngFullName" },
                         {
                             targets: -1,
                             data: null,
@@ -188,39 +199,8 @@
 
             // Search button click.
             $("#btnQuery").click(function () {
-
-                ///* For debug. */
-                //var startDate = $("input[name=startDate]").val();
-                //var endDate = $("input[name=endDate]").val();
-                //var areaId = $("#AreaID").val();
-                //var flowStatusId = $("#FlowStatusID").val();
-                //console.log("startDate:" + startDate + "\n" + "endDate:" + endDate + "\n" + "areaId:" + areaId + "\n" + "flowStatusId:" + flowStatusId);
-                ///* For debug. */
-
                 //按下表單的查詢按鈕後才發出Ajax載入資料
                 table.draw(); //或dataTable.ajax.reload();
-
-            });
-
-            //
-            $('#docTable tbody').on('click', 'button', function () {
-                var data = table.row($(this).parents('tr')).data();
-
-                if (data.FlowStatusID == 3) // Worker is editing.
-                {
-                    var url = "@Url.Action("DocTempIndex")" + "?DocID=" + data.DocID;
-                    window.location = url;
-                }
-                else
-                {
-                    var url = "@Url.Action("DocDetailsIndex")" + "?DocID=" + data.DocID;
-                    window.location = url;
-                }
-
-                //console.log("DocID is: " + data.DocID +
-                //    " AreaID is: " + data.AreaID +
-                //    " FlowStatusID is: " + data.FlowStatusID);    // For Debug.
-
             });
 
         });
