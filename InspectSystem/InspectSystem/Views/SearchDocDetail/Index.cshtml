@@ -4,171 +4,161 @@
     ViewBag.Title = "欄位數值搜尋";
 }
 
-<style>
-    .control-label {
-        padding: 6px 2px 6px 2px;
-        text-align: center;
-    }
-
-    .dateForm {
-        padding: 6px 2px 6px 2px;
-    }
-
-    .excelBtn {
-        margin-bottom: 10px;
-    }
-</style>
-
 <h2>
     <b>欄位數值搜尋</b>
 </h2>
 
-<div class="panel panel-primary">
-    <div class="panel-body">
-        <form name="searchForm" action="" method="post">
+<div class="card">
 
-            <div class="row">
+    <div class="card-header">
+        <form name="searchForm" action="#" method="post" id="searchForm">
+            <div class="container form-horizontal">
 
-                <div class="form-group col-md-3">
-                    <label class="control-label col-md-2">區域:</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("AreaId", null, htmlAttributes: new { @class = "form-control", id = "AreaId", required = "required" })
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-auto">區域:</label>
+                        <div class="col-md-auto">
+                            @Html.DropDownList("AreaId", null, htmlAttributes: new { @class = "form-control", id = "AreaId" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-auto">班別:</label>
+                        <div class="col-md-auto">
+                            <select class="form-control" id="shiftId" name="ShiftId" required>
+                                <option disabled selected>請先選擇區域及班別</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-auto">類別:</label>
+                        <div class="col-md-auto">
+                            <select class="form-control" id="classId" name="ClassId" required>
+                                <option disabled selected>請先選擇區域及班別</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-auto">項目:</label>
+                        <div class="col-md-auto">
+                            <select class="form-control" id="itemId" name="ItemId" required>
+                                <option disabled selected>請先選擇區域及班別</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label class="control-label col-md-auto">欄位:</label>
+                        <div class="col-md-auto">
+                            <select class="form-control" id="fieldId" name="FieldId" required>
+                                <option disabled selected>請先選擇區域及班別</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-auto">日期:</label>
+                        <div class="col-md-auto form-inline">
+                            <input class="form-control dateForm" type="date" name="startDate" id="startDate" />
+                            <span> ~ </span>
+                            <input class="form-control dateForm" type="date" name="endDate" id="endDate" />
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group col-md-3">
-                    <label class="control-label col-md-2">班別:</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="classId" required>
-                            <option>請先選擇區域</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label class="control-label col-md-2">類別:</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="classId" required>
-                            <option>請先選擇區域</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label class="control-label col-md-2">項目:</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="itemId">
-                            <option>請先選擇區域</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label class="control-label col-md-2">欄位:</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="fieldId">
-                            <option>請先選擇區域</option>
-                        </select>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <div class="col-md-12">
+                            <input type="button" class="btn btn-primary" id="btnQuery" value="查詢" />
+                            <input type="button" class="btn btn-primary" id="btnExcel" value="匯出Excel檔案" />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="form-group form-inline col-md-6">
-                    <label class="control-label col-md-1">日期:</label>
-                    <div class="col-md-11">
-                        <input class="form-control dateForm" type="date" name="startDate" id="startDate" required />
-                        <span> &nbsp;~&nbsp; </span>
-                        <input class="form-control dateForm" type="date" name="endDate" id="endDate" required />
-                    </div>
-                </div>
-
-                <div class="form-group col-md-1">
-                    <input type="button" class="btn btn-primary" id="btnQuery" value="查詢" style="width: 120%" />
-                </div>
-            </div>
         </form>
     </div>
+
+    <div class="card-body">
+        <table class="table table-hover table-striped" id="docTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InspectDocs.InspectDocIdTable.ApplyDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AreaName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ShiftName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClassName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FieldName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Value)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitOfData)
+                    </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InspectDocs.InspectDocIdTable.ApplyDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AreaName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ShiftName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClassName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FieldName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Value)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitOfData)
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
 </div>
 
-<div>
-    <input type="button" class="btn btn-primary" id="exportBtn" value="匯出Excel檔案" />
-</div>
-<br />
-
-<table class="table table-hover table-striped" id="docTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InspectDocs.InspectDocIdTable.ApplyDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AreaName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShiftName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClassName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FieldName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitOfData)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InspectDocs.InspectDocIdTable.ApplyDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AreaName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShiftName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClassName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FieldName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitOfData)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-        </tr>
-    </tfoot>
-</table>
 
 @section scripts{
     <script type="text/javascript" src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/myDataTableStyle.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/MyStyles/myDataTableStyle.css" />
 
     <script>
         $(document).ready(function () {
             var getDataURL = '@Url.Action("GetData", "SearchDocDetail")';
+            var getShiftURL = '@Url.Action("GetShifts", "SearchDocDetail")';
             var getClassURL = '@Url.Action("GetClasses", "SearchDocDetail")';
             var getItemURL = '@Url.Action("GetItems", "SearchDocDetail")';
             var getFieldURL = '@Url.Action("GetFields", "SearchDocDetail")';
             // Set default value to startDate and endDate.
-            document.getElementById("startDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
-            document.getElementById("endDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
+            //document.getElementById("startDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
+            //document.getElementById("endDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
 
             // Setting DataTable.
             var table =
@@ -178,6 +168,7 @@
                     searching: false,   //filter功能
                     ordering: true,     //排序功能
                     order: [[0, "asc"]],//初始排序
+                    //scrollX: true,
                     deferLoading: 0,    //初始化DataTable時，不發出ajax
                     lengthMenu: [ [25, 50, 100, 200, -1], ['25', '50', '100', '200', '所有'] ], //顯示資料數量
                     language: {
@@ -216,26 +207,24 @@
                     //    }
                     //],
                     ajax: {
-                        method: "GET",
                         url: getDataURL,
-                        "dataSrc": "data",
+                        type: "POST",
                         data: function (d) {
-                            d.startDate = $("input[name=startDate]").val();
-                            d.endDate = $("input[name=endDate]").val();
-                            d.areaId = $("#AreaID").val();
-                            d.classId = $("#classId").val();
-                            d.itemId = $("#itemId").val();
-                            d.fieldId = $("#fieldId").val();
+                            var frm_data = $('#searchForm').serializeArray();
+                            $.each(frm_data, function (key, val) {
+                                d[val.name] = val.value;
+                            });
                         }
                     },
                     columns: [ //Server端的DataBinding名稱
-                        { data: "Date" },
+                        { data: "ApplyDate" },
                         { data: "AreaName" },
+                        { data: "ShiftName" },
                         { data: "ClassName" },
                         { data: "ItemName" },
                         { data: "FieldName" },
-                        { data: "UnitOfData" },
                         { data: "Value" },
+                        { data: "UnitOfData" },
                     ],
                 });
 
@@ -245,21 +234,50 @@
                 table.draw(); //或dataTable.ajax.reload();
             });
 
-            // Get class, item and field according to area.
-            $('#AreaID').change(function () {
+            // Get shifts.
+            $('#AreaId').change(function () {
+                $.ajax({
+                    url: getShiftURL,
+                    type: "POST",
+                    dataType: "json",
+                    data: { AreaId: $(this).val() },
+                    async: false,
+                    success: function (response) {
+                        var select = $('#shiftId');
+                        var defaultOption = 0;
+                        var i = 0;
+                        select.empty();    // remove any existing options
+                        select.append($('<option></option>').text('所有').val(0));
+                        $.each(response, function (index, item) {
+                            if (i == defaultOption) {
+                                select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
+                            }
+                            else {
+                                select.append($('<option></option>').text(item.Text).val(item.Value));
+                            }
+                            i++;
+                        });
+                    }
+                });
+                $('#shiftId').trigger('change');
+                $.ajaxSettings.async = true; // Set this ajax async back to true.
+            });
+
+            // Get class, item and field.
+            $('#shiftId').change(function () {
+                var areaId = $("#AreaId").val();
                 $.ajax({
                     url: getClassURL,
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: $(this).val() },
+                    data: { AreaId: areaId, ShiftId: $(this).val() },
                     async: false,
                     success: function (response) {
-                        //console.log(response); // ForDebug
                         var select = $('#classId');
                         var defaultOption = 0;
                         var i = 0;
-                        select.empty();                           // remove any existing options
-                        select.append($('<option></option>').text('所有項目').val(0));
+                        select.empty();    // remove any existing options
+                        select.append($('<option></option>').text('所有').val(0));
                         $.each(response, function (index, item) {
                             if (i == defaultOption) {
                                 select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
@@ -275,22 +293,22 @@
                 $.ajaxSettings.async = true; // Set this ajax async back to true.
             });
 
-            /* While class dropdown is changed, get items and fields of the class. */
+            /* Get items and fields of the class. */
             $('#classId').change(function () {
                 var areaId = $("#AreaId").val();
+                var shiftId = $("#shiftId").val();
                 var classId = $(this).val();
                 $.ajax({
                     url: getItemURL,
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId },
+                    data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId },
                     async: false,
                     success: function (response) {
-                        //console.log(response); // ForDebug
                         var select = $('#itemId');
                         var defaultOption = 0;
                         var i = 0;
-                        select.empty();                           // remove any existing options
+                        select.empty();   // remove any existing options
                         select.append($('<option></option>').text('所有項目').val(0));
                         $.each(response, function (index, item) {
                             if (i == defaultOption) {
@@ -307,23 +325,24 @@
                 $.ajaxSettings.async = true; // Set this ajax async back to true.
             });
 
-            /* While item dropdown is changed, get fields of the item. */
+            /* Get fields of the item. */
             $('#itemId').change(function () {
                 var areaId = $("#AreaId").val();
+                var shiftId = $("#shiftId").val();
                 var classId = $("#classId").val();
                 var itemId = $(this).val();
                 $.ajax({
                     url: getFieldURL,
                     type: "POST",
                     dataType: "json",
-                    data: { AreaID: areaId, ClassID: classId, ItemID: itemId },
+                    data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId },
                     async: false,
                     success: function (response) {
                         console.log(response); // ForDebug
                         var select = $('#fieldId');
                         var defaultOption = 0;
                         var i = 0;
-                        select.empty();                           // remove any existing options
+                        select.empty();// remove any existing options
                         select.append($('<option></option>').text('所有項目').val(0));
                         $.each(response, function (index, item) {
                             if (i == defaultOption) {
@@ -346,13 +365,7 @@
                 $.ajaxSettings.async = true; // Set this ajax async back to true.
             }
 
-            $("#exportBtn").click(function () {
-                var StartDate = $("input[name=startDate]").val();
-                var EndDate = $("input[name=endDate]").val();
-                var AreaId = $("#AreaId").val();
-                var ClassId = $("#classId").val();
-                var ItemId = $("#itemId").val();
-                var FieldId = $("#fieldId").val();
+            $("#btnExcel").click(function () {
 
                 $.ajax({
                     url: "@Url.Action("ExportToExcel")",

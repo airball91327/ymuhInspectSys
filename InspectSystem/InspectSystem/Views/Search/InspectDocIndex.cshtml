@@ -191,7 +191,7 @@
                         {
                             targets: -1,
                             data: null,
-                            defaultContent: "<button class='btn btn-primary'>詳細內容</button>",
+                            defaultContent: "<a class='btn btn-primary' href='#' target = '_blank'>詳細內容</a>",
                             orderable: false
                         }
                     ],
@@ -202,7 +202,12 @@
                 //按下表單的查詢按鈕後才發出Ajax載入資料
                 table.draw(); //或dataTable.ajax.reload();
             });
-
+            //詳細內容button
+            $('#docTable tbody').on('click', 'a', function () {
+                var data = table.row($(this).parents('tr')).data();
+                var url = '@Url.Action("Views", "InspectDocIdTable")' + "?id=" + data.DocId;
+                $(this).attr('href', url);
+            });
         });
     </script>
 }

@@ -2608,6 +2608,7 @@
     <Content Include="Views\AppUsers\SelectUser.cshtml" />
     <Content Include="Views\SearchDocDetail\Index.cshtml" />
     <Content Include="Views\Search\InspectDocIndex.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

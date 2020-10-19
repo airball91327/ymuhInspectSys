@@ -27,13 +27,16 @@
                 }
             </button>
         }
-   
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectDoc">案件資訊</button>
         <button class="btn btn-large btn-info" id="btnNextFlow" value="@ViewBag.AllSaved">送出交班</button>
     </div>
 
     <div class="tab-content card">
         <div id="inspectEdit" class="tab-pane fade show active">
 
+        </div>
+        <div id="inspectDoc" class="tab-pane fade ">
+            @Html.Action("Details", "InspectDocIdTable", new { id = Model.First().DocId })
         </div>
     </div>
 </div>

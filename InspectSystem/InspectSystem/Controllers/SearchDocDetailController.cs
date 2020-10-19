@@ -26,98 +26,136 @@ namespace InspectSystem.Controllers
 
         // GET: SearchDocDetail/GetData          
         public JsonResult GetData(int? draw, int? start, int length,    //←此三個為DataTables自動傳遞參數
-                                  DateTime startDate, DateTime endDate, int areaId, int shiftId,
-                                  int classId, int itemId, int fieldId)
+                                  FormCollection form)
         {
+            var qryStartDate = form["startDate"];
+            var qryEndDate = form["endDate"];
+            var qryAreaId = form["AreaId"];
+            var qryShiftId = form["ShiftId"];
+            var qryClassId = form["ClassId"];
+            var qryItemId = form["ItemId"];
+            var qryFieldId = form["FieldId"];
+
+            DateTime applyDateFrom = DateTime.Now;
+            DateTime applyDateTo = DateTime.Now;
+            /* Dealing search by date. */
+            if (!string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))// If 2 date inputs have been insert, compare 2 dates.
+            {
+                DateTime date1 = DateTime.Parse(qryStartDate);
+                DateTime date2 = DateTime.Parse(qryEndDate);
+                int result = DateTime.Compare(date1, date2);
+                if (result < 0)
+                {
+                    applyDateFrom = date1.Date;
+                    applyDateTo = date2.Date;
+                }
+                else if (result == 0)
+                {
+                    applyDateFrom = date1.Date;
+                    applyDateTo = date1.Date;
+                }
+                else
+                {
+                    applyDateFrom = date2.Date;
+                    applyDateTo = date1.Date;
+                }
+            }
+            else if (string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))
+            {
+                applyDateFrom = DateTime.Parse(qryEndDate);
+                applyDateTo = DateTime.Parse(qryEndDate);
+            }
+            else if (!string.IsNullOrEmpty(qryStartDate) && string.IsNullOrEmpty(qryEndDate))
+            {
+                applyDateFrom = DateTime.Parse(qryStartDate);
+                applyDateTo = DateTime.Parse(qryStartDate);
+            }
+
             //查詢&排序後的總筆數
             int recordsTotal = 0;
             //jQuery DataTable的Column index
-            string col_index = Request.QueryString["order[0][column]"];
+            string col_index = form["order[0][column]"];
             //排序資料行名稱
-            string sortColName = string.IsNullOrEmpty(col_index) ? "Date" : Request.QueryString[$@"columns[{col_index}][data]"];
+            string sortColName = string.IsNullOrEmpty(col_index) ? "ApplyDate" : form[$@"columns[{col_index}][data]"];
             //升冪或降冪
-            string asc_desc = string.IsNullOrEmpty(Request.QueryString["order[0][dir]"]) ? "asc" : Request.QueryString["order[0][dir]"];//防呆
+            string asc_desc = string.IsNullOrEmpty(form["order[0][dir]"]) ? "asc" : form["order[0][dir]"];//防呆
 
-            //DateTime applyDateFrom = DateTime.Now;
-            //DateTime applyDateTo = DateTime.Now;
-            ///* Dealing search by date. */
-            //if (startDate != null && endDate != null)// If 2 date inputs have been insert, compare 2 dates.
-            //{
-            //    DateTime date1 = DateTime.Parse(startDate);
-            //    DateTime date2 = DateTime.Parse(endDate);
-            //    int result = DateTime.Compare(date1, date2);
-            //    if (result < 0)
-            //    {
-            //        applyDateFrom = date1.Date;
-            //        applyDateTo = date2.Date;
-            //    }
-            //    else if (result == 0)
-            //    {
-            //        applyDateFrom = date1.Date;
-            //        applyDateTo = date1.Date;
-            //    }
-            //    else
-            //    {
-            //        applyDateFrom = date2.Date;
-            //        applyDateTo = date1.Date;
-            //    }
-            //}
-            //else if (startDate == null && endDate != null)
-            //{
-            //    applyDateFrom = DateTime.Parse(endDate);
-            //    applyDateTo = DateTime.Parse(endDate);
-            //}
-            //else if (startDate != null && endDate == null)
-            //{
-            //    applyDateFrom = DateTime.Parse(startDate);
-            //    applyDateTo = DateTime.Parse(startDate);
-            //}
 
-            ///* 查詢日期 */
-            var searchList = db.InspectDocDetail.ToList();
 
-            ///* 查詢區域、類別 */
-            //searchList = searchList.Where(s => s.AreaId == areaId &&
-            //                                    s.ClassId == classId);
-            ///* 查詢項目 */
-            //if (itemId != 0)
-            //{
-            //    searchList = searchList.Where(s => s.ItemID == itemId);
-            //}
+            var searchList = db.InspectDocIdTable.Join(db.InspectDoc, dt => dt.DocId, d => d.DocId, 
+                            (dt, d) => new 
+                            { 
+                                docidtable = dt,
+                                doc = d
+                            })
+                            .Join(db.InspectDocDetail, d => new { docid = d.doc.DocId, shiftid = d.doc.ShiftId }, dtl => new { docid = dtl.DocId, shiftid = dtl.ShiftId },
+                            (d, dtl) => new
+                            {
+                                docidtable = d.docidtable,
+                                doc = d.doc,
+                                docdtl = dtl
+                            }).ToList();
 
-            ///* 查詢欄位 */
-            //if (fieldId != 0)
-            //{
-            //    searchList = searchList.Where(s => s.FieldID == fieldId);
-            //}            
+            /* 查詢日期 */
+            if (string.IsNullOrEmpty(qryStartDate) == false || string.IsNullOrEmpty(qryEndDate) == false)
+            {
+                searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo).ToList();
+            }
+            if (!string.IsNullOrEmpty(qryAreaId))  /* 查詢區域 */
+            {
+                var areaid = Convert.ToInt32(qryAreaId);
+                searchList = searchList.Where(r => r.docidtable.AreaId == areaid).ToList();
+
+                if (!string.IsNullOrEmpty(qryShiftId) && qryShiftId != "0")  /* 查詢班別 */
+                {
+                    var shiftid = Convert.ToInt32(qryShiftId);
+                    searchList = searchList.Where(r => r.docdtl.ShiftId == shiftid).ToList();
+                }
+                if (!string.IsNullOrEmpty(qryClassId) && qryClassId != "0")  /* 查詢類別 */
+                {
+                    var classid = Convert.ToInt32(qryClassId);
+                    searchList = searchList.Where(r => r.docdtl.ClassId == classid).ToList();
+                }
+                if (!string.IsNullOrEmpty(qryItemId) && qryItemId != "0")  /* 查詢項目 */
+                {
+                    var itemid = Convert.ToInt32(qryItemId);
+                    searchList = searchList.Where(r => r.docdtl.ItemId == itemid).ToList();
+                }
+                if (!string.IsNullOrEmpty(qryFieldId) && qryFieldId != "0")  /* 查詢欄位 */
+                {
+                    var fieldid = Convert.ToInt32(qryFieldId);
+                    searchList = searchList.Where(r => r.docdtl.FieldId == fieldid).ToList();
+                }
+            }         
 
             /* 處理儲存正常或不正常的欄位，把Value拿來顯示是否正常. */
             foreach (var item in searchList)
             {
-                if (item.DataType == "boolean")
+                if (item.docdtl.DataType == "boolean")
                 {
-                    if (item.IsFunctional == "y")
+                    if (item.docdtl.IsFunctional == "y")
                     {
-                        item.Value = "正常";
+                        item.docdtl.Value = "正常";
                     }
                     else
                     {
-                        item.Value = "不正常";
+                        item.docdtl.Value = "不正常";
                     }
                 }
             }
 
             var resultList = searchList.Select(s => new
             {
-                ApplyDate = s.InspectDocs.ApplyDate.ToString("yyyy/MM/dd"),   // ToString() is not supported in Linq to Entities, 
-                AreaName = s.AreaName,                                        // need to change type to IEnumerable by using AsEnumerable(),
-                ClassName = s.ClassName,                                      // and then can use ToString(), 
-                ItemName = s.ItemName,                                        // because AsEnumerable() is Linq to Objects.
-                FieldName = s.FieldName,
-                Value = s.Value,
-                UnitOfData = s.UnitOfData,
-                DocId = s.DocId,
-                AreaId = s.AreaId
+                ApplyDate = s.docidtable.ApplyDate.ToString("yyyy/MM/dd"),  
+                AreaName = s.docdtl.AreaName,
+                ShiftName = s.docdtl.ShiftName,
+                ClassName = s.docdtl.ClassName,
+                ItemName = s.docdtl.ItemName,                                     
+                FieldName = s.docdtl.FieldName,
+                Value = s.docdtl.Value,
+                UnitOfData = s.docdtl.UnitOfData,
+                DocId = s.docdtl.DocId,
+                AreaId = s.docdtl.AreaId
             }).ToList();
 
             // Deal DataTable sorting. 
@@ -143,6 +181,23 @@ namespace InspectSystem.Controllers
             return Json(returnObj, JsonRequestBehavior.AllowGet);
         }
 
+        // POST: SearchDocDetail/GetShifts
+        [HttpPost]
+        public JsonResult GetShifts(int AreaId)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var shifts = db.ShiftsInAreas.Include(s => s.InspectShift).ToList();
+            shifts.Where(s => s.AreaId == AreaId).OrderBy(s => s.ShiftId).ToList()
+                .ForEach(c => {
+                    list.Add(new SelectListItem
+                    {
+                        Text = c.InspectShift.ShiftName,
+                        Value = c.ShiftId.ToString()
+                    });
+                });
+            return Json(list);
+        }
+
         // POST: SearchDocDetail/GetClasses
         [HttpPost]
         public JsonResult GetClasses(int AreaId, int shiftId)
@@ -166,7 +221,8 @@ namespace InspectSystem.Controllers
         {
             int classId = System.Convert.ToInt32(ClassId);
             List<SelectListItem> list = new List<SelectListItem>();
-            db.InspectItem.Where(i => i.AreaId == AreaId && i.ShiftId == shiftId && i.ClassId == classId)
+            db.InspectItem.Where(i => i.AreaId == AreaId && i.ShiftId == shiftId)
+                          .Where(i => i.ClassId == classId)
                           .OrderBy(i => i.ItemOrder).ToList()
                 .ForEach(i => {
                     list.Add(new SelectListItem
@@ -185,7 +241,9 @@ namespace InspectSystem.Controllers
             int classId = System.Convert.ToInt32(ClassId);
             int itemId = System.Convert.ToInt32(ItemId);
             List<SelectListItem> list = new List<SelectListItem>();
-            db.InspectField.Where(i => i.AreaId == AreaId && i.ShiftId == shiftId && i.ClassId == classId && i.ItemId == itemId).ToList()
+            db.InspectField.Where(i => i.AreaId == AreaId && i.ShiftId == shiftId)
+                           .Where(i => i.ClassId == classId && i.ItemId == itemId)
+                           .OrderBy(i => i.ItemId).ToList()
                 .ForEach(i => {
                     if (i.FieldName != null && i.FieldName != "" && i.FieldStatus != false)   //擷取有輸入名稱、後台設定為顯示的欄位
                     {

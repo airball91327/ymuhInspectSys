@@ -44,5 +44,7 @@ namespace InspectSystem.Models
         public virtual DbSet<AppRoles> AppRoles { get; set; }
         public virtual DbSet<UsersInRoles> UsersInRoles { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+
+        public System.Data.Entity.DbSet<InspectSystem.Models.InspectDocStatus> InspectDocStatus { get; set; }
     }
 }

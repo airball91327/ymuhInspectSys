@@ -33,7 +33,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerMain01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @Html.ActionLink("巡檢系統", "DocListForChecker", "InspectDocChecker", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("巡檢系統", "Index2", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse" id="navbarTogglerMain01">
                 <ul class="nav navbar-nav navbar-layout-content mr-auto">
@@ -48,7 +48,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="@Url.Action("Index", "InspectDocSearch")" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            搜尋
+                            查詢
                         </a>
                         <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @Html.ActionLink("巡檢表單查詢", "InspectDocIndex", "Search", new { area = "" }, new { @class = "dropdown-item" })

@@ -130,6 +130,21 @@ namespace InspectSystem.Controllers
             return View(dtlShifts);
         }
 
+        // GET: InspectDocIdTable/Details/5
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            InspectDocIdTable inspectDocIdTable = db.InspectDocIdTable.Find(id);
+            if (inspectDocIdTable == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(inspectDocIdTable);
+        }
+
         // GET: InspectDocIdTable/Create
         public ActionResult Create()
         {

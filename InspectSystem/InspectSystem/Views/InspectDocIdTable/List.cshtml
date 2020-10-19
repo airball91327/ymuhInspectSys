@@ -65,11 +65,16 @@ else
                 <td>
                     @if (item.DocStatusId == "3") //簽核中
                     {
-                        @Html.ActionLink("編輯", "Edit", "InspectDocIdTable", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("簽核", "Edit", "InspectDocIdTable", new { id = item.DocId }, new { @class = "btn btn-primary" })
                     }
-                    else if (item.DocStatusId == "1" || item.DocStatusId == "2") //巡檢中 or 交班中
+                    else if (item.DocStatusId == "1") //巡檢中
                     {
                         @Html.ActionLink("編輯", "Edit", "InspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
+
+                    }
+                    else if (item.DocStatusId == "2") //交班中
+                    {
+                        @Html.ActionLink("交班", "Edit", "InspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
 
                     }
                     @Html.ActionLink("預覽", "Views", "InspectDocIdTable", new { id = item.DocId }, new { @class = "btn btn-primary", target = "_blank" })

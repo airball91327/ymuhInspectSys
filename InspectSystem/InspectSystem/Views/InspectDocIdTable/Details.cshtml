@@ -1,0 +1,39 @@
+﻿@model InspectSystem.Models.InspectDocIdTable
+
+<div>
+    <h3 style="margin-top:0.5em">案件資訊</h3>
+    <hr />
+    <div class="container">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.InspectDocStatus.DocStatusDes)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.InspectDocStatus.DocStatusDes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplyDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ApplyDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CloseDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CloseDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AreaName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AreaName)
+            </dd>
+
+        </dl>
+    </div>
+    
+</div>
