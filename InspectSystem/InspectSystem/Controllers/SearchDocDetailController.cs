@@ -24,7 +24,8 @@ namespace InspectSystem.Controllers
             return View();
         }
 
-        // GET: SearchDocDetail/GetData          
+        // POST: SearchDocDetail/GetData  
+        [HttpPost]
         public JsonResult GetData(int? draw, int? start, int length,    //←此三個為DataTables自動傳遞參數
                                   FormCollection form)
         {
@@ -258,41 +259,145 @@ namespace InspectSystem.Controllers
         }
 
         // GET: SearchDocDetail/ExportToExcel
-        public ActionResult ExportToExcel(DateTime startDate, DateTime endDate, int areaId, int classId, int itemId, int fieldId)
+        public ActionResult ExportToExcel(DocDetailQryVModel qry)
         {
+            var qryStartDate = qry.StartDate;
+            var qryEndDate = qry.EndDate;
+            var qryAreaId = qry.AreaId;
+            var qryShiftId = qry.ShiftId;
+            var qryClassId = qry.ClassId;
+            var qryItemId = qry.ItemId;
+            var qryFieldId = qry.FieldId;
+
+            DateTime applyDateFrom = DateTime.Now;
+            DateTime applyDateTo = DateTime.Now;
+            /* Dealing search by date. */
+            if (!string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))// If 2 date inputs have been insert, compare 2 dates.
+            {
+                DateTime date1 = DateTime.Parse(qryStartDate);
+                DateTime date2 = DateTime.Parse(qryEndDate);
+                int result = DateTime.Compare(date1, date2);
+                if (result < 0)
+                {
+                    applyDateFrom = date1.Date;
+                    applyDateTo = date2.Date;
+                }
+                else if (result == 0)
+                {
+                    applyDateFrom = date1.Date;
+                    applyDateTo = date1.Date;
+                }
+                else
+                {
+                    applyDateFrom = date2.Date;
+                    applyDateTo = date1.Date;
+                }
+            }
+            else if (string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))
+            {
+                applyDateFrom = DateTime.Parse(qryEndDate);
+                applyDateTo = DateTime.Parse(qryEndDate);
+            }
+            else if (!string.IsNullOrEmpty(qryStartDate) && string.IsNullOrEmpty(qryEndDate))
+            {
+                applyDateFrom = DateTime.Parse(qryStartDate);
+                applyDateTo = DateTime.Parse(qryStartDate);
+            }
+
+            var searchList = db.InspectDocIdTable.Join(db.InspectDoc, dt => dt.DocId, d => d.DocId,
+                            (dt, d) => new
+                            {
+                                docidtable = dt,
+                                doc = d
+                            })
+                            .Join(db.InspectDocDetail, d => new { docid = d.doc.DocId, shiftid = d.doc.ShiftId }, dtl => new { docid = dtl.DocId, shiftid = dtl.ShiftId },
+                            (d, dtl) => new
+                            {
+                                docidtable = d.docidtable,
+                                doc = d.doc,
+                                docdtl = dtl
+                            }).ToList();
+
             /* 查詢日期 */
-            var searchList = db.InspectDocDetail.ToList();
-            //var searchList = db.InspectDocDetail.Where(i => i.DocID >= fromDoc && i.DocID <= toDoc);
+            if (string.IsNullOrEmpty(qryStartDate) == false || string.IsNullOrEmpty(qryEndDate) == false)
+            {
+                searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo).ToList();
+            }
+            if (!string.IsNullOrEmpty(qryAreaId))  /* 查詢區域 */
+            {
+                var areaid = Convert.ToInt32(qryAreaId);
+                searchList = searchList.Where(r => r.docidtable.AreaId == areaid).ToList();
 
-            ///* 查詢區域、類別 */
-            //searchList = searchList.Where(s => s.AreaID == areaId &&
-            //                                   s.ClassID == classId);
-            ///* 查詢項目 */
-            //if (itemId != 0)
-            //{
-            //    searchList = searchList.Where(s => s.ItemID == itemId);
-            //}
+                if (!string.IsNullOrEmpty(qryShiftId) && qryShiftId != "0")  /* 查詢班別 */
+                {
+                    var shiftid = Convert.ToInt32(qryShiftId);
+                    searchList = searchList.Where(r => r.docdtl.ShiftId == shiftid).ToList();
+                }
+                if (!string.IsNullOrEmpty(qryClassId) && qryClassId != "0")  /* 查詢類別 */
+                {
+                    var classid = Convert.ToInt32(qryClassId);
+                    searchList = searchList.Where(r => r.docdtl.ClassId == classid).ToList();
+                }
+                if (!string.IsNullOrEmpty(qryItemId) && qryItemId != "0")  /* 查詢項目 */
+                {
+                    var itemid = Convert.ToInt32(qryItemId);
+                    searchList = searchList.Where(r => r.docdtl.ItemId == itemid).ToList();
+                }
+                if (!string.IsNullOrEmpty(qryFieldId) && qryFieldId != "0")  /* 查詢欄位 */
+                {
+                    var fieldid = Convert.ToInt32(qryFieldId);
+                    searchList = searchList.Where(r => r.docdtl.FieldId == fieldid).ToList();
+                }
+            }
 
-            ///* 查詢欄位 */
-            //if (fieldId != 0)
-            //{
-            //    searchList = searchList.Where(s => s.FieldID == fieldId);
-            //}
+            /* 處理儲存正常或不正常的欄位，把Value拿來顯示是否正常. */
+            foreach (var item in searchList)
+            {
+                if (item.docdtl.DataType == "boolean")
+                {
+                    if (item.docdtl.IsFunctional == "y")
+                    {
+                        item.docdtl.Value = "正常";
+                    }
+                    else
+                    {
+                        item.docdtl.Value = "不正常";
+                    }
+                }
+            }
+
+            var resultList = searchList.Select(s => new
+            {
+                ApplyDate = s.docidtable.ApplyDate.ToString("yyyy/MM/dd"),
+                AreaName = s.docdtl.AreaName,
+                ShiftName = s.docdtl.ShiftName,
+                ClassName = s.docdtl.ClassName,
+                ItemName = s.docdtl.ItemName,
+                FieldName = s.docdtl.FieldName,
+                Value = s.docdtl.Value,
+                UnitOfData = s.docdtl.UnitOfData,
+                DocId = s.docdtl.DocId,
+                AreaId = s.docdtl.AreaId,
+                IsFunctional = s.docdtl.IsFunctional,
+                ErrorDescription = s.docdtl.ErrorDescription
+            }).ToList();
 
             //ClosedXML的用法 先new一個Excel Workbook
             using (XLWorkbook workbook = new XLWorkbook())
             {
                 //取得要塞入Excel內的資料
                 var data = searchList.Select(c => new {
-                    c.DocId,
-                    c.AreaName,
-                    c.ClassName,
-                    c.ItemName,
-                    c.FieldName,
-                    c.UnitOfData,
-                    c.Value,
-                    c.IsFunctional,
-                    c.ErrorDescription
+                    c.docdtl.DocId,
+                    c.doc.ApplyDate,
+                    c.docdtl.AreaName,
+                    c.docdtl.ShiftName,
+                    c.docdtl.ClassName,
+                    c.docdtl.ItemName,
+                    c.docdtl.FieldName,
+                    c.docdtl.Value,
+                    c.docdtl.UnitOfData,
+                    c.docdtl.IsFunctional,
+                    c.docdtl.ErrorDescription
                 });
 
                 //一個wrokbook內至少會有一個worksheet,並將資料Insert至這個位於A1這個位置上
@@ -300,14 +405,16 @@ namespace InspectSystem.Controllers
 
                 //Title
                 ws.Cell(1, 1).Value = "表單編號";
-                ws.Cell(1, 2).Value = "區域名稱";
-                ws.Cell(1, 3).Value = "類別名稱";
-                ws.Cell(1, 4).Value = "項目名稱";
-                ws.Cell(1, 5).Value = "欄位名稱";
-                ws.Cell(1, 6).Value = "單位";
-                ws.Cell(1, 7).Value = "數值";
-                ws.Cell(1, 8).Value = "是否正常";
-                ws.Cell(1, 9).Value = "備註說明";
+                ws.Cell(1, 2).Value = "申請日期";
+                ws.Cell(1, 3).Value = "區域";
+                ws.Cell(1, 4).Value = "班別";
+                ws.Cell(1, 5).Value = "類別";
+                ws.Cell(1, 6).Value = "項目";
+                ws.Cell(1, 7).Value = "欄位";
+                ws.Cell(1, 8).Value = "數值";
+                ws.Cell(1, 9).Value = "單位";
+                ws.Cell(1, 10).Value = "是否正常";
+                ws.Cell(1, 11).Value = "備註說明";
 
                 //如果是要塞入Query後的資料該資料一定要變成是data.AsEnumerable()
                 ws.Cell(2, 1).InsertData(data);

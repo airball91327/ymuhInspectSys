@@ -137,7 +137,12 @@ namespace InspectSystem.Controllers
                 inspectClassVs.Add(classVModel);
             }
             ViewBag.Header = areaName + "【" + shiftName + "】";
-
+            //
+            var notes = new InspectDocController().GetDocNotes(docId);
+            if (notes != null)
+            {
+                ViewBag.Notes = notes;
+            }
             return View(inspectClassVs);
         }
 

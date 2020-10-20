@@ -12,6 +12,22 @@
 
     <h3>@ViewBag.Header</h3>
 
+    @if (!string.IsNullOrEmpty(ViewBag.Notes))
+    {
+        <div class="card border-success">
+            <div class="card-header bg-success" style="color:white;">
+                <a data-toggle="collapse" data-target="#noteBlock" aria-expanded="true" aria-controls="noteBlock">
+                    交班事項
+                </a>
+            </div>
+            <div id="noteBlock" class="collapse show">
+                <div class="card-body">
+                    @Html.Raw(ViewBag.Notes.Replace(Environment.NewLine, "<br />"))
+                </div>
+            </div>
+        </div>
+    }
+
     <div id="tab" class="btn-group" data-toggle="buttons-radio">
         @foreach (var item in Model)
         {

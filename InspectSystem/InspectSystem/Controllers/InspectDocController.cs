@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using InspectSystem.Models;
 using InspectSystem.Filters;
 using WebGrease.Css.Extensions;
+using System.Security.AccessControl;
 
 namespace InspectSystem.Controllers
 {
@@ -145,6 +146,12 @@ namespace InspectSystem.Controllers
                 inspectClassVs.Add(classVModel);
             }
             //
+            var notes = GetDocNotes(id);
+            if (notes != null)
+            {
+                ViewBag.Notes = notes;
+            }
+            //
             ViewBag.Header = areaName + "【" + shiftName + "】";
             if (docStatusId == "2") //交班中
             {
@@ -175,6 +182,26 @@ namespace InspectSystem.Controllers
             }
             ViewBag.DocId = new SelectList(db.InspectDocIdTable, "DocId", "AreaName", inspectDoc.DocId);
             return View(inspectDoc);
+        }
+
+        /// <summary>
+        /// Get InspectDocs' notes by docId.
+        /// </summary>
+        /// <param name="docId"></param>
+        /// <returns></returns>
+        public string GetDocNotes (string docId)
+        {
+            string notes = null;
+            var inspectDocs = db.InspectDoc.Where(d => d.DocId == docId).ToList();
+            foreach (var doc in inspectDocs)
+            {
+                var shift = db.InspectShift.Find(doc.ShiftId);
+                if (shift != null)
+                {
+                    notes += "【" + shift.ShiftName + "】" + doc.Note + Environment.NewLine;
+                }
+            }
+            return notes;
         }
 
         protected override void Dispose(bool disposing)

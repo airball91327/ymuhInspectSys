@@ -18,6 +18,22 @@
     {
         <h4>@ViewBag.AreaName</h4>
 
+        if (!string.IsNullOrEmpty(ViewBag.Notes))
+        {
+            <div class="card border-success">
+                <div class="card-header bg-success" style="color:white;">
+                    <a data-toggle="collapse" data-target="#noteBlock" aria-expanded="true" aria-controls="noteBlock">
+                        交班事項
+                    </a>
+                </div>
+                <div id="noteBlock" class="collapse show">
+                    <div class="card-body">
+                        @Html.Raw(ViewBag.Notes.Replace(Environment.NewLine, "<br />"))
+                    </div>
+                </div>
+            </div>
+        }
+
         <ul class="nav nav-tabs">
             @foreach (var modelItem in Model)
             {

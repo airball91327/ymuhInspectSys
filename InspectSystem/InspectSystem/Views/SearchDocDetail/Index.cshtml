@@ -71,7 +71,7 @@
                     <div class="form-group col-md-3">
                         <div class="col-md-12">
                             <input type="button" class="btn btn-primary" id="btnQuery" value="查詢" />
-                            <input type="button" class="btn btn-primary" id="btnExcel" value="匯出Excel檔案" />
+                            <a class="btn btn-primary" href="#" id="btnExcel">匯出Excel檔案</a>
                         </div>
                     </div>
                 </div>
@@ -148,6 +148,7 @@
     <script type="text/javascript" src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/MyStyles/myDataTableStyle.css" />
+
 
     <script>
         $(document).ready(function () {
@@ -338,7 +339,6 @@
                     data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId },
                     async: false,
                     success: function (response) {
-                        console.log(response); // ForDebug
                         var select = $('#fieldId');
                         var defaultOption = 0;
                         var i = 0;
@@ -366,26 +366,9 @@
             }
 
             $("#btnExcel").click(function () {
-
-                $.ajax({
-                    url: "@Url.Action("ExportToExcel")",
-                    data: {
-                        startDate: StartDate,
-                        endDate: EndDate,
-                        areaId: AreaId,
-                        classId: ClassId,
-                        itemId: ItemId,
-                        fieldId: FieldId
-                    },
-                    success: function (response, textStatus, jqXHR) {
-
-                        window.location.href = '@Url.Action("ExportToExcel", "SearchDocDetail")' + '?startDate=' + StartDate + '&endDate=' + EndDate
-                            + '&areaId=' + AreaId + '&classId=' + ClassId + '&itemId=' + ItemId + '&fieldId=' + FieldId;
-                    },
-                    error: function (xhr, status, error) {
-                        alert(error);
-                    }
-                });
+                var formData = $('#searchForm').serialize();
+                var url = '@Url.Action("ExportToExcel", "SearchDocDetail")' + '?' + formData;
+                $(this).attr('href', url);
             });
         });
     </script>

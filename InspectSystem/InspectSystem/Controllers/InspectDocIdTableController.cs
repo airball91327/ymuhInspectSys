@@ -126,7 +126,12 @@ namespace InspectSystem.Controllers
                 ViewBag.AreaName = docDetails.First().AreaName;
                 dtlShifts = docDetailShifts;
             }
-
+            //
+            var notes = new InspectDocController().GetDocNotes(id);
+            if (notes != null)
+            {
+                ViewBag.Notes = notes;
+            }
             return View(dtlShifts);
         }
 
@@ -324,6 +329,12 @@ namespace InspectSystem.Controllers
                                 .OrderBy(d => d.ShiftId).ToList();
                 ViewBag.AreaName = docDetails.First().AreaName;
                 dtlShifts = docDetailShifts;
+            }
+            //
+            var notes = new InspectDocController().GetDocNotes(id);
+            if (notes != null)
+            {
+                ViewBag.Notes = notes;
             }
             return View(dtlShifts);
         }

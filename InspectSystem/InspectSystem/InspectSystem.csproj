@@ -252,6 +252,7 @@
     <Compile Include="Models\BMEDcontext.cs" />
     <Compile Include="Models\DB_GEN_STAFF_PW.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DocDetailQryVModel.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InspectClassVModel.cs" />
