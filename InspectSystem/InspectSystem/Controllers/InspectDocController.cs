@@ -48,21 +48,21 @@ namespace InspectSystem.Controllers
             string shiftId = qry.ShiftId; 
 
             // Get all inspect docs.
-            var inspectDocs = await db.InspectDoc.Include(d => d.InspectDocIdTable).ToListAsync();
+            var inspectDocs = db.InspectDoc.Include(d => d.InspectDocIdTable);
             var inspectShifts = await db.InspectShift.ToListAsync();
             // query conditions.
             if (!string.IsNullOrEmpty(docid))   //案件編號(關鍵字)
             {
                 docid = docid.Trim();
-                inspectDocs = inspectDocs.Where(d => d.DocId.Contains(docid)).ToList();
+                inspectDocs = inspectDocs.Where(d => d.DocId.Contains(docid));
             }
             if (!string.IsNullOrEmpty(shiftId))    //班別
             {
                 int sid = Convert.ToInt32(shiftId);
-                inspectDocs = inspectDocs.Where(d => d.ShiftId == sid).ToList();
+                inspectDocs = inspectDocs.Where(d => d.ShiftId == sid);
             }
 
-            return PartialView("List", inspectDocs);
+            return PartialView("List", inspectDocs.ToList());
         }
 
         // GET: InspectDoc/Edit/5
@@ -80,9 +80,9 @@ namespace InspectSystem.Controllers
             // Set variables.
             var shiftId = inspectDocIdTable.ShiftId;
             var docStatusId = inspectDocIdTable.DocStatusId;
-            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == id && d.ShiftId == shiftId).ToList();
+            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == id && d.ShiftId == shiftId);
             var docDetailTempsClasses = docDetailTemps.GroupBy(t => t.ClassId).Select(g => g.FirstOrDefault())
-                                                      .OrderBy(d => d.ClassOrder).ToList();
+                                                      .OrderBy(d => d.ClassOrder);
             var shiftName = docDetailTemps.First().ShiftName;
             var areaName = inspectDocIdTable.AreaName;
             List<InspectClassVModel> inspectClassVs = new List<InspectClassVModel>();
@@ -94,7 +94,7 @@ namespace InspectSystem.Controllers
                 var classErrors = docDetailTemps.Where(d => d.ClassId == item.ClassId &&
                                                             d.IsFunctional == "N").ToList();
                 // Get details of class.
-                var findDocTemps = docDetailTemps.Where(d => d.ClassId == item.ClassId).ToList();
+                var findDocTemps = docDetailTemps.Where(d => d.ClassId == item.ClassId);
 
                 /* Check all the required fields. */
                 if (findDocTemps.Count() > 0)
@@ -192,7 +192,7 @@ namespace InspectSystem.Controllers
         public string GetDocNotes (string docId)
         {
             string notes = null;
-            var inspectDocs = db.InspectDoc.Where(d => d.DocId == docId).ToList();
+            var inspectDocs = db.InspectDoc.Where(d => d.DocId == docId);
             foreach (var doc in inspectDocs)
             {
                 var shift = db.InspectShift.Find(doc.ShiftId);

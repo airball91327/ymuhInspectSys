@@ -30,7 +30,7 @@ namespace InspectSystem.Controllers
             int iClassId = Convert.ToInt32(classId);
             // Get inspect DocDetailTemp list.
             var docDetailTemp = db.InspectDocDetailTemp.Where(t => t.DocId == docId && t.ShiftId == iShiftId &&
-                                                                   t.ClassId == iClassId).ToList();
+                                                                   t.ClassId == iClassId);
             if (docDetailTemp.Count() > 0)
             {
                 ViewBag.ClassName = docDetailTemp.First().ClassName;
@@ -56,7 +56,7 @@ namespace InspectSystem.Controllers
             int iClassId = Convert.ToInt32(classId);
             // Get inspect DocDetailTemp list.
             var docDetailTemp = db.InspectDocDetailTemp.Where(t => t.DocId == docId && t.ShiftId == iShiftId &&
-                                                                   t.ClassId == iClassId).ToList();
+                                                                   t.ClassId == iClassId);
             if (docDetailTemp.Count() > 0)
             {
                 ViewBag.ClassName = docDetailTemp.First().ClassName;
@@ -110,9 +110,9 @@ namespace InspectSystem.Controllers
         {
             int sid = Convert.ToInt32(shiftId);
             // Set variables.
-            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == docId && d.ShiftId == sid).ToList();
+            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == docId && d.ShiftId == sid);
             var docDetailTempsClasses = docDetailTemps.GroupBy(t => t.ClassId).Select(g => g.FirstOrDefault())
-                                                      .OrderBy(d => d.ClassOrder).ToList();
+                                                      .OrderBy(d => d.ClassOrder);
             var shiftName = docDetailTemps.First().ShiftName;
             var areaName = docDetailTemps.First().AreaName;
             List<InspectClassVModel> inspectClassVs = new List<InspectClassVModel>();
@@ -124,7 +124,7 @@ namespace InspectSystem.Controllers
                 var classErrors = docDetailTemps.Where(d => d.ClassId == item.ClassId &&
                                                             d.IsFunctional == "N").ToList();
                 // Get details of class.
-                var findDocTemps = docDetailTemps.Where(d => d.ClassId == item.ClassId).ToList();
+                var findDocTemps = docDetailTemps.Where(d => d.ClassId == item.ClassId);
                 // Insert values to classVModel.
                 classVModel = new InspectClassVModel();
                 classVModel.DocId = item.DocId;

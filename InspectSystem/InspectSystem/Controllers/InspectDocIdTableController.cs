@@ -48,18 +48,18 @@ namespace InspectSystem.Controllers
             string shiftId = qry.ShiftId;
 
             // Get all inspect docs.
-            var inspectDocIdTable = await db.InspectDocIdTable.Include(d => d.InspectDoc).ToListAsync();
-            var inspectShifts = await db.InspectShift.ToListAsync();
-            var inspectFlows = await db.InspectDocFlow.ToListAsync();
+            var inspectDocIdTable = db.InspectDocIdTable.Include(d => d.InspectDoc);
+            var inspectShifts = db.InspectShift.AsQueryable();
+            var inspectFlows = db.InspectDocFlow.AsQueryable();
             // Get user's docs.
-            inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" && df.UserId == WebSecurity.CurrentUserId).ToList();
+            inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" && df.UserId == WebSecurity.CurrentUserId);
             inspectFlows = inspectFlows.Join(inspectDocIdTable, f => f.DocId, d => d.DocId,
                                        (f, d) => new 
                                        { 
                                            docidTable = d,
                                            flow = f
-                                       }).Where(d => d.docidTable.DocStatusId != "2").Select(d => d.flow).ToList();
-            inspectDocIdTable = inspectFlows.Join(inspectDocIdTable, f => f.DocId, d => d.DocId, (f, d) => d).ToList();
+                                       }).Where(d => d.docidTable.DocStatusId != "2").Select(d => d.flow);
+            inspectDocIdTable = inspectFlows.Join(inspectDocIdTable, f => f.DocId, d => d.DocId, (f, d) => d);
             //Get Shifting docs.
             var shiftingDoc = db.InspectDocIdTable.Include(d => d.InspectDoc).Where(i => i.DocStatusId == "2")
                                                   .Join(db.InspectDoc, dt => dt.DocId, d => d.DocId, 

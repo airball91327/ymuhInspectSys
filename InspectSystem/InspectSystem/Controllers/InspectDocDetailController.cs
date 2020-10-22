@@ -28,7 +28,7 @@ namespace InspectSystem.Controllers
         {
             int iShiftId = Convert.ToInt32(shiftId);
             // Get inspect DocDetail list.
-            var docDetail = db.InspectDocDetail.Where(t => t.DocId == docId && t.ShiftId == iShiftId).ToList();
+            var docDetail = db.InspectDocDetail.Where(t => t.DocId == docId && t.ShiftId == iShiftId);
             if (docDetail.Count() > 0)
             {
                 ViewBag.ShiftName = docDetail.First().ShiftName;
