@@ -226,6 +226,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\InspectAreaController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppRolesController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
@@ -2288,6 +2289,11 @@
     <Content Include="Font-awesome-5.14.0\webfonts\fa-solid-900.ttf" />
     <Content Include="Font-awesome-5.14.0\webfonts\fa-solid-900.woff" />
     <Content Include="Font-awesome-5.14.0\webfonts\fa-solid-900.woff2" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectArea\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectArea\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectArea\Index.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -2613,9 +2619,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\InspectReport\" />
     <Folder Include="Views\Validations\" />

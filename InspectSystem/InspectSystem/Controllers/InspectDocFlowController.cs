@@ -14,6 +14,7 @@ using System.Web.Security;
 
 namespace InspectSystem.Controllers
 {
+    [Authorize]
     public class InspectDocFlowController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
@@ -29,8 +30,8 @@ namespace InspectSystem.Controllers
         public ActionResult FlowList(string docId)
         {
             AppUser user;
-            var inspectDocFlow = db.InspectDocFlow.Include(i => i.InspectDocIdTable).Include(i => i.InspectFlowStatus);
-            inspectDocFlow = inspectDocFlow.Where(df => df.DocId == docId);
+            var inspectDocFlow = db.InspectDocFlow.Include(i => i.InspectDocIdTable).Include(i => i.InspectFlowStatus)
+                                                  .Where(df => df.DocId == docId).ToList();
             foreach(var item in inspectDocFlow)
             {
                 user = db.AppUsers.Find(item.UserId);
@@ -69,8 +70,8 @@ namespace InspectSystem.Controllers
             var docId = assign.DocId;
             var docIdTable = db.InspectDocIdTable.Find(docId);
             var inspectDoc = db.InspectDoc.Find(docId, shiftId);
-            var docDetailTemp = db.InspectDocDetailTemp.Where(d => d.DocId == docId && d.ShiftId == shiftId);
-            var docDetail = db.InspectDocDetail.Where(d => d.DocId == docId && d.ShiftId == shiftId);
+            var docDetailTemp = db.InspectDocDetailTemp.Where(d => d.DocId == docId && d.ShiftId == shiftId).ToList();
+            var docDetail = db.InspectDocDetail.Where(d => d.DocId == docId && d.ShiftId == shiftId).ToList();
             InspectDocFlow df = db.InspectDocFlow.Where(f => f.DocId == docId && f.FlowStatusId == "?").FirstOrDefault();
 
             // If has docDetails, remove all docDetails and reinsert temp data.
@@ -161,7 +162,7 @@ namespace InspectSystem.Controllers
             var docIdTable = db.InspectDocIdTable.Find(docId);
             int sid = Convert.ToInt32(shiftId);
             int nextShiftId = 0;
-            var shiftsInAreas = db.ShiftsInAreas.Where(s => s.AreaId == docIdTable.AreaId).OrderBy(s => s.ShiftId);
+            var shiftsInAreas = db.ShiftsInAreas.Where(s => s.AreaId == docIdTable.AreaId).OrderBy(s => s.ShiftId).ToList();
             var nextShift = shiftsInAreas.SkipWhile(s => s.ShiftId != sid).Skip(1).DefaultIfEmpty(null).FirstOrDefault();
             if (nextShift != null)
             {

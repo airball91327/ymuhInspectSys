@@ -24,9 +24,13 @@ namespace InspectSystem.Models
         [Display(Name = "區域名稱")]
         public string AreaName { get; set; }
         [Required]
-        [Display(Name = "狀態")]
+        [Display(Name = "顯示區域")]
         public bool AreaStatus { get; set; }
+        [Display(Name = "異動人員")]
         public int? Rtp { get; set; }
+        [NotMapped]
+        public string RtpName { get; set; }
+        [Display(Name = "異動時間")]
         public DateTime? Rtt { get; set; }
 
         public virtual ICollection<ShiftsInAreas> ShiftsInAreas { get; set; }

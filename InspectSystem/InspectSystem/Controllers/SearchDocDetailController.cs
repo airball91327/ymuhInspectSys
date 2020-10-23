@@ -13,6 +13,7 @@ using InspectSystem.Models;
 
 namespace InspectSystem.Controllers
 {
+    [Authorize]
     public class SearchDocDetailController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
@@ -95,37 +96,37 @@ namespace InspectSystem.Controllers
                                 docidtable = d.docidtable,
                                 doc = d.doc,
                                 docdtl = dtl
-                            }).ToList();
+                            });
 
             /* 查詢日期 */
             if (string.IsNullOrEmpty(qryStartDate) == false || string.IsNullOrEmpty(qryEndDate) == false)
             {
-                searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo).ToList();
+                searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo);
             }
             if (!string.IsNullOrEmpty(qryAreaId))  /* 查詢區域 */
             {
                 var areaid = Convert.ToInt32(qryAreaId);
-                searchList = searchList.Where(r => r.docidtable.AreaId == areaid).ToList();
+                searchList = searchList.Where(r => r.docidtable.AreaId == areaid);
 
                 if (!string.IsNullOrEmpty(qryShiftId) && qryShiftId != "0")  /* 查詢班別 */
                 {
                     var shiftid = Convert.ToInt32(qryShiftId);
-                    searchList = searchList.Where(r => r.docdtl.ShiftId == shiftid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.ShiftId == shiftid);
                 }
                 if (!string.IsNullOrEmpty(qryClassId) && qryClassId != "0")  /* 查詢類別 */
                 {
                     var classid = Convert.ToInt32(qryClassId);
-                    searchList = searchList.Where(r => r.docdtl.ClassId == classid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.ClassId == classid);
                 }
                 if (!string.IsNullOrEmpty(qryItemId) && qryItemId != "0")  /* 查詢項目 */
                 {
                     var itemid = Convert.ToInt32(qryItemId);
-                    searchList = searchList.Where(r => r.docdtl.ItemId == itemid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.ItemId == itemid);
                 }
                 if (!string.IsNullOrEmpty(qryFieldId) && qryFieldId != "0")  /* 查詢欄位 */
                 {
                     var fieldid = Convert.ToInt32(qryFieldId);
-                    searchList = searchList.Where(r => r.docdtl.FieldId == fieldid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.FieldId == fieldid);
                 }
             }         
 
@@ -145,7 +146,7 @@ namespace InspectSystem.Controllers
                 }
             }
 
-            var resultList = searchList.Select(s => new
+            var resultList = searchList.ToList().Select(s => new
             {
                 ApplyDate = s.docidtable.ApplyDate.ToString("yyyy/MM/dd"),  
                 AreaName = s.docdtl.AreaName,
@@ -316,37 +317,37 @@ namespace InspectSystem.Controllers
                                 docidtable = d.docidtable,
                                 doc = d.doc,
                                 docdtl = dtl
-                            }).ToList();
+                            });
 
             /* 查詢日期 */
             if (string.IsNullOrEmpty(qryStartDate) == false || string.IsNullOrEmpty(qryEndDate) == false)
             {
-                searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo).ToList();
+                searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo);
             }
             if (!string.IsNullOrEmpty(qryAreaId))  /* 查詢區域 */
             {
                 var areaid = Convert.ToInt32(qryAreaId);
-                searchList = searchList.Where(r => r.docidtable.AreaId == areaid).ToList();
+                searchList = searchList.Where(r => r.docidtable.AreaId == areaid);
 
                 if (!string.IsNullOrEmpty(qryShiftId) && qryShiftId != "0")  /* 查詢班別 */
                 {
                     var shiftid = Convert.ToInt32(qryShiftId);
-                    searchList = searchList.Where(r => r.docdtl.ShiftId == shiftid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.ShiftId == shiftid);
                 }
                 if (!string.IsNullOrEmpty(qryClassId) && qryClassId != "0")  /* 查詢類別 */
                 {
                     var classid = Convert.ToInt32(qryClassId);
-                    searchList = searchList.Where(r => r.docdtl.ClassId == classid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.ClassId == classid);
                 }
                 if (!string.IsNullOrEmpty(qryItemId) && qryItemId != "0")  /* 查詢項目 */
                 {
                     var itemid = Convert.ToInt32(qryItemId);
-                    searchList = searchList.Where(r => r.docdtl.ItemId == itemid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.ItemId == itemid);
                 }
                 if (!string.IsNullOrEmpty(qryFieldId) && qryFieldId != "0")  /* 查詢欄位 */
                 {
                     var fieldid = Convert.ToInt32(qryFieldId);
-                    searchList = searchList.Where(r => r.docdtl.FieldId == fieldid).ToList();
+                    searchList = searchList.Where(r => r.docdtl.FieldId == fieldid);
                 }
             }
 

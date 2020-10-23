@@ -1,0 +1,52 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectArea>
+
+@{
+    ViewBag.Title = "區域列表";
+}
+
+<h2>區域列表</h2>
+
+<a class="btn btn-primary" href="@Url.Action("Create")">新增區域</a>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rtp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rtt)
+        </th>
+        <th>
+            功能
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AreaName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AreaStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RtpName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rtt)
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.AreaId })">區域名稱編輯</a>
+            </td>
+        </tr>
+    }
+
+</table>

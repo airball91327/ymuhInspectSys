@@ -85,23 +85,23 @@ namespace InspectSystem.Controllers
             string asc_desc = string.IsNullOrEmpty(form["order[0][dir]"]) ? "asc" : form["order[0][dir]"];//防呆
 
             var searchList = db.InspectDocIdTable.Include(i => i.InspectDoc).Include(i => i.InspectDocFlow)
-                                                 .Include(i => i.InspectDocStatus).ToList();
+                                                 .Include(i => i.InspectDocStatus);
             /* 查詢日期 */
             if (string.IsNullOrEmpty(qryStartDate) == false || string.IsNullOrEmpty(qryEndDate) == false)
             {
-                searchList = searchList.Where(v => v.ApplyDate >= applyDateFrom && v.ApplyDate <= applyDateTo).ToList();
+                searchList = searchList.Where(v => v.ApplyDate >= applyDateFrom && v.ApplyDate <= applyDateTo);
             }
             if (!string.IsNullOrEmpty(qryAreaId))  /* 查詢區域 */
             {
                 var areaid = Convert.ToInt32(qryAreaId);
-                searchList = searchList.Where(r => r.AreaId == areaid).ToList();
+                searchList = searchList.Where(r => r.AreaId == areaid);
             }
             if (!string.IsNullOrEmpty(qryFlowStatusId))  /* 查詢文件流程狀態 */
             {
-                searchList = searchList.Where(r => r.InspectDocFlow.OrderBy(f => f.StepId).Last().FlowStatusId == qryFlowStatusId).ToList();
+                searchList = searchList.Where(r => r.InspectDocFlow.OrderByDescending(f => f.StepId).FirstOrDefault().FlowStatusId == qryFlowStatusId);
             }
 
-            var resultList = searchList.AsEnumerable().Select(s => new InspectDocIdTableVModel()
+            var resultList = searchList.ToList().Select(s => new InspectDocIdTableVModel()
             {
                 DocId = s.DocId,
                 ApplyDate = s.ApplyDate.ToString("yyyy/MM/dd"),
@@ -112,10 +112,10 @@ namespace InspectSystem.Controllers
                 ShiftName = db.InspectShift.Find(s.ShiftId).ShiftName,
                 DocStatusId = s.DocStatusId,
                 DocStatusDes = s.InspectDocStatus.DocStatusDes,
-                FlowStatusId = s.InspectDocFlow.OrderBy(f => f.StepId).Last().FlowStatusId,
-                FlowStatusDes = s.InspectDocFlow.OrderBy(f => f.StepId).Last().InspectFlowStatus.FlowStatusDes,
-                EngUserName = db.AppUsers.Find(s.InspectDoc.OrderBy(d => d.ShiftId).Last().EngId).UserName,
-                EngFullName = s.InspectDoc.OrderBy(d => d.ShiftId).Last().EngName
+                FlowStatusId = s.InspectDocFlow.OrderByDescending(f => f.StepId).FirstOrDefault().FlowStatusId,
+                FlowStatusDes = s.InspectDocFlow.OrderByDescending(f => f.StepId).FirstOrDefault().InspectFlowStatus.FlowStatusDes,
+                EngUserName = db.AppUsers.Find(s.InspectDoc.OrderByDescending(d => d.ShiftId).FirstOrDefault().EngId).UserName,
+                EngFullName = s.InspectDoc.OrderByDescending(d => d.ShiftId).FirstOrDefault().EngName
             }).ToList();
 
             // Deal DataTable sorting. 

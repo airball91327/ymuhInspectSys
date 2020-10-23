@@ -80,7 +80,7 @@ namespace InspectSystem.Controllers
             // Set variables.
             var shiftId = inspectDocIdTable.ShiftId;
             var docStatusId = inspectDocIdTable.DocStatusId;
-            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == id && d.ShiftId == shiftId);
+            var docDetailTemps = db.InspectDocDetailTemp.Where(d => d.DocId == id && d.ShiftId == shiftId).ToList();
             var docDetailTempsClasses = docDetailTemps.GroupBy(t => t.ClassId).Select(g => g.FirstOrDefault())
                                                       .OrderBy(d => d.ClassOrder);
             var shiftName = docDetailTemps.First().ShiftName;
@@ -192,7 +192,7 @@ namespace InspectSystem.Controllers
         public string GetDocNotes (string docId)
         {
             string notes = null;
-            var inspectDocs = db.InspectDoc.Where(d => d.DocId == docId);
+            var inspectDocs = db.InspectDoc.Where(d => d.DocId == docId).ToList();
             foreach (var doc in inspectDocs)
             {
                 var shift = db.InspectShift.Find(doc.ShiftId);

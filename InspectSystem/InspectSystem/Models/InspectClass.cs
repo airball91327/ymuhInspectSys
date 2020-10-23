@@ -25,7 +25,7 @@ namespace InspectSystem.Models
         [Display(Name = "類別名稱")]
         public string ClassName { get; set; }
         [Required]
-        [Display(Name = "狀態")]
+        [Display(Name = "顯示類別")]
         public bool ClassStatus { get; set; }
         [Required]
         [Display(Name = "排列順序")]
