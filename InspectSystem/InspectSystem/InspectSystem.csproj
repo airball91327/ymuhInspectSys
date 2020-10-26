@@ -227,6 +227,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectAreaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InspectClassController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectShiftController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShiftsInAreasController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -2302,6 +2303,7 @@
     <Content Include="Areas\Admin\Views\ShiftsInAreas\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ShiftsInAreas\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ShiftsInAreas\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectClass\Index.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

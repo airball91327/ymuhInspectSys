@@ -26,7 +26,7 @@ namespace InspectSystem.Controllers
         public ActionResult InspectDocIndex()
         {
             ViewBag.AreaId = new SelectList(db.InspectArea, "AreaId", "AreaName");
-            ViewBag.FlowStatusId = new SelectList(db.InspectFlowStatus, "FlowStatusId", "FlowStatusDes");
+            ViewBag.DocStatusId = new SelectList(db.InspectDocStatus, "DocStatusId", "DocStatusDes");
             return View();
         }
 
@@ -38,7 +38,7 @@ namespace InspectSystem.Controllers
             var qryStartDate = form["startDate"];
             var qryEndDate = form["endDate"];
             var qryAreaId = form["AreaId"];
-            var qryFlowStatusId = form["FlowStatusId"];
+            var qryDocStatusId = form["DocStatusId"];
 
             DateTime applyDateFrom = DateTime.Now;
             DateTime applyDateTo = DateTime.Now;
@@ -96,9 +96,9 @@ namespace InspectSystem.Controllers
                 var areaid = Convert.ToInt32(qryAreaId);
                 searchList = searchList.Where(r => r.AreaId == areaid);
             }
-            if (!string.IsNullOrEmpty(qryFlowStatusId))  /* 查詢文件流程狀態 */
+            if (!string.IsNullOrEmpty(qryDocStatusId))  /* 查詢文件狀態 */
             {
-                searchList = searchList.Where(r => r.InspectDocFlow.OrderByDescending(f => f.StepId).FirstOrDefault().FlowStatusId == qryFlowStatusId);
+                searchList = searchList.Where(r => r.DocStatusId == qryDocStatusId);
             }
 
             var resultList = searchList.ToList().Select(s => new InspectDocIdTableVModel()
@@ -126,6 +126,10 @@ namespace InspectSystem.Controllers
             else if (sortColName == "FlowStatusDes")
             {
                 sortColName = "FlowStatusId";
+            }
+            else if (sortColName == "DocStatusDes")
+            {
+                sortColName = "DocStatusId";
             }
             else if (sortColName == "ShiftName")
             {
