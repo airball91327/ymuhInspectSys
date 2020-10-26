@@ -20,7 +20,11 @@ namespace InspectSystem.Models
         [Required]
         [Display(Name = "狀態")]
         public bool Status { get; set; }
+        [Display(Name = "異動人員")]
         public int? Rtp { get; set; }
+        [NotMapped]
+        public string RtpName { get; set; }
+        [Display(Name = "異動時間")]
         public DateTime? Rtt { get; set; }
 
         public virtual InspectArea InspectArea { get; set; }

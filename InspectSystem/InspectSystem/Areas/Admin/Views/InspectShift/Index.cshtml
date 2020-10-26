@@ -1,22 +1,18 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectArea>
+﻿@model IEnumerable<InspectSystem.Models.InspectShift>
 
 @{
-    ViewBag.Title = "區域列表";
+    ViewBag.Title = "班別列表";
 }
 
-<h3>區域列表</h3>
+<h3>班別列表</h3>
 
 <p>
-    <a class="btn btn-primary" href="@Url.Action("Create")">新增區域</a>
+    <a class="btn btn-primary" href="@Url.Action("Create")">新增班別</a>
 </p>
-
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AreaName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AreaStatus)
+            @Html.DisplayNameFor(model => model.ShiftName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Rtp)
@@ -33,10 +29,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AreaName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AreaStatus)
+                @Html.DisplayFor(modelItem => item.ShiftName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RtpName)
@@ -45,7 +38,7 @@
                 @Html.DisplayFor(modelItem => item.Rtt)
             </td>
             <td>
-                <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.AreaId })">區域名稱編輯</a>
+                <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.ShiftId })">班別名稱編輯</a>
             </td>
         </tr>
     }

@@ -13,15 +13,15 @@ using WebMatrix.WebData;
 namespace InspectSystem.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class InspectAreaController : Controller
+    public class InspectShiftController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
 
-        // GET: Admin/InspectArea
+        // GET: Admin/InspectShift
         public async Task<ActionResult> Index()
         {
-            var inspectAreas = await db.InspectArea.ToListAsync();
-            foreach(var area in inspectAreas)
+            var inspectShifts = await db.InspectShift.ToListAsync();
+            foreach (var area in inspectShifts)
             {
                 var user = db.AppUsers.Find(area.Rtp);
                 if (user != null)
@@ -29,65 +29,65 @@ namespace InspectSystem.Areas.Admin.Controllers
                     area.RtpName = user.FullName + "(" + user.UserName + ")";
                 }
             }
-            return View(inspectAreas);
+            return View(inspectShifts);
         }
 
-        // GET: Admin/InspectArea/Create
+        // GET: Admin/InspectShift/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/InspectArea/Create
+        // POST: Admin/InspectShift/Create
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AreaId,AreaName,AreaStatus")] InspectArea inspectArea)
+        public async Task<ActionResult> Create([Bind(Include = "ShiftId,ShiftName")] InspectShift inspectShift)
         {
             if (ModelState.IsValid)
             {
-                inspectArea.Rtp = WebSecurity.CurrentUserId;
-                inspectArea.Rtt = DateTime.Now;
-                db.InspectArea.Add(inspectArea);
+                inspectShift.Rtp = WebSecurity.CurrentUserId;
+                inspectShift.Rtt = DateTime.Now;
+                db.InspectShift.Add(inspectShift);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(inspectArea);
+            return View(inspectShift);
         }
 
-        // GET: Admin/InspectArea/Edit/5
+        // GET: Admin/InspectShift/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectArea inspectArea = await db.InspectArea.FindAsync(id);
-            if (inspectArea == null)
+            InspectShift inspectShift = await db.InspectShift.FindAsync(id);
+            if (inspectShift == null)
             {
                 return HttpNotFound();
             }
-            return View(inspectArea);
+            return View(inspectShift);
         }
 
-        // POST: Admin/InspectArea/Edit/5
+        // POST: Admin/InspectShift/Edit/5
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AreaId,AreaName,AreaStatus")] InspectArea inspectArea)
+        public async Task<ActionResult> Edit([Bind(Include = "ShiftId,ShiftName")] InspectShift inspectShift)
         {
             if (ModelState.IsValid)
             {
-                inspectArea.Rtp = WebSecurity.CurrentUserId;
-                inspectArea.Rtt = DateTime.Now;
-                db.Entry(inspectArea).State = EntityState.Modified;
+                inspectShift.Rtp = WebSecurity.CurrentUserId;
+                inspectShift.Rtt = DateTime.Now;
+                db.Entry(inspectShift).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(inspectArea);
+            return View(inspectShift);
         }
 
         protected override void Dispose(bool disposing)

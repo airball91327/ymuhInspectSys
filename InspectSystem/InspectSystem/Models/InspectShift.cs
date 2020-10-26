@@ -20,7 +20,11 @@ namespace InspectSystem.Models
         [Required]
         [Display(Name = "班別名稱")]
         public string ShiftName { get; set; }
+        [Display(Name = "異動人員")]
         public int? Rtp { get; set; }
+        [NotMapped]
+        public string RtpName { get; set; }
+        [Display(Name = "異動時間")]
         public DateTime? Rtt { get; set; }
 
         public virtual ICollection<ShiftsInAreas> ShiftsInAreas { get; set; }
