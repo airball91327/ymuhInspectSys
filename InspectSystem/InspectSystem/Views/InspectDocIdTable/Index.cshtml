@@ -6,9 +6,9 @@
 
 <h4>查詢條件</h4>
 
-@using (Ajax.BeginForm("Index", "InspectDocIdTable", new AjaxOptions
+@using (Ajax.BeginForm("Index2", "InspectDocIdTable", new AjaxOptions
 {
-    HttpMethod = "POST",
+    HttpMethod = "GET",
     OnBegin = "$.Toast.showToast({ 'title': '搜尋中，請稍待...', 'icon': 'loading', 'duration': 0 })",
     OnSuccess = "showmsg",
     UpdateTargetId = "pnlINSPECT"
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="form-group col">
                 <div>
-                    <input type="submit" value="查詢" class="btn btn-primary" />
+                    <input type="button" value="查詢" class="btn btn-primary" id="QryBtn" />
                 </div>
             </div>
         </div>
@@ -53,3 +53,52 @@
 
 
 @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(function () {
+        $('#QryBtn').click(function () {
+            submitFormINSPECT();
+        });
+    });
+    function submitFormINSPECT() {
+        fetchPage(1);
+    }
+    // Use ajax to fetch page.
+    var fetchPage = function (page) {
+        var pagedPartialUrl = '@Url.Action("Index2", "InspectDocIdTable", new { Area = "" })';
+        var s = $('#formINSPECT').serialize();
+        $.Toast.showToast({
+            'title': '搜尋中，請稍待...',
+            'icon': 'loading',
+            'duration': 0
+        })
+        $.ajax({
+            url:pagedPartialUrl,
+            type: "GET",
+            data: s + "&page=" + page,
+            success: function (data) {
+
+                window.location.hash = page;
+
+                $('#pnlINSPECT').html(data);
+
+                $('#pnlINSPECT .pagination li a').each(function (i, item) {
+                    var hyperLinkUrl = $(item).attr('href');
+                    if (typeof hyperLinkUrl !== 'undefined' && hyperLinkUrl !== false) {
+                        var pageNumber = $(item).attr('href').replace(pagedPartialUrl + '?page=', '');
+                        $(item).attr('href', '#').click(function (event) {
+                            event.preventDefault();
+                            $(event.target).attr('href');
+                            fetchPage(pageNumber);
+                        });
+                    }
+                });
+                $.Toast.hideToast();
+            },
+            error: function (data) {
+                alert(data.responseText);
+                $.Toast.hideToast();
+            }
+        });
+
+    };
+</script>

@@ -29,7 +29,8 @@ namespace InspectSystem
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/bootstrap-select.css",
-                      "~/Content/bootstrap-combobox.css"));
+                      "~/Content/bootstrap-combobox.css",
+                      "~/Content/PagedList.css"));
         }
     }
 }

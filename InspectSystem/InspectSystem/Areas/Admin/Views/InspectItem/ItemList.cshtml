@@ -1,0 +1,135 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectItem>
+
+<style>
+    /* The canel button and message for sorting (Hidden by Default) */
+    #sortBtnCanel, #sortMsg {
+        display: none;
+    }
+</style>
+
+
+<p>
+    <a class="btn btn-primary" id="createBtn" href="@Url.Action("Create", new { areaId = ViewData["AId"], shiftId = ViewData["SId"], classId = ViewData["CId"] })">新增類別</a>
+    <button class="btn btn-primary" id="sortBtn">排序</button>
+    <button class="btn btn-info" id="sortBtnCanel">取消排序</button>
+</p>
+
+<table class="table table-hover" id="editTable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InspectClass.ClassName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rtp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rtt)
+        </th>
+        <th>功能</th>
+    </tr>
+
+    <tbody id="sortItem">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="max-width: 250px;">
+                    @Html.DisplayFor(modelItem => item.InspectClass.ClassName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RtpName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rtt)
+                </td>
+                <td>
+                    <a class="btn btn-primary editBtn" href="@Url.Action("Edit", new { areaId = item.AreaId, shiftId = item.ShiftId, classId = item.ClassId, itemId = item.ItemId })">編輯</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<div>
+    <p style="color: red" id="sortMsg">*拖曳項目以排序</p>
+</div>
+
+
+<script src="~/Scripts/jquery-ui.js"></script>
+<script>
+    $(function () {
+
+        var setOrderURL = '@Url.Action("SetItemOrder", "InspectItem", new { Area = "Admin" })';
+        $("#sortBtn").click(function () {
+            /* When sorting items, disable other buttons */
+            $("#createBtn").addClass("disabled");
+            $("#sortBtn").attr("disabled", true);
+            $(".editBtn").addClass("disabled");
+
+            $("#sortBtnCanel").show();
+            $("#sortMsg").show();
+
+            /* enable item sorting. */
+            $("#sortItem").sortable({
+                opacity: 0.6,
+                cursor: 'move',
+                axis: 'y',
+                start: function (event, ui) {
+                    var start_pos = ui.item.index();
+                    //console.log("start_pos:" + start_pos); //For debug
+                    ui.item.data('start_pos', start_pos);
+                },
+                update: function (event, ui) {
+                    var oldIndex = ui.item.data('start_pos');
+                    //console.log("old:" + oldIndex); //For debug
+                    var newIndex = ui.item.index();
+                    //console.log("new:" + newIndex); //For debug
+                    $.ajax({
+                        type: 'POST',
+                        url: setOrderURL,
+                        data: {
+                            oldIndex: oldIndex + 1,
+                            newIndex: newIndex + 1,
+                            areaId: @ViewData["AId"],
+                            shiftId: @ViewData["SId"],
+                            classId: @ViewData["CId"],
+                        },
+                        success: function (result) {
+                            $('#pnlItem').html(result);
+                        },
+                        error: function (msg) {
+                            alert(msg);
+                        }
+                    });
+                }
+            });
+            $("#editTable").disableSelection();
+        });
+
+        $("#sortBtnCanel").click(function () {
+            $("#createBtn").removeClass('disabled');
+            $("#sortBtn").attr("disabled", false);
+            $(".editBtn").removeClass('disabled');
+            $("#sortBtnCanel").hide();
+            $("#sortMsg").hide();
+        });
+    });
+</script>

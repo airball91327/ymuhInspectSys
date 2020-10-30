@@ -35,7 +35,11 @@ namespace InspectSystem.Models
         [Required]
         [Display(Name = "排列順序")]
         public int ItemOrder { get; set; }
+        [Display(Name = "異動人員")]
         public int? Rtp { get; set; }
+        [NotMapped]
+        public string RtpName { get; set; }
+        [Display(Name = "異動時間")]
         public DateTime? Rtt { get; set; }
 
         public virtual InspectClass InspectClass { get; set; }

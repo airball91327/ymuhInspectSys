@@ -1,4 +1,7 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectDocIdTable>
+﻿@model X.PagedList.IPagedList<InspectSystem.Models.InspectDocIdTable>
+
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Common;
 
 @{
     Layout = null;
@@ -13,25 +16,25 @@ else
     <table class="table table-hover">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DocId)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DocId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AreaName)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().AreaName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplyDate)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ApplyDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EngUserName)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().EngUserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EngFullName)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().EngFullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShiftName)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ShiftName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CloseDate)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CloseDate)
             </th>
             <th>
                 功能
@@ -84,3 +87,8 @@ else
 
     </table>
 }
+
+<div>
+    @Html.PagedListPager(Model,
+    page => Url.Action("Index2", new { page }), PagedListRenderOptionsBase.ClassicPlusFirstAndLast)
+</div>

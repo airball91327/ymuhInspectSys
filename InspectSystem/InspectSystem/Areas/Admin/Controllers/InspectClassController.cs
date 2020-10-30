@@ -88,7 +88,6 @@ namespace InspectSystem.Areas.Admin.Controllers
                 return RedirectToAction("Index", new { areaId = inspectClass.AreaId, shiftId = inspectClass.ShiftId });
             }
 
-            ViewBag.AreaId = new SelectList(db.ShiftsInAreas, "AreaId", "AreaId", inspectClass.AreaId);
             return View(inspectClass);
         }
 
@@ -175,7 +174,7 @@ namespace InspectSystem.Areas.Admin.Controllers
             return PartialView(inspectClass);
         }
 
-        // POST: /InspectClass/SetClassOrder/5
+        // POST: Admin/InspectClass/SetClassOrder/5
         [HttpPost]
         public ActionResult SetClassOrder(int oldIndex, int newIndex, int areaId, int shiftId)
         {
@@ -238,6 +237,23 @@ namespace InspectSystem.Areas.Admin.Controllers
                     {
                         Text = c.InspectShift.ShiftName,
                         Value = c.ShiftId.ToString()
+                    });
+                });
+            return Json(list);
+        }
+
+        // POST: Admin/InspectClass/GetClasses/5
+        [HttpPost]
+        public JsonResult GetClasses(int AreaId, int ShiftId)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var clses = db.InspectClass.Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId);
+            clses.OrderBy(s => s.ClassOrder).ToList()
+                .ForEach(c => {
+                    list.Add(new SelectListItem
+                    {
+                        Text = c.ClassName,
+                        Value = c.ClassId.ToString()
                     });
                 });
             return Json(list);

@@ -11,6 +11,7 @@ using InspectSystem.Models;
 using WebMatrix.WebData;
 using InspectSystem.Filters;
 using System.Runtime.CompilerServices;
+using X.PagedList;
 
 namespace InspectSystem.Controllers
 {
@@ -18,6 +19,7 @@ namespace InspectSystem.Controllers
     public class InspectDocIdTableController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
+        private int pageSize = 50;
 
         // GET: InspectDocIdTable
         public async Task<ActionResult> Index()
@@ -38,10 +40,8 @@ namespace InspectSystem.Controllers
             return View();
         }
 
-        // POST: InspectDocIdTable
-        [HttpPost]
-        [MyErrorHandler]
-        public async Task<ActionResult> Index(InspectDocQryVModel qry)
+        // GET: InspectDocIdTable
+        public ActionResult Index2(InspectDocQryVModel qry, int page = 1)
         {
             // query variables.
             string docid = qry.DocId;
@@ -100,8 +100,13 @@ namespace InspectSystem.Controllers
                     doc.EngFullName = user != null ? user.FullName : "";
                 }
             }
-
-            return PartialView("List", inspectDocIdTable);
+            //
+            var pageCount = inspectDocIdTable.ToPagedList(page, pageSize).PageCount;
+            pageCount = pageCount == 0 ? 1 : pageCount; // If no page.
+            if (inspectDocIdTable.ToPagedList(page, pageSize).Count <= 0)  //If the page has no items.
+                return PartialView("List", inspectDocIdTable.ToPagedList(pageCount, pageSize));
+            return PartialView("List", inspectDocIdTable.ToPagedList(page, pageSize));
+            //return PartialView("List", inspectDocIdTable);
         }
 
         // GET: InspectDocIdTable/Views/5
