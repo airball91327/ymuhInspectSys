@@ -65,7 +65,7 @@
                 type: "POST",
                 dataType: "json",
                 data: { AreaId: $(this).val() },
-                async: true,
+                async: false,
                 success: function (response) {
                     var select = $('#ShiftId');
                     select.empty();
@@ -74,7 +74,7 @@
                     });
                 }
             });
-            $.ajaxSettings.async = true; // Set this ajax async back to true.
+            //$.ajaxSettings.async = true; // Set this ajax async back to true.
         });
         $('#AreaId').trigger('change');
         //
@@ -82,10 +82,10 @@
         var selectAreaId = $("#AreaId").val();
         var selectShiftId = '@ViewBag.SelectShiftId';
         if (selectAreaId != "" && selectShiftId != "") {
-            //var a = parseInt(selectShiftId);
-            //console.log(a);
-            //document.getElementById('ShiftId').value = a;
-            //$("#searchForm").submit();
+            var sid = parseInt(selectShiftId);
+            document.getElementById('ShiftId').value = sid;
+            $("#searchForm").submit();
+            $.ajaxSettings.async = true; // Set this ajax async back to true.
         }
     });
 

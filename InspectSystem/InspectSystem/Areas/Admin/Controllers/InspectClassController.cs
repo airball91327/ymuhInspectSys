@@ -41,7 +41,26 @@ namespace InspectSystem.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View();
+            var insClass = db.InspectClass.Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId)
+                                          .OrderByDescending(i => i.ClassId).FirstOrDefault();
+            // Set default values.
+            InspectClass inspectClass = new InspectClass();
+            inspectClass.AreaId = AreaId.Value;
+            inspectClass.ShiftId = ShiftId.Value;
+            if (insClass != null)
+            {
+                inspectClass.ClassId = insClass.ClassId + 1;
+            }
+            else
+            {
+                inspectClass.ClassId = 1;
+            }
+            //
+            var sia = db.ShiftsInAreas.Find(AreaId, ShiftId);
+            ViewBag.AreaName = sia.InspectArea.AreaName;
+            ViewBag.ShiftName = sia.InspectShift.ShiftName;
+            //
+            return View(inspectClass);
         }
 
         // POST: Admin/InspectClass/Create
@@ -65,7 +84,8 @@ namespace InspectSystem.Areas.Admin.Controllers
                 inspectClass.Rtt = DateTime.Now;
                 db.InspectClass.Add(inspectClass);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                ViewBag.AreaId = new SelectList(db.InspectArea, "AreaId", "AreaName", inspectClass.AreaId);
+                return RedirectToAction("Index", new { areaId = inspectClass.AreaId, shiftId = inspectClass.ShiftId });
             }
 
             ViewBag.AreaId = new SelectList(db.ShiftsInAreas, "AreaId", "AreaId", inspectClass.AreaId);
@@ -133,14 +153,14 @@ namespace InspectSystem.Areas.Admin.Controllers
         // POST: Admin/InspectClass/ClassList/5
         [MyErrorHandler]
         [HttpPost]
-        public async Task<ActionResult> ClassList(int? AreaId, int? ShiftId)
+        public ActionResult ClassList(int? AreaId, int? ShiftId)
         {
             if (AreaId == null || ShiftId == null)
             {
                 throw new Exception("區域或班別不正確!");
             }
-            var inspectClass = await db.InspectClass.Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId)
-                                                    .OrderBy(i => i.ClassOrder).ToListAsync();
+            var inspectClass = db.InspectClass.Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId)
+                                                    .OrderBy(i => i.ClassOrder).ToList();
             foreach (var cls in inspectClass)
             {
                 var user = db.AppUsers.Find(cls.Rtp);

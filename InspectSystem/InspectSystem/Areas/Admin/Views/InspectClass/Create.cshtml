@@ -1,22 +1,41 @@
 ﻿@model InspectSystem.Models.InspectClass
 
 @{
-    ViewBag.Title = "編輯";
+    ViewBag.Title = "新增";
 }
 
-<h2>編輯</h2>
+<h2>新增類別</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.AreaId)
+    @Html.HiddenFor(model => model.ShiftId)
 
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AreaId)
-        @Html.HiddenFor(model => model.ShiftId)
-        @Html.HiddenFor(model => model.ClassId)
-        @Html.HiddenFor(model => model.ClassOrder)
+        <div class="form-group">
+            @Html.LabelFor(model => model.AreaId, "區域", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @ViewBag.AreaName
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShiftId, "班別", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @ViewBag.ShiftName
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClassId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ClassName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -38,7 +57,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="儲存" class="btn btn-primary" />
+                <input type="submit" value="新增" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -47,7 +66,3 @@
 <div>
     @Html.ActionLink("回到列表", "Index", new { areaId = Model.AreaId, shiftId = Model.ShiftId })
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

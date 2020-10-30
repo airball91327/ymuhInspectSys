@@ -2306,6 +2306,7 @@
     <Content Include="Areas\Admin\Views\InspectClass\Index.cshtml" />
     <Content Include="Areas\Admin\Views\InspectClass\ClassList.cshtml" />
     <Content Include="Areas\Admin\Views\InspectClass\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectClass\Create.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
