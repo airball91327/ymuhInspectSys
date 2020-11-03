@@ -11,32 +11,6 @@
     }
 </style>
 
-<script>
-    var getFieldURL = '@Url.Action("GetFieldList", "InspectField", new { Area = "Admin" })';
-    $(function () {
-        $(".fieldBtn").click(function () {
-
-            var number = $(this).attr("value");
-            /*Get the search result of fields*/
-            $.ajax({
-                type: "GET",
-                url: getFieldURL,
-                data: { areaId: , shiftId: itemID },
-                success: function (result) {
-                    $(".fieldDiv").not("#fieldDivNo" + zoneNo).html("<p></p>");
-                    $("#fieldDivNo" + zoneNo).html(result);
-                },
-                error: function (msg) {
-                    alert(msg);
-                }
-            });
-            /* Control all the slide cards */
-            $('.fieldCards').not('.rowFieldNo' + number).slideUp(500);
-            $('.rowFieldNo' + number).slideToggle(500);
-        });
-    });
-</script>
-
 <p>
     <a class="btn btn-primary" id="createBtn" href="@Url.Action("Create", new { areaId = ViewData["AId"], shiftId = ViewData["SId"], classId = ViewData["CId"] })">新增類別</a>
     <button class="btn btn-primary" id="sortBtn">排序</button>
@@ -77,6 +51,10 @@
             string rowFieldNo = "rowFieldNo" + row;
             string rowCardNo = "rowCardNo" + row;
             <tr>
+                @Html.HiddenFor(modelItem => item.AreaId)
+                @Html.HiddenFor(modelItem => item.ShiftId)
+                @Html.HiddenFor(modelItem => item.ClassId)
+                @Html.HiddenFor(modelItem => item.ItemId)
                 <td style="max-width: 250px;">
                     @Html.DisplayFor(modelItem => item.InspectClass.ClassName)
                 </td>
@@ -102,7 +80,7 @@
             </tr>
             <tr>
                 <td colspan=7 class="fieldCards @rowFieldNo">
-                    <div class="card">
+                    <div class="card fieldCards @rowFieldNo">
                         <div class="card-header bg-info">欄位</div>
                         <div class="card-body">
                             <div class="" id="@rowCardNo"></div>
@@ -124,7 +102,7 @@
 <script src="~/Scripts/jquery-ui.js"></script>
 <script>
     $(function () {
-
+        var getFieldURL = '@Url.Action("GetFieldList", "InspectField", new { Area = "Admin" })';
         var setOrderURL = '@Url.Action("SetItemOrder", "InspectItem", new { Area = "Admin" })';
         $("#sortBtn").click(function () {
             /* When sorting items, disable other buttons */
@@ -178,6 +156,31 @@
             $(".editBtn").removeClass('disabled');
             $("#sortBtnCanel").hide();
             $("#sortMsg").hide();
+        });
+
+        $(".fieldBtn").click(function () {
+            var areaId = $(this).parent().parent().children("input[name='item.AreaId']").val();
+            var shiftId = $(this).parent().parent().children("input[name='item.ShiftId']").val();
+            var classId = $(this).parent().parent().children("input[name='item.ClassId']").val();
+            var itemId = $(this).parent().parent().children("input[name='item.ItemId']").val();
+            var number = $(this).attr("value");
+
+            /*Get the search result of fields*/
+            $.ajax({
+                type: "GET",
+                url: getFieldURL,
+                data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId},
+                success: function (result) {
+                    $(".rowFieldNo").not("#rowCardNo" + number).html("<p></p>");
+                    $("#rowCardNo" + number).html(result);
+                },
+                error: function (msg) {
+                    alert(msg);
+                }
+            });
+            /* Control all the slide cards */
+            $('.fieldCards').not('.rowFieldNo' + number).slideUp(500);
+            $('.rowFieldNo' + number).slideToggle(500);
         });
     });
 </script>

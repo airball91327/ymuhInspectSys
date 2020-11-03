@@ -245,6 +245,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectAreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectClassController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InspectFieldController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectItemController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectShiftController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShiftsInAreasController.cs" />
@@ -2331,6 +2332,10 @@
     <Content Include="Areas\Admin\Views\InspectItem\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\InspectItem\Index.cshtml" />
     <Content Include="Areas\Admin\Views\InspectItem\ItemList.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectField\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectField\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectField\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectField\GetFieldList.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
