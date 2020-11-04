@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<InspectSystem.Models.InspectField>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-success fieldCreateBtn" data-toggle="modal" data-target="#fieldModal">新增欄位</button>
 </p>
 <table class="table">
     <tr>
@@ -35,9 +35,17 @@
         <th></th>
     </tr>
 
+    @{
+        int row = 1;
+    }
     @foreach (var item in Model)
     {
         <tr>
+            @Html.HiddenFor(modelItem => item.AreaId)
+            @Html.HiddenFor(modelItem => item.ShiftId)
+            @Html.HiddenFor(modelItem => item.ClassId)
+            @Html.HiddenFor(modelItem => item.ItemId)
+            @Html.HiddenFor(modelItem => item.FieldId)
             <td>
                 @Html.DisplayFor(modelItem => item.FieldName)
             </td>
@@ -51,7 +59,7 @@
                         <p>數字</p>
                         break;
                     case "boolean":
-                        <p>正常/不正常</p>
+                        <p>該類別(正常/不正常)</p>
                         break;
                     case "checkbox":
                         <p>勾選方塊</p>
@@ -83,11 +91,64 @@
                 @Html.DisplayFor(modelItem => item.Rtt)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <button class="btn btn-success fieldEditBtn" data-toggle="modal" data-target="#fieldModal" value="@row">編輯</button>
             </td>
         </tr>
     }
 
 </table>
+
+
+<script>
+    $(function () {
+        var fieldEditURL = '@Url.Action("Edit", "InspectField", new { Area = "Admin" })';
+        var fieldCreateURL = '@Url.Action("Create", "InspectField", new { Area = "Admin" })';
+
+        $(".fieldEditBtn").click(function () {
+            var areaId = $(this).parent().parent().children("input[name='item.AreaId']").val();
+            var shiftId = $(this).parent().parent().children("input[name='item.ShiftId']").val();
+            var classId = $(this).parent().parent().children("input[name='item.ClassId']").val();
+            var itemId = $(this).parent().parent().children("input[name='item.ItemId']").val();
+            var fieldId = $(this).parent().parent().children("input[name='item.FieldId']").val();
+            var number = $(this).attr("value");
+
+            $('#fieldModalLabel').html('編輯欄位');
+            $.ajax({
+                type: "GET",
+                url: fieldEditURL,
+                data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId, FieldId: fieldId },
+                success: function (result) {
+                    $('#fieldModalBody').html(result);
+                },
+                error: function (msg) {
+                    alert(msg);
+                }
+            });
+
+        });
+
+        $(".fieldCreateBtn").click(function () {
+            var areaId = $(this).parent().parent().children("input[name='item.AreaId']").val();
+            var shiftId = $(this).parent().parent().children("input[name='item.ShiftId']").val();
+            var classId = $(this).parent().parent().children("input[name='item.ClassId']").val();
+            var itemId = $(this).parent().parent().children("input[name='item.ItemId']").val();
+            var number = $(this).attr("value");
+
+            alert(areaId + '-' + shiftId + '-' + classId + '-' + itemId);
+
+            $('#fieldModalLabel').html('新增欄位');
+            //$.ajax({
+            //    type: "GET",
+            //    url: fieldCreateURL,
+            //    data: { acid: ACID, itemid: itemID },
+            //    success: function (result) {
+            //        $(".editModalContent").html("<p></p>");  //Clean other edit modal's html content to prevent radio button's error.
+            //        $("#" + createModalContentNo).html(result);
+            //    },
+            //    error: function (msg) {
+            //        alert(msg);
+            //    }
+            //});
+        });
+    });
+</script>

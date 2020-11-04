@@ -1,123 +1,172 @@
 ﻿@model InspectSystem.Models.InspectField
 
+<script src="~/Scripts/Inspect/InspectField.js"></script>
+
 @{
-    ViewBag.Title = "Edit";
+    Layout = null;
+    var FieldDropDown = TempData["DropDownList"] as List<InspectSystem.Models.InspectFieldDropDown>;
 }
 
-<h2>Edit</h2>
+<!DOCTYPE html>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>InspectField</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AreaId)
+<style>
+    /* Style the scale of checkbox. */
+    input[type=checkbox], input[type=radio] {
+        -ms-transform: scale(1.5); /* IE */
+        -moz-transform: scale(1.5); /* FireFox */
+        -webkit-transform: scale(1.5); /* Safari and Chrome */
+        -o-transform: scale(1.5); /* Opera */
+    }
+</style>
 
-        @Html.HiddenFor(model => model.ShiftId)
+<script>
+    $(document).ready(function () {
 
-        @Html.HiddenFor(model => model.ClassId)
+        $("#FieldName").focus();
+        /* When submit, close the modal. */
+        $("#submitBtnEdit").submit(function () {
+            $('#fieldModal').hide();
+        });
 
-        @Html.HiddenFor(model => model.ItemId)
+        @if (FieldDropDown.Count != 0) {
+            @:$("#textbox1").val("@FieldDropDown[0].Value");
+            {
+                foreach(var item in FieldDropDown.Skip(1))
+                {
+                    @:loadDropDown("@item.Value");
+                }
+            }
+        }
+    });
+</script>
 
-        @Html.HiddenFor(model => model.FieldId)
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>欄位編輯</title>
+</head>
+<body>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FieldName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FieldName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FieldName, "", new { @class = "text-danger" })
+    @using (Ajax.BeginForm("Edit", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "#fieldModalBody" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.AreaId)
+            @Html.HiddenFor(model => model.ShiftId)
+            @Html.HiddenFor(model => model.ClassId)
+            @Html.HiddenFor(model => model.ItemId)
+            @Html.HiddenFor(model => model.FieldId)
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    <p style="margin-top : 7px">@Html.DisplayFor(model => model.InspectItem.ItemName)</p>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataType, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                @Html.LabelFor(model => model.FieldName, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FieldName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FieldName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UnitOfData, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UnitOfData, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UnitOfData, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                @Html.LabelFor(model => model.DataType, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10" style="margin-top : 7px">
+                    @Html.RadioButtonFor(model => model.DataType, "string") 字串
+                    @Html.RadioButtonFor(model => model.DataType, "float") 數字
+                    @Html.RadioButtonFor(model => model.DataType, "checkbox") 勾選方塊
+                    @Html.RadioButtonFor(model => model.DataType, "dropdownlist") 下拉選單
+                    @Html.RadioButtonFor(model => model.DataType, "boolean") 該類別(正常/不正常)
+                    @Html.ValidationMessageFor(model => model.DataType, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MinValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MinValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinValue, "", new { @class = "text-danger" })
+            <div class="content-group">
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.UnitOfData, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UnitOfData, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UnitOfData, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.MinValue, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MinValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MinValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.MaxValue, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MaxValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MaxValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaxValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxValue, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <!--for datatype dropdownlist, and dynamic inset textbox.-->
+                <div class="card bg-light offset-md-2 col-md-10 textbox-group" role="form">
+                    <div class="card-body">
+                        <div class="row" id="TextBoxesGroup">
+                            <div class="col-md-10">
+                                <div id="TextBoxScope1" class="form-group">
+                                    <label>選項 #1 : </label>
+                                    <input type="text" id='textbox1' name="textbox1" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+                        @Html.Hidden("TextBoxCount", 1)
+                        <div class="row col-md-10">
+                            <button type="button" class="btn btn-primary" id="addButton">增加選項</button>
+                            <span>&nbsp;</span>
+                            <button type="button" class="btn btn-info" id="removeButton">移除選項</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FieldStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.FieldStatus)
+            <div class="form-group row">
+                @Html.LabelFor(model => model.FieldStatus, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10" style="margin-top : 7px">
+                    @Html.CheckBoxFor(model => model.FieldStatus)
                     @Html.ValidationMessageFor(model => model.FieldStatus, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsRequired, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsRequired)
+            <div class="form-group row">
+                @Html.LabelFor(model => model.IsRequired, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10" style="margin-top : 7px">
+                    @Html.CheckBoxFor(model => model.IsRequired)
                     @Html.ValidationMessageFor(model => model.IsRequired, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShowPastValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.ShowPastValue)
-                    @Html.ValidationMessageFor(model => model.ShowPastValue, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="offset-md-2">
+                    <input type="submit" value="儲存" class="btn btn-primary" id="submitBtnEdit" />
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rtp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rtp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rtp, "", new { @class = "text-danger" })
+            <div class="offset-md-2">
+                <p style="color : red">無須設定大小值時，請將數值設定為0。</p>
+                <p style="color : red">每個類別只可設定一個【該類別(正常/不正常)】的欄位。</p>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rtt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rtt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rtt, "", new { @class = "text-danger" })
-            </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    }
+</body>
+</html>

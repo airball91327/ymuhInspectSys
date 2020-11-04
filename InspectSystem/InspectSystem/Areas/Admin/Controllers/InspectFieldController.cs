@@ -48,19 +48,23 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/InspectField/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? AreaId, int? ShiftId, int? ClassId, int? ItemId, int? FieldId)
         {
-            if (id == null)
+            var DropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId &&
+                                                                  i.ClassId == ClassId && i.ItemId == ItemId &&
+                                                                  i.FieldId == FieldId)
+                                                      .OrderBy(i => i.Id);
+            TempData["DropDownList"] = DropDownList.ToList();
+            if (AreaId == null || ShiftId == null || ClassId == null || ItemId == null || FieldId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InspectField inspectField = await db.InspectField.FindAsync(id);
+            InspectField inspectField = await db.InspectField.FindAsync(AreaId, ShiftId, ClassId, ItemId, FieldId);
             if (inspectField == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AreaId = new SelectList(db.InspectItem, "AreaId", "ItemName", inspectField.AreaId);
-            return View(inspectField);
+            return PartialView(inspectField);
         }
 
         // POST: Admin/InspectField/Edit/5
