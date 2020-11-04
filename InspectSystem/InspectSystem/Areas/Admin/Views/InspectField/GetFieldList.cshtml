@@ -1,5 +1,12 @@
 ﻿@model IEnumerable<InspectSystem.Models.InspectField>
 
+@{ 
+    var areaid = ViewData["AREAID"];
+    var shiftid = ViewData["SHIFTID"];
+    var classid = ViewData["CLASSID"];
+    var itemid = ViewData["ITEMID"];
+}
+
 <p>
     <button class="btn btn-success fieldCreateBtn" data-toggle="modal" data-target="#fieldModal">新增欄位</button>
 </p>
@@ -27,12 +34,13 @@
             @Html.DisplayNameFor(model => model.IsRequired)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rtp)
-        </th>
-        <th>
+            @Html.DisplayNameFor(model => model.Rtp) /
+            <br />
             @Html.DisplayNameFor(model => model.Rtt)
         </th>
-        <th></th>
+        <th>
+            功能
+        </th>
     </tr>
 
     @{
@@ -49,7 +57,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FieldName)
             </td>
-            <td>
+            <td style="max-width: 100px;">
                 @switch (item.DataType)
                 {
                     case "string":
@@ -85,9 +93,8 @@
                 @Html.DisplayFor(modelItem => item.IsRequired)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rtp)
-            </td>
-            <td>
+                @Html.DisplayFor(modelItem => item.RtpName)
+                <br />
                 @Html.DisplayFor(modelItem => item.Rtt)
             </td>
             <td>
@@ -110,7 +117,7 @@
             var classId = $(this).parent().parent().children("input[name='item.ClassId']").val();
             var itemId = $(this).parent().parent().children("input[name='item.ItemId']").val();
             var fieldId = $(this).parent().parent().children("input[name='item.FieldId']").val();
-            var number = $(this).attr("value");
+            var row = $(this).attr("value");
 
             $('#fieldModalLabel').html('編輯欄位');
             $.ajax({
@@ -128,27 +135,24 @@
         });
 
         $(".fieldCreateBtn").click(function () {
-            var areaId = $(this).parent().parent().children("input[name='item.AreaId']").val();
-            var shiftId = $(this).parent().parent().children("input[name='item.ShiftId']").val();
-            var classId = $(this).parent().parent().children("input[name='item.ClassId']").val();
-            var itemId = $(this).parent().parent().children("input[name='item.ItemId']").val();
-            var number = $(this).attr("value");
-
-            alert(areaId + '-' + shiftId + '-' + classId + '-' + itemId);
+            var areaId = @areaid;
+            var shiftId = @shiftid;
+            var classId = @classid;
+            var itemId = @itemid;
+            var row = $(this).attr("value");
 
             $('#fieldModalLabel').html('新增欄位');
-            //$.ajax({
-            //    type: "GET",
-            //    url: fieldCreateURL,
-            //    data: { acid: ACID, itemid: itemID },
-            //    success: function (result) {
-            //        $(".editModalContent").html("<p></p>");  //Clean other edit modal's html content to prevent radio button's error.
-            //        $("#" + createModalContentNo).html(result);
-            //    },
-            //    error: function (msg) {
-            //        alert(msg);
-            //    }
-            //});
+            $.ajax({
+                type: "GET",
+                url: fieldCreateURL,
+                data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId },
+                success: function (result) {
+                    $('#fieldModalBody').html(result);
+                },
+                error: function (msg) {
+                    alert(msg);
+                }
+            });
         });
     });
 </script>

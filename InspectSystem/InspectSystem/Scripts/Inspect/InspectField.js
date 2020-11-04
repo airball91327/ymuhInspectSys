@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    /* InspectFields/Edit and InspectFields/Create */
+    /* InspectField/Edit and InspectField/Create */
     ChangeAttrByRaioBtn();
 
     /* Change Attr to disabled when user not selected "float" type. */
@@ -39,7 +39,7 @@
     $("#removeButton").click(function () {
         var currentCount = parseInt($('#TextBoxCount').val(), 10);
         if (currentCount == 0) {
-            alert("已經沒有東西可以移除啦");
+            alert("已經沒有項目可以移除。");
             return false;
         }
         $("#TextBoxScope" + currentCount).remove();
@@ -56,7 +56,6 @@ function ChangeAttrByRaioBtn() {
     for (i = 0; i < dataType.length; i++) {
         if (dataType[i].checked) {
             checkValue = dataType[i].value;
-            //console.log(checkValue); // For debug
         }
     }
 
@@ -64,23 +63,23 @@ function ChangeAttrByRaioBtn() {
         $("#UnitOfData").attr("disabled", false);
         $("#MinValue").attr("disabled", false);
         $("#MaxValue").attr("disabled", false);
-        $("#showPastValueDiv").show();
     }
     else {
         $("#UnitOfData").attr("disabled", true); /* If a element set disabled, it won't return values.*/
         $("#MinValue").attr("disabled", true);
         $("#MaxValue").attr("disabled", true);
-        $("#showPastValueDiv").hide();
     }
 
     /* for datatype dropdownlist. */
     if (checkValue == "dropdownlist") {
         $(".content-group").hide();
         $(".textbox-group").show();
+        $("#textbox1").attr("required");
     }
     else {
         $(".content-group").show();
         $(".textbox-group").hide();
+        $("#textbox1").removeAttr("required");
     }
 }
 

@@ -1,16 +1,17 @@
 ﻿
 @{
     /* Separate layouts for Supervisor, Engineer and Admin. */
-    if (Roles.IsUserInRole("Admin"))
-    {
-        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    }
-    else if (Roles.IsUserInRole("MedMgr") == true || Roles.IsUserInRole("Manager") == true)
-    {
-        Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    //if (Roles.IsUserInRole("Admin"))
+    //{
+    //    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    //}
+    //else if (Roles.IsUserInRole("MedMgr") == true || Roles.IsUserInRole("Manager") == true)
+    //{
+    //    Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
+    //}
+    //else
+    //{
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+    //}
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }

@@ -103,7 +103,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="fieldModalLabel">New message</h5>
+                <h5 class="modal-title" id="fieldModalLabel"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -112,7 +112,7 @@
  
             </div>
             <div class="modal-footer bg-info">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseModal">關閉</button>
             </div>
         </div>
     </div>
@@ -126,10 +126,12 @@
         var getFieldURL = '@Url.Action("GetFieldList", "InspectField", new { Area = "Admin" })';
         var setOrderURL = '@Url.Action("SetItemOrder", "InspectItem", new { Area = "Admin" })';
         $("#sortBtn").click(function () {
-            /* When sorting items, disable other buttons */
+            $('.fieldCards').slideUp(100);
+            /* When sorting items, disable other buttons, <a> add disabled class, <button> add disabled attr */
             $("#createBtn").addClass("disabled");
             $("#sortBtn").attr("disabled", true);
             $(".editBtn").addClass("disabled");
+            $(".fieldBtn").attr("disabled", true);
 
             $("#sortBtnCanel").show();
             $("#sortMsg").show();
@@ -141,14 +143,20 @@
                 axis: 'y',
                 start: function (event, ui) {
                     var start_pos = ui.item.index();
-                    //console.log("start_pos:" + start_pos); //For debug
+                    if (start_pos != 0) {   //去除hidden的tr
+                        start_pos = start_pos - (parseInt(start_pos / 2) * 1);
+                    }
+                    console.log("start_pos:" + start_pos); //For debug
                     ui.item.data('start_pos', start_pos);
                 },
                 update: function (event, ui) {
                     var oldIndex = ui.item.data('start_pos');
-                    //console.log("old:" + oldIndex); //For debug
+                    console.log("old:" + oldIndex); //For debug
                     var newIndex = ui.item.index();
-                    //console.log("new:" + newIndex); //For debug
+                    if (newIndex != 0) {   //去除hidden的tr
+                        newIndex = newIndex - (parseInt(newIndex / 2) * 1);
+                    }
+                    console.log("new:" + newIndex); //For debug
                     $.ajax({
                         type: 'POST',
                         url: setOrderURL,
@@ -175,6 +183,7 @@
             $("#createBtn").removeClass('disabled');
             $("#sortBtn").attr("disabled", false);
             $(".editBtn").removeClass('disabled');
+            $(".fieldBtn").attr("disabled", false);
             $("#sortBtnCanel").hide();
             $("#sortMsg").hide();
         });

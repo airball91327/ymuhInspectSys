@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using InspectSystem.Models;
+using Microsoft.Ajax.Utilities;
+using WebMatrix.WebData;
 
 namespace InspectSystem.Areas.Admin.Controllers
 {
@@ -23,10 +25,27 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/InspectField/Create
-        public ActionResult Create()
+        public ActionResult Create(int AreaId, int ShiftId, int ClassId, int ItemId)
         {
-            ViewBag.AreaId = new SelectList(db.InspectItem, "AreaId", "ItemName");
-            return View();
+            /* Set the default values for create field. */
+            InspectField inspectField = new InspectField
+            {
+                AreaId = AreaId,
+                ShiftId = ShiftId,
+                ClassId = ClassId,
+                ItemId = ItemId,
+                MaxValue = 0,
+                MinValue = 0,
+                FieldStatus = true,
+                IsRequired = true
+            };
+            var item = db.InspectItem.Find(AreaId, ShiftId, ClassId, ItemId);
+            if (item != null)
+            {
+                ViewBag.ItemName = item.ItemName;
+                ViewBag.ItemOrder = item.ItemOrder;
+            }
+            return PartialView(inspectField);
         }
 
         // POST: Admin/InspectField/Create
@@ -34,17 +53,54 @@ namespace InspectSystem.Areas.Admin.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AreaId,ShiftId,ClassId,ItemId,FieldId,FieldName,DataType,UnitOfData,MinValue,MaxValue,FieldStatus,IsRequired,ShowPastValue,Rtp,Rtt")] InspectField inspectField)
+        public async Task<ActionResult> Create(InspectField inspectField, FormCollection collection)
         {
+            // Set variables
+            var areaId = inspectField.AreaId;
+            var shiftId = inspectField.ShiftId;
+            var classId = inspectField.ClassId;
+            var itemId = inspectField.ItemId;
+
+            int fieldCount = db.InspectField.Count(fc => fc.AreaId == areaId && fc.ShiftId == shiftId &&
+                                                         fc.ClassId == classId && fc.ItemId == itemId);
+            int fieldId = fieldCount + 1;
+            inspectField.FieldId = fieldId;
+
             if (ModelState.IsValid)
             {
-                db.InspectField.Add(inspectField);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                /* for datatype dropdownlist, and dynamic inset textbox. */
+                if (inspectField.DataType == "dropdownlist")
+                {
+                    var inputCount = 0;
 
-            ViewBag.AreaId = new SelectList(db.InspectItem, "AreaId", "ItemName", inspectField.AreaId);
-            return View(inspectField);
+                    if (int.TryParse(collection["TextBoxCount"], out inputCount))
+                    {
+                        for (int i = 1; i <= inputCount; i++)
+                        {
+                            if (!string.IsNullOrWhiteSpace(collection["textbox" + i]))
+                            {
+                                InspectFieldDropDown inspectFieldDropDown = new InspectFieldDropDown
+                                {
+                                    AreaId = areaId,
+                                    ShiftId = shiftId,
+                                    ClassId = classId,
+                                    ItemId = itemId,
+                                    FieldId = fieldId,
+                                    Value = collection["textbox" + i]
+                                };
+                                db.InspectFieldDropDown.Add(inspectFieldDropDown);
+                            }
+                        }
+                    }
+                }
+
+                inspectField.Rtp = WebSecurity.CurrentUserId;
+                inspectField.Rtt = DateTime.Now;
+                db.InspectField.Add(inspectField);
+                db.SaveChanges();
+                return RedirectToAction("GetFieldList", new { AreaId = areaId, ShiftId = shiftId, ClassId = classId, ItemId = itemId });
+            }
+            return RedirectToAction("GetFieldList", new { AreaId = areaId, ShiftId = shiftId, ClassId = classId, ItemId = itemId });
         }
 
         // GET: Admin/InspectField/Edit/5
@@ -52,8 +108,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         {
             var DropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId &&
                                                                   i.ClassId == ClassId && i.ItemId == ItemId &&
-                                                                  i.FieldId == FieldId)
-                                                      .OrderBy(i => i.Id);
+                                                                  i.FieldId == FieldId).OrderBy(i => i.Id);
             TempData["DropDownList"] = DropDownList.ToList();
             if (AreaId == null || ShiftId == null || ClassId == null || ItemId == null || FieldId == null)
             {
@@ -72,16 +127,99 @@ namespace InspectSystem.Areas.Admin.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AreaId,ShiftId,ClassId,ItemId,FieldId,FieldName,DataType,UnitOfData,MinValue,MaxValue,FieldStatus,IsRequired,ShowPastValue,Rtp,Rtt")] InspectField inspectField)
+        public async Task<ActionResult> Edit(InspectField inspectField, FormCollection collection)
         {
+            var areaId = inspectField.AreaId;
+            var shiftId = inspectField.ShiftId;
+            var classId = inspectField.ClassId;
+            var itemId = inspectField.ItemId;
+            var fieldId = inspectField.FieldId;
+
             if (ModelState.IsValid)
             {
+                if (inspectField.DataType == "dropdownlist")
+                {
+                    /* for datatype dropdownlist, and dynamic inset textbox. */
+                    var inputCount = 0;
+                    var DropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == areaId && i.ShiftId == shiftId &&
+                                                                          i.ClassId == classId && i.ItemId == itemId &&
+                                                                          i.FieldId == fieldId).OrderBy(i => i.Id);
+
+                    if (int.TryParse(collection["TextBoxCount"], out inputCount))
+                    {
+                        // If insert data is more than origin.
+                        if (inputCount > DropDownList.Count())
+                        {
+                            var i = 1;
+                            foreach (var item in DropDownList)
+                            {
+                                if (!string.IsNullOrWhiteSpace(collection["textbox" + i]))
+                                {
+                                    item.Value = collection["textbox" + i];
+                                    db.Entry(item).State = EntityState.Modified;
+                                }
+                                i++;
+                            }
+                            for (int j = i; j <= inputCount; j++)
+                            {
+                                if (!string.IsNullOrWhiteSpace(collection["textbox" + j]))
+                                {
+                                    InspectFieldDropDown inspectFieldDropDown = new InspectFieldDropDown
+                                    {
+                                        AreaId = areaId,
+                                        ShiftId = shiftId,
+                                        ClassId = classId,
+                                        ItemId = itemId,
+                                        FieldId = fieldId,
+                                        Value = collection["textbox" + j]
+                                    };
+                                    db.InspectFieldDropDown.Add(inspectFieldDropDown);
+                                }
+                            }
+                        }
+                        else if (inputCount < DropDownList.Count())
+                        {
+                            var i = 1;
+                            foreach (var item in DropDownList)
+                            {
+                                if (!string.IsNullOrWhiteSpace(collection["textbox" + i]))
+                                {
+                                    if (i <= inputCount)
+                                    {
+                                        item.Value = collection["textbox" + i];
+                                        db.Entry(item).State = EntityState.Modified;
+                                    }
+                                }
+                                else
+                                {
+                                    db.InspectFieldDropDown.Remove(item);
+                                }
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            var i = 1;
+                            foreach (var item in DropDownList)
+                            {
+                                if (!string.IsNullOrWhiteSpace(collection["textbox" + i]))
+                                {
+                                    item.Value = collection["textbox" + i];
+                                    db.Entry(item).State = EntityState.Modified;
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                }
+
+                inspectField.Rtp = WebSecurity.CurrentUserId;
+                inspectField.Rtt = DateTime.Now;
                 db.Entry(inspectField).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                db.SaveChanges();
+                return RedirectToAction("GetFieldList", new { AreaId = areaId, ShiftId = shiftId, ClassId = classId, ItemId = itemId });
             }
-            ViewBag.AreaId = new SelectList(db.InspectItem, "AreaId", "ItemName", inspectField.AreaId);
-            return View(inspectField);
+            return RedirectToAction("GetFieldList", new { AreaId = areaId, ShiftId = shiftId, ClassId = classId, ItemId = itemId });
         }
 
         // GET: Admin/InspectField/Delete/5
@@ -115,8 +253,21 @@ namespace InspectSystem.Areas.Admin.Controllers
         {
             var inspectFields = db.InspectField.Include(i => i.InspectItem)
                                                .Where(i => i.AreaId == AreaId && i.ShiftId == ShiftId && 
-                                                           i.ClassId == ClassId && i.ItemId == ItemId);
-            return PartialView(await inspectFields.ToListAsync());
+                                                           i.ClassId == ClassId && i.ItemId == ItemId).ToList();
+            foreach (var item in inspectFields)
+            {
+                var user = db.AppUsers.Find(item.Rtp);
+                if (user != null)
+                {
+                    item.RtpName = user.FullName + "(" + user.UserName + ")";   // Get Rtp's name.
+                }
+            }
+            ViewData["AREAID"] = AreaId;
+            ViewData["SHIFTID"] = ShiftId;
+            ViewData["CLASSID"] = ClassId;
+            ViewData["ITEMID"] = ItemId;
+
+            return PartialView(inspectFields);
         }
 
         protected override void Dispose(bool disposing)

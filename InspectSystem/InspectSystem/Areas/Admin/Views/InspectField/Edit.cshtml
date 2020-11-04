@@ -5,9 +5,9 @@
 @{
     Layout = null;
     var FieldDropDown = TempData["DropDownList"] as List<InspectSystem.Models.InspectFieldDropDown>;
+    var rowCardNo = "rowCardNo" + Model.InspectItem.ItemOrder;
 }
 
-<!DOCTYPE html>
 
 <style>
     /* Style the scale of checkbox. */
@@ -23,10 +23,6 @@
     $(document).ready(function () {
 
         $("#FieldName").focus();
-        /* When submit, close the modal. */
-        $("#submitBtnEdit").submit(function () {
-            $('#fieldModal').hide();
-        });
 
         @if (FieldDropDown.Count != 0) {
             @:$("#textbox1").val("@FieldDropDown[0].Value");
@@ -47,7 +43,12 @@
 </head>
 <body>
 
-    @using (Ajax.BeginForm("Edit", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "#fieldModalBody" }))
+    @using (Ajax.BeginForm("Edit", new AjaxOptions 
+    { 
+        HttpMethod = "POST", 
+        UpdateTargetId = rowCardNo,
+        OnSuccess = "$('#btnCloseModal').trigger('click');"
+    }))
     {
         @Html.AntiForgeryToken()
 
@@ -123,7 +124,7 @@
                             <div class="col-md-10">
                                 <div id="TextBoxScope1" class="form-group">
                                     <label>選項 #1 : </label>
-                                    <input type="text" id='textbox1' name="textbox1" class="form-control" required>
+                                    <input type="text" id='textbox1' name="textbox1" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -163,7 +164,7 @@
 
             <div class="offset-md-2">
                 <p style="color : red">無須設定大小值時，請將數值設定為0。</p>
-                <p style="color : red">每個類別只可設定一個【該類別(正常/不正常)】的欄位。</p>
+                <p style="color : red">每個類別只可設定一個【該類別(正常/不正常)】的欄位，且不需輸入欄位名稱。</p>
             </div>
 
         </div>
