@@ -48,6 +48,7 @@ namespace InspectSystem.Areas.Admin.Controllers
             inspectItem.AreaId = AreaId.Value;
             inspectItem.ShiftId = ShiftId.Value;
             inspectItem.ClassId = ClassId.Value;
+            inspectItem.ItemStatus = true;
             if (insItems != null)
             {
                 inspectItem.ItemId = insItems.ItemId + 1;

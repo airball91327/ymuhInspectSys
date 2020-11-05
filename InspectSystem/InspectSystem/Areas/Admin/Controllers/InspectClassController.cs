@@ -47,6 +47,7 @@ namespace InspectSystem.Areas.Admin.Controllers
             InspectClass inspectClass = new InspectClass();
             inspectClass.AreaId = AreaId.Value;
             inspectClass.ShiftId = ShiftId.Value;
+            inspectClass.ClassStatus = true;
             if (insClass != null)
             {
                 inspectClass.ClassId = insClass.ClassId + 1;

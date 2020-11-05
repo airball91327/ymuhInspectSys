@@ -185,7 +185,7 @@ namespace InspectSystem.Controllers
             var inspectDoc = db.InspectDoc.Find(docId, shiftId);
             var docDetailTemp = db.InspectDocDetailTemp.Where(d => d.DocId == docId && d.ShiftId == shiftId);
             var docDetail = db.InspectDocDetail.Where(d => d.DocId == docId && d.ShiftId == shiftId);
-            InspectDocFlow df = db.InspectDocFlow.Where(f => f.DocId == docId).OrderBy(f => f.StepId).Last();
+            InspectDocFlow df = db.InspectDocFlow.Where(f => f.DocId == docId).OrderBy(f => f.StepId).ToList().Last();
 
             if (assign.AssignCls == "退回")
             {

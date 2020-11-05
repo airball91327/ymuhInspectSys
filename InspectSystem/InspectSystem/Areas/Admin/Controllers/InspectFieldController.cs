@@ -13,6 +13,7 @@ using WebMatrix.WebData;
 
 namespace InspectSystem.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class InspectFieldController : Controller
     {
         private BMEDcontext db = new BMEDcontext();

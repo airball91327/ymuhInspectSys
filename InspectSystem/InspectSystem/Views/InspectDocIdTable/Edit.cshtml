@@ -6,6 +6,8 @@
     int iPanelCount = 1;
 }
 
+<link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
+
 <div class="container">
     @if (Model.Count() <= 0)
     {
@@ -86,7 +88,10 @@
     }
 </div>
 
+<button onclick="topFunction()" id="goToTopBtn" title="Go to top">回頁首</button>
+
 @section Scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.toast.js"></script>
+    <script src="~/Scripts/ScrollToTop.js"></script>
 }

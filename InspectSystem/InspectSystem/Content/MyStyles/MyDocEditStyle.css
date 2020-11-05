@@ -44,4 +44,9 @@
 
 .btn-group {
     white-space: normal;
+    flex-wrap: wrap;
+}
+
+.btn-group button{
+      border: 1px solid #506ea4;
 }
