@@ -1,0 +1,39 @@
+﻿@model InspectSystem.Models.InspectPrecautions
+
+@{
+    ViewBag.Title = "刪除";
+}
+
+<h2><b>刪除注意事項</b></h2>
+
+<h3>您確定要刪除此事項?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InspectArea.AreaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InspectArea.AreaName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="確定刪除" class="btn btn-primary" /> |
+            @Html.ActionLink("回到列表", "Index")
+        </div>
+    }
+</div>

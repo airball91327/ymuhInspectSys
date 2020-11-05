@@ -11,7 +11,10 @@
 
 <div class="container">
 
-    <h3>@ViewBag.Header</h3>
+    <h3>
+        @ViewBag.Header
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#precautionModal">注意事項</button>
+    </h3>
 
     @if (!string.IsNullOrEmpty(ViewBag.Notes))
     {
@@ -59,6 +62,27 @@
 
 <button onclick="topFunction()" id="goToTopBtn" title="Go to top">回頁首</button>
 
+<!--Modal for precautions of area.-->
+<div class="modal fade" id="precautionModal" tabindex="-1" role="dialog" aria-labelledby="precautionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h2 class="modal-title">注意事項</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("AreaPrecautions", "InspectPrecaution", new { Area = "Admin", areaId = Model.FirstOrDefault().AreaId })
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
