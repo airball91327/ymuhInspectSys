@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>巡檢單畫面預覽</h2>
+
+<form>
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                請選擇區域：
+            </label>
+            <div class="col-md-10">
+                @Html.DropDownList("AreaId", null, null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="預覽畫面" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
