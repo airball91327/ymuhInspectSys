@@ -260,7 +260,6 @@
     <Compile Include="Controllers\InspectDocDetailTempController.cs" />
     <Compile Include="Controllers\InspectDocFlowController.cs" />
     <Compile Include="Controllers\InspectDocIdTableController.cs" />
-    <Compile Include="Controllers\InspectPrecautionsController.cs" />
     <Compile Include="Controllers\InspectReportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SearchDocDetailController.cs" />

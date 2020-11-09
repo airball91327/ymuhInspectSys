@@ -11,12 +11,13 @@ using InspectSystem.Models;
 
 namespace InspectSystem.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class InspectPrecautionController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
 
         // GET: Admin/InspectPrecaution
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             var inspectPrecautions = db.InspectPrecautions.Include(i => i.InspectArea).OrderBy(i => i.AreaId);
@@ -24,6 +25,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/InspectPrecaution/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,6 +41,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/InspectPrecaution/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.AreaId = new SelectList(db.InspectArea, "AreaId", "AreaName");
@@ -48,6 +51,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         // POST: Admin/InspectPrecaution/Create
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "PrecautionId,AreaId,Content")] InspectPrecautions inspectPrecautions)
@@ -64,6 +68,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/InspectPrecaution/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,6 +87,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         // POST: Admin/InspectPrecaution/Edit/5
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "PrecautionId,AreaId,Content")] InspectPrecautions inspectPrecautions)
@@ -97,6 +103,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/InspectPrecaution/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -112,6 +119,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // POST: Admin/InspectPrecaution/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
