@@ -62,7 +62,7 @@
                                                         break;
 
                                                     case "checkbox":
-                                                        <span>
+                                                        <span style="padding-left: 1em;">
                                                             @if (docItem.Value == "true")
                                                             {
                                                                 @Html.CheckBox("InspectDocDetailTemp[" + i + "].Value", true, new { disabled = "disabled" })
