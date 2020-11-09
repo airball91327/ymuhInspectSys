@@ -2343,6 +2343,8 @@
     <Content Include="Areas\Admin\Views\InspectPrecaution\Index.cshtml" />
     <Content Include="Areas\Admin\Views\InspectPrecaution\AreaPrecautions.cshtml" />
     <Content Include="Areas\Admin\Views\InspectDocPreview\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectDocPreview\Preview.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectDocPreview\GetClassContent.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
