@@ -30,13 +30,13 @@ namespace InspectSystem.Models
         public virtual DbSet<InspectPrecautions> InspectPrecautions { get; set; }
 
         // 呼吸器相關
-        public virtual DbSet<VentilatorDoc> VentilatorDoc { get; set; }
-        public virtual DbSet<VentilatorDocIdTable> VentilatorDocIdTable { get; set; }
-        public virtual DbSet<VentilatorDocDetail> VentilatorDocDetail { get; set; }
-        public virtual DbSet<VentilatorStatus> VentilatorStatus { get; set; }
-        public virtual DbSet<VentilatorClass> VentilatorClass { get; set; }
-        public virtual DbSet<VentilatorItem> VentilatorItem { get; set; }
-        public virtual DbSet<VentilatorField> VentilatorField { get; set; }
+        //public virtual DbSet<VentilatorDoc> VentilatorDoc { get; set; }
+        //public virtual DbSet<VentilatorDocIdTable> VentilatorDocIdTable { get; set; }
+        //public virtual DbSet<VentilatorDocDetail> VentilatorDocDetail { get; set; }
+        //public virtual DbSet<VentilatorStatus> VentilatorStatus { get; set; }
+        //public virtual DbSet<VentilatorClass> VentilatorClass { get; set; }
+        //public virtual DbSet<VentilatorItem> VentilatorItem { get; set; }
+        //public virtual DbSet<VentilatorField> VentilatorField { get; set; }
 
 
         // 使用者相關
