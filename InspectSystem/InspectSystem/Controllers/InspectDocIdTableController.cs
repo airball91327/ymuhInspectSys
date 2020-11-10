@@ -205,6 +205,11 @@ namespace InspectSystem.Controllers
                 try
                 {
                     var shiftId = 1;
+                    var firstShift = db.ShiftsInAreas.Where(s => s.AreaId == areaId).OrderBy(s => s.ShiftId).FirstOrDefault();
+                    if (firstShift != null)
+                    {
+                        shiftId = firstShift.ShiftId;
+                    }
                     inspectDocIdTable.DocId = docId;
                     inspectDocIdTable.DocStatusId = "1";
                     inspectDocIdTable.ShiftId = shiftId;

@@ -109,10 +109,10 @@
                                                         @Html.DisplayFor(modelItem => fieldItem.UnitOfData)
                                                         @Html.ValidationMessage("InspectDocDetailTemp[" + i + "].Value", "", new { @class = "text-danger" })
                                                         <br /><span class="@i col-xs-offset-3"></span>
-                                                        @if (fieldItem.ToShowPastValue() == true)
+                                                        @*@if (fieldItem.ToShowPastValue() == true)
                                                         {
                                                             <span>昨日數值 : @fieldItem.PastValue()</span>
-                                                        }
+                                                        }*@
                                                     </span>
                                                     break;
 
