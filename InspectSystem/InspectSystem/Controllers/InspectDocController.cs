@@ -108,12 +108,17 @@ namespace InspectSystem.Controllers
                             isDataCompleted = false;
                             break;
                         }
+                        else if (tempItem.IsRequired == true && tempItem.DataType == "checkbox" && tempItem.Value == "false")
+                        {
+                            isDataCompleted = false;
+                            break;
+                        }
                         else if (tempItem.DataType == "boolean" && tempItem.IsFunctional == null)
                         {
                             isDataCompleted = false;
                             break;
                         }
-                    }
+                        }
                     if (isDataCompleted == true)
                     {
                         item.IsSaved = true;
