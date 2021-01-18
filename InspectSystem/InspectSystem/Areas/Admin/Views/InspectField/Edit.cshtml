@@ -34,6 +34,14 @@
             }
         }
     });
+    function showMsg(data) {
+        if (!data.error) {
+            $('#btnCloseModal').trigger('click');
+            $('#@rowCardNo').html(data);
+        } else {
+            alert(data.error);
+        }
+    }
 </script>
 
 <html>
@@ -46,8 +54,8 @@
     @using (Ajax.BeginForm("Edit", new AjaxOptions 
     { 
         HttpMethod = "POST", 
-        UpdateTargetId = rowCardNo,
-        OnSuccess = "$('#btnCloseModal').trigger('click');"
+       // UpdateTargetId = rowCardNo,
+        OnSuccess = "showMsg",
     }))
     {
         @Html.AntiForgeryToken()

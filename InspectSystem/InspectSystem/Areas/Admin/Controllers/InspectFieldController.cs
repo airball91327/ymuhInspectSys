@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using InspectSystem.Models;
 using Microsoft.Ajax.Utilities;
 using WebMatrix.WebData;
+using InspectSystem.Filters;
 
 namespace InspectSystem.Areas.Admin.Controllers
 {
@@ -126,6 +127,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         // POST: Admin/InspectField/Edit/5
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [MyErrorHandler]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(InspectField inspectField, FormCollection collection)
@@ -140,6 +142,14 @@ namespace InspectSystem.Areas.Admin.Controllers
             {
                 if (inspectField.DataType == "dropdownlist")
                 {
+                    int boxCount = int.Parse(collection["TextBoxCount"]);
+                    for (int j = 1; j <= boxCount; j++)
+                    {
+                        if (string.IsNullOrWhiteSpace(collection["textbox" + j]))
+                        {
+                            throw new Exception("下拉選單的項目尚未輸入任何內容。");
+                        }
+                    }
                     /* for datatype dropdownlist, and dynamic inset textbox. */
                     var inputCount = 0;
                     var DropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == areaId && i.ShiftId == shiftId &&
