@@ -251,6 +251,7 @@
     <Compile Include="Areas\Admin\Controllers\InspectPrecautionController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectShiftController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShiftsInAreasController.cs" />
+    <Compile Include="Areas\DEquipment\DEquipmentAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppRolesController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
@@ -275,6 +276,19 @@
     <Compile Include="Models\BMEDcontext.cs" />
     <Compile Include="Models\DB_GEN_STAFF_PW.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DEquipment\DEInspectArea.cs" />
+    <Compile Include="Models\DEquipment\DEInspectClass.cs" />
+    <Compile Include="Models\DEquipment\DEInspectDocDetail.cs" />
+    <Compile Include="Models\DEquipment\DEInspectDocDetailTemp.cs" />
+    <Compile Include="Models\DEquipment\DEInspectDocFlow.cs" />
+    <Compile Include="Models\DEquipment\DEInspectDocs.cs" />
+    <Compile Include="Models\DEquipment\DEInspectFieldDropDown.cs" />
+    <Compile Include="Models\DEquipment\DEInspectFields.cs" />
+    <Compile Include="Models\DEquipment\DEInspectFlowStatus.cs" />
+    <Compile Include="Models\DEquipment\DEInspectItems.cs" />
+    <Compile Include="Models\DEquipment\DEInspectPrecautions.cs" />
+    <Compile Include="Models\DEquipment\DECyclesInAreas.cs" />
+    <Compile Include="Models\DEquipment\DEInspectCycle.cs" />
     <Compile Include="Models\DocDetailQryVModel.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -2335,6 +2349,7 @@
     <Content Include="Areas\Admin\Views\InspectDocPreview\Index.cshtml" />
     <Content Include="Areas\Admin\Views\InspectDocPreview\Preview.cshtml" />
     <Content Include="Areas\Admin\Views\InspectDocPreview\GetClassContent.cshtml" />
+    <Content Include="Areas\DEquipment\Views\web.config" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -2649,6 +2664,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\DEquipment\Controllers\" />
+    <Folder Include="Areas\DEquipment\Data\" />
+    <Folder Include="Areas\DEquipment\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\InspectReport\" />
     <Folder Include="Views\Validations\" />

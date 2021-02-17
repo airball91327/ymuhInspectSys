@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using InspectSystem.Models.DEquipment;
 
 namespace InspectSystem.Models
 {
@@ -29,14 +30,21 @@ namespace InspectSystem.Models
         public virtual DbSet<InspectFlowStatus> InspectFlowStatus { get; set; }
         public virtual DbSet<InspectPrecautions> InspectPrecautions { get; set; }
 
-        // 呼吸器相關
-        //public virtual DbSet<VentilatorDoc> VentilatorDoc { get; set; }
-        //public virtual DbSet<VentilatorDocIdTable> VentilatorDocIdTable { get; set; }
-        //public virtual DbSet<VentilatorDocDetail> VentilatorDocDetail { get; set; }
-        //public virtual DbSet<VentilatorStatus> VentilatorStatus { get; set; }
-        //public virtual DbSet<VentilatorClass> VentilatorClass { get; set; }
-        //public virtual DbSet<VentilatorItem> VentilatorItem { get; set; }
-        //public virtual DbSet<VentilatorField> VentilatorField { get; set; }
+        // 危險性設備巡檢相關
+        public virtual DbSet<DEInspectArea> DEInspectArea { get; set; }
+        public virtual DbSet<DEInspectCycle> DEInspectCycle { get; set; }
+        public virtual DbSet<DECyclesInAreas> DECyclesInAreas { get; set; }
+        public virtual DbSet<DEInspectClass> DEInspectClass { get; set; }
+        public virtual DbSet<DEInspectItem> DEInspectItem { get; set; }
+        public virtual DbSet<DEInspectField> DEInspectField { get; set; }
+        public virtual DbSet<DEInspectFieldDropDown> DEInspectFieldDropDown { get; set; }
+        public virtual DbSet<DEInspectDoc> DEInspectDoc { get; set; }
+        public virtual DbSet<DEInspectDocDetail> DEInspectDocDetail { get; set; }
+        public virtual DbSet<DEInspectDocDetailTemp> DEInspectDocDetailTemp { get; set; }
+        public virtual DbSet<DEInspectDocFlow> DEInspectDocFlow { get; set; }
+        public virtual DbSet<DEInspectFlowStatus> DEInspectFlowStatus { get; set; }
+        public virtual DbSet<DEInspectPrecautions> DEInspectPrecautions { get; set; }
+
 
 
         // 使用者相關
