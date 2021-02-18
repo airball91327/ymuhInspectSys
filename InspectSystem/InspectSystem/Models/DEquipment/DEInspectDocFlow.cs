@@ -8,39 +8,32 @@ namespace InspectSystem.Models.DEquipment
     public class DEInspectDocFlow
     {
         [Key, Column(Order = 1)]
-        [ForeignKey("InspectDocs")]
         [Display(Name = "表單編號")]
-        public int DocID { get; set; }
+        public string DocId { get; set; }
         [Key, Column(Order = 2)]
         [Display(Name = "關卡號")]
-        public int StepID { get; set; }
+        public int StepId { get; set; }
         [Required]
         [Display(Name = "關卡人員ID")]
-        public int StepOwnerID { get; set; }
+        public int UserId { get; set; }
         [NotMapped]
         [Display(Name = "關卡人員")]
-        public string StepOwnerName { get; set; }
-        [Required]
-        [Display(Name = "巡檢人員ID")]
-        public int WorkerID { get; set; }
-        [Required]
-        [Display(Name = "簽核主管ID")]
-        public int CheckerID { get; set; }
+        public string UserFullName { get; set; }
         [Display(Name = "意見描述")]
         public string Opinions { get; set; }
         [Required]
-        [ForeignKey("InspectFlowStatusTable")]
-        [Display(Name = "流程狀態編號")]
-        public int FlowStatusID { get; set; }
-        [Required]
-        [Display(Name ="異動人員ID")]
-        public int EditorID { get; set; }
-        [Display(Name ="異動人員")]
-        public string EditorName { get; set; }
-        [Display(Name ="異動時間")]
-        public DateTime? EditTime { get; set; }
+        [Display(Name = "流程狀態")]
+        public string FlowStatusId { get; set; }
+        [Display(Name = "異動人員ID")]
+        public int? Rtp { get; set; }
+        [NotMapped]
+        [Display(Name = "異動人員")]
+        public string RtpFullName { get; set; }
+        [Display(Name = "異動時間")]
+        public DateTime? Rtt { get; set; }
+        [Display(Name = "關卡")]
+        public string Cls { get; set; }
 
-        public virtual InspectFlowStatusTable InspectFlowStatusTable { get; set; }
-        public virtual InspectDocs InspectDocs { get; set; }
+        public virtual InspectFlowStatus InspectFlowStatus { get; set; }
     }
 }

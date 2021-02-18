@@ -37,7 +37,7 @@ namespace InspectSystem.Models.DEquipment
         [Display(Name = "異動時間")]
         public DateTime? Rtt { get; set; }
 
-        public virtual ShiftsInAreas ShiftsInAreas { get; set; }
+        public virtual DECyclesInAreas DECyclesInAreas { get; set; }
         public virtual ICollection<DEInspectItem> DEInspectItem { get; set; }
         public virtual ICollection<DEInspectField> DEInspectField { get; set; }
     }

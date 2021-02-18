@@ -12,15 +12,19 @@ namespace InspectSystem.Models.DEquipment
         {
             this.DEInspectDocDetail = new HashSet<DEInspectDocDetail>();
             this.DEInspectDocDetailTemp = new HashSet<DEInspectDocDetailTemp>();
+            this.DEInspectDocFlow = new HashSet<DEInspectDocFlow>();
         }
 
-        [Key, Column(Order = 1)]
+        [Key]
         [Display(Name = "表單編號")]
         public string DocId { get; set; }
-        [Key, Column(Order = 2)]
+        [Required]
+        [Display(Name = "巡檢區域")]
+        public int AreaId { get; set; }
+        [Required]
         [Display(Name = "週期")]
         public int CycleId { get; set; }
-        [Key, Column(Order = 3)]
+        [Required]
         [Display(Name = "類別")]
         public int ClassId { get; set; }
         [Required]
@@ -47,5 +51,6 @@ namespace InspectSystem.Models.DEquipment
 
         public virtual ICollection<DEInspectDocDetail> DEInspectDocDetail { get; set; }
         public virtual ICollection<DEInspectDocDetailTemp> DEInspectDocDetailTemp { get; set; }
+        public virtual ICollection<DEInspectDocFlow> DEInspectDocFlow { get; set; }
     }
 }

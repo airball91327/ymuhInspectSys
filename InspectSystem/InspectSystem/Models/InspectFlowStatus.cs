@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InspectSystem.Models.DEquipment;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +12,7 @@ namespace InspectSystem.Models
         public InspectFlowStatus()
         {
             this.InspectDocFlow = new HashSet<InspectDocFlow>();
+            this.DEInspectDocFlow = new HashSet<DEInspectDocFlow>();
         }
 
         [Key]
@@ -22,5 +24,6 @@ namespace InspectSystem.Models
         public string FlowStatusDes { get; set; }
 
         public virtual ICollection<InspectDocFlow> InspectDocFlow { get; set; }
+        public virtual ICollection<DEInspectDocFlow> DEInspectDocFlow { get; set; }
     }
 }

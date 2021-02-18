@@ -284,7 +284,6 @@
     <Compile Include="Models\DEquipment\DEInspectDocs.cs" />
     <Compile Include="Models\DEquipment\DEInspectFieldDropDown.cs" />
     <Compile Include="Models\DEquipment\DEInspectFields.cs" />
-    <Compile Include="Models\DEquipment\DEInspectFlowStatus.cs" />
     <Compile Include="Models\DEquipment\DEInspectItems.cs" />
     <Compile Include="Models\DEquipment\DEInspectPrecautions.cs" />
     <Compile Include="Models\DEquipment\DECyclesInAreas.cs" />
