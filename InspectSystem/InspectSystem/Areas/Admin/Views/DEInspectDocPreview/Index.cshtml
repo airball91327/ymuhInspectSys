@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>巡檢單畫面預覽</h2>
+
+<form method="POST">
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                請選擇區域：
+            </label>
+            <div class="col-md-10">
+                @Html.DropDownList("AreaId", null, null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                請選擇班別：
+            </label>
+            <div class="col-md-10">
+                <select class="form-control" id="shiftId" name="ShiftId" required>
+                    <option disabled selected value="">請先選擇區域及班別</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="預覽畫面" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@Scripts.Render("~/bundles/jqueryval")
+@section Scripts{
+    <script>
+        $(function () {
+            var getShiftURL = '@Url.Action("GetShifts", "SearchDocDetail", new { Area = "" })';
+            // Get shifts.
+            $('#AreaId').change(function () {
+                $.ajax({
+                    url: getShiftURL,
+                    type: "POST",
+                    dataType: "json",
+                    data: { AreaId: $(this).val() },
+                    async: false,
+                    success: function (response) {
+                        var select = $('#shiftId');
+                        var defaultOption = 0;
+                        var i = 0;
+                        select.empty();    // remove any existing options
+                        $.each(response, function (index, item) {
+                            if (i == defaultOption) {
+                                select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
+                            }
+                            else {
+                                select.append($('<option></option>').text(item.Text).val(item.Value));
+                            }
+                            i++;
+                        });
+                    }
+                });
+                $.ajaxSettings.async = true; // Set this ajax async back to true.
+            });
+            $('#AreaId').trigger('change');
+        });
+    </script>
+}

@@ -1,0 +1,158 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectField>
+
+@{ 
+    var areaid = ViewData["AREAID"];
+    var shiftid = ViewData["SHIFTID"];
+    var classid = ViewData["CLASSID"];
+    var itemid = ViewData["ITEMID"];
+}
+
+<p>
+    <button class="btn btn-success fieldCreateBtn" data-toggle="modal" data-target="#fieldModal">新增欄位</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FieldName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitOfData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FieldStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsRequired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rtp) /
+            <br />
+            @Html.DisplayNameFor(model => model.Rtt)
+        </th>
+        <th>
+            功能
+        </th>
+    </tr>
+
+    @{
+        int row = 1;
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            @Html.HiddenFor(modelItem => item.AreaId)
+            @Html.HiddenFor(modelItem => item.ShiftId)
+            @Html.HiddenFor(modelItem => item.ClassId)
+            @Html.HiddenFor(modelItem => item.ItemId)
+            @Html.HiddenFor(modelItem => item.FieldId)
+            <td>
+                @Html.DisplayFor(modelItem => item.FieldName)
+            </td>
+            <td style="max-width: 100px;">
+                @switch (item.DataType)
+                {
+                    case "string":
+                        <p>字串</p>
+                        break;
+                    case "float":
+                        <p>數字</p>
+                        break;
+                    case "boolean":
+                        <p>該類別(正常/不正常)</p>
+                        break;
+                    case "checkbox":
+                        <p>勾選方塊</p>
+                        break;
+                    case "dropdownlist":
+                        <p>下拉選單</p>
+                        break;
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitOfData)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FieldStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsRequired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RtpName)
+                <br />
+                @Html.DisplayFor(modelItem => item.Rtt)
+            </td>
+            <td>
+                <button class="btn btn-success fieldEditBtn" data-toggle="modal" data-target="#fieldModal" value="@row">編輯</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<script>
+    $(function () {
+        var fieldEditURL = '@Url.Action("Edit", "InspectField", new { Area = "Admin" })';
+        var fieldCreateURL = '@Url.Action("Create", "InspectField", new { Area = "Admin" })';
+
+        $(".fieldEditBtn").click(function () {
+            var areaId = $(this).parent().parent().children("input[name='item.AreaId']").val();
+            var shiftId = $(this).parent().parent().children("input[name='item.ShiftId']").val();
+            var classId = $(this).parent().parent().children("input[name='item.ClassId']").val();
+            var itemId = $(this).parent().parent().children("input[name='item.ItemId']").val();
+            var fieldId = $(this).parent().parent().children("input[name='item.FieldId']").val();
+            var row = $(this).attr("value");
+
+            $('#fieldModalLabel').html('編輯欄位');
+            $.ajax({
+                type: "GET",
+                url: fieldEditURL,
+                data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId, FieldId: fieldId },
+                success: function (result) {
+                    $('#fieldModalBody').html(result);
+                },
+                error: function (msg) {
+                    alert(msg);
+                }
+            });
+
+        });
+
+        $(".fieldCreateBtn").click(function () {
+            var areaId = @areaid;
+            var shiftId = @shiftid;
+            var classId = @classid;
+            var itemId = @itemid;
+            var row = $(this).attr("value");
+
+            $('#fieldModalLabel').html('新增欄位');
+            $.ajax({
+                type: "GET",
+                url: fieldCreateURL,
+                data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId },
+                success: function (result) {
+                    $('#fieldModalBody').html(result);
+                },
+                error: function (msg) {
+                    alert(msg);
+                }
+            });
+        });
+    });
+</script>

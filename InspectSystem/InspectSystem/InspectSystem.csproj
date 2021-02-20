@@ -247,6 +247,7 @@
     <Compile Include="Areas\Admin\Controllers\InspectAreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DEInspectClassController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectClassController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DEInspectDocPreviewController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectDocPreviewController.cs" />
     <Compile Include="Areas\Admin\Controllers\DEInspectFieldController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectFieldController.cs" />
@@ -262,6 +263,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppRolesController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
+    <Compile Include="Controllers\DEInspectDocController.cs" />
+    <Compile Include="Controllers\DEInspectDocDetailController.cs" />
+    <Compile Include="Controllers\DEInspectDocDetailTempController.cs" />
+    <Compile Include="Controllers\DEInspectDocFlowController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InspectDocController.cs" />
     <Compile Include="Controllers\InspectDocDetailController.cs" />
@@ -2356,6 +2361,37 @@
     <Content Include="Areas\Admin\Views\InspectDocPreview\Preview.cshtml" />
     <Content Include="Areas\Admin\Views\InspectDocPreview\GetClassContent.cshtml" />
     <Content Include="Areas\DEquipment\Views\web.config" />
+    <Content Include="Areas\Admin\Views\DEInspectArea\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectArea\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectArea\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectClass\ClassList.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectClass\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectClass\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectClass\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectDocPreview\GetClassContent.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectDocPreview\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectDocPreview\Preview.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectField\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectField\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectField\GetFieldList.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectField\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectItem\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectItem\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectItem\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectItem\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectItem\ItemList.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecaution\AreaPrecautions.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectCycle\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectCycle\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectCycle\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DECyclesInAreas\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DECyclesInAreas\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DECyclesInAreas\Index.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -2666,6 +2702,11 @@
     <Content Include="Views\SearchDocDetail\Index.cshtml" />
     <Content Include="Views\Search\InspectDocIndex.cshtml" />
     <Content Include="Views\InspectDocIdTable\Details.cshtml" />
+    <Content Include="Views\DEInspectDoc\Create.cshtml" />
+    <Content Include="Views\DEInspectDoc\Delete.cshtml" />
+    <Content Include="Views\DEInspectDoc\Details.cshtml" />
+    <Content Include="Views\DEInspectDoc\Edit.cshtml" />
+    <Content Include="Views\DEInspectDoc\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2674,6 +2715,9 @@
     <Folder Include="Areas\DEquipment\Data\" />
     <Folder Include="Areas\DEquipment\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\DEInspectDocDetailTemp\" />
+    <Folder Include="Views\DEInspectDocDetail\" />
+    <Folder Include="Views\DEInspectDocFlow\" />
     <Folder Include="Views\InspectReport\" />
     <Folder Include="Views\Validations\" />
   </ItemGroup>

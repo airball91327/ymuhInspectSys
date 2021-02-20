@@ -1,0 +1,48 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectShift>
+
+@{
+    ViewBag.Title = "班別列表";
+}
+
+<h3>
+    <b>班別列表</b>
+</h3>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Create")">新增班別</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShiftName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rtp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rtt)
+        </th>
+        <th>
+            功能
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShiftName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RtpName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rtt)
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.ShiftId })">班別名稱編輯</a>
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<InspectSystem.Models.DEquipment.DEInspectDoc>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CycleId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CloseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EngId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EngName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CycleId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplyDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CloseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EngId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EngName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DocId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DocId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DocId })
+        </td>
+    </tr>
+}
+
+</table>
