@@ -20,11 +20,23 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">
-                請選擇班別：
+                請選擇週期：
             </label>
             <div class="col-md-10">
-                <select class="form-control" id="shiftId" name="ShiftId" required>
-                    <option disabled selected value="">請先選擇區域及班別</option>
+                <select class="form-control" id="cycleId" name="CycleId" required>
+                    <option disabled selected value="">請先選擇區域及週期</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                請選擇類別：
+            </label>
+            <div class="col-md-10">
+                <select class="form-control" id="classId" name="ClassId" required>
+                    <option disabled selected value="">請先選擇區域及週期</option>
                 </select>
             </div>
         </div>
@@ -41,17 +53,17 @@
 @section Scripts{
     <script>
         $(function () {
-            var getShiftURL = '@Url.Action("GetShifts", "SearchDocDetail", new { Area = "" })';
+            var getCycleURL = '@Url.Action("GetCycles", "SearchDocDetail", new { Area = "" })';
             // Get shifts.
             $('#AreaId').change(function () {
                 $.ajax({
-                    url: getShiftURL,
+                    url: getCycleURL,
                     type: "POST",
                     dataType: "json",
                     data: { AreaId: $(this).val() },
                     async: false,
                     success: function (response) {
-                        var select = $('#shiftId');
+                        var select = $('#classId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();    // remove any existing options

@@ -146,7 +146,7 @@
                     if (start_pos != 0) {   //去除hidden的tr
                         start_pos = start_pos - (parseInt(start_pos / 2) * 1);
                     }
-                    console.log("start_pos:" + start_pos); //For debug
+                    //console.log("start_pos:" + start_pos); //For debug
                     ui.item.data('start_pos', start_pos);
                 },
                 update: function (event, ui) {
@@ -156,7 +156,7 @@
                     if (newIndex != 0) {   //去除hidden的tr
                         newIndex = newIndex - (parseInt(newIndex / 2) * 1);
                     }
-                    console.log("new:" + newIndex); //For debug
+                    //console.log("new:" + newIndex); //For debug
                     $.ajax({
                         type: 'POST',
                         url: setOrderURL,

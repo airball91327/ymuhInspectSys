@@ -1,24 +1,24 @@
-﻿@model IEnumerable<InspectSystem.Models.ShiftsInAreas>
+﻿@model IEnumerable<InspectSystem.Models.DEquipment.DECyclesInAreas>
 
 @{
-    ViewBag.Title = "班別區域對應列表";
+    ViewBag.Title = "區域對應週期列表";
 }
 
 <h3>
-    <b>班別區域對應列表</b>
+    <b>區域對應週期列表</b>
 </h3>
 
 <p>
-    <a class="btn btn-primary" href="@Url.Action("Create")">新增班別對應區域</a>
+    <a class="btn btn-primary" href="@Url.Action("Create")">新增區域對應週期</a>
 </p>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.InspectArea.AreaName)
+            @Html.DisplayNameFor(model => model.DEInspectArea.AreaName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InspectShift.ShiftName)
+            @Html.DisplayNameFor(model => model.DEInspectCycle.CycleName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
@@ -38,10 +38,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.InspectArea.AreaName)
+                @Html.DisplayFor(modelItem => item.DEInspectArea.AreaName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InspectShift.ShiftName)
+                @Html.DisplayFor(modelItem => item.DEInspectCycle.CycleName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
@@ -53,7 +53,7 @@
                 @Html.DisplayFor(modelItem => item.Rtt)
             </td>
             <td>
-                <a class="btn btn-primary" href="@Url.Action("Edit", new { areaId = item.AreaId, shiftId = item.ShiftId })">編輯</a>
+                <a class="btn btn-primary" href="@Url.Action("Edit", new { areaId = item.AreaId, cycleId = item.CycleId })">編輯</a>
             </td>
         </tr>
     }

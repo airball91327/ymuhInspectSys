@@ -1,4 +1,4 @@
-﻿@model InspectSystem.Models.InspectClass
+﻿@model InspectSystem.Models.DEquipment.DEInspectClass
 
 @{
     ViewBag.Title = "編輯";
@@ -14,7 +14,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.AreaId)
-        @Html.HiddenFor(model => model.ShiftId)
+        @Html.HiddenFor(model => model.CycleId)
         @Html.HiddenFor(model => model.ClassId)
         @Html.HiddenFor(model => model.ClassOrder)
 
@@ -45,7 +45,7 @@
 }
 
 <div>
-    @Html.ActionLink("回到列表", "Index", new { areaId = Model.AreaId, shiftId = Model.ShiftId })
+    @Html.ActionLink("回到列表", "Index", new { areaId = Model.AreaId, cycleId = Model.CycleId })
 </div>
 
 @section Scripts {

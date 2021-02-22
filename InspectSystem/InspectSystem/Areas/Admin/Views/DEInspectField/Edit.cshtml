@@ -1,11 +1,11 @@
-﻿@model InspectSystem.Models.InspectField
+﻿@model InspectSystem.Models.DEquipment.DEInspectField
 
 <script src="~/Scripts/Inspect/InspectField.js"></script>
 
 @{
     Layout = null;
     var FieldDropDown = TempData["DropDownList"] as List<InspectSystem.Models.InspectFieldDropDown>;
-    var rowCardNo = "rowCardNo" + Model.InspectItem.ItemOrder;
+    var rowCardNo = "rowCardNo" + Model.DEInspectItem.ItemOrder;
 }
 
 
@@ -65,7 +65,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             @Html.HiddenFor(model => model.AreaId)
-            @Html.HiddenFor(model => model.ShiftId)
+            @Html.HiddenFor(model => model.CycleId)
             @Html.HiddenFor(model => model.ClassId)
             @Html.HiddenFor(model => model.ItemId)
             @Html.HiddenFor(model => model.FieldId)
@@ -73,7 +73,7 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "col-form-label col-md-2" })
                 <div class="col-md-10">
-                    <p style="margin-top : 7px">@Html.DisplayFor(model => model.InspectItem.ItemName)</p>
+                    <p style="margin-top : 7px">@Html.DisplayFor(model => model.DEInspectItem.ItemName)</p>
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                     @Html.RadioButtonFor(model => model.DataType, "float") 數字
                     @Html.RadioButtonFor(model => model.DataType, "checkbox") 勾選方塊
                     @Html.RadioButtonFor(model => model.DataType, "dropdownlist") 下拉選單
-                    @Html.RadioButtonFor(model => model.DataType, "boolean") 該類別(正常/不正常)
+                    @Html.RadioButtonFor(model => model.DataType, "boolean") 該項目(正常/不正常)
                     @Html.ValidationMessageFor(model => model.DataType, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -172,7 +172,7 @@
 
             <div class="offset-md-2">
                 <p style="color : red">無須設定大小值時，請將數值設定為0。</p>
-                <p style="color : red">每個類別只可設定一個【該類別(正常/不正常)】的欄位，且不需輸入欄位名稱。</p>
+                <p style="color : red">每個項目只可設定一個【該項目(正常/不正常)】的欄位，且不需輸入欄位名稱。</p>
             </div>
 
         </div>

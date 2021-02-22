@@ -1,8 +1,8 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectField>
+﻿@model IEnumerable<InspectSystem.Models.DEquipment.DEInspectField>
 
 @{ 
     var areaid = ViewData["AREAID"];
-    var shiftid = ViewData["SHIFTID"];
+    var cycleid = ViewData["CYCLEID"];
     var classid = ViewData["CLASSID"];
     var itemid = ViewData["ITEMID"];
 }
@@ -50,7 +50,7 @@
     {
         <tr>
             @Html.HiddenFor(modelItem => item.AreaId)
-            @Html.HiddenFor(modelItem => item.ShiftId)
+            @Html.HiddenFor(modelItem => item.CycleId)
             @Html.HiddenFor(modelItem => item.ClassId)
             @Html.HiddenFor(modelItem => item.ItemId)
             @Html.HiddenFor(modelItem => item.FieldId)
@@ -67,7 +67,7 @@
                         <p>數字</p>
                         break;
                     case "boolean":
-                        <p>該類別(正常/不正常)</p>
+                        <p>該項目(正常/不正常)</p>
                         break;
                     case "checkbox":
                         <p>勾選方塊</p>
@@ -108,12 +108,12 @@
 
 <script>
     $(function () {
-        var fieldEditURL = '@Url.Action("Edit", "InspectField", new { Area = "Admin" })';
-        var fieldCreateURL = '@Url.Action("Create", "InspectField", new { Area = "Admin" })';
+        var fieldEditURL = '@Url.Action("Edit", "DEInspectField", new { Area = "Admin" })';
+        var fieldCreateURL = '@Url.Action("Create", "DEInspectField", new { Area = "Admin" })';
 
         $(".fieldEditBtn").click(function () {
             var areaId = $(this).parent().parent().children("input[name='item.AreaId']").val();
-            var shiftId = $(this).parent().parent().children("input[name='item.ShiftId']").val();
+            var cycleId = $(this).parent().parent().children("input[name='item.CycleId']").val();
             var classId = $(this).parent().parent().children("input[name='item.ClassId']").val();
             var itemId = $(this).parent().parent().children("input[name='item.ItemId']").val();
             var fieldId = $(this).parent().parent().children("input[name='item.FieldId']").val();
@@ -123,7 +123,7 @@
             $.ajax({
                 type: "GET",
                 url: fieldEditURL,
-                data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId, FieldId: fieldId },
+                data: { AreaId: areaId, CycleId: cycleId, ClassId: classId, ItemId: itemId, FieldId: fieldId },
                 success: function (result) {
                     $('#fieldModalBody').html(result);
                 },
@@ -136,7 +136,7 @@
 
         $(".fieldCreateBtn").click(function () {
             var areaId = @areaid;
-            var shiftId = @shiftid;
+            var cycleId = @cycleid;
             var classId = @classid;
             var itemId = @itemid;
             var row = $(this).attr("value");
@@ -145,7 +145,7 @@
             $.ajax({
                 type: "GET",
                 url: fieldCreateURL,
-                data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId },
+                data: { AreaId: areaId, CycleId: cycleId, ClassId: classId, ItemId: itemId },
                 success: function (result) {
                     $('#fieldModalBody').html(result);
                 },

@@ -10,7 +10,7 @@
 <div class="card">
 
     <div class="card-header">
-        @using (Ajax.BeginForm("ClassList", "InspectClass", new AjaxOptions
+        @using (Ajax.BeginForm("ClassList", "DEInspectClass", new AjaxOptions
         {
             HttpMethod = "POST",
             OnBegin = "$.Toast.showToast({ 'title': '搜尋中，請稍待...', 'icon': 'loading', 'duration': 0 })",
@@ -27,9 +27,9 @@
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label class="control-label col-md-auto">班別:</label>
+                        <label class="control-label col-md-auto">週期:</label>
                         <div class="col-md-auto">
-                            <select class="form-control" id="ShiftId" name="ShiftId" required>
+                            <select class="form-control" id="CycleId" name="CycleId" required>
                                 <option disabled selected>請先選擇區域</option>
                             </select>
                         </div>
@@ -57,17 +57,17 @@
     <script src="~/Scripts/jquery.toast.js"></script>
     <script>
     $(function () {
-        var getShiftURL = '@Url.Action("GetShifts", "InspectClass", new { Area = "Admin" })';
-        // Get shifts.
+        var getCycleURL = '@Url.Action("GetCycles", "DEInspectClass", new { Area = "Admin" })';
+        // Get cycles.
         $('#AreaId').change(function () {
             $.ajax({
-                url: getShiftURL,
+                url: getCycleURL,
                 type: "POST",
                 dataType: "json",
                 data: { AreaId: $(this).val() },
                 async: false,
                 success: function (response) {
-                    var select = $('#ShiftId');
+                    var select = $('#CycleId');
                     select.empty();
                     $.each(response, function (index, item) {
                         select.append($('<option></option>').text(item.Text).val(item.Value));
@@ -80,10 +80,10 @@
         //
         // While page loaded, show the selected area and shift if user has selected before.
         var selectAreaId = $("#AreaId").val();
-        var selectShiftId = '@ViewBag.SelectShiftId';
-        if (selectAreaId != "" && selectShiftId != "") {
-            var sid = parseInt(selectShiftId);
-            document.getElementById('ShiftId').value = sid;
+        var selectCycleId = '@ViewBag.SelectCycleId';
+        if (selectAreaId != "" && selectCycleId != "") {
+            var sid = parseInt(selectCycleId);
+            document.getElementById('CycleId').value = sid;
             $("#searchForm").submit();
             $.ajaxSettings.async = true; // Set this ajax async back to true.
         }

@@ -296,6 +296,7 @@
     <Compile Include="Models\DEquipment\DEInspectDocs.cs" />
     <Compile Include="Models\DEquipment\DEInspectFieldDropDown.cs" />
     <Compile Include="Models\DEquipment\DEInspectFields.cs" />
+    <Compile Include="Models\DEquipment\DEInspectItemsVModel.cs" />
     <Compile Include="Models\DEquipment\DEInspectItems.cs" />
     <Compile Include="Models\DEquipment\DEInspectPrecautions.cs" />
     <Compile Include="Models\DEquipment\DECyclesInAreas.cs" />
@@ -2349,7 +2350,6 @@
     <Content Include="Areas\Admin\Views\InspectItem\ItemList.cshtml" />
     <Content Include="Areas\Admin\Views\InspectField\Create.cshtml" />
     <Content Include="Areas\Admin\Views\InspectField\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\InspectField\Index.cshtml" />
     <Content Include="Areas\Admin\Views\InspectField\GetFieldList.cshtml" />
     <Content Include="Areas\Admin\Views\InspectPrecaution\Create.cshtml" />
     <Content Include="Areas\Admin\Views\InspectPrecaution\Delete.cshtml" />
@@ -2368,24 +2368,23 @@
     <Content Include="Areas\Admin\Views\DEInspectClass\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectClass\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectClass\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectDocPreview\GetClassContent.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectDocPreview\GetItemContent.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectDocPreview\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectDocPreview\Preview.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectField\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectField\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectField\GetFieldList.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectField\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectItem\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectItem\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectItem\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectItem\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectItem\ItemList.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectPrecaution\AreaPrecautions.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectPrecaution\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecautions\AreaPrecautions.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecautions\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecautions\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecautions\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecautions\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectPrecautions\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectCycle\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectCycle\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectCycle\Index.cshtml" />
@@ -2400,6 +2399,8 @@
     <Content Include="Report\WaterSystem.xss">
       <DependentUpon>WaterSystem.xsd</DependentUpon>
     </Content>
+    <Content Include="Scripts\DEInspect\GetClassContentEdit.js" />
+    <Content Include="Scripts\DEInspect\InspectNextFlow.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />

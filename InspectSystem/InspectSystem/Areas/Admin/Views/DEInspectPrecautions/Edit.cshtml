@@ -1,4 +1,4 @@
-﻿@model InspectSystem.Models.InspectPrecautions
+﻿@model InspectSystem.Models.DEquipment.DEInspectPrecautions
 
 @{
     ViewBag.Title = "內容編輯";
@@ -17,7 +17,7 @@
         @Html.HiddenFor(model => model.PrecautionId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.InspectArea.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DEInspectArea.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("AreaID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })

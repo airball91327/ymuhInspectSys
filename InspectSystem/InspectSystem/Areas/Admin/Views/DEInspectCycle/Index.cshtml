@@ -1,20 +1,20 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectShift>
+﻿@model IEnumerable<InspectSystem.Models.DEquipment.DEInspectCycle>
 
 @{
-    ViewBag.Title = "班別列表";
+    ViewBag.Title = "週期列表";
 }
 
 <h3>
-    <b>班別列表</b>
+    <b>週期列表</b>
 </h3>
 
 <p>
-    <a class="btn btn-primary" href="@Url.Action("Create")">新增班別</a>
+    <a class="btn btn-primary" href="@Url.Action("Create")">新增週期</a>
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ShiftName)
+            @Html.DisplayNameFor(model => model.CycleName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Rtp)
@@ -31,7 +31,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ShiftName)
+                @Html.DisplayFor(modelItem => item.CycleName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RtpName)
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Rtt)
             </td>
             <td>
-                <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.ShiftId })">班別名稱編輯</a>
+                <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.CycleId })">週期名稱編輯</a>
             </td>
         </tr>
     }

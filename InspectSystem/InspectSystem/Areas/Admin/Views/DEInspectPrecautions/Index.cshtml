@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectPrecautions>
+﻿@model IEnumerable<InspectSystem.Models.DEquipment.DEInspectPrecautions>
 
 @{
     ViewBag.Title = "新增注意事項";
@@ -15,7 +15,7 @@
 <table class="table table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.InspectArea.AreaName)
+            @Html.DisplayNameFor(model => model.DEInspectArea.AreaName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Content)
@@ -29,7 +29,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.InspectArea.AreaName)
+                @Html.DisplayFor(modelItem => item.DEInspectArea.AreaName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Content)

@@ -1,4 +1,4 @@
-﻿@model InspectSystem.Models.InspectPrecautions
+﻿@model InspectSystem.Models.DEquipment.DEInspectPrecautions
 
 @{
     ViewBag.Title = "詳細資訊";
@@ -10,11 +10,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.InspectArea.AreaName)
+            @Html.DisplayNameFor(model => model.DEInspectArea.AreaName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InspectArea.AreaName)
+            @Html.DisplayFor(model => model.DEInspectArea.AreaName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Content)
