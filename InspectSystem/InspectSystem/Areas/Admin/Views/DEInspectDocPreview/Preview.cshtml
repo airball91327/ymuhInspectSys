@@ -1,7 +1,7 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectClassVModel>
+﻿@model InspectSystem.Models.DEquipment.DEInspectClassVModel
 
 @{
-    ViewBag.Title = "巡檢單編輯";
+    ViewBag.Title = "巡檢單編輯預覽";
 }
 <link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
 <link rel="stylesheet" type="text/css" href="~/Font-awesome-5.14.0/css/all.min.css">
@@ -15,28 +15,10 @@
         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#precautionModal">注意事項</button>
     </h3>
 
-    <div class="card border-success">
-        <div class="card-header bg-success" style="color:white;">
-            <a data-toggle="collapse" data-target="#noteBlock" aria-expanded="true" aria-controls="noteBlock">
-                交班事項
-            </a>
-        </div>
-        <div id="noteBlock" class="collapse show">
-            <div class="card-body">
-                
-            </div>
-        </div>
-    </div>
-
+    <button class="btn btn-large btn-primary tablinks" data-toggle="tab" href="#inspectEdit" onclick="showClassContents(event, '@Model.AreaId', '@Model.CycleId', '@Model.ClassId')" id="btnShowContent" hidden></button>
     <div id="tab" class="btn-group" data-toggle="buttons-radio">
-        @foreach (var item in Model)
-        {
-            <button class="btn btn-large btn-primary tablinks" data-toggle="tab" href="#inspectEdit" onclick="showClassContents(event, '@item.AreaId', '@item.ShiftId', '@item.ClassId')" id="@item.ClassId">
-                @item.ClassName
-            </button>
-        }
         <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectDoc" disabled>案件資訊</button>
-        <button class="btn btn-large btn-info" id="btnNextFlow" disabled>送出交班</button>
+        <button class="btn btn-large btn-info" id="btnNextFlow" disabled>簽核流程</button>
     </div>
 
     <div class="tab-content card">
@@ -44,7 +26,7 @@
 
         </div>
         <div id="inspectDoc" class="tab-pane fade ">
-            
+
         </div>
     </div>
 </div>
@@ -62,7 +44,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                @Html.Action("AreaPrecautions", "InspectPrecaution", new { Area = "Admin", areaId = Model.FirstOrDefault().AreaId })
+                @Html.Action("AreaPrecautions", "DEInspectPrecautions", new { Area = "Admin", areaId = Model.AreaId })
             </div>
             <div class="modal-footer">
                 <div>
@@ -79,9 +61,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            //Default class content is first item from tablinks.
-            var tabs = document.getElementsByClassName("tablinks");
-            tabs.item(0).click();
+            $('#btnShowContent').click();
         });
         function showmsg(data) {
             if (data.success == null) {
@@ -95,12 +75,12 @@
                 }
             }
         }
-        function showClassContents(evt, areaId, shiftId, classId) {
-            var url = '@Url.Action("GetClassContent", "InspectDocPreview", new { Area = "Admin" })';
+        function showClassContents(evt, areaId, cycleId, classId) {
+            var url = '@Url.Action("GetClassContent", "DEInspectDocPreview", new { Area = "Admin" })';
             $.ajax({
                 type: "GET",
                 url: url,
-                data: { areaId: areaId, shiftId: shiftId, classId: classId },
+                data: { areaId: areaId, cycleId: cycleId, classId: classId },
                 beforeSend: function () {
                     $.Toast.showToast({ 'title': '讀取中，請稍待...', 'icon': 'loading', 'duration': 0 });
                 },

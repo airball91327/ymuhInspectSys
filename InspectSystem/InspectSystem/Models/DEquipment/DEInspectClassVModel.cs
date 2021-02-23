@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InspectSystem.Models.DEquipment
 {
-    public class DEInspectItemsVModel
+    public class DEInspectClassVModel
     {
         [Display(Name = "表單編號")]
         public string DocId { get; set; }
@@ -17,18 +17,13 @@ namespace InspectSystem.Models.DEquipment
         public int ClassId { get; set; }
         [Display(Name = "類別名稱")]
         public string ClassName { get; set; }
-        [Display(Name = "項目代碼")]
-        public int ItemId { get; set; }
-        [Display(Name = "項目名稱")]
-        public string ItemName { get; set; }
-        [Display(Name = "顯示項目")]
-        public bool ItemStatus { get; set; }
         [Display(Name = "排列順序")]
-        public int ItemOrder { get; set; }
+        public int ClassOrder { get; set; }
         [Display(Name = "必填欄位是否儲存")]
         public bool IsSaved { get; set; } // To show the required fields are saved or not in edit view.
         [Display(Name = "不正常數量")]
         public int CountErrors { get; set; } // To show the errors of class in detail view for checker.
+
 
 
     }

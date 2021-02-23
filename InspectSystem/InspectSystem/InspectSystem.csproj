@@ -275,6 +275,7 @@
     <Compile Include="Controllers\InspectDocIdTableController.cs" />
     <Compile Include="Controllers\InspectReportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SearchDEDocDetailController.cs" />
     <Compile Include="Controllers\SearchDocDetailController.cs" />
     <Compile Include="Filters\MyErrorHandler.cs" />
     <Compile Include="Global.asax.cs">
@@ -296,7 +297,7 @@
     <Compile Include="Models\DEquipment\DEInspectDocs.cs" />
     <Compile Include="Models\DEquipment\DEInspectFieldDropDown.cs" />
     <Compile Include="Models\DEquipment\DEInspectFields.cs" />
-    <Compile Include="Models\DEquipment\DEInspectItemsVModel.cs" />
+    <Compile Include="Models\DEquipment\DEInspectClassVModel.cs" />
     <Compile Include="Models\DEquipment\DEInspectItems.cs" />
     <Compile Include="Models\DEquipment\DEInspectPrecautions.cs" />
     <Compile Include="Models\DEquipment\DECyclesInAreas.cs" />
@@ -2368,7 +2369,7 @@
     <Content Include="Areas\Admin\Views\DEInspectClass\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectClass\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectClass\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DEInspectDocPreview\GetItemContent.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectDocPreview\GetClassContent.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectDocPreview\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectDocPreview\Preview.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectField\Create.cshtml" />

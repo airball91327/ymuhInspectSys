@@ -23,7 +23,7 @@
                 請選擇週期：
             </label>
             <div class="col-md-10">
-                <select class="form-control" id="cycleId" name="CycleId" required>
+                <select class="form-control" id="CycleId" name="CycleId" required>
                     <option disabled selected value="">請先選擇區域及週期</option>
                 </select>
             </div>
@@ -35,7 +35,7 @@
                 請選擇類別：
             </label>
             <div class="col-md-10">
-                <select class="form-control" id="classId" name="ClassId" required>
+                <select class="form-control" id="ClassId" name="ClassId" required>
                     <option disabled selected value="">請先選擇區域及週期</option>
                 </select>
             </div>
@@ -53,8 +53,9 @@
 @section Scripts{
     <script>
         $(function () {
-            var getCycleURL = '@Url.Action("GetCycles", "SearchDocDetail", new { Area = "" })';
-            // Get shifts.
+            var getCycleURL = '@Url.Action("GetCycles", "SearchDEDocDetail", new { Area = "" })';
+            var getClassURL = '@Url.Action("GetClasses", "SearchDEDocDetail", new { Area = "" })';
+            // Get cycles.
             $('#AreaId').change(function () {
                 $.ajax({
                     url: getCycleURL,
@@ -63,7 +64,7 @@
                     data: { AreaId: $(this).val() },
                     async: false,
                     success: function (response) {
-                        var select = $('#classId');
+                        var select = $('#CycleId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();    // remove any existing options
@@ -79,6 +80,26 @@
                     }
                 });
                 $.ajaxSettings.async = true; // Set this ajax async back to true.
+                $('#CycleId').trigger('change');
+            });
+            // Get Classes.
+            $('#CycleId').change(function () {
+                var areaId = $('#AreaId').val();
+                var cycleId = $(this).val();
+                $.ajax({
+                    url: getClassURL,
+                    type: "POST",
+                    dataType: "json",
+                    data: { AreaId: areaId, CycleId: cycleId },
+                    async: false,
+                    success: function (response) {
+                        var select = $('#ClassId');
+                        select.empty();
+                        $.each(response, function (index, item) {
+                            select.append($('<option></option>').text(item.Text).val(item.Value));
+                        });
+                    }
+                });
             });
             $('#AreaId').trigger('change');
         });
