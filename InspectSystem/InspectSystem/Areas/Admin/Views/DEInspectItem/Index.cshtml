@@ -67,7 +67,7 @@
     $(function () {
         var getCycleURL = '@Url.Action("GetCycles", "DEInspectClass", new { Area = "Admin" })';
         var getClassURL = '@Url.Action("GetClasses", "DEInspectClass", new { Area = "Admin" })';
-        // Get shifts.
+        // Get cycles.
         $('#AreaId').change(function () {
             $.ajax({
                 url: getCycleURL,

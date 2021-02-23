@@ -1,106 +1,46 @@
-﻿@model InspectSystem.Models.DEquipment.DEInspectDoc
-
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
+﻿@model InspectSystem.Models.InspectDocIdTable
 
 <div>
-    <h4>DEInspectDoc</h4>
+    <h3 style="margin-top:0.5em">案件資訊</h3>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AreaId)
-        </dt>
+    <div class="container">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DocId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DocId)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AreaId)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.InspectDocStatus.DocStatusDes)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.InspectDocStatus.DocStatusDes)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CycleId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplyDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ApplyDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CycleId)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CloseDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CloseDate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ClassId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.AreaName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AreaName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ClassId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplyDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ApplyDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CloseDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CloseDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EngId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EngId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EngName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EngName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CheckerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CheckerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CheckerName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CheckerName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Note)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Note)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DocId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

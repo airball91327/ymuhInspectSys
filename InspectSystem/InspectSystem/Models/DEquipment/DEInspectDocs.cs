@@ -21,12 +21,15 @@ namespace InspectSystem.Models.DEquipment
         [Required]
         [Display(Name = "巡檢區域")]
         public int AreaId { get; set; }
+        public string AreaName{ get; set; }
         [Required]
         [Display(Name = "週期")]
         public int CycleId { get; set; }
+        public string CycleName { get; set; }
         [Required]
         [Display(Name = "類別")]
         public int ClassId { get; set; }
+        public string ClassName { get; set; }
         [Required]
         [Display(Name = "申請日期")]
         [DataType(DataType.Date)]

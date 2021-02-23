@@ -1,93 +1,120 @@
-﻿@model IEnumerable<InspectSystem.Models.DEquipment.DEInspectDoc>
+﻿@model InspectSystem.Models.DEquipment.DEInspectDocQryVModel
 
 @{
-    ViewBag.Title = "Index";
+    Layout = null;
 }
 
-<h2>Index</h2>
+<h4>查詢條件</h4>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AreaId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CycleId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClassId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplyDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CloseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EngId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EngName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckerId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Note)
-        </th>
-        <th></th>
-    </tr>
+@using (Ajax.BeginForm("Index2", "DEInspectDoc", new AjaxOptions
+{
+    HttpMethod = "GET",
+    OnBegin = "$.Toast.showToast({ 'title': '搜尋中，請稍待...', 'icon': 'loading', 'duration': 0 })",
+    OnSuccess = "showmsg",
+    UpdateTargetId = "pnlDEINSPECT"
+}, new { id = "formDEINSPECT" }))
+{
+    @Html.AntiForgeryToken()
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AreaId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CycleId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClassId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplyDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CloseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EngId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EngName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckerId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DocId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DocId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DocId })
-        </td>
-    </tr>
+    <div class="container form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="form-group col">
+                @Html.LabelFor(model => model.DocId, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.EditorFor(model => model.DocId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DocId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col">
+                @Html.LabelFor(model => model.AreaId, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.DropDownListFor(model => model.AreaId, null, "請選擇", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col">
+                @Html.LabelFor(model => model.CycleId, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.DropDownListFor(model => model.CycleId, null, "請選擇", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CycleId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group col">
+            @Html.LabelFor(model => model.ClassId, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.DropDownListFor(model => model.ClassId, null, "請選擇", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        </div>
+
+        <div class="row">
+            <div class="form-group col">
+                <div>
+                    <input type="button" value="查詢" class="btn btn-primary" id="QryBtn2" />
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-</table>
+<div id="pnlDEINSPECT">
+
+</div>
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(function () {
+        $('#QryBtn2').click(function () {
+            submitformDEINSPECT();
+        });
+    });
+    function submitformDEINSPECT() {
+        fetchPage2(1);
+    }
+    // Use ajax to fetch page.
+    var fetchPage2 = function (page) {
+        var pagedPartialUrl = '@Url.Action("Index2", "DEInspectDoc", new { Area = "" })';
+        var s = $('#formDEINSPECT').serialize();
+        $.Toast.showToast({
+            'title': '搜尋中，請稍待...',
+            'icon': 'loading',
+            'duration': 0
+        })
+        $.ajax({
+            url:pagedPartialUrl,
+            type: "GET",
+            data: s + "&page=" + page,
+            success: function (data) {
+
+                window.location.hash = page;
+
+                $('#pnlDEINSPECT').html(data);
+
+                $('#pnlDEINSPECT .pagination li a').each(function (i, item) {
+                    var hyperLinkUrl = $(item).attr('href');
+                    if (typeof hyperLinkUrl !== 'undefined' && hyperLinkUrl !== false) {
+                        var pageNumber = $(item).attr('href').replace(pagedPartialUrl + '?page=', '');
+                        $(item).attr('href', '#').click(function (event) {
+                            event.preventDefault();
+                            $(event.target).attr('href');
+                            fetchPage2(pageNumber);
+                        });
+                    }
+                });
+                $.Toast.hideToast();
+            },
+            error: function (data) {
+                alert(data.responseText);
+                $.Toast.hideToast();
+            }
+        });
+
+    };
+</script>

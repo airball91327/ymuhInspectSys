@@ -302,6 +302,7 @@
     <Compile Include="Models\DEquipment\DEInspectPrecautions.cs" />
     <Compile Include="Models\DEquipment\DECyclesInAreas.cs" />
     <Compile Include="Models\DEquipment\DEInspectCycle.cs" />
+    <Compile Include="Models\DEquipment\DEInspectDocQryVModel.cs" />
     <Compile Include="Models\DocDetailQryVModel.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -2705,10 +2706,11 @@
     <Content Include="Views\Search\InspectDocIndex.cshtml" />
     <Content Include="Views\InspectDocIdTable\Details.cshtml" />
     <Content Include="Views\DEInspectDoc\Create.cshtml" />
-    <Content Include="Views\DEInspectDoc\Delete.cshtml" />
     <Content Include="Views\DEInspectDoc\Details.cshtml" />
     <Content Include="Views\DEInspectDoc\Edit.cshtml" />
     <Content Include="Views\DEInspectDoc\Index.cshtml" />
+    <Content Include="Views\DEInspectDoc\List.cshtml" />
+    <Content Include="Views\DEInspectDoc\Views.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
