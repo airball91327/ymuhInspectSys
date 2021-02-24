@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace InspectSystem.Models
+namespace InspectSystem.Models.DEquipment
 {
-    [Table("InspectFlowStatus")]
-    public class InspectFlowStatus
+    [Table("DEInspectFlowStatus")]
+    public class DEInspectFlowStatus
     {
-        public InspectFlowStatus()
+        public DEInspectFlowStatus()
         {
-            this.InspectDocFlow = new HashSet<InspectDocFlow>();
+            this.DEInspectDocFlow = new HashSet<DEInspectDocFlow>();
         }
 
         [Key]
@@ -22,6 +22,6 @@ namespace InspectSystem.Models
         [Display(Name = "流程狀態")]
         public string FlowStatusDes { get; set; }
 
-        public virtual ICollection<InspectDocFlow> InspectDocFlow { get; set; }
+        public virtual ICollection<DEInspectDocFlow> DEInspectDocFlow { get; set; }
     }
 }

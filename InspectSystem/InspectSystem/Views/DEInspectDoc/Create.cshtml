@@ -40,9 +40,7 @@
             @Html.HiddenFor(model => model.CycleName)
             @Html.LabelFor(model => model.CycleId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="CycleId" name="CycleId" required>
-                    <option disabled selected>請先選擇區域</option>
-                </select>
+                @Html.DropDownListFor(model => model.CycleId, null, "請先選擇區域", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CycleId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,9 +49,7 @@
             @Html.HiddenFor(model => model.ClassName)
             @Html.LabelFor(model => model.ClassId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="ClassId" name="ClassId" required>
-                    <option disabled selected>請先選擇區域</option>
-                </select>
+                @Html.DropDownListFor(model => model.ClassId, null, "請先選擇週期", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -127,6 +123,7 @@
                     });
                 }
             });
+            $('#ClassId').trigger('change');
         });
         //
         $('#ClassId').change(function () {

@@ -71,6 +71,14 @@
 @Scripts.Render("~/bundles/jqueryval")
 <script>
     $(function () {
+        /* Only first visit the page, will submit the form. */
+        var count = 0;
+        $('.nav-tabs a[href="#menu1"]').on('shown.bs.tab', function (event) {
+            if (count == 0) {
+                submitformDEINSPECT();
+                count++;
+            };
+        });
         $('#QryBtn2').click(function () {
             submitformDEINSPECT();
         });

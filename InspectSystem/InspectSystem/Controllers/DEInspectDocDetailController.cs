@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace InspectSystem.Controllers
 {
+    [Authorize]
     public class DEInspectDocDetailController : Controller
     {
         // GET: DEInspectDocDetail

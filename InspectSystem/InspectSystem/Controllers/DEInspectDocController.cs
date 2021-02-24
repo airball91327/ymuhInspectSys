@@ -9,12 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using InspectSystem.Models;
 using InspectSystem.Models.DEquipment;
-using PagedList;
 using WebMatrix.WebData;
 using InspectSystem.Filters;
+using X.PagedList;
 
 namespace InspectSystem.Controllers
 {
+    [Authorize]
     public class DEInspectDocController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
@@ -54,71 +55,91 @@ namespace InspectSystem.Controllers
         }
 
         // GET: DEInspectDoc
-        public ActionResult Index2(InspectDocQryVModel qry, int page = 1)
+        public ActionResult Index2(DEInspectDocQryVModel qry, int page = 1)
         {
             // query variables.
             string docid = qry.DocId;
-            string shiftId = qry.ShiftId;
+            string areaid = qry.AreaId;
+            string cycleid = qry.CycleId;
+            string classid = qry.ClassId;
 
-            // Get all inspect docs.
-            var qryDocIdTable = db.DEInspectDoc.Include(d => d.InspectDoc);
-            var inspectShifts = db.InspectShift.AsQueryable();
-            var inspectFlows = db.InspectDocFlow.AsQueryable();
+            var inspectFlows = db.DEInspectDocFlow.AsQueryable();
             // Get user's docs.
-            inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" && df.UserId == WebSecurity.CurrentUserId);
-            inspectFlows = inspectFlows.Join(qryDocIdTable, f => f.DocId, d => d.DocId,
-                                       (f, d) => new
-                                       {
-                                           docidTable = d,
-                                           flow = f
-                                       }).Where(d => d.docidTable.DocStatusId != "2").Select(d => d.flow);
-            var DEInspectDoc = inspectFlows.Join(qryDocIdTable, f => f.DocId, d => d.DocId, (f, d) => d).ToList();
-            //Get Shifting docs.
-            var shiftingDoc = db.DEInspectDoc.Include(d => d.InspectDoc).Where(i => i.DocStatusId == "2")
-                                                  .Join(db.InspectDoc, dt => dt.DocId, d => d.DocId,
-                                                  (dt, d) => new
-                                                  {
-                                                      docIdTable = dt,
-                                                      doc = d
-                                                  })
-                                                  .Where(r => r.doc.ShiftId == r.docIdTable.ShiftId)
-                                                  .Where(r => r.doc.CheckerId == null || r.doc.CheckerId == WebSecurity.CurrentUserId)
-                                                  .Select(r => r.docIdTable).ToList();
-            DEInspectDoc.AddRange(shiftingDoc);
-            DEInspectDoc = DEInspectDoc.GroupBy(d => d.DocId).Select(d => d.FirstOrDefault()).ToList();
+            inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" || df.FlowStatusId == "0")
+                                       .Where(df => df.UserId == WebSecurity.CurrentUserId);
+            var qryResult = inspectFlows.Join(db.DEInspectDoc, f => f.DocId, d => d.DocId, 
+                                        (f, d) => new 
+                                        { 
+                                            inspectDoc = d,
+                                            flow = f
+                                        }).Join(db.AppUsers, f => f.inspectDoc.EngId, u => u.Id,
+                                        (f, u) => new
+                                        {
+                                            inspectDoc = f.inspectDoc,
+                                            flow = f.flow,
+                                            eng = u
+                                        }).Join(db.AppUsers, f => f.flow.UserId, u => u.Id,
+                                        (f, u) => new
+                                        {
+                                            inspectDoc = f.inspectDoc,
+                                            flow = f.flow,
+                                            eng = f.eng,
+                                            clsUser = u
+                                        });
             // query conditions.
-            if (!string.IsNullOrEmpty(docid))   //案件編號(關鍵字)
+            if (!string.IsNullOrEmpty(docid))   //案件編號
             {
                 docid = docid.Trim();
-                DEInspectDoc = DEInspectDoc.Where(d => d.DocId.Contains(docid)).ToList();
+                qryResult = qryResult.Where(d => d.inspectDoc.DocId == docid);
             }
-            if (!string.IsNullOrEmpty(shiftId))    //目前班別
+            if (!string.IsNullOrEmpty(areaid))    //區域
             {
-                int sid = Convert.ToInt32(shiftId);
-                DEInspectDoc = DEInspectDoc.Where(d => d.ShiftId == sid).ToList();
+                int id = Convert.ToInt32(areaid);
+                qryResult = qryResult.Where(d => d.inspectDoc.AreaId == id);
             }
-            // 對應班別中文名稱、目前巡檢工程師
-            foreach (var doc in DEInspectDoc)
+            if (!string.IsNullOrEmpty(cycleid))    //週期
             {
-                var shift = inspectShifts.Where(s => s.ShiftId == doc.ShiftId).FirstOrDefault();
-                if (shift != null)
-                {
-                    doc.ShiftName = shift.ShiftName;
-                }
-                var inspectDoc = db.InspectDoc.Find(doc.DocId, doc.ShiftId);
-                if (inspectDoc != null)
-                {
-                    var user = db.AppUsers.Find(inspectDoc.EngId);
-                    doc.EngUserName = user != null ? user.UserName : "";
-                    doc.EngFullName = user != null ? user.FullName : "";
-                }
+                int id = Convert.ToInt32(cycleid);
+                qryResult = qryResult.Where(d => d.inspectDoc.CycleId == id);
+            }
+            if (!string.IsNullOrEmpty(classid))    //類別
+            {
+                int id = Convert.ToInt32(classid);
+                qryResult = qryResult.Where(d => d.inspectDoc.ClassId == id);
             }
             //
-            var pageCount = DEInspectDoc.ToPagedList(page, pageSize).PageCount;
+            List<DEInspectDocVModel> returnList = new List<DEInspectDocVModel>();
+            DEInspectDocVModel docVModel;
+            foreach (var item in qryResult.ToList())
+            {
+                docVModel = new DEInspectDocVModel();
+                docVModel.ApplyDate = item.inspectDoc.ApplyDate;
+                docVModel.AreaId = item.inspectDoc.AreaId;
+                docVModel.AreaName = item.inspectDoc.AreaName;
+                docVModel.CheckerId = item.inspectDoc.CheckerId;
+                docVModel.CheckerName = item.inspectDoc.CheckerName;
+                docVModel.ClassId = item.inspectDoc.ClassId;
+                docVModel.ClassName = item.inspectDoc.ClassName;
+                docVModel.CloseDate = item.inspectDoc.CloseDate;
+                docVModel.Cls = item.flow.Cls;
+                docVModel.CycleId = item.inspectDoc.CycleId;
+                docVModel.CycleName = item.inspectDoc.CycleName;
+                docVModel.DocId = item.inspectDoc.DocId;
+                docVModel.EndTime = item.inspectDoc.EndTime;
+                docVModel.EngId = item.inspectDoc.EngId;
+                docVModel.EngName = item.inspectDoc.EngName;
+                docVModel.EngUserName = item.eng.UserName;
+                docVModel.FlowStatusId = item.flow.FlowStatusId;
+                docVModel.UserId = item.flow.UserId;
+                docVModel.UserName = item.clsUser.UserName;
+                docVModel.UserFullName = item.clsUser.FullName;
+                returnList.Add(docVModel);
+            }
+            var pageCount = returnList.ToPagedList(page, pageSize).PageCount;
             pageCount = pageCount == 0 ? 1 : pageCount; // If no page.
-            if (DEInspectDoc.ToPagedList(page, pageSize).Count <= 0)  //If the page has no items.
-                return PartialView("List", DEInspectDoc.ToPagedList(pageCount, pageSize));
-            return PartialView("List", DEInspectDoc.ToPagedList(page, pageSize));
+            if (returnList.ToPagedList(page, pageSize).Count <= 0)  //If the page has no items.
+                return PartialView("List", returnList.ToPagedList(pageCount, pageSize));
+            return PartialView("List", returnList.ToPagedList(page, pageSize));
         }
 
         // GET: DEInspectDoc/Views/5
@@ -134,22 +155,12 @@ namespace InspectSystem.Controllers
                 return HttpNotFound();
             }
             //
-            List<InspectDocDetail> dtlShifts = new List<InspectDocDetail>();
-            var docDetails = db.InspectDocDetail.Where(d => d.DocId == DEInspectDoc.DocId).ToList();
+            var docDetails = db.DEInspectDocDetail.Where(d => d.DocId == DEInspectDoc.DocId).ToList();
             if (docDetails.Count() > 0)
             {
-                var docDetailShifts = docDetails.GroupBy(t => t.ShiftId).Select(g => g.FirstOrDefault())
-                                .OrderBy(d => d.ShiftId).ToList();
                 ViewBag.AreaName = docDetails.First().AreaName;
-                dtlShifts = docDetailShifts;
             }
-            //
-            var notes = new InspectDocController().GetDocNotes(id);
-            if (notes != null)
-            {
-                ViewBag.Notes = notes;
-            }
-            return View(dtlShifts);
+            return View(docDetails);
         }
 
         // GET: DEInspectDoc/Details/5
@@ -182,6 +193,10 @@ namespace InspectSystem.Controllers
                 });
             }
             ViewData["AreaId"] = new SelectList(listItem, "Value", "Text");
+            List<SelectListItem> listItem2 = new List<SelectListItem>();
+            ViewData["CycleId"] = new SelectList(listItem2, "Value", "Text");
+            List<SelectListItem> listItem3 = new List<SelectListItem>();
+            ViewData["ClassId"] = new SelectList(listItem3, "Value", "Text");
             //
             // Set default value.
             DEInspectDoc inspectDoc = new DEInspectDoc();
@@ -195,101 +210,81 @@ namespace InspectSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [MyErrorHandler]
-        public async Task<ActionResult> Create([Bind(Include = "ApplyDate,AreaId,AreaName")] DEInspectDoc DEInspectDoc)
+        public async Task<ActionResult> Create([Bind(Include = "ApplyDate,AreaId,AreaName,CycleId,CycleName,ClassId,ClassName")] DEInspectDoc DEInspectDoc)
         {
             AppUser user;
             if (ModelState.IsValid)
             {
                 var areaId = DEInspectDoc.AreaId;
+                var cycleId = DEInspectDoc.CycleId;
+                var classId = DEInspectDoc.ClassId;
                 var applyDate = DEInspectDoc.ApplyDate;
                 var docId = GetDocId(applyDate);
                 //
-                var docExist = db.DEInspectDoc.Find(docId);
-                if (docExist != null)
-                {
-                    return new JsonResult
-                    {
-                        Data = new { success = false, error = "已申請過巡檢單!" },
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                    };
-                }
-                //
                 try
                 {
-                    var shiftId = 1;
-                    var firstShift = db.ShiftsInAreas.Where(s => s.AreaId == areaId).OrderBy(s => s.ShiftId).FirstOrDefault();
-                    if (firstShift != null)
-                    {
-                        shiftId = firstShift.ShiftId;
-                    }
+                    // 產生巡檢單
+                    user = db.AppUsers.Find(WebSecurity.CurrentUserId);
                     DEInspectDoc.DocId = docId;
-                    DEInspectDoc.DocStatusId = "1";
-                    DEInspectDoc.ShiftId = shiftId;
+                    DEInspectDoc.AreaName = DEInspectDoc.AreaName;
+                    DEInspectDoc.CycleName = DEInspectDoc.CycleName;
+                    DEInspectDoc.ClassName = DEInspectDoc.ClassName;
+                    DEInspectDoc.ApplyDate = applyDate;
+                    DEInspectDoc.EngId = user.Id;
+                    DEInspectDoc.EngName = user.FullName;
                     db.DEInspectDoc.Add(DEInspectDoc);
                     await db.SaveChangesAsync();
-                    // 產生白天班巡檢單
-                    user = db.AppUsers.Find(WebSecurity.CurrentUserId);
-                    InspectDoc inspectDoc = new InspectDoc();
-                    inspectDoc.DocId = docId;
-                    inspectDoc.ShiftId = shiftId;
-                    inspectDoc.ApplyDate = applyDate;
-                    inspectDoc.EngId = user.Id;
-                    inspectDoc.EngName = user.FullName;
-                    db.InspectDoc.Add(inspectDoc);
-                    await db.SaveChangesAsync();
                     // 擷取巡檢單內容
-                    ShiftsInAreas shiftsInAreas = db.ShiftsInAreas.Include(i => i.InspectArea).Include(i => i.InspectShift)
-                                                                  .Where(i => i.AreaId == areaId && i.ShiftId == shiftId).FirstOrDefault();
-                    List<InspectClass> inspectClasses = db.InspectClass.Where(i => i.AreaId == areaId && i.ShiftId == shiftId).ToList();
-                    List<InspectItem> inspectItems = db.InspectItem.Where(i => i.AreaId == areaId && i.ShiftId == shiftId).ToList();
-                    List<InspectField> inspectFields = db.InspectField.Include(i => i.InspectItem).Include(i => i.InspectItem.InspectClass)
-                                                                      .Where(i => i.AreaId == areaId && i.ShiftId == shiftId)
-                                                                      .Where(i => i.InspectItem.InspectClass.ClassStatus == true)
-                                                                      .Where(i => i.InspectItem.ItemStatus == true)
-                                                                      .Where(i => i.FieldStatus == true).ToList();
+                    DECyclesInAreas cyclesInAreas = db.DECyclesInAreas.Include(i => i.DEInspectArea).Include(i => i.DEInspectCycle)
+                                                                      .Where(i => i.AreaId == areaId && i.CycleId == cycleId).FirstOrDefault();
+                    List<DEInspectItem> inspectItems = db.DEInspectItem.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId).ToList();
+                    List<DEInspectField> inspectFields = db.DEInspectField.Include(i => i.DEInspectItem).Include(i => i.DEInspectItem.DEInspectClass)
+                                                                          .Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
+                                                                          .Where(i => i.DEInspectItem.ItemStatus == true)
+                                                                          .Where(i => i.FieldStatus == true).ToList();
                     // Insert values.
-                    InspectDocDetailTemp detailTemp;
-                    foreach (var field in inspectFields)
+                    DEInspectDocDetailTemp detailTemp;
+                    foreach (var insField in inspectFields)
                     {
-                        detailTemp = new InspectDocDetailTemp();
+                        detailTemp = new DEInspectDocDetailTemp();
                         detailTemp.DocId = docId;
-                        detailTemp.AreaId = field.AreaId;
-                        detailTemp.AreaName = shiftsInAreas.InspectArea.AreaName;
-                        detailTemp.ShiftId = field.ShiftId;
-                        detailTemp.ShiftName = shiftsInAreas.InspectShift.ShiftName;
-                        detailTemp.ClassId = field.ClassId;
-                        detailTemp.ClassName = field.InspectItem.InspectClass.ClassName;
-                        detailTemp.ClassOrder = field.InspectItem.InspectClass.ClassOrder;
-                        detailTemp.ItemId = field.ItemId;
-                        detailTemp.ItemName = field.InspectItem.ItemName;
-                        detailTemp.ItemOrder = field.InspectItem.ItemOrder;
-                        detailTemp.FieldId = field.FieldId;
-                        detailTemp.FieldName = field.FieldName;
-                        detailTemp.DataType = field.DataType;
-                        detailTemp.UnitOfData = field.UnitOfData;
-                        detailTemp.MinValue = field.MinValue;
-                        detailTemp.MaxValue = field.MaxValue;
-                        detailTemp.IsRequired = field.IsRequired;
+                        detailTemp.AreaId = insField.AreaId;
+                        detailTemp.AreaName = cyclesInAreas.DEInspectArea.AreaName;
+                        detailTemp.CycleId = insField.CycleId;
+                        detailTemp.CycleName = cyclesInAreas.DEInspectCycle.CycleName;
+                        detailTemp.ClassId = insField.ClassId;
+                        detailTemp.ClassName = insField.DEInspectItem.DEInspectClass.ClassName;
+                        detailTemp.ClassOrder = insField.DEInspectItem.DEInspectClass.ClassOrder;
+                        detailTemp.ItemId = insField.ItemId;
+                        detailTemp.ItemName = insField.DEInspectItem.ItemName;
+                        detailTemp.ItemOrder = insField.DEInspectItem.ItemOrder;
+                        detailTemp.FieldId = insField.FieldId;
+                        detailTemp.FieldName = insField.FieldName;
+                        detailTemp.DataType = insField.DataType;
+                        detailTemp.UnitOfData = insField.UnitOfData;
+                        detailTemp.MinValue = insField.MinValue;
+                        detailTemp.MaxValue = insField.MaxValue;
+                        detailTemp.IsRequired = insField.IsRequired;
                         /* If field is dropdown, set dropdownlist items to string and save to DB. */
-                        if (field.DataType == "dropdownlist")
+                        if (insField.DataType == "dropdownlist")
                         {
-                            var itemDropDownList = db.InspectFieldDropDown.Where(i => i.AreaId == field.AreaId &&
-                                                                                      i.ShiftId == field.ShiftId &&
-                                                                                      i.ClassId == field.ClassId &&
-                                                                                      i.ItemId == field.ItemId &&
-                                                                                      i.FieldId == field.FieldId).ToList();
+                            var itemDropDownList = db.DEInspectFieldDropDown.Where(i => i.AreaId == insField.AreaId &&
+                                                                                        i.CycleId == insField.CycleId &&
+                                                                                        i.ClassId == insField.ClassId &&
+                                                                                        i.ItemId == insField.ItemId &&
+                                                                                        i.FieldId == insField.FieldId).ToList();
                             foreach (var dropItem in itemDropDownList)
                             {
                                 detailTemp.DropDownItems += dropItem.Value.ToString() + ";";
                             }
                         }
                         //
-                        db.InspectDocDetailTemp.Add(detailTemp);
+                        db.DEInspectDocDetailTemp.Add(detailTemp);
                     }
                     await db.SaveChangesAsync();
 
                     //Create first Flow.
-                    InspectDocFlow flow = new InspectDocFlow();
+                    DEInspectDocFlow flow = new DEInspectDocFlow();
                     flow.DocId = docId;
                     flow.StepId = 1;
                     flow.UserId = WebSecurity.CurrentUserId;
@@ -297,18 +292,17 @@ namespace InspectSystem.Controllers
                     flow.Rtp = WebSecurity.CurrentUserId;
                     flow.Rtt = DateTime.Now;
                     flow.Cls = "申請人";
-                    db.InspectDocFlow.Add(flow);
+                    db.DEInspectDocFlow.Add(flow);
 
                     // Create next flow.
-                    flow = new InspectDocFlow();
+                    flow = new DEInspectDocFlow();
                     flow.DocId = docId;
                     flow.StepId = 2;
                     flow.UserId = WebSecurity.CurrentUserId;
-                    flow.FlowStatusId = "?";  // 狀態"未處理"
+                    flow.FlowStatusId = "0";  // 狀態"巡檢中"
                     flow.Rtt = DateTime.Now;
                     flow.Cls = "巡檢工程師";
-                    flow.Opinions = "【白天班】";
-                    db.InspectDocFlow.Add(flow);
+                    db.DEInspectDocFlow.Add(flow);
                     await db.SaveChangesAsync();
 
                     return new JsonResult
@@ -367,10 +361,24 @@ namespace InspectSystem.Controllers
         /// <returns></returns>
         private string GetDocId(DateTime ApplyDate)
         {
-            string docId = null;
-            int yymmdd = (ApplyDate.Year - 1911) * 10000 + (ApplyDate.Month) * 100 + ApplyDate.Day;
-            docId = Convert.ToString(yymmdd * 100);
-
+            string maxId = db.DEInspectDoc.Select(r => r.DocId).Max();
+            string docId = "";
+            int yymmdd = (ApplyDate.Year - 1911) * 10000 + (ApplyDate.Month) * 100 + ApplyDate.Day; //例:1090101
+            if (!string.IsNullOrEmpty(maxId))
+            {
+                docId = maxId;
+            }
+            if (docId != "")
+            {
+                if (Convert.ToInt64(docId) / 1000 == yymmdd)
+                    docId = Convert.ToString(Convert.ToInt64(docId) + 1);
+                else
+                    docId = Convert.ToString(yymmdd * 1000 + 1);
+            }
+            else
+            {
+                docId = Convert.ToString(yymmdd * 1000 + 1);
+            }
             return docId;
         }
 

@@ -42,6 +42,7 @@ namespace InspectSystem.Models
         public virtual DbSet<DEInspectDocDetail> DEInspectDocDetail { get; set; }
         public virtual DbSet<DEInspectDocDetailTemp> DEInspectDocDetailTemp { get; set; }
         public virtual DbSet<DEInspectDocFlow> DEInspectDocFlow { get; set; }
+        public virtual DbSet<DEInspectFlowStatus> DEInspectFlowStatus { get; set; }
         public virtual DbSet<DEInspectPrecautions> DEInspectPrecautions { get; set; }
 
 
