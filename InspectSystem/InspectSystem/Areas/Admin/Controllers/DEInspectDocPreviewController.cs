@@ -88,8 +88,10 @@ namespace InspectSystem.Areas.Admin.Controllers
             ViewBag.ClassName = db.DEInspectClass.Find(iAreaId, iCycleId, iClassId).ClassName;
             // Get preview items and fields. 
             ViewData["itemsPreview"] = db.DEInspectItem.Where(i => i.AreaId == iAreaId && i.CycleId == iCycleId && i.ClassId == iClassId)
+                                                       .Where(i => i.ItemStatus == true)
                                                        .OrderBy(i => i.ItemOrder).ToList();
             ViewData["fieldsPreview"] = db.DEInspectField.Where(i => i.AreaId == iAreaId && i.CycleId == iCycleId && i.ClassId == iClassId)
+                                                         .Where(i => i.FieldStatus == true)                                         
                                                          .ToList();
             ViewData["dropdownsPreview"] = db.DEInspectFieldDropDown.Where(i => i.AreaId == iAreaId && i.CycleId == iCycleId && i.ClassId == iClassId)
                                                                     .ToList();

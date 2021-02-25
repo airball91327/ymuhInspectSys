@@ -1,4 +1,4 @@
-﻿@model InspectSystem.Models.InspectDocIdTable
+﻿@model InspectSystem.Models.DEquipment.DEInspectDoc
 
 <div>
     <h3 style="margin-top:0.5em">案件資訊</h3>
@@ -13,10 +13,24 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.InspectDocStatus.DocStatusDes)
+                @Html.DisplayNameFor(model => model.AreaId)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.InspectDocStatus.DocStatusDes)
+                @Html.DisplayFor(model => model.AreaName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CycleId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CycleName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ClassId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ClassName)
             </dd>
 
             <dt>
@@ -27,17 +41,17 @@
             </dd>
 
             <dt>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+
+            <dt>
                 @Html.DisplayNameFor(model => model.CloseDate)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.CloseDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AreaName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.AreaName)
             </dd>
 
         </dl>

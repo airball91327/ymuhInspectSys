@@ -154,13 +154,15 @@ namespace InspectSystem.Controllers
             {
                 return HttpNotFound();
             }
+            // Insert values to classVModel.
+            DEInspectClassVModel classVModel = new DEInspectClassVModel(); ;
+            classVModel.DocId = DEInspectDoc.DocId;
+            classVModel.AreaId = DEInspectDoc.AreaId;
+            classVModel.CycleId = DEInspectDoc.CycleId;
+            classVModel.ClassId = DEInspectDoc.ClassId;
             //
-            var docDetails = db.DEInspectDocDetail.Where(d => d.DocId == DEInspectDoc.DocId).ToList();
-            if (docDetails.Count() > 0)
-            {
-                ViewBag.AreaName = docDetails.First().AreaName;
-            }
-            return View(docDetails);
+            ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單預覽";
+            return View(classVModel);
         }
 
         // GET: DEInspectDoc/Details/5
