@@ -44,7 +44,7 @@ namespace InspectSystem.Controllers
         // GET: InspectDocFlow/NextFlow
         public ActionResult NextFlow(string docId)
         {
-            Assign assign = new Assign();
+            DEAssign assign = new DEAssign();
             assign.DocId = docId;
             assign.CanClose = true;
             List<SelectListItem> listItem = new List<SelectListItem>();
@@ -53,7 +53,8 @@ namespace InspectSystem.Controllers
             listItem.Add(new SelectListItem { Text = "工務組長", Value = "工務組長" });
             listItem.Add(new SelectListItem { Text = "單位主管", Value = "單位主管" });
             //
-            InspectDocFlow flow = db.InspectDocFlow.Where(f => f.DocId == docId && f.FlowStatusId == "?").FirstOrDefault();
+            DEInspectDocFlow flow = db.DEInspectDocFlow.Where(f => f.DocId == docId)
+                                                       .Where(f => f.FlowStatusId == "?" || f.FlowStatusId == "0").FirstOrDefault();
             if (flow != null)
             {
                 assign.ClsNow = flow.Cls;

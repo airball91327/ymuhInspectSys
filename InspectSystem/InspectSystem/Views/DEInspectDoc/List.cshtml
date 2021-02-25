@@ -74,7 +74,7 @@ else
                 <td>
                     @if (item.FlowStatusId == "0") //巡檢中
                     {
-                        @Html.ActionLink("巡檢中編輯按鈕", "Edit", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("巡檢中編輯按鈕", "EditTemp", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
                     }
                     else if (item.FlowStatusId == "?") //待處理
                     {

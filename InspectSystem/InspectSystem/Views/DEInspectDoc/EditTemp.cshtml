@@ -30,7 +30,7 @@
 
     <div class="tab-content">
         <div id="docDetail" class="container tab-pane fade show active">
-            @Html.Action("Edit", "DEInspectDocDetail", new { docId = Model.DocId })
+            @*@Html.Action("Edit", "DEInspectDocDetailTemp", new { docId = Model.DocId })*@
         </div>
         <div id="inspectDoc" class="container tab-pane fade">
             @Html.Action("Details", "DEInspectDoc", new { id = Model.DocId })

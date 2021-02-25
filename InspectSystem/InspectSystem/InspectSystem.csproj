@@ -2718,6 +2718,7 @@
     <Content Include="Views\DEInspectDocDetail\Views.cshtml" />
     <Content Include="Views\DEInspectDocFlow\FlowList.cshtml" />
     <Content Include="Views\DEInspectDocFlow\NextFlow.cshtml" />
+    <Content Include="Views\DEInspectDoc\EditTemp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

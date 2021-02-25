@@ -161,7 +161,7 @@ namespace InspectSystem.Controllers
             classVModel.CycleId = DEInspectDoc.CycleId;
             classVModel.ClassId = DEInspectDoc.ClassId;
             //
-            ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單預覽";
+            ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單";
             return View(classVModel);
         }
 
@@ -326,6 +326,75 @@ namespace InspectSystem.Controllers
             };
         }
 
+        // GET: DEInspectDoc/EditTemp/5
+        public async Task<ActionResult> EditTemp(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DEInspectDoc DEInspectDoc = await db.DEInspectDoc.FindAsync(id);
+            if (DEInspectDoc == null)
+            {
+                return HttpNotFound();
+            }
+            //
+            var docDetailTemps = db.DEInspectDocDetailTemp.Where(d => d.DocId == id).ToList();
+            // Get class error fields.
+            var classErrors = docDetailTemps.Where(d => d.IsFunctional == "N").ToList();
+            // Insert values to classVModel.
+            DEInspectClassVModel classVModel = new DEInspectClassVModel(); ;
+            classVModel.DocId = DEInspectDoc.DocId;
+            classVModel.AreaId = DEInspectDoc.AreaId;
+            classVModel.CycleId = DEInspectDoc.CycleId;
+            classVModel.ClassId = DEInspectDoc.ClassId;
+            classVModel.CountErrors = classErrors.Count();
+            /* Check all the required fields. */
+            if (docDetailTemps.Count() > 0)
+            {
+                bool isDataCompleted = true;
+                foreach (var tempItem in docDetailTemps)
+                {
+                    // If required field has no data or isFunctional didn't selected, set isDataCompleted to false.
+                    if (tempItem.IsRequired == true && tempItem.DataType != "boolean" && tempItem.Value == null)
+                    {
+                        isDataCompleted = false;
+                        break;
+                    }
+                    else if (tempItem.IsRequired == true && tempItem.DataType == "checkbox" && tempItem.Value == "false")
+                    {
+                        isDataCompleted = false;
+                        break;
+                    }
+                    else if (tempItem.DataType == "boolean" && tempItem.IsFunctional == null)
+                    {
+                        isDataCompleted = false;
+                        break;
+                    }
+                }
+                if (isDataCompleted == true)
+                {
+                    classVModel.IsSaved = true;
+                }
+            }
+            else
+            {
+                classVModel.IsSaved = false;
+            }
+            //
+            if (classVModel.IsSaved == true)
+            {
+                ViewBag.AllSaved = "true";
+            }
+            else
+            {
+                ViewBag.AllSaved = "false";
+            }
+            //
+            ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單";
+            return View(classVModel);
+        }
+
         // GET: DEInspectDoc/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
@@ -338,23 +407,15 @@ namespace InspectSystem.Controllers
             {
                 return HttpNotFound();
             }
+            // Insert values to classVModel.
+            DEInspectClassVModel classVModel = new DEInspectClassVModel(); ;
+            classVModel.DocId = DEInspectDoc.DocId;
+            classVModel.AreaId = DEInspectDoc.AreaId;
+            classVModel.CycleId = DEInspectDoc.CycleId;
+            classVModel.ClassId = DEInspectDoc.ClassId;
             //
-            List<InspectDocDetail> dtlShifts = new List<InspectDocDetail>();
-            var docDetails = db.InspectDocDetail.Where(d => d.DocId == DEInspectDoc.DocId).ToList();
-            if (docDetails.Count() > 0)
-            {
-                var docDetailShifts = docDetails.GroupBy(t => t.ShiftId).Select(g => g.FirstOrDefault())
-                                .OrderBy(d => d.ShiftId).ToList();
-                ViewBag.AreaName = docDetails.First().AreaName;
-                dtlShifts = docDetailShifts;
-            }
-            //
-            var notes = new InspectDocController().GetDocNotes(id);
-            if (notes != null)
-            {
-                ViewBag.Notes = notes;
-            }
-            return View(dtlShifts);
+            ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單";
+            return View(classVModel);
         }
 
         /// <summary>
