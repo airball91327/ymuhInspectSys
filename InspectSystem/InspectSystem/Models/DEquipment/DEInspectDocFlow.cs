@@ -34,6 +34,6 @@ namespace InspectSystem.Models.DEquipment
         [Display(Name = "關卡")]
         public string Cls { get; set; }
 
-        public virtual InspectFlowStatus InspectFlowStatus { get; set; }
+        public virtual DEInspectFlowStatus DEInspectFlowStatus { get; set; }
     }
 }

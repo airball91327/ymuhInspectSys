@@ -289,6 +289,7 @@
     <Compile Include="Models\BMEDcontext.cs" />
     <Compile Include="Models\DB_GEN_STAFF_PW.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DEquipment\DEAssignVModel.cs" />
     <Compile Include="Models\DEquipment\DEInspectArea.cs" />
     <Compile Include="Models\DEquipment\DEInspectClass.cs" />
     <Compile Include="Models\DEquipment\DEInspectDocDetail.cs" />
@@ -2715,6 +2716,8 @@
     <Content Include="Views\DEInspectDoc\List.cshtml" />
     <Content Include="Views\DEInspectDoc\Views.cshtml" />
     <Content Include="Views\DEInspectDocDetail\Views.cshtml" />
+    <Content Include="Views\DEInspectDocFlow\FlowList.cshtml" />
+    <Content Include="Views\DEInspectDocFlow\NextFlow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2724,7 +2727,6 @@
     <Folder Include="Areas\DEquipment\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\DEInspectDocDetailTemp\" />
-    <Folder Include="Views\DEInspectDocFlow\" />
     <Folder Include="Views\InspectReport\" />
     <Folder Include="Views\Validations\" />
   </ItemGroup>

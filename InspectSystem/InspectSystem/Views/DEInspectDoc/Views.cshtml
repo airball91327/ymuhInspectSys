@@ -15,7 +15,7 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#docDetail" id="docDetailTab">表單內容</a>
+            <a class="nav-link active" data-toggle="tab" href="#docDetail" id="docDetailTab">表單內容</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#inspectDoc" id="inspectDocTab">案件資訊</a>
@@ -26,14 +26,14 @@
     </ul>
 
     <div class="tab-content">
-        <div id="docDetail" class="container tab-pane fade">
+        <div id="docDetail" class="container tab-pane fade show active">
             @Html.Action("Views", "DEInspectDocDetail", new { docId = Model.DocId })
         </div>
         <div id="inspectDoc" class="container tab-pane fade">
             @Html.Action("Details", "DEInspectDoc", new { id = Model.DocId })
         </div>
         <div id="flowList" class="container tab-pane fade">
-            @*@Html.Action("FlowList", "DEInspectDocFlow", new { docId = Model.DocId })*@
+            @Html.Action("FlowList", "DEInspectDocFlow", new { docId = Model.DocId })
         </div>
     </div>
 </div>

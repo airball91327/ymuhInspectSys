@@ -1,0 +1,104 @@
+﻿@model InspectSystem.Models.DEquipment.DEAssign
+
+<script src="~/Scripts/DEInspect/InspectNextFlow.js"></script>
+
+<h3 style="margin-top:0.5em">簽核作業</h3>
+<hr />
+
+@using (Ajax.BeginForm("NextFlow", "DEInspectDocFlow", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnBegin = "$.Toast.showToast({ 'title': '處理中，請稍待...', 'icon': 'loading', 'duration': 0 })",
+    OnSuccess = "showflowmsg"
+}, new { id = "nextFlowForm" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.DocId)
+    @Html.HiddenFor(model => model.ClsNow)
+
+    <div class="form-horizontal">
+
+        <div class="form-group form-inline">
+            @Html.LabelFor(model => model.AssignCls, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.AssignCls, "同意")同意
+                @Html.RadioButtonFor(model => model.AssignCls, "不同意")不同意
+                @Html.RadioButtonFor(model => model.AssignCls, "其他")其他
+                @Html.ValidationMessageFor(model => model.AssignCls, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            @Html.LabelFor(model => model.AssignOpn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.AssignOpn, 5, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AssignOpn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            @Html.LabelFor(model => model.FlowCls, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="form-inline">
+                    @Html.DropDownListFor(model => model.FlowCls, null, "請選擇", new { @class = "form-control col-sm-3" })
+                    @Html.ValidationMessageFor(model => model.FlowCls, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            @Html.LabelFor(model => model.FlowUid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 text-left">
+                <div class="form-inline">
+                    @Html.DropDownListFor(model => model.FlowUid, null, "請選擇", new { @class = "form-control col-sm-3" })
+                    <input id="btnSelUsr" type="button" value="..." class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSELUSER" />
+                    @Html.ValidationMessageFor(model => model.FlowUid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <div class="offset-md-2 col-md-10">
+                <input type="submit" value="確定送出" class="btn btn-success" />
+                <img id="imgLOADING" src="~/Content/Images/opc-ajax-loader.gif" style="display: none" />
+            </div>
+        </div>
+    </div>
+}
+
+<!-- 人員選擇 Modal -->
+<div id="modalSELUSER" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">選擇人員</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("SelectUser", "AppUsers", new { Area = "" })
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    function showflowmsg(data) {
+        var url = '@Url.Action("Index", "Home", new { Area = "" })';
+        if (data.success !== null) {
+            if (!data.success) {
+                alert(data.error);
+                $.Toast.hideToast();
+            }
+            else {
+                alert("巡檢單已送出!! [關閉後頁面回到首頁]");
+                location.replace(url);
+            }
+
+        }
+    }
+</script>
