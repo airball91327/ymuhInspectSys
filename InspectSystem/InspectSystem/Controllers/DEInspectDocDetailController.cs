@@ -57,17 +57,17 @@ namespace InspectSystem.Controllers
         /// Check the field input value is in the set range or not.
         /// </summary>
         /// <param name="docId"></param>
-        /// <param name="shiftId"></param>
+        /// <param name="cycleId"></param>
         /// <param name="classId"></param>
         /// <param name="itemId"></param>
         /// <param name="fieldId"></param>
         /// <param name="value"></param>
         /// <returns>string of the html to display the message.</returns>
         //GET: DEInspectDocDetail/CheckValue
-        public ActionResult CheckValue(string docId, int shiftId, int classId, int itemId, int fieldId, string value)
+        public ActionResult CheckValue(string docId, int cycleId, int classId, int itemId, int fieldId, string value)
         {
             /* Get the min and max value for the check field. */
-            var searchField = db.InspectDocDetailTemp.Find(docId, shiftId, classId, itemId, fieldId);
+            var searchField = db.InspectDocDetailTemp.Find(docId, cycleId, classId, itemId, fieldId);
             var fieldDataType = searchField.DataType;
             float maxValue = System.Convert.ToSingle(searchField.MaxValue);
             float minValue = System.Convert.ToSingle(searchField.MinValue);

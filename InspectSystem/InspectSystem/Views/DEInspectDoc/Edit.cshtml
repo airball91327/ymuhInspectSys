@@ -13,32 +13,24 @@
         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#precautionModal">注意事項</button>
     </h3>
 
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#docDetail" id="docDetailTab">表單內容</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#inspectDoc" id="inspectDocTab">案件資訊</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#flowList" id="flowListTab">流程資訊</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#nextflow" id="nextFlowTab">簽核作業</a>
-        </li>
-    </ul>
+    <div id="tab" class="btn-group" data-toggle="buttons-radio">
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#docDetail" id="docDetailTab">表單內容</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectDoc" id="inspectDocTab">案件資訊</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#flowList" id="flowListTab">流程資訊</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#nextflow" id="btnNextFlow">簽核作業</button>
+    </div>
 
-    <div class="tab-content">
-        <div id="docDetail" class="container tab-pane fade show active">
+    <div class="tab-content card">
+        <div id="docDetail" class="tab-pane fade show active">
             @Html.Action("Edit", "DEInspectDocDetail", new { docId = Model.DocId })
         </div>
-        <div id="inspectDoc" class="container tab-pane fade">
+        <div id="inspectDoc" class="tab-pane fade">
             @Html.Action("Details", "DEInspectDoc", new { id = Model.DocId })
         </div>
-        <div id="flowList" class="container tab-pane fade">
+        <div id="flowList" class="tab-pane fade">
             @Html.Action("FlowList", "DEInspectDocFlow", new { docId = Model.DocId })
         </div>
-        <div id="nextflow" class="container tab-pane fade">
+        <div id="nextflow" class="tab-pane fade">
             @Html.Action("NextFlow", "DEInspectDocFlow", new { docId = Model.DocId })
         </div>
     </div>
@@ -67,3 +59,23 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+
+    <script type="text/javascript">
+        function showmsg(data) {
+            if (data.success == null) {
+                // search success.
+                $.Toast.hideToast();
+            }
+            else {
+                if (data.success === false) {
+                    alert(data.error);
+                    $.Toast.hideToast();
+                }
+            }
+        }
+    </script>
+}

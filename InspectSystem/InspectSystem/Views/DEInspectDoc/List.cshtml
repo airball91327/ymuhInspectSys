@@ -37,9 +37,6 @@ else
                 @Html.DisplayNameFor(model => model.FirstOrDefault().EngName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().EndTime)
-            </th>
-            <th>
                 功能
             </th>
         </tr>
@@ -56,7 +53,7 @@ else
                 <td>
                     @Html.DisplayFor(modelItem => item.CycleName)
                 </td>
-                <td>
+                <td style="max-width:230px;">
                     @Html.DisplayFor(modelItem => item.ClassName)
                 </td>
                 <td>
@@ -69,16 +66,17 @@ else
                     @Html.DisplayFor(modelItem => item.EngName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndTime)
-                </td>
-                <td>
-                    @if (item.FlowStatusId == "0") //巡檢中
+                    @if (item.FlowStatusId == "0" && item.flow.UserId == WebSecurity.CurrentUserId) //巡檢中
                     {
                         @Html.ActionLink("巡檢中編輯按鈕", "EditTemp", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
                     }
-                    else if (item.FlowStatusId == "?") //待處理
+                    else if (item.FlowStatusId == "?" && item.flow.UserId == WebSecurity.CurrentUserId && item.Cls.Contains("工程師")) //關卡為巡檢工程師
                     {
-                        @Html.ActionLink("編輯", "Edit", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("工程師編輯按鈕", "Edit", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                    }
+                    else if (item.FlowStatusId == "?" && item.flow.UserId == WebSecurity.CurrentUserId)
+                    {
+                        @Html.ActionLink("編輯", "Edit2", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary" })
                     }
                     @Html.ActionLink("預覽", "Views", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary", target = "_blank" })
                 </td>

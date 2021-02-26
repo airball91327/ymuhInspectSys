@@ -133,6 +133,7 @@ namespace InspectSystem.Controllers
                 docVModel.UserId = item.flow.UserId;
                 docVModel.UserName = item.clsUser.UserName;
                 docVModel.UserFullName = item.clsUser.FullName;
+                docVModel.flow = item.flow;
                 returnList.Add(docVModel);
             }
             var pageCount = returnList.ToPagedList(page, pageSize).PageCount;
@@ -395,8 +396,41 @@ namespace InspectSystem.Controllers
             return View(classVModel);
         }
 
+        /// <summary>
+        /// 工程師的編輯畫面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: DEInspectDoc/Edit/5
         public async Task<ActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DEInspectDoc DEInspectDoc = await db.DEInspectDoc.FindAsync(id);
+            if (DEInspectDoc == null)
+            {
+                return HttpNotFound();
+            }
+            // Insert values to classVModel.
+            DEInspectClassVModel classVModel = new DEInspectClassVModel(); ;
+            classVModel.DocId = DEInspectDoc.DocId;
+            classVModel.AreaId = DEInspectDoc.AreaId;
+            classVModel.CycleId = DEInspectDoc.CycleId;
+            classVModel.ClassId = DEInspectDoc.ClassId;
+            //
+            ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單";
+            return View(classVModel);
+        }
+
+        /// <summary>
+        /// 非工程師的編輯畫面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        // GET: DEInspectDoc/Edit2/5
+        public async Task<ActionResult> Edit2(string id)
         {
             if (id == null)
             {

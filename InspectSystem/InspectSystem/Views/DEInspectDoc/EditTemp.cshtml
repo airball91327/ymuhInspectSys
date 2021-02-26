@@ -4,8 +4,10 @@
     ViewBag.Title = "編輯";
 }
 
-<script src="~/Scripts/ScrollToTop.js"></script>
 <link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
+<link rel="stylesheet" type="text/css" href="~/Font-awesome-5.14.0/css/all.min.css">
+<script src="~/Font-awesome-5.14.0/js/all.min.js"></script>
+<script src="~/Scripts/ScrollToTop.js"></script>
 
 <div class="container">
     <h3>
@@ -14,7 +16,13 @@
     </h3>
 
     <div id="tab" class="btn-group" data-toggle="buttons-radio">
-        <button class="btn btn-large btn-info" data-toggle="tab" href="#docDetail" id="docDetailTab">表單內容</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#docDetail" id="docDetailTab">
+            @if (Model.IsSaved == true)
+            {
+                <span class="far fa-check-circle"></span>
+            }
+            表單內容
+        </button>
         <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectDoc" id="inspectDocTab">案件資訊</button>
         <button class="btn btn-large btn-info" data-toggle="tab" href="#flowList" id="flowListTab">流程資訊</button>
         <button class="btn btn-large btn-info" data-toggle="tab" href="#nextflow" id="btnNextFlow" value="@ViewBag.AllSaved">簽核作業</button>

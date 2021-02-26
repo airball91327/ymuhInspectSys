@@ -16,7 +16,7 @@ $(document).ready(function () {
         for (var i = parseInt(id); i < countFields; i++) {
             if (ItemId == document.getElementById("DEInspectDocDetailTemp[" + i + "].ItemId").value) {
                 var radios = document.getElementsByName("DEInspectDocDetailTemp[" + i + "].IsFunctional");
-                var targetId = "InspectDocDetailTemp[" + i + "].ErrorDescription";
+                var targetId = "DEInspectDocDetailTemp[" + i + "].ErrorDescription";
                 if (radios.length == 2) {
                     break;
                 }

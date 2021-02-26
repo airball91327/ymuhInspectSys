@@ -92,7 +92,7 @@
                         if (item.ItemId == fieldItem.ItemId)
                         {
 
-                            foreach (var docItem in Model.InspectDocDetail.Where(d => d.ClassId == fieldItem.ClassId))
+                            foreach (var docItem in Model.InspectDocDetail)
                             {
                                 /* Display textbox or checkbox for all fields. */
                                 if (docItem.ItemId == item.ItemId && docItem.FieldId == fieldItem.FieldId)
@@ -100,13 +100,13 @@
                                     if (fieldItem.DataType == "boolean")
                                     {
                                         <div class="col">
-                                            @if (docItem.IsFunctional == "Y")
+                                            @if (docItem.IsFunctional == "不合格")
                                             {
-                                                <p style="font-weight: bold">正常</p>
+                                                <p style="color: red;font-weight: bold">不合格</p>
                                             }
-                                            else if (docItem.IsFunctional == "N")
+                                            else
                                             {
-                                                <p style="color: red;font-weight: bold">不正常</p>
+                                                <p style="font-weight: bold">@Html.Raw(docItem.IsFunctional)</p>
                                             }
                                         </div>
                                         <div class="w-100"></div>

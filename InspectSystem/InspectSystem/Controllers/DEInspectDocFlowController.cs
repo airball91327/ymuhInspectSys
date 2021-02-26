@@ -91,6 +91,59 @@ namespace InspectSystem.Controllers
                 }
                 DEInspectDocFlow df = db.DEInspectDocFlow.Where(f => f.DocId == assign.DocId)
                                                          .Where(f => f.FlowStatusId == "?" || f.FlowStatusId == "0").FirstOrDefault();
+                //複製檔案至DocDetail table
+                if (df.FlowStatusId == "0")
+                {
+                    List<DEInspectDocDetail> inspectDocDetails = new List<DEInspectDocDetail>();
+                    var docDetailTemp = db.DEInspectDocDetailTemp.Where(d => d.DocId == assign.DocId);
+                    foreach (var item in docDetailTemp)
+                    {
+                        inspectDocDetails.Add(new DEInspectDocDetail()
+                        {
+                            DocId = item.DocId,
+                            AreaId = item.AreaId,
+                            AreaName = item.AreaName,
+                            CycleId = item.CycleId,
+                            CycleName = item.CycleName,
+                            ClassId = item.ClassId,
+                            ClassName = item.ClassName,
+                            ClassOrder = item.ClassOrder,
+                            ItemId = item.ItemId,
+                            ItemName = item.ItemName,
+                            ItemOrder = item.ItemOrder,
+                            FieldId = item.FieldId,
+                            FieldName = item.FieldName,
+                            DataType = item.DataType,
+                            UnitOfData = item.UnitOfData,
+                            MinValue = item.MinValue,
+                            MaxValue = item.MaxValue,
+                            IsRequired = item.IsRequired,
+                            Value = item.Value,
+                            IsFunctional = item.IsFunctional,
+                            ErrorDescription = item.ErrorDescription,
+                            RepairDocId = item.RepairDocId,
+                            DropDownItems = item.DropDownItems
+                        });
+                    }
+                    try
+                    {
+                        db.DEInspectDocDetail.AddRange(inspectDocDetails);
+                        db.SaveChanges();
+                        // Edit InspectDoc, update EndTime
+                        var inspectDoc = db.DEInspectDoc.Find(assign.DocId);
+                        inspectDoc.EndTime = DateTime.Now;
+                        db.Entry(inspectDoc).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        return new JsonResult
+                        {
+                            Data = new { success = false, error = e.Message },
+                            JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                        };
+                    }
+                }
                 if (assign.FlowCls == "結案")
                 {
                     var inspectDocs = db.DEInspectDoc.Find(assign.DocId);
