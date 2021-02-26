@@ -2719,6 +2719,7 @@
     <Content Include="Views\DEInspectDocFlow\FlowList.cshtml" />
     <Content Include="Views\DEInspectDocFlow\NextFlow.cshtml" />
     <Content Include="Views\DEInspectDoc\EditTemp.cshtml" />
+    <Content Include="Views\DEInspectDocDetailTemp\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2727,7 +2728,6 @@
     <Folder Include="Areas\DEquipment\Data\" />
     <Folder Include="Areas\DEquipment\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\DEInspectDocDetailTemp\" />
     <Folder Include="Views\InspectReport\" />
     <Folder Include="Views\Validations\" />
   </ItemGroup>
