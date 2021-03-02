@@ -28,26 +28,19 @@ namespace InspectSystem.Controllers
             var docDetailTemp = db.DEInspectDocDetailTemp.Where(t => t.DocId == docId).ToList();
             var inspectDoc = db.DEInspectDoc.Find(docId);
             //
-            var areaId = inspectDoc.AreaId;
-            var cycleId = inspectDoc.CycleId;
-            var classId = inspectDoc.ClassId;
-            // Get items and fields. 
-            var items = db.DEInspectItem.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                        .Where(i => i.ItemStatus == true)
-                                        .OrderBy(i => i.ItemOrder).ToList();
-            var fields = db.DEInspectField.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                          .Where(i => i.FieldStatus == true)
-                                          .ToList();
-            var dropdowns = db.DEInspectFieldDropDown.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                                     .ToList();
-            ViewBag.ClassName = db.DEInspectClass.Find(areaId, cycleId, classId).ClassName;
-            //
+            if (docDetailTemp.Count() > 0)
+            {
+                ViewBag.ClassName = docDetailTemp.First().ClassName;
+                // Get items and fields from DocDetailTemp list. 
+                ViewData["itemsOfDocDetailTemps"] = docDetailTemp.GroupBy(i => i.ItemId)
+                                                                 .Select(g => g.FirstOrDefault())
+                                                                 .OrderBy(s => s.ItemOrder).ToList();
+                ViewData["fieldsOfDocDetailTemps"] = docDetailTemp.ToList();
+            }
+
             DEInspectDocDetailVModel inspectDocDetailViewModel = new DEInspectDocDetailVModel()
             {
-                InspectDocDetailTemp = docDetailTemp,
-                InspectItems = items,
-                InspectFields = fields,
-                InspectFieldDropDowns = dropdowns
+                InspectDocDetailTemp = docDetailTemp
             };
 
             return PartialView(inspectDocDetailViewModel);
@@ -59,26 +52,19 @@ namespace InspectSystem.Controllers
             var docDetailTemp = db.DEInspectDocDetailTemp.Where(t => t.DocId == docId).ToList();
             var inspectDoc = db.DEInspectDoc.Find(docId);
             //
-            var areaId = inspectDoc.AreaId;
-            var cycleId = inspectDoc.CycleId;
-            var classId = inspectDoc.ClassId;
-            // Get items and fields. 
-            var items = db.DEInspectItem.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                        .Where(i => i.ItemStatus == true)
-                                        .OrderBy(i => i.ItemOrder).ToList();
-            var fields = db.DEInspectField.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                          .Where(i => i.FieldStatus == true)
-                                          .ToList();
-            var dropdowns = db.DEInspectFieldDropDown.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                                     .ToList();
-            ViewBag.ClassName = db.DEInspectClass.Find(areaId, cycleId, classId).ClassName;
-            //
+            if (docDetailTemp.Count() > 0)
+            {
+                ViewBag.ClassName = docDetailTemp.First().ClassName;
+                // Get items and fields from DocDetailTemp list. 
+                ViewData["itemsOfDocDetailTemps"] = docDetailTemp.GroupBy(i => i.ItemId)
+                                                                 .Select(g => g.FirstOrDefault())
+                                                                 .OrderBy(s => s.ItemOrder).ToList();
+                ViewData["fieldsOfDocDetailTemps"] = docDetailTemp.ToList();
+            }
+
             DEInspectDocDetailVModel inspectDocDetailViewModel = new DEInspectDocDetailVModel()
             {
-                InspectDocDetailTemp = docDetailTemp,
-                InspectItems = items,
-                InspectFields = fields,
-                InspectFieldDropDowns = dropdowns
+                InspectDocDetailTemp = docDetailTemp
             };
 
             return PartialView(inspectDocDetailViewModel);

@@ -28,29 +28,76 @@ namespace InspectSystem.Controllers
             var docDetail = db.DEInspectDocDetail.Where(t => t.DocId == docId).ToList();
             var inspectDoc = db.DEInspectDoc.Find(docId);
             //
-            var areaId = inspectDoc.AreaId;
-            var cycleId = inspectDoc.CycleId;
-            var classId = inspectDoc.ClassId;
-            // Get items and fields. 
-            var items = db.DEInspectItem.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                        .Where(i => i.ItemStatus == true)
-                                        .OrderBy(i => i.ItemOrder).ToList();
-            var fields = db.DEInspectField.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                          .Where(i => i.FieldStatus == true)
-                                          .ToList();
-            var dropdowns = db.DEInspectFieldDropDown.Where(i => i.AreaId == areaId && i.CycleId == cycleId && i.ClassId == classId)
-                                                     .ToList();
-            ViewBag.ClassName = db.DEInspectClass.Find(areaId, cycleId, classId).ClassName;
-            //
+            if (docDetail.Count() > 0)
+            {
+                ViewBag.ClassName = docDetail.First().ClassName;
+                // Get items and fields from DocDetailTemp list. 
+                ViewData["itemsOfDocDetail"] = docDetail.GroupBy(i => i.ItemId)
+                                                                 .Select(g => g.FirstOrDefault())
+                                                                 .OrderBy(s => s.ItemOrder).ToList();
+                ViewData["fieldsOfDocDetail"] = docDetail.ToList();
+            }
+
             DEInspectDocDetailVModel inspectDocDetailViewModel = new DEInspectDocDetailVModel()
             {
-                InspectDocDetail = docDetail,
-                InspectItems = items,
-                InspectFields = fields,
-                InspectFieldDropDowns = dropdowns
+                InspectDocDetail = docDetail
             };
 
             return PartialView(inspectDocDetailViewModel);
+        }
+
+        // Get: DEInspectDocDetail/Edit/5
+        public ActionResult Edit(string docId)
+        {
+            var docDetail = db.DEInspectDocDetail.Where(t => t.DocId == docId).ToList();
+            var inspectDoc = db.DEInspectDoc.Find(docId);
+            //
+            if (docDetail.Count() > 0)
+            {
+                ViewBag.ClassName = docDetail.First().ClassName;
+                // Get items and fields from DocDetailTemp list. 
+                ViewData["itemsOfDocDetail"] = docDetail.GroupBy(i => i.ItemId)
+                                                                 .Select(g => g.FirstOrDefault())
+                                                                 .OrderBy(s => s.ItemOrder).ToList();
+                ViewData["fieldsOfDocDetail"] = docDetail.ToList();
+            }
+
+            DEInspectDocDetailVModel inspectDocDetailViewModel = new DEInspectDocDetailVModel()
+            {
+                InspectDocDetail = docDetail
+            };
+
+            return PartialView(inspectDocDetailViewModel);
+        }
+
+        // POST: DEInspectDocDetail/Save
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(List<DEInspectDocDetail> inspectDocDetail)
+        {
+            try
+            {
+                foreach (var item in inspectDocDetail)
+                {
+                    db.Entry(item).State = EntityState.Modified;
+                }
+                db.SaveChanges();
+
+                return new JsonResult
+                {
+                    Data = new { success = true, error = "" },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+
+            }
+            catch (Exception e)
+            {
+                return new JsonResult
+                {
+                    Data = new { success = false, error = "暫存失敗!" },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
         }
 
         /// <summary>
