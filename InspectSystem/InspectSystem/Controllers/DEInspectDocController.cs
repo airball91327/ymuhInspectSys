@@ -24,7 +24,7 @@ namespace InspectSystem.Controllers
         // GET: DEInspectDoc
         public async Task<ActionResult> Index()
         {
-            // Get cycle list.
+            // Get area list.
             var inspectAreas = db.DEInspectArea.ToList();
             List<SelectListItem> listItem = new List<SelectListItem>();
             listItem.Add(new SelectListItem() { Value = "", Text = "所有" });
@@ -50,6 +50,12 @@ namespace InspectSystem.Controllers
                 });
             }
             ViewData["CycleId"] = new SelectList(listItem2, "Value", "Text");
+            // Set FlowStatus list.
+            List<SelectListItem> listItem3 = new List<SelectListItem>();
+            listItem3.Add(new SelectListItem() { Value = "待處理", Text = "待處理" });
+            listItem3.Add(new SelectListItem() { Value = "已處理", Text = "已處理" });
+            listItem3.Add(new SelectListItem() { Value = "已結案", Text = "已結案" });
+            ViewData["FlowStatus"] = new SelectList(listItem3, "Value", "Text", "待處理");
             //
             return View();
         }
@@ -62,11 +68,38 @@ namespace InspectSystem.Controllers
             string areaid = qry.AreaId;
             string cycleid = qry.CycleId;
             string classid = qry.ClassId;
+            string flowStatus = qry.FlowStatus;
 
             var inspectFlows = db.DEInspectDocFlow.AsQueryable();
             // Get user's docs.
-            inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" || df.FlowStatusId == "0")
-                                       .Where(df => df.UserId == WebSecurity.CurrentUserId);
+            if (!string.IsNullOrEmpty(flowStatus))
+            {
+                switch (flowStatus)
+                {
+                    case "待處理":
+                        inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" || df.FlowStatusId == "0")
+                                                   .Where(df => df.UserId == WebSecurity.CurrentUserId);
+                        break;
+                    case "已處理":
+                        inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" || df.FlowStatusId == "0")
+                                                   .Where(df => df.UserId != WebSecurity.CurrentUserId)
+                                                   .Join(db.DEInspectDocFlow.Where(df2 => df2.FlowStatusId == "1")
+                                                                            .Where(df2 => df2.UserId == WebSecurity.CurrentUserId)
+                                                                            .Select(df2 => df2.DocId).Distinct(), df => df.DocId, df2 => df2, (df, df2) => df);
+                        break;
+                    case "已結案":
+                        inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "2")
+                                                   .Join(db.DEInspectDocFlow.Where(df2 => df2.UserId == WebSecurity.CurrentUserId)
+                                                                            .Select(df2 => df2.DocId).Distinct(), df => df.DocId, df2 => df2, (df, df2) => df);
+                        break;
+                }
+            }
+            else
+            {
+                // Default search.
+                inspectFlows = inspectFlows.Where(df => df.FlowStatusId == "?" || df.FlowStatusId == "0")
+                                           .Where(df => df.UserId == WebSecurity.CurrentUserId);
+            }
             var qryResult = inspectFlows.Join(db.DEInspectDoc, f => f.DocId, d => d.DocId, 
                                         (f, d) => new 
                                         { 

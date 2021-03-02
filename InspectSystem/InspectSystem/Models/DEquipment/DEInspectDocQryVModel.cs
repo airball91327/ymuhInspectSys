@@ -16,6 +16,8 @@ namespace InspectSystem.Models.DEquipment
         public string CycleId { get; set; }
         [Display(Name = "類別")]
         public string ClassId { get; set; }
+        [Display(Name = "流程狀態")]
+        public string FlowStatus { get; set; }
         [Display(Name = "申請日期")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
