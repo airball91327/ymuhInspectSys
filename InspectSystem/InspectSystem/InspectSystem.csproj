@@ -2723,6 +2723,7 @@
     <Content Include="Views\DEInspectDoc\Edit2.cshtml" />
     <Content Include="Views\DEInspectDocDetail\Edit.cshtml" />
     <Content Include="Views\Search\DEInspectDocIndex.cshtml" />
+    <Content Include="Views\SearchDEDocDetail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

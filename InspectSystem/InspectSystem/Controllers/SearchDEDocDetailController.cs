@@ -26,162 +26,147 @@ namespace InspectSystem.Controllers
         }
 
         // POST: SearchDEDocDetail/GetData  
-        //[HttpPost]
-        //public JsonResult GetData(int? draw, int? start, int length,    //←此三個為DataTables自動傳遞參數
-        //                          FormCollection form)
-        //{
-        //    var qryStartDate = form["startDate"];
-        //    var qryEndDate = form["endDate"];
-        //    var qryAreaId = form["AreaId"];
-        //    var qryShiftId = form["ShiftId"];
-        //    var qryClassId = form["ClassId"];
-        //    var qryItemId = form["ItemId"];
-        //    var qryFieldId = form["FieldId"];
+        [HttpPost]
+        public JsonResult GetData(int? draw, int? start, int length,    //←此三個為DataTables自動傳遞參數
+                                  FormCollection form)
+        {
+            var qryStartDate = form["startDate"];
+            var qryEndDate = form["endDate"];
+            var qryAreaId = form["AreaId"];
+            var qryCycleId = form["CycleId"];
+            var qryClassId = form["ClassId"];
+            var qryItemId = form["ItemId"];
+            var qryFieldId = form["FieldId"];
 
-        //    DateTime applyDateFrom = DateTime.Now;
-        //    DateTime applyDateTo = DateTime.Now;
-        //    /* Dealing search by date. */
-        //    if (!string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))// If 2 date inputs have been insert, compare 2 dates.
-        //    {
-        //        DateTime date1 = DateTime.Parse(qryStartDate);
-        //        DateTime date2 = DateTime.Parse(qryEndDate);
-        //        int result = DateTime.Compare(date1, date2);
-        //        if (result < 0)
-        //        {
-        //            applyDateFrom = date1.Date;
-        //            applyDateTo = date2.Date;
-        //        }
-        //        else if (result == 0)
-        //        {
-        //            applyDateFrom = date1.Date;
-        //            applyDateTo = date1.Date;
-        //        }
-        //        else
-        //        {
-        //            applyDateFrom = date2.Date;
-        //            applyDateTo = date1.Date;
-        //        }
-        //    }
-        //    else if (string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))
-        //    {
-        //        applyDateFrom = DateTime.Parse(qryEndDate);
-        //        applyDateTo = DateTime.Parse(qryEndDate);
-        //    }
-        //    else if (!string.IsNullOrEmpty(qryStartDate) && string.IsNullOrEmpty(qryEndDate))
-        //    {
-        //        applyDateFrom = DateTime.Parse(qryStartDate);
-        //        applyDateTo = DateTime.Parse(qryStartDate);
-        //    }
+            DateTime applyDateFrom = DateTime.Now;
+            DateTime applyDateTo = DateTime.Now;
+            /* Dealing search by date. */
+            if (!string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))// If 2 date inputs have been insert, compare 2 dates.
+            {
+                DateTime date1 = DateTime.Parse(qryStartDate);
+                DateTime date2 = DateTime.Parse(qryEndDate);
+                int result = DateTime.Compare(date1, date2);
+                if (result < 0)
+                {
+                    applyDateFrom = date1.Date;
+                    applyDateTo = date2.Date;
+                }
+                else if (result == 0)
+                {
+                    applyDateFrom = date1.Date;
+                    applyDateTo = date1.Date;
+                }
+                else
+                {
+                    applyDateFrom = date2.Date;
+                    applyDateTo = date1.Date;
+                }
+            }
+            else if (string.IsNullOrEmpty(qryStartDate) && !string.IsNullOrEmpty(qryEndDate))
+            {
+                applyDateFrom = DateTime.Parse(qryEndDate);
+                applyDateTo = DateTime.Parse(qryEndDate);
+            }
+            else if (!string.IsNullOrEmpty(qryStartDate) && string.IsNullOrEmpty(qryEndDate))
+            {
+                applyDateFrom = DateTime.Parse(qryStartDate);
+                applyDateTo = DateTime.Parse(qryStartDate);
+            }
 
-        //    //查詢&排序後的總筆數
-        //    int recordsTotal = 0;
-        //    //jQuery DataTable的Column index
-        //    string col_index = form["order[0][column]"];
-        //    //排序資料行名稱
-        //    string sortColName = string.IsNullOrEmpty(col_index) ? "ApplyDate" : form[$@"columns[{col_index}][data]"];
-        //    //升冪或降冪
-        //    string asc_desc = string.IsNullOrEmpty(form["order[0][dir]"]) ? "asc" : form["order[0][dir]"];//防呆
+            //查詢&排序後的總筆數
+            int recordsTotal = 0;
+            //jQuery DataTable的Column index
+            string col_index = form["order[0][column]"];
+            //排序資料行名稱
+            string sortColName = string.IsNullOrEmpty(col_index) ? "ApplyDate" : form[$@"columns[{col_index}][data]"];
+            //升冪或降冪
+            string asc_desc = string.IsNullOrEmpty(form["order[0][dir]"]) ? "asc" : form["order[0][dir]"];//防呆
 
 
 
-        //    var searchList = db.InspectDocIdTable.Join(db.InspectDoc, dt => dt.DocId, d => d.DocId, 
-        //                    (dt, d) => new 
-        //                    { 
-        //                        docidtable = dt,
-        //                        doc = d
-        //                    })
-        //                    .Join(db.InspectDocDetail, d => new { docid = d.doc.DocId, shiftid = d.doc.ShiftId }, dtl => new { docid = dtl.DocId, shiftid = dtl.ShiftId },
-        //                    (d, dtl) => new
-        //                    {
-        //                        docidtable = d.docidtable,
-        //                        doc = d.doc,
-        //                        docdtl = dtl
-        //                    });
+            var searchList = db.DEInspectDoc.Join(db.DEInspectDocDetail, d => d.DocId, dtl => dtl.DocId,
+                            (d, dtl) => new
+                            {
+                                doc = d,
+                                docdtl = dtl
+                            });
 
-        //    /* 查詢日期 */
-        //    if (string.IsNullOrEmpty(qryStartDate) == false || string.IsNullOrEmpty(qryEndDate) == false)
-        //    {
-        //        searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo);
-        //    }
-        //    if (!string.IsNullOrEmpty(qryAreaId))  /* 查詢區域 */
-        //    {
-        //        var areaid = Convert.ToInt32(qryAreaId);
-        //        searchList = searchList.Where(r => r.docidtable.AreaId == areaid);
+            /* 查詢日期 */
+            if (string.IsNullOrEmpty(qryStartDate) == false || string.IsNullOrEmpty(qryEndDate) == false)
+            {
+                searchList = searchList.Where(v => v.doc.ApplyDate >= applyDateFrom && v.doc.ApplyDate <= applyDateTo);
+            }
+            if (!string.IsNullOrEmpty(qryAreaId))  /* 查詢區域 */
+            {
+                var areaid = Convert.ToInt32(qryAreaId);
+                searchList = searchList.Where(r => r.doc.AreaId == areaid);
+            }
+            if (!string.IsNullOrEmpty(qryCycleId) && qryCycleId != "0")  /* 查詢週期 */
+            {
+                var cycleid = Convert.ToInt32(qryCycleId);
+                searchList = searchList.Where(r => r.doc.CycleId == cycleid);
+            }
+            if (!string.IsNullOrEmpty(qryClassId) && qryClassId != "0")  /* 查詢類別 */
+            {
+                var classid = Convert.ToInt32(qryClassId);
+                searchList = searchList.Where(r => r.doc.ClassId == classid);
+            }
+            if (!string.IsNullOrEmpty(qryItemId) && qryItemId != "0")  /* 查詢項目 */
+            {
+                var itemid = Convert.ToInt32(qryItemId);
+                searchList = searchList.Where(r => r.docdtl.ItemId == itemid);
+            }
+            if (!string.IsNullOrEmpty(qryFieldId) && qryFieldId != "0")  /* 查詢欄位 */
+            {
+                var fieldid = Convert.ToInt32(qryFieldId);
+                searchList = searchList.Where(r => r.docdtl.FieldId == fieldid);
+            }
 
-        //        if (!string.IsNullOrEmpty(qryShiftId) && qryShiftId != "0")  /* 查詢班別 */
-        //        {
-        //            var shiftid = Convert.ToInt32(qryShiftId);
-        //            searchList = searchList.Where(r => r.docdtl.ShiftId == shiftid);
-        //        }
-        //        if (!string.IsNullOrEmpty(qryClassId) && qryClassId != "0")  /* 查詢類別 */
-        //        {
-        //            var classid = Convert.ToInt32(qryClassId);
-        //            searchList = searchList.Where(r => r.docdtl.ClassId == classid);
-        //        }
-        //        if (!string.IsNullOrEmpty(qryItemId) && qryItemId != "0")  /* 查詢項目 */
-        //        {
-        //            var itemid = Convert.ToInt32(qryItemId);
-        //            searchList = searchList.Where(r => r.docdtl.ItemId == itemid);
-        //        }
-        //        if (!string.IsNullOrEmpty(qryFieldId) && qryFieldId != "0")  /* 查詢欄位 */
-        //        {
-        //            var fieldid = Convert.ToInt32(qryFieldId);
-        //            searchList = searchList.Where(r => r.docdtl.FieldId == fieldid);
-        //        }
-        //    }         
+            /* 處理儲存正常或不正常的欄位，把Value拿來顯示是否正常. */
+            foreach (var item in searchList)
+            {
+                if (item.docdtl.DataType == "boolean")
+                {
+                    item.docdtl.Value = item.docdtl.IsFunctional;
+                }
+            }
 
-        //    /* 處理儲存正常或不正常的欄位，把Value拿來顯示是否正常. */
-        //    foreach (var item in searchList)
-        //    {
-        //        if (item.docdtl.DataType == "boolean")
-        //        {
-        //            if (item.docdtl.IsFunctional == "y")
-        //            {
-        //                item.docdtl.Value = "正常";
-        //            }
-        //            else
-        //            {
-        //                item.docdtl.Value = "不正常";
-        //            }
-        //        }
-        //    }
+            var resultList = searchList.ToList().Select(s => new 
+            {
+                ApplyDate = s.doc.ApplyDate.ToString("yyyy/MM/dd"),
+                AreaName = s.docdtl.AreaName,
+                CycleName = s.docdtl.CycleName,
+                ClassName = s.docdtl.ClassName,
+                ItemName = s.docdtl.ItemName,
+                FieldName = s.docdtl.FieldName,
+                Value = s.docdtl.Value,
+                UnitOfData = s.docdtl.UnitOfData,
+                DocId = s.docdtl.DocId,
+                AreaId = s.docdtl.AreaId
+            }).ToList();
 
-        //    var resultList = searchList.ToList().Select(s => new
-        //    {
-        //        ApplyDate = s.docidtable.ApplyDate.ToString("yyyy/MM/dd"),  
-        //        AreaName = s.docdtl.AreaName,
-        //        ShiftName = s.docdtl.ShiftName,
-        //        ClassName = s.docdtl.ClassName,
-        //        ItemName = s.docdtl.ItemName,                                     
-        //        FieldName = s.docdtl.FieldName,
-        //        Value = s.docdtl.Value,
-        //        UnitOfData = s.docdtl.UnitOfData,
-        //        DocId = s.docdtl.DocId,
-        //        AreaId = s.docdtl.AreaId
-        //    }).ToList();
+            // Deal DataTable sorting. 
+            resultList = resultList.AsEnumerable().OrderBy($@"{sortColName} {asc_desc}").ToList();
 
-        //    // Deal DataTable sorting. 
-        //    resultList = resultList.AsEnumerable().OrderBy($@"{sortColName} {asc_desc}").ToList();
+            recordsTotal = resultList.Count();//查詢後的總筆數
 
-        //    recordsTotal = resultList.Count();//查詢後的總筆數
+            // 分頁處理
+            if (length != -1) //-1為顯示所有資料
+            {
+                resultList = resultList.Skip(start ?? 0).Take(length).ToList();   //分頁後的資料 
+            }
 
-        //    // 分頁處理
-        //    if (length != -1) //-1為顯示所有資料
-        //    {
-        //        resultList = resultList.Skip(start ?? 0).Take(length).ToList();   //分頁後的資料 
-        //    }
-
-        //    //回傳Json資料
-        //    var returnObj =
-        //        new
-        //        {
-        //            draw = draw,
-        //            recordsTotal = recordsTotal,
-        //            recordsFiltered = recordsTotal,
-        //            data = resultList
-        //        };
-        //    return Json(returnObj, JsonRequestBehavior.AllowGet);
-        //}
+            //回傳Json資料
+            var returnObj =
+                new
+                {
+                    draw = draw,
+                    recordsTotal = recordsTotal,
+                    recordsFiltered = recordsTotal,
+                    data = resultList
+                };
+            return Json(returnObj, JsonRequestBehavior.AllowGet);
+        }
 
         // POST: SearchDEDocDetail/GetCycles
         [HttpPost]

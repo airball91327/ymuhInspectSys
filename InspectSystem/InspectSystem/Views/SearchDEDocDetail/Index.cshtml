@@ -1,11 +1,11 @@
-﻿@model IEnumerable<InspectSystem.Models.InspectDocDetail>
+﻿@model IEnumerable<InspectSystem.Models.DEquipment.DEInspectDocDetail>
 
 @{
     ViewBag.Title = "欄位數值搜尋";
 }
 
 <h2>
-    <b>欄位數值搜尋 - 一般巡檢</b>
+    <b>欄位數值搜尋 - 危險性設備</b>
 </h2>
 
 <div class="card">
@@ -22,10 +22,10 @@
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label class="control-label col-md-auto">班別:</label>
+                        <label class="control-label col-md-auto">週期:</label>
                         <div class="col-md-auto">
-                            <select class="form-control" id="shiftId" name="ShiftId" required>
-                                <option disabled selected>請先選擇區域及班別</option>
+                            <select class="form-control" id="cycleId" name="CycleId" required>
+                                <option disabled selected>所有</option>
                             </select>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                         <label class="control-label col-md-auto">類別:</label>
                         <div class="col-md-auto">
                             <select class="form-control" id="classId" name="ClassId" required>
-                                <option disabled selected>請先選擇區域及班別</option>
+                                <option disabled selected>所有</option>
                             </select>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <label class="control-label col-md-auto">項目:</label>
                         <div class="col-md-auto">
                             <select class="form-control" id="itemId" name="ItemId" required>
-                                <option disabled selected>請先選擇區域及班別</option>
+                                <option disabled selected>所有</option>
                             </select>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                         <label class="control-label col-md-auto">欄位:</label>
                         <div class="col-md-auto">
                             <select class="form-control" id="fieldId" name="FieldId" required>
-                                <option disabled selected>請先選擇區域及班別</option>
+                                <option disabled selected>所有</option>
                             </select>
                         </div>
                     </div>
@@ -85,13 +85,13 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.InspectDocs.InspectDocIdTable.ApplyDate)
+                        @Html.DisplayNameFor(model => model.DEInspectDocs.ApplyDate)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.AreaName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ShiftName)
+                        @Html.DisplayNameFor(model => model.CycleName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ClassName)
@@ -113,13 +113,13 @@
             <tfoot>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.InspectDocs.InspectDocIdTable.ApplyDate)
+                        @Html.DisplayNameFor(model => model.DEInspectDocs.ApplyDate)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.AreaName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ShiftName)
+                        @Html.DisplayNameFor(model => model.CycleName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ClassName)
@@ -152,11 +152,11 @@
 
     <script>
         $(document).ready(function () {
-            var getDataURL = '@Url.Action("GetData", "SearchDocDetail")';
-            var getShiftURL = '@Url.Action("GetShifts", "SearchDocDetail")';
-            var getClassURL = '@Url.Action("GetClasses", "SearchDocDetail")';
-            var getItemURL = '@Url.Action("GetItems", "SearchDocDetail")';
-            var getFieldURL = '@Url.Action("GetFields", "SearchDocDetail")';
+            var getDataURL = '@Url.Action("GetData", "SearchDEDocDetail")';
+            var getCycleURL = '@Url.Action("GetCycles", "SearchDEDocDetail")';
+            var getClassURL = '@Url.Action("GetClasses", "SearchDEDocDetail")';
+            var getItemURL = '@Url.Action("GetItems", "SearchDEDocDetail")';
+            var getFieldURL = '@Url.Action("GetFields", "SearchDEDocDetail")';
             // Set default value to startDate and endDate.
             //document.getElementById("startDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
             //document.getElementById("endDate").defaultValue = "@DateTime.UtcNow.AddHours(08).ToString("yyyy-MM-dd")";
@@ -220,7 +220,7 @@
                     columns: [ //Server端的DataBinding名稱
                         { data: "ApplyDate" },
                         { data: "AreaName" },
-                        { data: "ShiftName" },
+                        { data: "CycleName" },
                         { data: "ClassName" },
                         { data: "ItemName" },
                         { data: "FieldName" },
@@ -237,80 +237,104 @@
 
             // Get shifts.
             $('#AreaId').change(function () {
-                $.ajax({
-                    url: getShiftURL,
-                    type: "POST",
-                    dataType: "json",
-                    data: { AreaId: $(this).val() },
-                    async: false,
-                    success: function (response) {
-                        var select = $('#shiftId');
-                        var defaultOption = 0;
-                        var i = 0;
-                        select.empty();    // remove any existing options
-                        select.append($('<option></option>').text('所有').val(0));
-                        $.each(response, function (index, item) {
-                            if (i == defaultOption) {
-                                select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
-                            }
-                            else {
-                                select.append($('<option></option>').text(item.Text).val(item.Value));
-                            }
-                            i++;
-                        });
-                    }
-                });
-                $('#shiftId').trigger('change');
-                $.ajaxSettings.async = true; // Set this ajax async back to true.
+                if ($(this).val() == '' || $(this).val() == '0') {
+                    var select = $('#cycleId');
+                    select.empty();
+                    select.append($('<option></option>').text('所有').val(0));
+                    select = $('#ItemId');
+                    select.empty();
+                    select.append($('<option></option>').text('所有').val(0));
+                    select = $('#FieldId');
+                    select.empty();
+                    select.append($('<option></option>').text('所有').val(0));
+                } else {
+                    $.ajax({
+                        url: getCycleURL,
+                        type: "POST",
+                        dataType: "json",
+                        data: { AreaId: $(this).val() },
+                        async: false,
+                        success: function (response) {
+                            var select = $('#cycleId');
+                            var defaultOption = 0;
+                            var i = 0;
+                            select.empty();    // remove any existing options
+                            select.append($('<option></option>').text('所有').val(0));
+                            $.each(response, function (index, item) {
+                                if (i == defaultOption) {
+                                    select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
+                                }
+                                else {
+                                    select.append($('<option></option>').text(item.Text).val(item.Value));
+                                }
+                                i++;
+                            });
+                        }
+                    });
+                    $('#cycleId').trigger('change');
+                    $.ajaxSettings.async = true; // Set this ajax async back to true.
+                }
             });
 
             // Get class, item and field.
-            $('#shiftId').change(function () {
+            $('#cycleId').change(function () {
                 var areaId = $("#AreaId").val();
-                $.ajax({
-                    url: getClassURL,
-                    type: "POST",
-                    dataType: "json",
-                    data: { AreaId: areaId, ShiftId: $(this).val() },
-                    async: false,
-                    success: function (response) {
-                        var select = $('#classId');
-                        var defaultOption = 0;
-                        var i = 0;
-                        select.empty();    // remove any existing options
-                        select.append($('<option></option>').text('所有').val(0));
-                        $.each(response, function (index, item) {
-                            if (i == defaultOption) {
-                                select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
-                            }
-                            else {
-                                select.append($('<option></option>').text(item.Text).val(item.Value));
-                            }
-                            i++;
-                        });
-                    }
-                });
-                $('#classId').trigger('change');
-                $.ajaxSettings.async = true; // Set this ajax async back to true.
+                if ($(this).val() == '' || $(this).val() == '0') {
+                    var select = $('#classId');
+                    select.empty();
+                    select.append($('<option></option>').text('所有').val(0));
+                    select = $('#itemId');
+                    select.empty();
+                    select.append($('<option></option>').text('所有').val(0));
+                    select = $('#fieldId');
+                    select.empty();
+                    select.append($('<option></option>').text('所有').val(0));
+                } else {
+                    $.ajax({
+                        url: getClassURL,
+                        type: "POST",
+                        dataType: "json",
+                        data: { AreaId: areaId, CycleId: $(this).val() },
+                        async: false,
+                        success: function (response) {
+                            var select = $('#classId');
+                            var defaultOption = 0;
+                            var i = 0;
+                            select.empty();    // remove any existing options
+                            select.append($('<option></option>').text('所有').val(0));
+                            $.each(response, function (index, item) {
+                                if (i == defaultOption) {
+                                    select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
+                                }
+                                else {
+                                    select.append($('<option></option>').text(item.Text).val(item.Value));
+                                }
+                                i++;
+                            });
+                        }
+                    });
+                    $('#classId').trigger('change');
+                    $.ajaxSettings.async = true; // Set this ajax async back to true.
+                }
             });
 
             /* Get items and fields of the class. */
             $('#classId').change(function () {
                 var areaId = $("#AreaId").val();
-                var shiftId = $("#shiftId").val();
+                var cycleId = $("#cycleId").val();
                 var classId = $(this).val();
                 $.ajax({
                     url: getItemURL,
                     type: "POST",
                     dataType: "json",
-                    data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId },
+                    data: { AreaId: areaId, CycleId: cycleId, ClassId: classId },
                     async: false,
                     success: function (response) {
                         var select = $('#itemId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();   // remove any existing options
-                        select.append($('<option></option>').text('所有項目').val(0));
+                        select.append($('<option></option>').text('所有').val(0));
                         $.each(response, function (index, item) {
                             if (i == defaultOption) {
                                 select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
@@ -329,21 +353,21 @@
             /* Get fields of the item. */
             $('#itemId').change(function () {
                 var areaId = $("#AreaId").val();
-                var shiftId = $("#shiftId").val();
+                var cycleId = $("#cycleId").val();
                 var classId = $("#classId").val();
                 var itemId = $(this).val();
                 $.ajax({
                     url: getFieldURL,
                     type: "POST",
                     dataType: "json",
-                    data: { AreaId: areaId, ShiftId: shiftId, ClassId: classId, ItemId: itemId },
+                    data: { AreaId: areaId, CycleId: cycleId, ClassId: classId, ItemId: itemId },
                     async: false,
                     success: function (response) {
                         var select = $('#fieldId');
                         var defaultOption = 0;
                         var i = 0;
                         select.empty();// remove any existing options
-                        select.append($('<option></option>').text('所有項目').val(0));
+                        select.append($('<option></option>').text('所有').val(0));
                         $.each(response, function (index, item) {
                             if (i == defaultOption) {
                                 select.append($('<option selected="selected"></option>').text(item.Text).val(item.Value));
@@ -367,7 +391,7 @@
 
             $("#btnExcel").click(function () {
                 var formData = $('#searchForm').serialize();
-                var url = '@Url.Action("ExportToExcel", "SearchDocDetail")' + '?' + formData;
+                var url = '@Url.Action("ExportToExcel", "SearchDEDocDetail")' + '?' + formData;
                 $(this).attr('href', url);
             });
         });
