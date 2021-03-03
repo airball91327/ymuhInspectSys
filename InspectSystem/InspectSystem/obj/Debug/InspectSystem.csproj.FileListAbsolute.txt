@@ -396,7 +396,6 @@ J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualS
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.Shell.Immutable.14.0.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.Shell.Immutable.12.0.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.Designer.Interfaces.xml
-J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\Microsoft.VisualStudio.WCFReference.Interop.xml
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\de\Microsoft.ReportViewer.Common.resources.dll
 J:\GitHub\Repos\ymuhInspectSys\InspectSystem\InspectSystem\bin\es\Microsoft.ReportViewer.Common.resources.dll

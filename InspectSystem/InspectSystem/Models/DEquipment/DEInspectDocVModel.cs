@@ -22,12 +22,15 @@ namespace InspectSystem.Models.DEquipment
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime ApplyDate { get; set; }
+        public string ApplyDateString { get; set; }
         [Display(Name = "完成時間")]
         [DataType(DataType.Time)]
         public DateTime? EndTime { get; set; }
         [Display(Name = "結案日期")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime? CloseDate { get; set; }
+        public string CloseDateString { get; set; }
         [Display(Name = "巡檢人員ID")]
         public int? EngId { get; set; }
         [Display(Name = "巡檢人員")]
