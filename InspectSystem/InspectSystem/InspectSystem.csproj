@@ -307,6 +307,7 @@
     <Compile Include="Models\DEquipment\DEInspectDocQryVModel.cs" />
     <Compile Include="Models\DEquipment\DEInspectFlowStatus.cs" />
     <Compile Include="Models\DEquipment\DEInspectDocDetailVModel.cs" />
+    <Compile Include="Models\DEquipment\DEDocDetailQryVModel.cs" />
     <Compile Include="Models\DocDetailQryVModel.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
