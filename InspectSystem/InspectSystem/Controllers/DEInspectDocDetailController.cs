@@ -114,7 +114,7 @@ namespace InspectSystem.Controllers
         public ActionResult CheckValue(string docId, int cycleId, int classId, int itemId, int fieldId, string value)
         {
             /* Get the min and max value for the check field. */
-            var searchField = db.InspectDocDetailTemp.Find(docId, cycleId, classId, itemId, fieldId);
+            var searchField = db.DEInspectDocDetailTemp.Find(docId, cycleId, classId, itemId, fieldId);
             var fieldDataType = searchField.DataType;
             float maxValue = System.Convert.ToSingle(searchField.MaxValue);
             float minValue = System.Convert.ToSingle(searchField.MinValue);
