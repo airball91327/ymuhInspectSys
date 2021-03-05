@@ -312,6 +312,7 @@
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InspectClassVModel.cs" />
+    <Compile Include="Models\InspectDocPrintVModel.cs" />
     <Compile Include="Models\InspectDocIdTableVModel.cs" />
     <Compile Include="Models\InspectDocQryVModel.cs" />
     <Compile Include="Models\InspectDocIdTable.cs" />
@@ -2725,6 +2726,7 @@
     <Content Include="Views\DEInspectDocDetail\Edit.cshtml" />
     <Content Include="Views\Search\DEInspectDocIndex.cshtml" />
     <Content Include="Views\SearchDEDocDetail\Index.cshtml" />
+    <Content Include="Views\InspectDocIdTable\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

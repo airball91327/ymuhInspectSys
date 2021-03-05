@@ -91,6 +91,7 @@ else
                         @Html.ActionLink("交班", "Edit", "InspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary btnDocShift" })
                     }
                     @Html.ActionLink("預覽", "Views", "InspectDocIdTable", new { id = item.DocId }, new { @class = "btn btn-primary", target = "_blank" })
+                    @Html.ActionLink("列印", "Print", "InspectDocIdTable", new { id = item.DocId }, new { @class = "btn btn-primary", target = "_blank" })
                 </td>
             </tr>
         }

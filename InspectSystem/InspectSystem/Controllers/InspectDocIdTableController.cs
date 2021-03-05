@@ -349,6 +349,35 @@ namespace InspectSystem.Controllers
             return View(dtlShifts);
         }
 
+        // GET: InspectDocIdTable/Print/5
+        public ActionResult Print(string id)
+        {
+            InspectDocPrintVModel printVModel = new InspectDocPrintVModel();
+            List<InspectDocDetail> inspectDocDetails = db.InspectDocDetail.Where(d => d.DocId == id).ToList();
+            if (inspectDocDetails.Count() > 0)
+            {
+                //白天班
+                printVModel.ShiftDetails1 = inspectDocDetails.Where(d => d.ShiftId == 1).ToList();
+                //小夜班
+                printVModel.ShiftDetails2 = inspectDocDetails.Where(d => d.ShiftId == 2).ToList();
+                //大夜班(前一天案件)
+                var docIdTable = db.InspectDocIdTable.Find(id);
+                var tempAreaId = docIdTable.AreaId;
+                var tempDateFrom = docIdTable.ApplyDate.Date.AddDays(-1);
+                var tempDateTo = docIdTable.ApplyDate.Date.AddSeconds(-1);
+                var tempDoc = db.InspectDocIdTable.Where(dt => dt.ApplyDate >= tempDateFrom &&
+                                                               dt.ApplyDate <= tempDateTo &&
+                                                               dt.AreaId == tempAreaId).FirstOrDefault();
+                if (tempDoc != null)
+                {
+                    List<InspectDocDetail> tempDocDetails = db.InspectDocDetail.Where(d => d.DocId == tempDoc.DocId).ToList();
+                    printVModel.ShiftDetails3 = tempDocDetails.Where(d => d.ShiftId == 3).ToList();
+                }
+                printVModel.ApplyDate = docIdTable.ApplyDate;
+            }
+            return View(printVModel);
+        }
+
         /// <summary>
         /// Get Inspect DocId by areaId and applyDate.
         /// </summary>
