@@ -352,7 +352,11 @@ namespace InspectSystem.Controllers
         // GET: InspectDocIdTable/Print/5
         public ActionResult Print(string id)
         {
+            //
             InspectDocPrintVModel printVModel = new InspectDocPrintVModel();
+            printVModel.ShiftDetails1 = new List<InspectDocDetail>();
+            printVModel.ShiftDetails2 = new List<InspectDocDetail>();
+            printVModel.ShiftDetails3 = new List<InspectDocDetail>();
             List<InspectDocDetail> inspectDocDetails = db.InspectDocDetail.Where(d => d.DocId == id).ToList();
             if (inspectDocDetails.Count() > 0)
             {
@@ -360,6 +364,31 @@ namespace InspectSystem.Controllers
                 printVModel.ShiftDetails1 = inspectDocDetails.Where(d => d.ShiftId == 1).ToList();
                 //小夜班
                 printVModel.ShiftDetails2 = inspectDocDetails.Where(d => d.ShiftId == 2).ToList();
+                //班別主檔
+                var inspectDocs = db.InspectDoc.Where(df => df.DocId == id);
+                if (inspectDocs.Count() > 0)
+                {
+                    var shiftDoc1 = inspectDocs.Where(d => d.ShiftId == 1).FirstOrDefault();
+                    var shiftDoc2 = inspectDocs.Where(d => d.ShiftId == 2).FirstOrDefault();
+                    var shiftDoc3 = inspectDocs.Where(d => d.ShiftId == 3).FirstOrDefault();
+                    if (shiftDoc1 != null)
+                    {
+                        printVModel.Shift3Checker = shiftDoc1.EngName;
+                        printVModel.Shift1Engineer = shiftDoc1.EngName;
+                        printVModel.Shift1Note = shiftDoc1.Note;
+                    }
+                    if (shiftDoc2 != null)
+                    {
+                        printVModel.Shift1Checker = shiftDoc2.EngName;
+                        printVModel.Shift2Engineer = shiftDoc2.EngName;
+                        printVModel.Shift2Note = shiftDoc2.Note;
+                    }
+                    if (shiftDoc3 != null)
+                    {
+                        printVModel.Shift2Checker = shiftDoc3.EngName;
+                    }
+                }
+
                 //大夜班(前一天案件)
                 var docIdTable = db.InspectDocIdTable.Find(id);
                 var tempAreaId = docIdTable.AreaId;
@@ -372,6 +401,17 @@ namespace InspectSystem.Controllers
                 {
                     List<InspectDocDetail> tempDocDetails = db.InspectDocDetail.Where(d => d.DocId == tempDoc.DocId).ToList();
                     printVModel.ShiftDetails3 = tempDocDetails.Where(d => d.ShiftId == 3).ToList();
+                    //班別主檔
+                    var inspectDocs3 = db.InspectDoc.Where(df => df.DocId == tempDoc.DocId);
+                    if (inspectDocs3.Count() > 0)
+                    {
+                        var shiftDoc3 = inspectDocs3.Where(d => d.ShiftId == 3).FirstOrDefault();
+                        if (shiftDoc3 != null)
+                        {
+                            printVModel.Shift3Engineer = shiftDoc3.EngName;
+                            printVModel.Shift3Note = shiftDoc3.Note;
+                        }
+                    }
                 }
                 printVModel.ApplyDate = docIdTable.ApplyDate;
             }
