@@ -369,7 +369,7 @@ namespace InspectSystem.Controllers
 
             var resultList = searchList.Select(s => new
             {
-                ApplyDate = s.docidtable.ApplyDate.ToString("yyyy/MM/dd"),
+                ApplyDate = s.docidtable.ApplyDate,
                 AreaName = s.docdtl.AreaName,
                 ShiftName = s.docdtl.ShiftName,
                 ClassName = s.docdtl.ClassName,
