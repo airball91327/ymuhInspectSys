@@ -36,7 +36,7 @@ namespace InspectSystem.Models.DEquipment
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime ApplyDate { get; set; }
         [Display(Name = "完成時間")]
-        [DataType(DataType.Time)]
+        [DataType(DataType.DateTime)]
         public DateTime? EndTime { get; set; }
         [Display(Name = "結案日期")]
         [DataType(DataType.DateTime)]

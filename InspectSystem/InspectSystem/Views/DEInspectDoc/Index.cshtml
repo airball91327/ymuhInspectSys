@@ -20,7 +20,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="row">
-            <div class="form-group col">
+            <div class="form-group col-md">
                 @Html.LabelFor(model => model.DocId, htmlAttributes: new { @class = "control-label" })
                 <div>
                     @Html.EditorFor(model => model.DocId, new { htmlAttributes = new { @class = "form-control" } })
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="form-group col">
+            <div class="form-group col-md">
                 @Html.LabelFor(model => model.AreaId, htmlAttributes: new { @class = "control-label" })
                 <div>
                     @Html.DropDownListFor(model => model.AreaId, null, "請選擇", htmlAttributes: new { @class = "form-control" })
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="form-group col">
+            <div class="form-group col-md">
                 @Html.LabelFor(model => model.CycleId, htmlAttributes: new { @class = "control-label" })
                 <div>
                     @Html.DropDownListFor(model => model.CycleId, null, "請選擇", htmlAttributes: new { @class = "form-control" })
@@ -46,7 +46,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group col">
+            <div class="form-group col-md">
                 @Html.LabelFor(model => model.FlowStatus, htmlAttributes: new { @class = "control-label" })
                 <div>
                     @Html.DropDownListFor(model => model.FlowStatus, null, htmlAttributes: new { @class = "form-control" })
@@ -56,7 +56,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group col">
+            <div class="form-group col-md">
                 <div>
                     <input type="button" value="查詢" class="btn btn-primary" id="QryBtn2" />
                 </div>
