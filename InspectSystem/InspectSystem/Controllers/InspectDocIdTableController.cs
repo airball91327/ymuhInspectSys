@@ -387,6 +387,18 @@ namespace InspectSystem.Controllers
                     {
                         printVModel.Shift2Checker = shiftDoc3.EngName;
                     }
+                    //
+                    var flow = db.InspectDocFlow.Join(db.AppUsers, df => df.Rtp, u => u.Id,
+                                                (df, u) => new 
+                                                { 
+                                                    flow = df,
+                                                    rtpUser = u
+                                                }).Where(df => df.flow.DocId == id).ToList();
+                    flow = flow.OrderByDescending(f => f.flow.StepId).ToList();
+                    var leader = flow.Where(f => f.flow.Cls.Contains("工務組長")).FirstOrDefault();
+                    var manager = flow.Where(f => f.flow.Cls.Contains("單位主管")).FirstOrDefault();
+                    printVModel.Leader = leader != null ? leader.rtpUser.FullName : "";
+                    printVModel.Manager = manager != null ? manager.rtpUser.FullName : "";
                 }
 
                 //大夜班(前一天案件)

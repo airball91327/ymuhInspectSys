@@ -21,6 +21,8 @@ namespace InspectSystem.Models
         public string Shift3Engineer { get; set; }
         public string Shift3Checker { get; set; }
         public string Shift3Note { get; set; }
+        public string Leader { get; set; }
+        public string Manager { get; set; }
         public InspectDoc ShiftDoc1 { get; set; }
         public IEnumerable<InspectDocDetail> ShiftDetails1 { get; set; }
         public InspectDoc ShiftDoc2 { get; set; }

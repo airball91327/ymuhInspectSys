@@ -191,7 +191,7 @@
                         {
                             targets: -1,
                             data: null,
-                            defaultContent: "<a class='btn btn-primary' href='#' target = '_blank'>詳細內容</a>",
+                            defaultContent: "<a class='btn btn-primary viewBtns' href='#' target = '_blank'>詳細內容</a> <a class='btn btn-primary printBtns' href='#' target = '_blank'>列印</a>",
                             orderable: false
                         }
                     ],
@@ -205,8 +205,16 @@
             //詳細內容button
             $('#docTable tbody').on('click', 'a', function () {
                 var data = table.row($(this).parents('tr')).data();
-                var url = '@Url.Action("Views", "InspectDocIdTable")' + "?id=" + data.DocId;
-                $(this).attr('href', url);
+                var isViewBtn = $(this).hasClass('viewBtns');
+                var isPrintBtn = $(this).hasClass('printBtns');
+                if (isPrintBtn) {
+                    var url = '@Url.Action("Print", "InspectDocIdTable")' + "?id=" + data.DocId;
+                    $(this).attr('href', url);
+                }
+                else{
+                    var url = '@Url.Action("Views", "InspectDocIdTable")' + "?id=" + data.DocId;
+                    $(this).attr('href', url);
+                }
             });
         });
     </script>
