@@ -2407,6 +2407,7 @@
     <Content Include="Report\WaterSystem.xss">
       <DependentUpon>WaterSystem.xsd</DependentUpon>
     </Content>
+    <Content Include="Scripts\DEInspect\GetClassContentEditTemp.js" />
     <Content Include="Scripts\DEInspect\GetClassContentEdit.js" />
     <Content Include="Scripts\DEInspect\InspectNextFlow.js" />
     <Content Include="Scripts\esm\popper-utils.js" />

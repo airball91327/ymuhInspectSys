@@ -6,17 +6,17 @@ $(document).ready(function () {
 
         var id = $(this).attr("id");
         var value = $(this).val();
-        var DocId = document.getElementById("InspectDocDetail[" + id + "].DocId").value;
-        var CycleId = document.getElementById("InspectDocDetail[" + id + "].CycleId").value;
-        var ClassId = document.getElementById("InspectDocDetail[" + id + "].ClassId").value;
-        var ItemId = document.getElementById("InspectDocDetail[" + id + "].ItemId").value;
-        var FieldId = document.getElementById("InspectDocDetail[" + id + "].FieldId").value;
+        var DocId = document.getElementById("InspectDocDetailTemp[" + id + "].DocId").value;
+        var CycleId = document.getElementById("InspectDocDetailTemp[" + id + "].CycleId").value;
+        var ClassId = document.getElementById("InspectDocDetailTemp[" + id + "].ClassId").value;
+        var ItemId = document.getElementById("InspectDocDetailTemp[" + id + "].ItemId").value;
+        var FieldId = document.getElementById("InspectDocDetailTemp[" + id + "].FieldId").value;
 
         var countFields = document.getElementById("countFields").value;
         for (var i = parseInt(id); i < countFields; i++) {
-            if (ItemId == document.getElementById("InspectDocDetail[" + i + "].ItemId").value) {
-                var radios = document.getElementsByName("InspectDocDetail[" + i + "].IsFunctional");
-                var targetId = "InspectDocDetail[" + i + "].ErrorDescription";
+            if (ItemId == document.getElementById("InspectDocDetailTemp[" + i + "].ItemId").value) {
+                var radios = document.getElementsByName("InspectDocDetailTemp[" + i + "].IsFunctional");
+                var targetId = "InspectDocDetailTemp[" + i + "].ErrorDescription";
                 if (radios.length == 2) {
                     break;
                 }
