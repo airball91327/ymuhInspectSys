@@ -89,6 +89,7 @@
                 @Html.LabelFor(model => model.DataType, htmlAttributes: new { @class = "col-form-label col-md-2" })
                 <div class="col-md-10" style="margin-top : 7px">
                     @Html.RadioButtonFor(model => model.DataType, "string") 字串
+                    @Html.RadioButtonFor(model => model.DataType, "description") 描述性文字
                     @Html.RadioButtonFor(model => model.DataType, "float") 數字
                     @Html.RadioButtonFor(model => model.DataType, "checkbox") 勾選方塊
                     @Html.RadioButtonFor(model => model.DataType, "dropdownlist") 下拉選單
@@ -98,6 +99,14 @@
             </div>
 
             <div class="content-group">
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.FieldDescription, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FieldDescription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FieldDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <div class="form-group row">
                     @Html.LabelFor(model => model.UnitOfData, htmlAttributes: new { @class = "col-form-label col-md-2" })
                     <div class="col-md-10">

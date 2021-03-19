@@ -53,6 +53,8 @@ namespace InspectSystem.Models.DEquipment
         public string RtpName { get; set; }
         [Display(Name = "異動時間")]
         public DateTime? Rtt { get; set; }
+        [Display(Name = "欄位描述")]
+        public string FieldDescription { get; set; }
 
         public virtual DEInspectItem DEInspectItem { get; set; }
     }

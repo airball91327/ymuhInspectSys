@@ -158,6 +158,13 @@
                                                         @Html.DropDownList("InspectDocDetailTemp[" + i + "].Value", (IEnumerable<SelectListItem>)dropDownList, new { @class = "form-control", style = "width: 50%" })
                                                     </span>
                                                     break;
+
+                                                case "description":
+                                                    <span>
+                                                        @Html.DisplayFor(modelItem => docItem.FieldDescription)
+                                                        @Html.Hidden("InspectDocDetailTemp[" + i + "].FieldDescription", docItem.FieldDescription)
+                                                    </span>
+                                                    break;
                                             }
                                             i++;
                                         }

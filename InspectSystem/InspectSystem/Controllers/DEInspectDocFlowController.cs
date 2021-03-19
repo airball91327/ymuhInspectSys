@@ -122,7 +122,8 @@ namespace InspectSystem.Controllers
                             IsFunctional = item.IsFunctional,
                             ErrorDescription = item.ErrorDescription,
                             RepairDocId = item.RepairDocId,
-                            DropDownItems = item.DropDownItems
+                            DropDownItems = item.DropDownItems,
+                            FieldDescription = item.FieldDescription
                         });
                     }
                     try

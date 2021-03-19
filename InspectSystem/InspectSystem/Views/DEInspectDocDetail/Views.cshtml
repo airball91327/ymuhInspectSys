@@ -77,6 +77,12 @@
                                                         }
                                                     </span>
                                                     break;
+
+                                                case "description":
+                                                    <span>
+                                                        @Html.DisplayFor(modelItem => docItem.FieldDescription)
+                                                    </span>
+                                                    break;
                                             }
                                             i++;
                                         }

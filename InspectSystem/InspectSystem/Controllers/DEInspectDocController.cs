@@ -301,6 +301,7 @@ namespace InspectSystem.Controllers
                         detailTemp.MinValue = insField.MinValue;
                         detailTemp.MaxValue = insField.MaxValue;
                         detailTemp.IsRequired = insField.IsRequired;
+                        detailTemp.FieldDescription = insField.FieldDescription;
                         /* If field is dropdown, set dropdownlist items to string and save to DB. */
                         if (insField.DataType == "dropdownlist")
                         {
@@ -390,7 +391,7 @@ namespace InspectSystem.Controllers
                 foreach (var tempItem in docDetailTemps)
                 {
                     // If required field has no data or isFunctional didn't selected, set isDataCompleted to false.
-                    if (tempItem.IsRequired == true && tempItem.DataType != "boolean" && tempItem.Value == null)
+                    if (tempItem.IsRequired == true && tempItem.DataType != "boolean" && tempItem.DataType != "description" && tempItem.Value == null)
                     {
                         isDataCompleted = false;
                         break;

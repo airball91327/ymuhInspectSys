@@ -66,6 +66,8 @@ namespace InspectSystem.Models.DEquipment
         public string RepairDocId { get; set; }
         [Display(Name = "下拉選單元件")]
         public string DropDownItems { get; set; }
+        [Display(Name = "欄位描述")]
+        public string FieldDescription { get; set; }
 
         public virtual DEInspectDoc DEInspectDocs { get; set; }
     }
