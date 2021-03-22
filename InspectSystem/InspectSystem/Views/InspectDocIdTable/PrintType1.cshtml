@@ -1,0 +1,395 @@
+﻿@model InspectSystem.Models.InspectDocPrintVModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        .style1 {
+            width: 100%;
+        }
+
+        .style2 {
+            width: 100%;
+            font-size: 10pt;
+        }
+
+        .style3 {
+            height: 30px;
+            width: 125px;
+        }
+
+        .style4 {
+            height: 30px;
+            width: 75px;
+            text-align: center;
+        }
+
+        .style5 {
+            text-align: center;
+            height: 25px;
+        }
+
+        .style6 {
+            width: 100%;
+        }
+
+        .style7 {
+            text-align: center;
+            height: 100%;
+        }
+
+        @@media print {
+            Footer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0px; font-family: DFKai-SB" onload='window.print(); setTimeout(window.close, 500);'>
+    <div>
+        <table class="style1">
+            <tr style="font-size:36px;">
+                <td>
+                    工務室值班交接紀錄表
+                </td>
+                <td align="right">
+                    @{
+                        var year = Model.ApplyDate.Year;
+                        var month = Model.ApplyDate.Month;
+                        var day = Model.ApplyDate.Day;
+                        if (Model.ApplyDate.Year != 1)
+                        {
+                            year = Model.ApplyDate.Year - 1911;
+                        }
+                    }
+                    日期：@year 年 @month 月 @day 日
+                </td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" class="style1">
+            <tr>
+                <td>
+                    <table cellpadding="0" cellspacing="0" class="style2"
+                           style="border: 4px solid #000000">
+                        <!--大夜班-->
+                        <tr style="font-size: 2em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                大夜班
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Engineer)
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="25%">
+                                @Model.Shift3Engineer
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Checker)
+                            </td>
+                            <td colspan="4" align="center"
+                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
+                                @Model.Shift3Checker
+                            </td>
+                        </tr>
+
+                        @if (Model.ShiftDetails3.Count() > 0)
+                        {
+                            var docClasses = Model.ShiftDetails3.GroupBy(d => d.ClassId).Select(x => x.FirstOrDefault()).ToList();
+                            foreach (var docClass in docClasses.OrderBy(d => d.ClassOrder))
+                            {
+                                <tr style="font-size: 2em;">
+                                    <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                        width="15%">
+                                        @docClass.ClassName
+                                    </td>
+                                    <td colspan="7">
+                                        <table style="width: 100%;">
+                                            @{
+                                                var docItems = Model.ShiftDetails3.Where(d => d.ClassId == docClass.ClassId)
+                                                                                  .GroupBy(d => d.ItemId).Select(x => x.FirstOrDefault());
+                                                foreach (var docItem in docItems.OrderBy(d => d.ItemOrder))
+                                                {
+                                                    <tr>
+                                                        <td class="style5"
+                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                                            width="17%">
+                                                            @docItem.ItemName
+                                                        </td>
+                                                        <td class="style5"
+                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                                            colspan="6">
+                                                            <table style="width: 100%; height: 100%; border-collapse: collapse; border-style: hidden;">
+                                                                @{
+                                                                    var docFields = Model.ShiftDetails3.Where(d => d.ClassId == docItem.ClassId && d.ItemId == docItem.ItemId);
+                                                                    int count = 0;
+                                                                }
+                                                                @foreach (var field in docFields.Where(f => f.DataType != "boolean"))
+                                                                {
+                                                                    if (count % 4 == 0)
+                                                                    {
+                                                                        <tr></tr>
+                                                                    }
+                                                                    if (!string.IsNullOrEmpty(field.FieldName))
+                                                                    {
+                                                                        <td class="style7"
+                                                                            style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
+                                                                            @field.FieldName
+                                                                        </td>
+                                                                    }
+                                                                    <td class="style7"
+                                                                        style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
+                                                                        @field.Value
+                                                                    </td>
+                                                                    count++;
+                                                                }
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </table>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        <tr style="font-size: 2em; height: 150px;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Note)
+                            </td>
+                            <td colspan="7" align="left"
+                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
+                                @Model.Shift3Note
+                            </td>
+                        </tr>
+
+                        <!--白天班-->
+                        <tr style="font-size: 2em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                白天班
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Engineer)
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="25%">
+                                @Model.Shift1Engineer
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Checker)
+                            </td>
+                            <td colspan="4" align="center"
+                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
+                                @Model.Shift1Checker
+                            </td>
+                        </tr>
+
+                        @if (Model.ShiftDetails1.Count() > 0)
+                        {
+                            var docClasses = Model.ShiftDetails1.GroupBy(d => d.ClassId).Select(x => x.FirstOrDefault()).ToList();
+                            foreach (var docClass in docClasses.OrderBy(d => d.ClassOrder))
+                            {
+                                <tr style="font-size: 2em;">
+                                    <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                        width="15%">
+                                        @docClass.ClassName
+                                    </td>
+                                    <td colspan="7">
+                                        <table style="width: 100%;">
+                                            @{
+                                                var docItems = Model.ShiftDetails1.Where(d => d.ClassId == docClass.ClassId)
+                                                                                  .GroupBy(d => d.ItemId).Select(x => x.FirstOrDefault());
+                                                foreach (var docItem in docItems.OrderBy(d => d.ItemOrder))
+                                                {
+                                                    <tr>
+                                                        <td class="style5"
+                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                                            width="17%">
+                                                            @docItem.ItemName
+                                                        </td>
+                                                        <td class="style5"
+                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                                            colspan="6">
+                                                            <table style="width: 100%; height: 100%; border-collapse: collapse; border-style: hidden;">
+                                                                @{
+                                                                    var docFields = Model.ShiftDetails1.Where(d => d.ClassId == docItem.ClassId && d.ItemId == docItem.ItemId);
+                                                                    int count = 0;
+                                                                }
+                                                                @foreach (var field in docFields.Where(f => f.DataType != "boolean"))
+                                                                {
+                                                                    if (count % 4 == 0)
+                                                                    {
+                                                                        <tr></tr>
+                                                                    }
+                                                                    if (!string.IsNullOrEmpty(field.FieldName))
+                                                                    {
+                                                                        <td class="style7"
+                                                                            style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
+                                                                            @field.FieldName
+                                                                        </td>
+                                                                    }
+                                                                    <td class="style7"
+                                                                        style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
+                                                                        @field.Value
+                                                                    </td>
+
+                                                                    count++;
+                                                                }
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </table>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        <tr style="font-size: 2em; height: 150px;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Note)
+                            </td>
+                            <td colspan="7" align="left"
+                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
+                                @Model.Shift1Note
+                            </td>
+                        </tr>
+                        <!--小夜班-->
+                        <tr style="font-size: 2em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                小夜班
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Engineer)
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="25%">
+                                @Model.Shift2Engineer
+                            </td>
+                            <td class="style5"
+                                style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Checker)
+                            </td>
+                            <td colspan="4" align="center"
+                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
+                                @Model.Shift2Checker
+                            </td>
+                        </tr>
+
+                        @if (Model.ShiftDetails2.Count() > 0)
+                        {
+                            var docClasses = Model.ShiftDetails2.GroupBy(d => d.ClassId).Select(x => x.FirstOrDefault()).ToList();
+                            foreach (var docClass in docClasses.OrderBy(d => d.ClassOrder))
+                            {
+                                <tr style="font-size: 2em;">
+                                    <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                        width="15%">
+                                        @docClass.ClassName
+                                    </td>
+                                    <td colspan="7">
+                                        <table style="width: 100%;">
+                                            @{
+                                                var docItems = Model.ShiftDetails2.Where(d => d.ClassId == docClass.ClassId)
+                                                                                  .GroupBy(d => d.ItemId).Select(x => x.FirstOrDefault());
+                                                foreach (var docItem in docItems.OrderBy(d => d.ItemOrder))
+                                                {
+                                                    <tr>
+                                                        <td class="style5"
+                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                                            width="17%">
+                                                            @docItem.ItemName
+                                                        </td>
+                                                        <td class="style5"
+                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                                            colspan="6">
+                                                            <table style="width: 100%; height: 100%; border-collapse: collapse; border-style: hidden;">
+                                                                @{
+                                                                    var docFields = Model.ShiftDetails2.Where(d => d.ClassId == docItem.ClassId && d.ItemId == docItem.ItemId);
+                                                                    int count = 0;
+                                                                }
+                                                                @foreach (var field in docFields.Where(f => f.DataType != "boolean"))
+                                                                {
+                                                                    if (count % 4 == 0)
+                                                                    {
+                                                                        <tr></tr>
+                                                                    }
+                                                                    if (!string.IsNullOrEmpty(field.FieldName))
+                                                                    {
+                                                                        <td class="style7"
+                                                                            style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
+                                                                            @field.FieldName
+                                                                        </td>
+                                                                    }
+                                                                    <td class="style7"
+                                                                        style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
+                                                                        @field.Value
+                                                                    </td>
+
+                                                                    count++;
+                                                                }
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </table>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        <tr style="font-size: 2em; height: 150px;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                @Html.DisplayNameFor(model => model.Shift1Note)
+                            </td>
+                            <td colspan="7" align="left"
+                                style="border-bottom-style: solid; border-bottom-width: 1px; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-color: #000000">
+                                @Model.Shift2Note
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+        <table class="style1" style="table-layout:fixed;">
+            <tr style="font-size:36px;">
+                <td align="left">
+                    工務組長：
+                </td>
+                <td align="left">
+                    @Model.Leader
+                </td>
+                <td align="left">
+                    單位主管：
+                </td>
+                <td align="left">
+                    @Model.Manager
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

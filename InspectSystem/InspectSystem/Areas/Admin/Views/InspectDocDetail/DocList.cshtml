@@ -1,0 +1,80 @@
+﻿@model X.PagedList.IPagedList<InspectSystem.Models.InspectDoc>
+
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Common;
+
+@{
+    Layout = null;
+}
+
+@if (Model.Count() <= 0)
+{
+    <p style="color:red">查無資料!</p>
+}
+else
+{
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DocId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().InspectDocIdTable.AreaName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ApplyDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().EngName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ShiftId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CloseDate)
+            </th>
+            <th>
+                功能
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InspectDocIdTable.AreaName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplyDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EngName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShiftName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CloseDate)
+                </td>
+                <td>
+                    @Html.ActionLink("編輯", "Edit", new { docid = item.DocId, shiftid = item.ShiftId }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+<div>
+    @Html.PagedListPager(Model,
+    page => Url.Action("Index2", new { page }), PagedListRenderOptionsBase.ClassicPlusFirstAndLast)
+</div>

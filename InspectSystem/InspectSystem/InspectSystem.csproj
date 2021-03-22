@@ -244,6 +244,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DEInspectAreaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InspectDocDetailController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectAreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DEInspectClassController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectClassController.cs" />
@@ -2399,6 +2400,10 @@
     <Content Include="Areas\Admin\Views\DECyclesInAreas\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DECyclesInAreas\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DECyclesInAreas\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectDocDetail\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectDocDetail\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectDocDetail\DocList.cshtml" />
+    <Content Include="Areas\Admin\Views\InspectDocDetail\GetClassContentEdit.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -2728,6 +2733,7 @@
     <Content Include="Views\Search\DEInspectDocIndex.cshtml" />
     <Content Include="Views\SearchDEDocDetail\Index.cshtml" />
     <Content Include="Views\InspectDocIdTable\Print.cshtml" />
+    <Content Include="Views\InspectDocIdTable\PrintType1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

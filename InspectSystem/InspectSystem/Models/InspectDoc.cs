@@ -20,6 +20,8 @@ namespace InspectSystem.Models
         [Key, Column(Order = 2)]
         [Display(Name = "班別")]
         public int ShiftId { get; set; }
+        [NotMapped]
+        public string ShiftName { get; set; }
         [Required]
         [Display(Name = "申請日期")]
         [DataType(DataType.Date)]

@@ -1,0 +1,140 @@
+﻿@model IEnumerable<InspectSystem.Models.InspectClassVModel>
+
+@{
+    ViewBag.Title = "巡檢單編輯";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
+<link rel="stylesheet" type="text/css" href="~/Font-awesome-5.14.0/css/all.min.css">
+<script src="~/Font-awesome-5.14.0/js/all.min.js"></script>
+<script src="~/Scripts/ScrollToTop.js"></script>
+
+<div class="container">
+
+    <h3>
+        @ViewBag.Header
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#precautionModal">注意事項</button>
+    </h3>
+
+    @if (Model.Count() <= 0)
+    {
+        <p style="color: red;">尚無資料!</p>
+    }
+    else
+    {
+
+        if (!string.IsNullOrEmpty(ViewBag.Notes))
+        {
+            <div class="card border-success">
+                <div class="card-header bg-success" style="color:white;">
+                    <a data-toggle="collapse" data-target="#noteBlock" aria-expanded="true" aria-controls="noteBlock">
+                        交班事項
+                    </a>
+                </div>
+                <div id="noteBlock" class="collapse show">
+                    <div class="card-body">
+                        @Html.Raw(ViewBag.Notes.Replace(Environment.NewLine, "<br />"))
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div id="tab" class="btn-group" data-toggle="buttons-radio">
+            @foreach (var item in Model)
+            {
+                <button class="btn btn-large btn-primary tablinks" data-toggle="tab" href="#inspectEdit" onclick="showClassContents(event, '@item.DocId', '@item.ShiftId', '@item.ClassId')" id="@item.ClassId">
+                    @if (item.IsSaved == true)
+                    {
+                        <span class="far fa-check-circle"></span>
+                    }
+                    @item.ClassName
+                    @if (item.CountErrors != 0)
+                    {
+                        <span class="badge badge-pill badge-danger">@item.CountErrors</span>
+                    }
+                </button>
+            }
+            <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectDoc">案件資訊</button>
+        </div>
+
+        <div class="tab-content card">
+            <div id="inspectEdit" class="tab-pane fade show active">
+
+            </div>
+            <div id="inspectDoc" class="tab-pane fade ">
+                @Html.Action("Details", "InspectDocIdTable", new { Area = "", id = Model.First().DocId })
+            </div>
+        </div>
+    }
+</div>
+
+<button onclick="topFunction()" id="goToTopBtn" title="Go to top">回頁首</button>
+
+<!--Modal for precautions of area.-->
+<div class="modal fade" id="precautionModal" tabindex="-1" role="dialog" aria-labelledby="precautionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h2 class="modal-title">注意事項</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Model.Count() > 0)
+                {
+                    @Html.Action("AreaPrecautions", "InspectPrecaution", new { Area = "Admin", areaId = Model.FirstOrDefault().AreaId })
+                }
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Default class content is first item from tablinks.
+            var tabs = document.getElementsByClassName("tablinks");
+            tabs.item(0).click();
+        });
+        function showmsg(data) {
+            if (data.success == null) {
+                // search success.
+                $.Toast.hideToast();
+            }
+            else {
+                if (data.success === false) {
+                    alert(data.error);
+                    $.Toast.hideToast();
+                }
+            }
+        }
+        function showClassContents(evt, docId, shiftId, classId) {
+            var url = '@Url.Action("GetClassContentEdit", "InspectDocDetail", new { Area = "Admin" })';
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { docId: docId, shiftId: shiftId, classId: classId },
+                beforeSend: function () {
+                    $.Toast.showToast({ 'title': '讀取中，請稍待...', 'icon': 'loading', 'duration': 0 });
+                },
+                complete: function () {
+                    $.Toast.hideToast();
+                },
+                success: function (result) {
+                    $("#inspectEdit").html(result);
+                },
+                error: function (msg) {
+                    alert("讀取錯誤!");
+                }
+            });
+        }
+    </script>
+}
