@@ -1,7 +1,150 @@
-﻿
+﻿@model InspectSystem.Models.ReportQryVModel
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "報表匯出功能";
 }
 
-<h2>Index</h2>
+<h2>報表匯出 - 危險性設備</h2>
 
+@using (Ajax.BeginForm("Index2", "Report", new AjaxOptions
+{
+    HttpMethod = "GET",
+    OnBegin = "$.Toast.showToast({ 'title': '搜尋中，請稍待...', 'icon': 'loading', 'duration': 0 })",
+    OnSuccess = "showmsg",
+}, new { id = "formREPORT" }))
+{
+
+    <div class="container form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="form-group col-md">
+                @Html.LabelFor(model => model.AreaId, htmlAttributes: new { @class = "control-label col-md-auto" })
+                <div class="col-md-auto">
+                    @Html.DropDownList("AreaId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md">
+                @Html.LabelFor(model => model.CycleId, htmlAttributes: new { @class = "control-label col-md-auto" })
+                <div class="col-md-auto">
+                    <select class="form-control" id="CycleId" name="CycleId" required>
+                        <option disabled selected>請先選擇區域</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md">
+                @Html.LabelFor(model => model.ClassId, htmlAttributes: new { @class = "control-label col-md-auto" })
+                <div class="col-md-auto">
+                    <select class="form-control" id="ClassId" name="ClassId" required>
+                        <option disabled selected>請先選擇區域</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md">
+                @Html.LabelFor(model => model.ApplyDateFrom, htmlAttributes: new { @class = "control-label col-md-auto" })
+                <div class="col-md-auto">
+                    <input class="form-control" type="date" id="ApplyDateFrom" name="ApplyDateFrom" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md">
+                @Html.LabelFor(model => model.ApplyDateTo, htmlAttributes: new { @class = "control-label col-md-auto" })
+                <div class="col-md-auto">
+                    <input class="form-control" type="date" id="ApplyDateTo" name="ApplyDateTo" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md">
+                <div class="col-md-auto">
+                    <input type="submit" value="匯出" class="btn btn-primary" id="QryBtn" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<a class="btn btn-primary btn-sm BtnExcel5" href="@Url.Action("GetSupplyCloseWord", "ScrapReports")" value="">標售物資結報表</a>
+
+<div id="pnlREPORT">
+
+</div>
+
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+    <script>
+    $(function () {
+        var getCycleURL = '@Url.Action("GetCycles", "DEInspectClass", new { Area = "Admin" })';
+        var getClassURL = '@Url.Action("GetClasses", "DEInspectClass", new { Area = "Admin" })';
+        // Get cycles.
+        $('#AreaId').change(function () {
+            $.ajax({
+                url: getCycleURL,
+                type: "POST",
+                dataType: "json",
+                data: { AreaId: $(this).val() },
+                async: false,
+                success: function (response) {
+                    var select = $('#CycleId');
+                    select.empty();
+                    $.each(response, function (index, item) {
+                        select.append($('<option></option>').text(item.Text).val(item.Value));
+                    });
+                }
+            });
+            $('#CycleId').trigger('change');
+        });
+        // Get Classes.
+        $('#CycleId').change(function () {
+            var areaId = $('#AreaId').val();
+            var cycleId = $(this).val();
+            $.ajax({
+                url: getClassURL,
+                type: "POST",
+                dataType: "json",
+                data: { AreaId: areaId, CycleId: cycleId },
+                async: false,
+                success: function (response) {
+                    var select = $('#ClassId');
+                    select.empty();
+                    $.each(response, function (index, item) {
+                        select.append($('<option></option>').text(item.Text).val(item.Value));
+                    });
+                }
+            });
+        });
+        $('#AreaId').trigger('change');
+        //
+    });
+
+    function showmsg(data) {
+        var downloadURL = '@Url.Action("Index2", "Report", new { Area = "" })';
+        if (data.success == null) {
+            // search success.
+            var qry = $('#formREPORT').serialize();
+            window.location = downloadURL + "?" + qry;
+            $.Toast.hideToast();
+        }
+        else {
+            if (data.success === false) {
+                alert(data.error);
+                $.Toast.hideToast();
+            }
+        }
+    }
+    </script>
+}
