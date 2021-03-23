@@ -66,6 +66,18 @@
                             @Html.ActionLink("欄位數值查詢", "Index", "SearchDEDocDetail", new { area = "" }, new { @class = "dropdown-item" })
                         </div>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="@Url.Action("Index", "InspectDocSearch")" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            報表
+                        </a>
+                        <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <h6 class="dropdown-header setHeaderStyle">一般巡檢單</h6>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header setHeaderStyle">危險性設備巡檢單</h6>
+                            @Html.ActionLink("日報表", "Index", "Report", new { area = "" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("月、半年報表", "Index", "Report", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
                     @if (Roles.IsUserInRole("Admin"))
                     {
                         <li class="nav-item dropdown">
