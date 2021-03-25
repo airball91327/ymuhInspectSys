@@ -15,8 +15,8 @@ namespace InspectSystem.Models
         [Display(Name = "類別")]
         public int ClassId { get; set; }
         [Display(Name = "表單申請日(起始日)")]
-        public DateTime ApplyDateFrom { get; set; }
-        //[Display(Name = "表單申請日(至)")]
-        //public DateTime ApplyDateTo { get; set; }
+        public DateTime? ApplyDateFrom { get; set; }
+        [Display(Name = "表單申請日(至)")]
+        public DateTime? ApplyDateTo { get; set; }
     }
 }

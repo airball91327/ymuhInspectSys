@@ -427,7 +427,10 @@ namespace InspectSystem.Controllers
                 }
                 printVModel.ApplyDate = docIdTable.ApplyDate;
             }
-            return View(printVModel);
+
+            //
+            return View("PrintType1", printVModel);
+            //return View(printVModel);
         }
 
         /// <summary>

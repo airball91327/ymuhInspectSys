@@ -26,7 +26,7 @@
 
         .style5 {
             text-align: center;
-            height: 25px;
+            height: 30px;
         }
 
         .style6 {
@@ -45,7 +45,7 @@
         }
     </style>
 </head>
-<body style="margin: 0px; font-family: DFKai-SB" onload='window.print(); setTimeout(window.close, 500);'>
+<body style="margin: 0px; font-family: DFKai-SB" @*onload='window.print(); setTimeout(window.close, 500);'*@>
     <div>
         <table class="style1">
             <tr style="font-size:36px;">
@@ -98,74 +98,141 @@
                             </td>
                         </tr>
 
-                        @if (Model.ShiftDetails3.Count() > 0)
-                        {
-                            var docClasses = Model.ShiftDetails3.GroupBy(d => d.ClassId).Select(x => x.FirstOrDefault()).ToList();
-                            foreach (var docClass in docClasses.OrderBy(d => d.ClassOrder))
-                            {
-                                <tr style="font-size: 2em;">
-                                    <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                        width="15%">
-                                        @docClass.ClassName
-                                    </td>
-                                    <td colspan="7">
-                                        <table style="width: 100%;">
-                                            @{
-                                                var docItems = Model.ShiftDetails3.Where(d => d.ClassId == docClass.ClassId)
-                                                                                  .GroupBy(d => d.ItemId).Select(x => x.FirstOrDefault());
-                                                foreach (var docItem in docItems.OrderBy(d => d.ItemOrder))
-                                                {
-                                                    <tr>
-                                                        <td class="style5"
-                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                                            width="17%">
-                                                            @docItem.ItemName
-                                                        </td>
-                                                        <td class="style5"
-                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                                            colspan="6">
-                                                            <table style="width: 100%; height: 100%; border-collapse: collapse; border-style: hidden;">
-                                                                @{
-                                                                    var docFields = Model.ShiftDetails3.Where(d => d.ClassId == docItem.ClassId && d.ItemId == docItem.ItemId);
-                                                                    int count = 0;
-                                                                }
-                                                                @foreach (var field in docFields.Where(f => f.DataType != "boolean"))
-                                                                {
-                                                                    if (count % 4 == 0)
-                                                                    {
-                                                                        <tr></tr>
-                                                                    }
-                                                                    if (!string.IsNullOrEmpty(field.FieldName))
-                                                                    {
-                                                                        <td class="style7"
-                                                                            style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
-                                                                            @field.FieldName
-                                                                        </td>
-                                                                    }
-                                                                    <td class="style7"
-                                                                        style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
-                                                                        @field.Value
-                                                                    </td>
-                                                                    count++;
-                                                                }
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            }
-                                        </table>
-                                    </td>
-                                </tr>
-                            }
-                        }
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                鍋爐用水<br />柴油、液氧存量紀錄
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="18%">
+                                            鍋爐水表
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="18%">
+                                            鍋爐儲油槽
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="50%">
+                                            液氧蒸發器是否結冰：
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="14%">
+                                            勾是  請除冰
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="18%">
+                                            A
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="18%">
+                                            B%
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="64%" colspan="2">
+                                            液氧槽： A cm 桶壓: B kg
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                氣體機房檢查
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="50%">
+                                            空壓機機房：
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="50%">
+                                            真空泵機房：
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="50%">
+                                            醫療氣體機房：
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="50%">
+                                            氣送機房：
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                鍋爐運轉狀態
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="100%">
+                                            <span class="col">1號機</span>
+                                            <span class="col"></span>
+                                            <span class="col">/</span>
+                                            <span class="col">2號機</span>
+                                            <span class="col"></span>
+                                            <span class="col">/</span>
+                                            <span class="col">3號機</span>
+                                            <span class="col"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: none; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: none; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
+                                            width="100%">
+                                            (物品清點：手電筒4支 頭燈1組)
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
 
                         <tr style="font-size: 2em; height: 150px;">
-                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                            <td style="font-size: 1.5em; border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
                                 @Html.DisplayNameFor(model => model.Shift1Note)
                             </td>
                             <td colspan="7" align="left"
-                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
+                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">                        
                                 @Model.Shift3Note
                             </td>
                         </tr>
@@ -197,70 +264,195 @@
                             </td>
                         </tr>
 
-                        @if (Model.ShiftDetails1.Count() > 0)
-                        {
-                            var docClasses = Model.ShiftDetails1.GroupBy(d => d.ClassId).Select(x => x.FirstOrDefault()).ToList();
-                            foreach (var docClass in docClasses.OrderBy(d => d.ClassOrder))
-                            {
-                                <tr style="font-size: 2em;">
-                                    <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                        width="15%">
-                                        @docClass.ClassName
-                                    </td>
-                                    <td colspan="7">
-                                        <table style="width: 100%;">
-                                            @{
-                                                var docItems = Model.ShiftDetails1.Where(d => d.ClassId == docClass.ClassId)
-                                                                                  .GroupBy(d => d.ItemId).Select(x => x.FirstOrDefault());
-                                                foreach (var docItem in docItems.OrderBy(d => d.ItemOrder))
-                                                {
-                                                    <tr>
-                                                        <td class="style5"
-                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                                            width="17%">
-                                                            @docItem.ItemName
-                                                        </td>
-                                                        <td class="style5"
-                                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                                            colspan="6">
-                                                            <table style="width: 100%; height: 100%; border-collapse: collapse; border-style: hidden;">
-                                                                @{
-                                                                    var docFields = Model.ShiftDetails1.Where(d => d.ClassId == docItem.ClassId && d.ItemId == docItem.ItemId);
-                                                                    int count = 0;
-                                                                }
-                                                                @foreach (var field in docFields.Where(f => f.DataType != "boolean"))
-                                                                {
-                                                                    if (count % 4 == 0)
-                                                                    {
-                                                                        <tr></tr>
-                                                                    }
-                                                                    if (!string.IsNullOrEmpty(field.FieldName))
-                                                                    {
-                                                                        <td class="style7"
-                                                                            style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
-                                                                            @field.FieldName
-                                                                        </td>
-                                                                    }
-                                                                    <td class="style7"
-                                                                        style="border-right-style: solid; border-bottom-style: solid;  border-right-width: 2px; border-bottom-width: 2px;   border-right-color: #000000; border-bottom-color: #000000;  text-align: center">
-                                                                        @field.Value
-                                                                    </td>
-
-                                                                    count++;
-                                                                }
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            }
-                                        </table>
-                                    </td>
-                                </tr>
-                            }
-                        }
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                空調主機運轉狀態
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            CH-1 200RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>1號機</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>2號機</span>
+                                            <span></span>
+                                            <span>Hz</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            溫度設定  °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            CH-2 350RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>1號機</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>2號機</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            CH-3 600RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>運轉</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            CH-4 600RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>運轉</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            CH-5 450RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>運轉</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            CH-6 150RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>1號機</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="35%">
+                                            <span>2號機</span>
+                                            <span></span>
+                                            <span>Hz</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            冷卻水塔開<br />啟台數
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <table>
+                                                <tr>
+                                                    <td style="border-right-style: solid; border-bottom-style: none; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                                    2
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="15%">
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
 
                         <tr style="font-size: 2em; height: 150px;">
-                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                            <td style="font-size: 1.5em; border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
                                 @Html.DisplayNameFor(model => model.Shift1Note)
                             </td>
@@ -359,7 +551,7 @@
                         }
 
                         <tr style="font-size: 2em; height: 150px;">
-                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                            <td style="font-size: 1.5em; border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
                                 @Html.DisplayNameFor(model => model.Shift1Note)
                             </td>

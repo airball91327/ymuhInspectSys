@@ -4,13 +4,14 @@
     ViewBag.Title = "報表匯出功能";
 }
 
-<h2>報表匯出 - 危險性設備</h2>
+<h2>危險性設備 - 月(半年)報表</h2>
 
 @using (Ajax.BeginForm("Index2", "Report", new AjaxOptions
 {
     HttpMethod = "GET",
     OnBegin = "$.Toast.showToast({ 'title': '搜尋中，請稍待...', 'icon': 'loading', 'duration': 0 })",
     OnSuccess = "showmsg",
+    UpdateTargetId = "pnlREPORT"
 }, new { id = "formREPORT" }))
 {
 
@@ -52,7 +53,16 @@
             <div class="form-group col-md">
                 @Html.LabelFor(model => model.ApplyDateFrom, htmlAttributes: new { @class = "control-label col-md-auto" })
                 <div class="col-md-auto">
-                    <input class="form-control" type="date" id="ApplyDateFrom" name="ApplyDateFrom" required>
+                    <input class="form-control" type="date" id="ApplyDateFrom" name="ApplyDateFrom">
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group col-md">
+                @Html.LabelFor(model => model.ApplyDateTo, htmlAttributes: new { @class = "control-label col-md-auto" })
+                <div class="col-md-auto">
+                    <input class="form-control" type="date" id="ApplyDateTo" name="ApplyDateTo">
                 </div>
             </div>
         </div>
@@ -92,7 +102,9 @@
                     var select = $('#CycleId');
                     select.empty();
                     $.each(response, function (index, item) {
-                        select.append($('<option></option>').text(item.Text).val(item.Value));
+                        if (item.Text != '每日') {
+                            select.append($('<option></option>').text(item.Text).val(item.Value));
+                        }
                     });
                 }
             });
@@ -122,11 +134,8 @@
     });
 
     function showmsg(data) {
-        var downloadURL = '@Url.Action("Index2", "Report", new { Area = "" })';
         if (data.success == null) {
             // search success.
-            var qry = $('#formREPORT').serialize();
-            window.location = downloadURL + "?" + qry;
             $.Toast.hideToast();
         }
         else {
