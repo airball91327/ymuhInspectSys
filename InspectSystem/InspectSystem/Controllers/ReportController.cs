@@ -143,11 +143,94 @@ namespace InspectSystem.Controllers
                         replaceS = itemNames[i];
                     }                    
                     myDoc = myDoc.Replace(targetS, replaceS);
-                    // replace欄位數值
+                    //填入資料 欄位數值
                     string targetCol = "";
-                    string replaceValue = "A";
                     for (int j = 1; j <= 31; j++)
                     {
+                        string replaceValue = "";
+                        int qryDay = j;
+                        var detailsOfDay = resultList.Where(r => r.doc.ApplyDate.Day == qryDay).Select(r => r.detail).ToList();
+                        if (j < 10)
+                        {
+                            targetCol = "col0" + j.ToString();
+                        }
+                        else
+                        {
+                            targetCol = "col" + j.ToString();
+                        }
+                        if (i < 10)
+                        {
+                            targetCol += "0" + i.ToString();
+                        }
+                        else
+                        {
+                            targetCol += i.ToString();
+                        }
+                        if (detailsOfDay.Count() > i)
+                        {
+                            var value = detailsOfDay[i].IsFunctional;
+                            if (value == "合格")
+                                replaceValue = "V";
+                            else if (value == "不合格")
+                                replaceValue = "X";
+                            else if (value == "已改善")
+                                replaceValue = "O";
+                            else
+                                replaceValue = "NA";
+                        }
+                        myDoc = myDoc.Replace(targetCol, replaceValue);
+                    }
+                }
+                //填入檢查者
+                for (int i = 1; i <= 31; i++)
+                {
+                    int qryDay = i;
+                    var docOfDay = resultList.Where(r => r.doc.ApplyDate.Day == qryDay).Select(r => r.doc).ToList();
+                    string targetCol = "";
+                    string replaceValue = "";
+                    if (i < 10)
+                    {
+                        targetCol = "ENG0" + i.ToString();
+                    }
+                    else
+                    {
+                        targetCol = "ENG" + i.ToString();
+                    }
+                    if (docOfDay.Count() > 0)
+                    {
+                        replaceValue = docOfDay.FirstOrDefault().EngName;
+                    }
+                    myDoc = myDoc.Replace(targetCol, replaceValue);
+                }
+            }
+            else
+            {
+                //無資料時，所有欄位清空
+                myDoc = myDoc.Replace("Location", "");
+                myDoc = myDoc.Replace("Department", "");
+                myDoc = myDoc.Replace("Year", "");
+                myDoc = myDoc.Replace("Month", "");
+                myDoc = myDoc.Replace("Classname", "");
+                for (int i = 0; i < 13; i++)
+                {
+                    // Replace 項目名稱
+                    string targetS = "";
+                    string replaceS = "";
+                    if (i < 10)
+                    {
+                        targetS = "field_0" + i.ToString();
+                    }
+                    else
+                    {
+                        targetS = "field_" + i.ToString();
+                    }
+                    myDoc = myDoc.Replace(targetS, replaceS);
+                    //填入資料 欄位數值
+                    string targetCol = "";
+                    for (int j = 1; j <= 31; j++)
+                    {
+                        string replaceValue = "";
+                        int qryDay = j;
                         if (j < 10)
                         {
                             targetCol = "col0" + j.ToString();
@@ -167,7 +250,21 @@ namespace InspectSystem.Controllers
                         myDoc = myDoc.Replace(targetCol, replaceValue);
                     }
                 }
-                //填入資料
+                //檢查者
+                for (int i = 1; i <= 31; i++)
+                {
+                    string targetCol = "";
+                    string replaceValue = "";
+                    if (i < 10)
+                    {
+                        targetCol = "ENG0" + i.ToString();
+                    }
+                    else
+                    {
+                        targetCol = "ENG" + i.ToString();
+                    }
+                    myDoc = myDoc.Replace(targetCol, replaceValue);
+                }
             }
             //寫出
             Response.Write(myDoc);
