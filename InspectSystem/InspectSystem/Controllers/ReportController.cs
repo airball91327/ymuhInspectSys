@@ -364,10 +364,15 @@ namespace InspectSystem.Controllers
                     {
                         replaceS = itemNames[i];
                         replaceS2 = (i + 1).ToString();
-                        replaceVal1 = "A";
-                        replaceVal2 = "B";
-                        replaceVal3 = "C";
-                        replaceVal4 = "D";
+                        var targetDetails = resultList.Where(r => r.detail.ItemName == itemNames[i]).ToList();
+                        var val1 = targetDetails.Where(r => r.detail.FieldName == "檢查方法").FirstOrDefault();
+                        var val2 = targetDetails.Where(r => r.detail.FieldName == "判定基準").FirstOrDefault();
+                        var val3 = targetDetails.Where(r => r.detail.DataType == "float").FirstOrDefault();
+                        var val4 = targetDetails.Where(r => r.detail.DataType == "boolean").FirstOrDefault();
+                        replaceVal1 = val1 != null ? val1.detail.Value : "";
+                        replaceVal2 = val2 != null ? val2.detail.Value : "";
+                        replaceVal3 = val3 != null ? val3.detail.Value : "";
+                        replaceVal4 = val4 != null ? val4.detail.IsFunctional : "";
                     }
                     myDoc = myDoc.Replace(targetS, replaceS);
                     myDoc = myDoc.Replace(targetS2, replaceS2);
