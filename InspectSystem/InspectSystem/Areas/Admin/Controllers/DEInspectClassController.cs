@@ -14,12 +14,13 @@ using InspectSystem.Models.DEquipment;
 
 namespace InspectSystem.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class DEInspectClassController : Controller
     {
         private BMEDcontext db = new BMEDcontext();
 
         // GET: Admin/DEInspectClass
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(int? areaId = null, int ? cycleId = null)
         {
             //
@@ -36,6 +37,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/DEInspectClass/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(int? AreaId, int? CycleId)
         {
             if (AreaId == null || CycleId == null)
@@ -68,6 +70,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         // POST: Admin/DEInspectClass/Create
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "AreaId,CycleId,ClassId,ClassName,ClassStatus")] DEInspectClass inspectClass)
@@ -94,6 +97,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/DEInspectClass/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int? AreaId, int? CycleId, int? ClassId)
         {
             if (AreaId == null || CycleId == null || ClassId == null)
@@ -111,6 +115,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         // POST: Admin/DEInspectClass/Edit/5
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "AreaId,CycleId,ClassId,ClassName,ClassStatus,ClassOrder")] DEInspectClass inspectClass)
@@ -177,6 +182,7 @@ namespace InspectSystem.Areas.Admin.Controllers
         }
 
         // POST: Admin/DEInspectClass/SetClassOrder/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult SetClassOrder(int oldIndex, int newIndex, int areaId, int cycleId)
         {
