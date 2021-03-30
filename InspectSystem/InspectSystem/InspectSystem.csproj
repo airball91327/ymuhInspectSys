@@ -2738,7 +2738,6 @@
     <Content Include="Views\InspectDocIdTable\Print.cshtml" />
     <Content Include="Views\InspectDocIdTable\PrintType1.cshtml" />
     <Content Include="Views\Report\DaliyReportIndex.cshtml" />
-    <Content Include="Views\Report\DaliyReport.cshtml" />
     <Content Include="Views\Report\MonthReportIndex.cshtml" />
     <Content Include="Views\Report\DocList.cshtml" />
   </ItemGroup>

@@ -124,8 +124,9 @@ namespace InspectSystem.Controllers
                                               itemName = r.detail.ItemName
                                           })
                                           .OrderBy(r => r.itemOrder)
-                                          .Select(r => r.itemName).ToList();
-                for(int i = 0; i < 13; i++)
+                                          .Select(r => r.itemName).Distinct().ToList();
+                int cloumns = 13;
+                for (int i = 0; i < cloumns; i++)
                 {
                     // Replace 項目名稱
                     string targetS = "";
@@ -273,9 +274,22 @@ namespace InspectSystem.Controllers
             return View();
         }
 
-        public ActionResult GetMonthReportWord()
+        public ActionResult DownloadMonthReport(string docId)
         {
-            string fileName = "日報表";
+            var resultDetails = db.DEInspectDocDetail.Where(dtl => dtl.DocId == docId);
+            var resultList = resultDetails.Join(db.DEInspectDoc, dtl => dtl.DocId, d => d.DocId,
+                                          (dtl, d) => new
+                                          {
+                                              detail = dtl,
+                                              doc = d
+                                          }).OrderBy(d => d.doc.ApplyDate).ToList();
+            //
+            string fileName = "月報表_" + DateTime.Now.ToString("yyyyMMdd");
+            if (resultList.Count() > 0)
+            {
+                var cycleName = resultList.FirstOrDefault().doc.CycleName;
+                fileName = cycleName + "報表_" + DateTime.Now.ToString("yyyyMMdd");
+            }
             Response.Clear();
             Response.AddHeader("content-disposition", "attachment;filename=" + fileName + ".doc"); //fileName是word的檔名
             Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8");     //編碼utf-8
@@ -283,25 +297,127 @@ namespace InspectSystem.Controllers
             Response.Charset = "";
 
             string myDoc = "";
-            StreamReader sr = new StreamReader(Server.MapPath("~/App_Data/ReportSamples/通用表單_日.xml"));//檔案放在App_Data裡面
+            StreamReader sr = new StreamReader(Server.MapPath("~/App_Data/ReportSamples/通用表單_月.xml"));//檔案放在App_Data裡面
 
             myDoc = sr.ReadToEnd();      //從頭讀到尾
 
             sr.Close();
 
             //下面開始抓資料
-
-            //if (asset != null)
-            //{
-            //    //將抓到的資料，替換掉我們剛剛設的文字
-            //    myDoc = myDoc.Replace("UserDpt", dptName);
-            //    myDoc = myDoc.Replace("AccDpt", asset.purchase.AccDptUid);
-            //    myDoc = myDoc.Replace("BmedNo", asset.bmedm.BmedNo);
-            //    myDoc = myDoc.Replace("EYAssetNo", asset.budget.EYAssetNo);
-            //    myDoc = myDoc.Replace("assetname", asset.bmedm.ACname);
-            //    myDoc = myDoc.Replace("brand", asset.purchase.Brand + "/" + asset.purchase.Type);
-            //    myDoc = myDoc.Replace("uprice", asset.purchase.UPrice.ToString());
-            //}
+            if (resultList.Count() > 0)
+            {
+                var firstData = resultList.FirstOrDefault();
+                var location = firstData.detail.AreaName;
+                var cycleName = firstData.doc.CycleName;
+                var dpt = firstData.detail.ClassName.Split('-').GetValue(0).ToString();
+                var ClassName = firstData.detail.ClassName.Split('-').GetValue(1).ToString();
+                var year = (firstData.doc.ApplyDate.Year - 1911).ToString();
+                var month = firstData.doc.ApplyDate.Month.ToString();
+                var day = firstData.doc.ApplyDate.Day.ToString();
+                var engineerName = firstData.doc.EngName;
+                //將抓到的資料，替換掉我們剛剛設的文字
+                myDoc = myDoc.Replace("Location", location);
+                myDoc = myDoc.Replace("Cycle", cycleName);
+                myDoc = myDoc.Replace("Department", dpt);
+                myDoc = myDoc.Replace("Year", year);
+                myDoc = myDoc.Replace("Month", month);
+                myDoc = myDoc.Replace("Classname", ClassName);
+                myDoc = myDoc.Replace("Day", day);
+                myDoc = myDoc.Replace("Engineer", engineerName);
+                //替換欄位名稱
+                var itemNames = resultList.Where(r => r.detail.DocId == firstData.doc.DocId)
+                                          .Select(r => new
+                                          {
+                                              itemId = r.detail.ItemId,
+                                              itemOrder = r.detail.ItemOrder,
+                                              itemName = r.detail.ItemName
+                                          })
+                                          .OrderBy(r => r.itemOrder)
+                                          .Select(r => r.itemName).Distinct().ToList();
+                int cloumns = 14;
+                for (int i = 0; i < cloumns; i++)
+                {
+                    // Replace 項目名稱
+                    string targetS = "", targetS2 = "";
+                    string replaceS = "", replaceS2 = "";
+                    string targetCol1 = "", targetCol2 = "", targetCol3 = "", targetCol4 = "";
+                    string replaceVal1 = "", replaceVal2 = "", replaceVal3 = "", replaceVal4 = "";
+                    if (i < 10)
+                    {
+                        targetS = "field_0" + i.ToString();
+                        targetS2 = "no_0" + i.ToString();
+                        targetCol1 = "check1_0" + i.ToString();
+                        targetCol2 = "check2_0" + i.ToString();
+                        targetCol3 = "value1_0" + i.ToString();
+                        targetCol4 = "value2_0" + i.ToString();
+                    }
+                    else
+                    {
+                        targetS = "field_" + i.ToString();
+                        targetS2 = "no_" + i.ToString();
+                        targetCol1 = "check1_" + i.ToString();
+                        targetCol2 = "check2_" + i.ToString();
+                        targetCol3 = "value1_" + i.ToString();
+                        targetCol4 = "value2_" + i.ToString();
+                    }
+                    if (itemNames.Count() > i)
+                    {
+                        replaceS = itemNames[i];
+                        replaceS2 = (i + 1).ToString();
+                        replaceVal1 = "A";
+                        replaceVal2 = "B";
+                        replaceVal3 = "C";
+                        replaceVal4 = "D";
+                    }
+                    myDoc = myDoc.Replace(targetS, replaceS);
+                    myDoc = myDoc.Replace(targetS2, replaceS2);
+                    myDoc = myDoc.Replace(targetCol1, replaceVal1);
+                    myDoc = myDoc.Replace(targetCol2, replaceVal2);
+                    myDoc = myDoc.Replace(targetCol3, replaceVal3);
+                    myDoc = myDoc.Replace(targetCol4, replaceVal4);
+                }
+            }
+            else
+            {
+                //無資料時，所有欄位清空
+                myDoc = myDoc.Replace("Location", "");
+                myDoc = myDoc.Replace("Cycle", "");
+                myDoc = myDoc.Replace("Department", "");
+                myDoc = myDoc.Replace("Year", "");
+                myDoc = myDoc.Replace("Month", "");
+                myDoc = myDoc.Replace("Classname", "");
+                myDoc = myDoc.Replace("Day", "");
+                myDoc = myDoc.Replace("engineer", "");
+                for (int i = 0; i < 13; i++)
+                {
+                    string targetS = "", targetS2 = "";
+                    string targetCol1 = "", targetCol2 = "", targetCol3 = "", targetCol4 = "";
+                    if (i < 10)
+                    {
+                        targetS = "field_0" + i.ToString();
+                        targetS2 = "no_0" + i.ToString();
+                        targetCol1 = "check1_0" + i.ToString();
+                        targetCol2 = "check2_0" + i.ToString();
+                        targetCol3 = "value1_0" + i.ToString();
+                        targetCol4 = "value2_0" + i.ToString();
+                    }
+                    else
+                    {
+                        targetS = "field_" + i.ToString();
+                        targetS2 = "no_" + i.ToString();
+                        targetCol1 = "check1_" + i.ToString();
+                        targetCol2 = "check2_" + i.ToString();
+                        targetCol3 = "value1_" + i.ToString();
+                        targetCol4 = "value2_" + i.ToString();
+                    }
+                    myDoc = myDoc.Replace(targetS, "");
+                    myDoc = myDoc.Replace(targetS2, "");
+                    myDoc = myDoc.Replace(targetCol1, "");
+                    myDoc = myDoc.Replace(targetCol2, "");
+                    myDoc = myDoc.Replace(targetCol3, "");
+                    myDoc = myDoc.Replace(targetCol4, "");
+                }
+            }
             //寫出
             Response.Write(myDoc);
             Response.End();

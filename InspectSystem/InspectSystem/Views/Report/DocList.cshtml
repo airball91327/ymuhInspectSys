@@ -67,7 +67,7 @@ else
                 </td>
                 <td>
                     @Html.ActionLink("預覽", "Views", "DEInspectDoc", new { id = item.DocId }, new { @class = "btn btn-primary", target = "_blank" })
-                    @Html.ActionLink("預覽", "DownloadMonthReport", "Report", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("匯出報表", "DownloadMonthReport", "Report", new { docId = item.DocId }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }

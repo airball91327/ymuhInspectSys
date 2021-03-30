@@ -10,7 +10,7 @@ namespace InspectSystem.Models
     public class BMEDcontext : DbContext
     {
         public BMEDcontext()
-        : base("BMEDconnection")    //BMEDconnection //AzureConnection
+        : base("BMEDconnection")    //BMEDconnection //AzureConnection //LOCALConnection
         {
         }
 
