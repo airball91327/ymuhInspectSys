@@ -71,8 +71,8 @@
                             報表
                         </a>
                         <div class="dropdown-menu layout-dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <h6 class="dropdown-header setHeaderStyle">一般巡檢單</h6>
-                            <div class="dropdown-divider"></div>
+                            @*<h6 class="dropdown-header setHeaderStyle">一般巡檢單</h6>
+                            <div class="dropdown-divider"></div>*@
                             <h6 class="dropdown-header setHeaderStyle">危險性設備巡檢單</h6>
                             @Html.ActionLink("日報表", "Index", "Report", new { area = "", reportType = "每日" }, new { @class = "dropdown-item" })
                             @Html.ActionLink("月報表", "Index", "Report", new { area = "", reportType = "每月" }, new { @class = "dropdown-item" })
