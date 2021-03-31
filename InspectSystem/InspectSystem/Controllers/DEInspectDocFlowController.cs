@@ -50,6 +50,7 @@ namespace InspectSystem.Controllers
             List<SelectListItem> listItem = new List<SelectListItem>();
             //listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
             listItem.Add(new SelectListItem { Text = "巡檢工程師", Value = "巡檢工程師" });
+            listItem.Add(new SelectListItem { Text = "其他單位", Value = "其他單位" });
             listItem.Add(new SelectListItem { Text = "工務組長", Value = "工務組長" });
             listItem.Add(new SelectListItem { Text = "單位主管", Value = "單位主管" });
             //
@@ -66,6 +67,7 @@ namespace InspectSystem.Controllers
                 {
                     listItem.Clear();
                     //listItem.Add(new SelectListItem { Text = "驗收人", Value = "驗收人" });
+                    listItem.Add(new SelectListItem { Text = "其他單位", Value = "其他單位" });
                     listItem.Add(new SelectListItem { Text = "工務組長", Value = "工務組長" });
                     listItem.Add(new SelectListItem { Text = "單位主管", Value = "單位主管" });
                 }
