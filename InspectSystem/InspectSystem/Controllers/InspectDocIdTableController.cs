@@ -429,7 +429,13 @@ namespace InspectSystem.Controllers
             }
 
             //
-            return View("PrintType1", printVModel);
+            var temp = db.InspectDocIdTable.Find(id);
+            var areaName = temp != null ? temp.AreaName : "";
+            if (areaName.Contains("蘭陽"))
+            {
+                return View("PrintType1", printVModel);
+            }
+            return View("PrintType2", printVModel);
             //return View(printVModel);
         }
 
