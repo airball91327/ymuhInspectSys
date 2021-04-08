@@ -172,7 +172,7 @@
                                             }
                                             <span>  cm</span>
                                             <span>桶壓：</span>
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("桶壓")).FirstOrDefault(); }
+                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.FieldName.Contains("桶壓")).FirstOrDefault(); }
                                             @if (field != null)
                                             {
                                                 <span>@field.Value</span>
@@ -201,11 +201,11 @@
                                             {
                                                 if (field.Value == "true")
                                                 {
-                                                    <span>是</span>
+                                                    <span>正常</span>
                                                 }
                                                 else
                                                 {
-                                                    <span>否</span>
+                                                    <span>異常</span>
                                                 }
                                             }
                                         </td>
@@ -218,11 +218,11 @@
                                             {
                                                 if (field.Value == "true")
                                                 {
-                                                    <span>是</span>
+                                                    <span>正常</span>
                                                 }
                                                 else
                                                 {
-                                                    <span>否</span>
+                                                    <span>異常</span>
                                                 }
                                             }
                                         </td>
@@ -237,11 +237,11 @@
                                             {
                                                 if (field.Value == "true")
                                                 {
-                                                    <span>是</span>
+                                                    <span>正常</span>
                                                 }
                                                 else
                                                 {
-                                                    <span>否</span>
+                                                    <span>異常</span>
                                                 }
                                             }
                                         </td>
@@ -254,11 +254,11 @@
                                             {
                                                 if (field.Value == "true")
                                                 {
-                                                    <span>是</span>
+                                                    <span>正常</span>
                                                 }
                                                 else
                                                 {
-                                                    <span>否</span>
+                                                    <span>異常</span>
                                                 }
                                             }
                                         </td>

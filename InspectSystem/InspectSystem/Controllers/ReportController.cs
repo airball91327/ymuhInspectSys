@@ -367,7 +367,7 @@ namespace InspectSystem.Controllers
                         var targetDetails = resultList.Where(r => r.detail.ItemName == itemNames[i]).ToList();
                         var val1 = targetDetails.Where(r => r.detail.FieldName == "檢查方法").FirstOrDefault();
                         var val2 = targetDetails.Where(r => r.detail.FieldName == "判定基準").FirstOrDefault();
-                        var val3 = targetDetails.Where(r => r.detail.FieldName == "檢查結果或測量值").FirstOrDefault();
+                        var val3 = targetDetails.Where(r => r.detail.FieldName == "檢查結果或量測值").FirstOrDefault();
                         var val4 = targetDetails.Where(r => r.detail.FieldName == "是否合格").FirstOrDefault();
                         replaceVal1 = val1 != null ? val1.detail.FieldDescription : "";
                         replaceVal2 = val2 != null ? val2.detail.FieldDescription : "";
