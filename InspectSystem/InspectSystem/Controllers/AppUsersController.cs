@@ -364,27 +364,27 @@ namespace InspectSystem.Controllers
 
         public JsonResult GetUsersInDptByKeyname(string keyname)
         {
-            //List<AppUser> ul;
-            //List<UserList> us = new List<UserList>();
+            List<AppUser> ul;
+            List<UserList> us = new List<UserList>();
             string s = "";
-            //if (!string.IsNullOrEmpty(keyname))
-            //{
-            //    db.Departments.Where(u => u.Name_C.Contains(keyname))
-            //        .ToList()
-            //        .ForEach(d =>
-            //        {
-            //            ul = db.AppUsers.Where(p => p.DptId == d.DptId).ToList();
-            //            foreach (AppUser f in ul)
-            //            {
-            //                UserList u = new UserList();
-            //                u.uid = f.Id;
-            //                u.uname = "(" + f.UserName + ")" + f.FullName;
-            //                us.Add(u);
-            //            }
-            //            s = JsonConvert.SerializeObject(us);
-            //        });
-            //}
-            //s = JsonConvert.SerializeObject(us);
+            if (!string.IsNullOrEmpty(keyname))
+            {
+                db.Departments.Where(u => u.Name_C.Contains(keyname))
+                    .ToList()
+                    .ForEach(d =>
+                    {
+                        ul = db.AppUsers.Where(p => p.DptId == d.DptId).ToList();
+                        foreach (AppUser f in ul)
+                        {
+                            UserList u = new UserList();
+                            u.uid = f.Id;
+                            u.uname = "(" + f.UserName + ")" + f.FullName;
+                            us.Add(u);
+                        }
+                        s = JsonConvert.SerializeObject(us);
+                    });
+            }
+            s = JsonConvert.SerializeObject(us);
 
             return Json(s, JsonRequestBehavior.AllowGet);
         }

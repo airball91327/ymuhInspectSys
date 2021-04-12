@@ -67,7 +67,13 @@
 
     <script type="text/javascript">
         $(function () {
+            var cycleId = @Model.CycleId;
             var printURL = '@Url.Action("DownloadMonthReport", "Report", new { docId = Model.DocId })';
+            if (cycleId == '1') {
+                @{ DateTime? applyMonth = ViewBag.ApplyDate; }
+                printURL = '@Url.Action("DownloadDaliyReport", "Report")';
+                printURL += '?AreaId=@Model.AreaId&CycleId=@Model.CycleId&ClassId=@Model.ClassId&ApplyDateFrom=@applyMonth.Value.ToString("yyyy-MM")'
+            }
             $('#btnPrintDoc').click(function () {
                 window.location = printURL;
             });

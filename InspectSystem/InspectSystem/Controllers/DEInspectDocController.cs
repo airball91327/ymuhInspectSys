@@ -482,6 +482,7 @@ namespace InspectSystem.Controllers
             classVModel.CycleId = DEInspectDoc.CycleId;
             classVModel.ClassId = DEInspectDoc.ClassId;
             //
+            ViewBag.ApplyDate = DEInspectDoc.ApplyDate;
             ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單";
             return View(classVModel);
         }
