@@ -104,30 +104,41 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                鍋爐用水<br />柴油、液氧存量紀錄
+                                柴油、液氧存量紀錄
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%;">
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="18%">
-                                            鍋爐水表
+                                            colspan="1" width="9%">
+                                            柴油:
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="18%">
-                                            鍋爐儲油槽
+                                            colspan="1" width="9%">
+                                            cm
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="50%">
+                                            colspan="1" width="9%">
+                                            液氧：
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1" width="9%">
+                                            cm
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            width="48%">
                                             <span>液氧蒸發器是否結冰：</span>
-                                            @{var field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("液氧蒸發器是否結冰")).FirstOrDefault(); } 
+                                            @{var field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("液氧蒸發器是否結冰")).FirstOrDefault(); }
                                             @if (field != null)
                                             {
 
-                                                if (field.Value == "true") {
+                                                if (field.Value == "true")
+                                                {
                                                     <span>是</span>
                                                 }
                                                 else
@@ -140,44 +151,6 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             width="14%">
                                             勾是  請除冰
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="18%">
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("鍋爐水表")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                <span>@field.Value</span>
-                                            }
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="18%">
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("鍋爐儲油槽")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                <span>@field.Value %</span>
-                                            }
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="64%" colspan="2">
-                                            <span>液氧槽：</span>
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("液氧槽")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                <span>@field.Value</span>
-                                            }
-                                            <span>  cm</span>
-                                            <span>桶壓：</span>
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("桶壓")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                <span>@field.Value</span>
-                                            }
-                                            <span>  kg</span>
                                         </td>
                                     </tr>
                                 </table>
