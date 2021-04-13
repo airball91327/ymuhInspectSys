@@ -77,7 +77,7 @@
                         <!--大夜班-->
                         <tr style="font-size: 2em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                width="15%">
+                                width="20%">
                                 大夜班
                             </td>
                             <td class="style5"
@@ -96,7 +96,8 @@
                                 @Html.DisplayNameFor(model => model.Shift1Checker)
                             </td>
                             <td colspan="4" align="center"
-                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
+                                style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000"
+                                width="25%">
                                 @Model.Shift3Checker
                             </td>
                         </tr>
@@ -107,31 +108,33 @@
                                 柴油、液氧存量紀錄
                             </td>
                             <td colspan="7">
-                                <table style="width: 100%;">
+                                <table style="width: 100%; table-layout:fixed">
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1" width="9%">
+                                            colspan="1">
                                             柴油:
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1" width="9%">
+                                            colspan="1">
+                                            <span></span>
                                             cm
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1" width="9%">
+                                            colspan="1">
                                             液氧：
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1" width="9%">
+                                            colspan="1">
+                                            <span></span>
                                             cm
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="48%">
+                                            colspan="3">
                                             <span>液氧蒸發器是否結冰：</span>
                                             @{var field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("液氧蒸發器是否結冰")).FirstOrDefault(); }
                                             @if (field != null)
@@ -149,7 +152,7 @@
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="14%">
+                                            colspan="1">
                                             勾是  請除冰
                                         </td>
                                     </tr>
@@ -160,80 +163,33 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                氣體機房檢查
+                                B、C棟氣體機房檢查
                             </td>
                             <td colspan="7">
-                                <table style="width: 100%;">
+                                <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="50%">
-                                            空壓機機房：
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("空壓機機房")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                if (field.Value == "true")
-                                                {
-                                                    <span>是</span>
-                                                }
-                                                else
-                                                {
-                                                    <span>否</span>
-                                                }
-                                            }
+                                            colspan="1">
+                                            B棟:
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="50%">
-                                            真空泵機房：
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("真空泵機房")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                if (field.Value == "true")
-                                                {
-                                                    <span>是</span>
-                                                }
-                                                else
-                                                {
-                                                    <span>否</span>
-                                                }
-                                            }
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="50%">
-                                            醫療氣體機房：
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("醫療氣體機房")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                if (field.Value == "true")
-                                                {
-                                                    <span>是</span>
-                                                }
-                                                else
-                                                {
-                                                    <span>否</span>
-                                                }
-                                            }
+                                            colspan="1">
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="50%">
-                                            氣送機房：
-                                            @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("氣送機房")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-                                                if (field.Value == "true")
-                                                {
-                                                    <span>是</span>
-                                                }
-                                                else
-                                                {
-                                                    <span>否</span>
-                                                }
-                                            }
+                                            colspan="1">
+                                            C棟:
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="4">
+                                            <span>檢查項目：機房溫度勿超過35度、目視機組運轉情形</span>
                                         </td>
                                     </tr>
                                 </table>
@@ -243,61 +199,37 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                鍋爐運轉狀態
+                                鍋爐交替運轉
                             </td>
                             <td colspan="7">
-                                <table style="width: 100%;">
+                                <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="100%">
-                                            <span class="col">1號機</span>
-                                            <span class="col">
-                                                @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("1號機")).FirstOrDefault(); }
-                                                @if (field != null)
-                                                {
-                                                    if (field.Value == "true")
-                                                    {
-                                                        <span>ON</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span>OFF</span>
-                                                    }
-                                                }
-                                            </span>
-                                            <span class="col">/</span>
-                                            <span class="col">2號機</span>
-                                            <span class="col">
-                                                @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("2號機")).FirstOrDefault(); }
-                                                @if (field != null)
-                                                {
-                                                    if (field.Value == "true")
-                                                    {
-                                                        <span>ON</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span>OFF</span>
-                                                    }
-                                                }
-                                            </span>
-                                            <span class="col">/</span>
-                                            <span class="col">3號機</span>
-                                            <span class="col">
-                                                @{ field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("3號機")).FirstOrDefault(); }
-                                                @if (field != null)
-                                                {
-                                                    if (field.Value == "true")
-                                                    {
-                                                        <span>ON</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span>OFF</span>
-                                                    }
-                                                }
-                                            </span>
+                                            colspan="1">
+                                            A機
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            B機
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            鍋爐加油
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                         </td>
                                     </tr>
                                 </table>
@@ -311,7 +243,6 @@
                             </td>
                             <td colspan="7" align="left" class="align-top"
                                 style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
-                                <p style="font-size: 0.7em !important;">(物品清點：手電筒4支 頭燈1組)</p>
                                 <p style="font-size: 0.7em !important;">@Model.Shift3Note</p>
                             </td>
                         </tr>
@@ -352,12 +283,13 @@
                                 <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-1 200RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            160RT
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
                                             <span>1號機</span>
                                             <span>
                                                 @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("1號機")).FirstOrDefault(); }
@@ -368,19 +300,8 @@
                                             </span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("1號機")).Skip(1).FirstOrDefault(); }
-                                                @if (field != null)
-                                                {
-                                                    <span>@field.Value</span>
-                                                }
-                                            </span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
                                             <span>2號機</span>
                                             <span>
                                                 @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("2號機")).FirstOrDefault(); }
@@ -391,18 +312,8 @@
                                             </span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("2號機")).Skip(1).FirstOrDefault(); }
-                                                @if (field != null)
-                                                {
-                                                    <span>@field.Value</span>
-                                                }
-                                            </span>
-                                            <span>Hz</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             溫度設定
                                             <span>
                                                 @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("溫度設定")).FirstOrDefault(); }
@@ -417,7 +328,83 @@
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-2 350RT
+                                            250RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>1號機</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>2號機</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            175RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
+                                            <span>1號機</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("1號機")).FirstOrDefault(); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
+                                            <span>2號機</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("2號機")).FirstOrDefault(); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            溫度設定
+                                            <span>
+                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("溫度設定")).FirstOrDefault(); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            360RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -449,16 +436,15 @@
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-3 600RT
+                                            380RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
+                                            colspan="2">
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            colspan="3">
                                             <span>運轉</span>
                                             <span></span>
                                         </td>
@@ -470,193 +456,115 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-4 600RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-5 450RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-6 150RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>1號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>2號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>Hz</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="15%">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            冷卻水塔開<br />啟台數
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span></span>
-                                            <span>台</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="4">
-                                            <span>CT</span>
-                                            <span></span>
-                                            <span> ~ </span><span>CT</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            (12:00)
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            溫度
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            濕度
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            溫度範圍
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                         </td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                         <tr style="font-size: 1.3em;">
-                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                width="15%">
-                                CO2機房檢查
-                            </td>
-                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
-                                colspan="7">
-                                <span>CO2主機：</span>
-                                <span></span>
-                            </td>
-                        </tr>
-                        <tr style="font-size: 1.3em;">
-                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                width="15%">
-                                水位檢查
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                C棟1F門診空調開機(08:00)
                             </td>
                             <td colspan="7">
-                                <table style="width: 100%;">
+                                <table style="width: 100%; table-layout:fixed">
                                     <tr>
-                                        <td style="border-right-style: none; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left">
-                                            南側空調補給水塔有無溢水
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            柴油:
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-right-style: none; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left">
-                                            北側水塔有無溢水
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            <span></span>
+                                            cm
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-right-style: none; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left">
-                                            冷卻水塔排水管有無溢水
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            液氧：
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            <span></span>
+                                            cm
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
+                                            <span>液氧蒸發器是否結冰：</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            勾是  請除冰
                                         </td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
 
-                        <tr style="font-size: 2em; height: 200px;">
+                        <tr style="font-size: 2em; height: 300px;">
                             <td style="font-size: 1.5em; border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 4px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
                                 @Html.DisplayNameFor(model => model.Shift1Note)
                             </td>
                             <td colspan="7" align="left" class="align-top"
                                 style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
-                                <p style="font-size: 0.7em !important; margin-bottom:0px;">(星期六發電機保養)</p>
-                                <p style="font-size: 0.7em !important;">(物品清點：手電筒4支 頭燈1組)</p>
+                                <table style="width: 100%; table-layout:fixed; font-size:13pt;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            (12:00)
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            溫度
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            濕度
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>溫度範圍</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%; table-layout:fixed; font-size:13pt;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="4">
+                                            A棟大廳10RT冷氣(09:00)開機(假日除外)
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="4">
+                                            <span></span>
+                                            <span>(可依天氣選擇是否開機)</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p style="font-size: 0.7em !important; margin-bottom:0px;">(星期六發電機保養、星期日C棟備用抽水機及自來水泵保養)</p>
+                                <p style="font-size: 0.7em !important;">自來水表度數：</p>
                                 <p style="font-size: 0.7em !important;">@Model.Shift1Note</p>
                             </td>
                         </tr>
@@ -690,7 +598,7 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                變電站變壓器檢視<br />(溫度&lt;90度正常,<br />溫度&gt;90度異常)
+                                變電站變壓器檢視
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed;">
@@ -698,7 +606,7 @@
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            <span>TR1</span>
+                                            <span>TR01</span>
                                             <span></span>
                                         </td>
                                         <td class="style5"
@@ -709,36 +617,7 @@
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            <span>TR2</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>溫度</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            K W H
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>TR3</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>溫度</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>TR4</span>
+                                            <span>TR02</span>
                                             <span></span>
                                         </td>
                                         <td class="style5"
@@ -748,14 +627,52 @@
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            colspan="1">
+                                            KWH
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            <span>TR5</span>
+                                            <span>TR03</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>溫度</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>TR04</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>溫度</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            室溫
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>TR05</span>
                                             <span></span>
                                         </td>
                                         <td class="style5"
@@ -766,67 +683,12 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
+                                            (溫度&lt;90度正常,溫度&gt;90度異常)
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            空調
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>ACTR1</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>溫度</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>ACTR2</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>溫度</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: none; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>ACTR3</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>溫度</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>ACTR4</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span>溫度</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            排風扇
                                         </td>
                                     </tr>
                                 </table>
@@ -835,7 +697,7 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                自來水系統檢視
+                                C棟自來水系統檢視
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed;">
@@ -851,6 +713,31 @@
                                             門診空調關機(21:30)
                                         </td>
                                         <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: none; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                C棟消防機房檢視
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%; table-layout:fixed;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
+                                        </td>
+                                        <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                         </td>
@@ -861,7 +748,8 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                發電機手自動狀態
+                                <span style="font-size:8pt;">發電機手自動狀態及充電器電壓</span><br />
+                                <span style="font-size:8pt;">檢視(充電器電壓低於23V須反應)</span>
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed;">
@@ -869,7 +757,7 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            G1
+                                            A棟：
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -881,7 +769,7 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            G2
+                                            B棟：
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -895,7 +783,7 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            G3
+                                            C棟G1：
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -906,14 +794,15 @@
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            發電機儲油槽
+                                            colspan="1">
+                                            C棟G2：
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            colspan="3">
                                             <span></span>
-                                            <span>%</span>
+                                            <span>電壓</span>
+                                            <span></span>
                                         </td>
                                     </tr>
                                 </table>
@@ -922,46 +811,39 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                空調冰水主機檢視<br />(16:00)
+                                B棟冰水主機檢視<br />(16:00)
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-1 200RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            160RT
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
                                             <span>1號機</span>
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
                                             <span>2號機</span>
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>Hz</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             溫度設定  °C
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-2 350RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            250RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -970,7 +852,8 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
                                             <span>%</span>
                                         </td>
@@ -981,123 +864,14 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
                                             <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-3 600RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-4 600RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-5 450RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-6 150RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>1號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>2號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>Hz</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="15%">
+                                            colspan="1">
                                             °C
                                         </td>
                                     </tr>
@@ -1107,14 +881,39 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                空調冰水主機卸載<br />(18:00)
+                                C棟空調系統檢視<br />(16:00)
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-1 200RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            175RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
+                                            <span>1號機</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
+                                            <span>2號機</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            360RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -1123,7 +922,8 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
                                             <span>%</span>
                                         </td>
@@ -1134,155 +934,37 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>Hz</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            溫度設定  °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-2 350RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>1號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>2號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             °C
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-3 600RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            380RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
+                                            colspan="2">
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="4">
                                             <span>運轉</span>
                                             <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
                                             <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-4 600RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-5 450RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-6 150RT
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>1號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>2號機</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>Hz</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="15%">
+                                            colspan="1">
                                             °C
                                         </td>
                                     </tr>
@@ -1292,46 +974,39 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                空調冰水主機卸載<br />(22:00)
+                                B棟冰水主機卸載<br />(18:00~22:00)
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-1 200RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            160RT
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
                                             <span>1號機</span>
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
                                             <span>2號機</span>
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>Hz</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             溫度設定  °C
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-2 350RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            250RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -1340,7 +1015,8 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
                                             <span>%</span>
                                         </td>
@@ -1351,97 +1027,56 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             °C
                                         </td>
                                     </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                C棟空調系統卸載<br />(18:00~22:00)
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-3 600RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            175RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
+                                            <span>1號機</span>
                                             <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-4 600RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
+                                            <span>2號機</span>
                                             <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            °C
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-5 450RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="2">
-                                            <span>運轉</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
-                                            <span>%</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            colspan="1">
                                             °C
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-6 150RT
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            360RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -1450,7 +1085,8 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
                                             <span>%</span>
                                         </td>
@@ -1461,14 +1097,64 @@
                                             <span></span>
                                         </td>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
                                             <span></span>
-                                            <span>Hz</span>
+                                            <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            width="15%">
+                                            colspan="1">
                                             °C
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            380RT
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="4">
+                                            <span>運轉</span>
+                                            <span></span>
+                                            <span>%</span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                            °C
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr style="font-size: 1.3em;">
+                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                width="15%">
+                                <span style="font-size:12pt;">A棟大廳10RT冷氣(17:30關機)</span>
+                            </td>
+                            <td colspan="7">
+                                <table style="width: 100%; table-layout:fixed;">
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="1">
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="4">
+                                            <span>C棟2F中央空調機房 18:00關機</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="3">
                                         </td>
                                     </tr>
                                 </table>
@@ -1483,9 +1169,27 @@
                                 <table style="width: 100%; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
-                                            colspan="8">
-                                            <span>(中控室)</span>
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>A棟：</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>B棟：</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>C棟：</span>
+                                            <span></span>
+                                        </td>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="2">
+                                            <span>電機室：</span>
                                             <span></span>
                                         </td>
                                     </tr>
@@ -1495,59 +1199,7 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                消防泵浦室
-                            </td>
-                            <td colspan="7">
-                                <table style="width: 100%; table-layout:fixed;">
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="4">
-                                            <span>採水泵浦：</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="4">
-                                            <span>放水型泵浦：</span>
-                                            <span></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="4">
-                                            <span>泡沫泵浦：</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="4">
-                                            <span>灑水泵浦：</span>
-                                            <span></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="4">
-                                            <span>消防泵浦：</span>
-                                            <span></span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="4">
-                                            <span>泡沫原液體壓力：</span>
-                                            <span></span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr style="font-size: 1.3em;">
-                            <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                width="15%">
-                                UPS機房檢視
+                                C棟UPS機房檢視
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed;">
@@ -1555,7 +1207,17 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="8">
-                                            <span>#1：   %</span><tab1>#2：   %</tab1><tab1>#3：   %</tab1><tab1>消防UPS：   %</tab1>
+                                            <span>#1：   %</span><tab1>#2：   %</tab1><tab1>#4：   %</tab1><tab1>#5：   %</tab1>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="style5"
+                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
+                                            colspan="8">
+                                            <span>空調</span>
+                                            <span>現場溫度：</span>
+                                            <span></span>
+                                            <span>°C</span>
                                         </td>
                                     </tr>
                                     <tr>
