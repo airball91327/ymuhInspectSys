@@ -283,6 +283,12 @@ namespace InspectSystem.Controllers
                                               detail = dtl,
                                               doc = d
                                           }).OrderBy(d => d.doc.ApplyDate).ToList();
+            var docFlows = db.DEInspectDocFlow.Join(db.AppUsers, df => df.Rtp, u => u.Id,
+                                          (df, u) => new
+                                          {
+                                              flow = df,
+                                              rtpuser = u
+                                          }).Where(df => df.flow.DocId == docId).ToList();
             //
             string fileName = "月報表_" + DateTime.Now.ToString("yyyyMMdd");
             if (resultList.Count() > 0)
@@ -315,6 +321,13 @@ namespace InspectSystem.Controllers
                 var month = firstData.doc.ApplyDate.Month.ToString();
                 var day = firstData.doc.ApplyDate.Day.ToString();
                 var engineerName = firstData.doc.EngName;
+                var managerName = "";
+                if (docFlows.Count() > 0)
+                {
+                    docFlows = docFlows.OrderByDescending(df => df.flow.StepId).ToList();
+                    var lastFlow = docFlows.Where(df => df.flow.Cls.Contains("單位主管")).FirstOrDefault();
+                    managerName = lastFlow != null ? lastFlow.rtpuser.FullName : "";
+                }
                 //將抓到的資料，替換掉我們剛剛設的文字
                 myDoc = myDoc.Replace("Location", location);
                 myDoc = myDoc.Replace("Cycle", cycleName);
@@ -324,6 +337,7 @@ namespace InspectSystem.Controllers
                 myDoc = myDoc.Replace("Classname", ClassName);
                 myDoc = myDoc.Replace("Day", day);
                 myDoc = myDoc.Replace("Engineer", engineerName);
+                myDoc = myDoc.Replace("Manager", managerName);
                 //替換欄位名稱
                 var itemNames = resultList.Where(r => r.detail.DocId == firstData.doc.DocId)
                                           .Select(r => new
