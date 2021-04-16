@@ -75,7 +75,7 @@
                     @Html.RadioButtonFor(model => model.DataType, "float") 數字
                     @Html.RadioButtonFor(model => model.DataType, "checkbox") 勾選方塊
                     @Html.RadioButtonFor(model => model.DataType, "dropdownlist") 下拉選單
-                    @Html.RadioButtonFor(model => model.DataType, "boolean") 該項目(正常/不正常)
+                    @Html.RadioButtonFor(model => model.DataType, "boolean") 該項目(合格/不合格/已改善/未開機/不適用)
                     @Html.ValidationMessageFor(model => model.DataType, "", new { @class = "text-danger" })
                 </div>
             </div>

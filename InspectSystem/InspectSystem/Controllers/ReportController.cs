@@ -105,8 +105,9 @@ namespace InspectSystem.Controllers
             {
                 var firstData = resultList.FirstOrDefault();
                 var location = firstData.detail.AreaName;
-                var dpt = firstData.detail.ClassName.Split('-').GetValue(0).ToString();
-                var ClassName = firstData.detail.ClassName.Split('-').GetValue(1).ToString();
+                var temp = resultList.Where(r => r.detail.ItemName.Contains("單位名稱")).FirstOrDefault();
+                var dpt = temp != null ? temp.detail.Value : "";
+                var ClassName = firstData.detail.ClassName.ToString();
                 var year = (firstData.doc.ApplyDate.Year - 1911).ToString();
                 var month = firstData.doc.ApplyDate.Month.ToString();
                 //將抓到的資料，替換掉我們剛剛設的文字
@@ -124,6 +125,9 @@ namespace InspectSystem.Controllers
                                               itemName = r.detail.ItemName
                                           })
                                           .OrderBy(r => r.itemOrder)
+                                          .Where(r => r.itemName != "異常狀況之危害因素及嚴重性分析" && r.itemName != "異常狀況改善措施" &&
+                                                      r.itemName != "異常狀況改善措施追蹤:(定期檢討改善措施之合宜性，本表並依規定須保存三年)" &&
+                                                      r.itemName != "單位名稱")
                                           .Select(r => r.itemName).Distinct().ToList();
                 int cloumns = 13;
                 for (int i = 0; i < cloumns; i++)
@@ -169,15 +173,22 @@ namespace InspectSystem.Controllers
                         }
                         if (detailsOfDay.Count() > i)
                         {
-                            var value = detailsOfDay[i].IsFunctional;
-                            if (value == "合格")
-                                replaceValue = "V";
-                            else if (value == "不合格")
-                                replaceValue = "X";
-                            else if (value == "已改善")
-                                replaceValue = "O";
-                            else
-                                replaceValue = "NA";
+                            if (detailsOfDay[i].ItemName != "異常狀況之危害因素及嚴重性分析" && detailsOfDay[i].ItemName != "異常狀況改善措施" &&
+                                detailsOfDay[i].ItemName != "異常狀況改善措施追蹤:(定期檢討改善措施之合宜性，本表並依規定須保存三年)" &&
+                                detailsOfDay[i].ItemName != "單位名稱") 
+                            {
+                                var value = detailsOfDay[i].IsFunctional;
+                                if (value == "合格")
+                                    replaceValue = "✔";
+                                else if (value == "不合格")
+                                    replaceValue = "✗";
+                                else if (value == "已改善")
+                                    replaceValue = "❍";
+                                else if (value == "未開機")
+                                    replaceValue = "△";
+                                else
+                                    replaceValue = "NA";
+                            }
                         }
                         myDoc = myDoc.Replace(targetCol, replaceValue);
                     }
@@ -203,6 +214,35 @@ namespace InspectSystem.Controllers
                     }
                     myDoc = myDoc.Replace(targetCol, replaceValue);
                 }
+                //填入異常狀況之危害因素及嚴重性分析等文字
+                string analysisText = "", improveText = "", trackText = "";
+                var temp1 = resultList.Where(r => r.detail.ItemName == "異常狀況之危害因素及嚴重性分析").ToList();
+                var temp2 = resultList.Where(r => r.detail.ItemName == "異常狀況改善措施").ToList();
+                var temp3 = resultList.Where(r => r.detail.ItemName == "異常狀況改善措施追蹤:(定期檢討改善措施之合宜性，本表並依規定須保存三年)").ToList();
+                foreach(var item in temp1)
+                {
+                    if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                    {
+                        analysisText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                    }
+                }
+                foreach (var item in temp2)
+                {
+                    if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                    {
+                        improveText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                    }
+                }
+                foreach (var item in temp3)
+                {
+                    if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                    {
+                        trackText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                    }
+                }
+                myDoc = myDoc.Replace("analysisText", analysisText);
+                myDoc = myDoc.Replace("improveText", improveText);
+                myDoc = myDoc.Replace("trackText", trackText);
             }
             else
             {
@@ -212,6 +252,9 @@ namespace InspectSystem.Controllers
                 myDoc = myDoc.Replace("Year", "");
                 myDoc = myDoc.Replace("Month", "");
                 myDoc = myDoc.Replace("Classname", "");
+                myDoc = myDoc.Replace("analysisText", "");
+                myDoc = myDoc.Replace("improveText", "");
+                myDoc = myDoc.Replace("trackText", "");
                 for (int i = 0; i < 13; i++)
                 {
                     // Replace 項目名稱
@@ -315,8 +358,9 @@ namespace InspectSystem.Controllers
                 var firstData = resultList.FirstOrDefault();
                 var location = firstData.detail.AreaName;
                 var cycleName = firstData.doc.CycleName;
-                var dpt = firstData.detail.ClassName.Split('-').GetValue(0).ToString();
-                var ClassName = firstData.detail.ClassName.Split('-').GetValue(1).ToString();
+                var temp = resultList.Where(r => r.detail.ItemName.Contains("單位名稱")).FirstOrDefault();
+                var dpt = temp != null ? temp.detail.Value : "";
+                var ClassName = firstData.detail.ClassName.ToString();
                 var year = (firstData.doc.ApplyDate.Year - 1911).ToString();
                 var month = firstData.doc.ApplyDate.Month.ToString();
                 var day = firstData.doc.ApplyDate.Day.ToString();
@@ -346,6 +390,9 @@ namespace InspectSystem.Controllers
                                               itemOrder = r.detail.ItemOrder,
                                               itemName = r.detail.ItemName
                                           })
+                                          .Where(r => r.itemName != "異常狀況之危害因素及嚴重性分析" && r.itemName != "異常狀況改善措施" &&
+                                                      r.itemName != "異常狀況改善措施追蹤:(定期檢討改善措施之合宜性，本表並依規定須保存三年)" &&
+                                                      r.itemName != "單位名稱")
                                           .OrderBy(r => r.itemOrder)
                                           .Select(r => r.itemName).Distinct().ToList();
                 int cloumns = 14;
@@ -376,17 +423,22 @@ namespace InspectSystem.Controllers
                     }
                     if (itemNames.Count() > i)
                     {
-                        replaceS = itemNames[i];
-                        replaceS2 = (i + 1).ToString();
-                        var targetDetails = resultList.Where(r => r.detail.ItemName == itemNames[i]).ToList();
-                        var val1 = targetDetails.Where(r => r.detail.FieldName == "檢查方法").FirstOrDefault();
-                        var val2 = targetDetails.Where(r => r.detail.FieldName == "判定基準").FirstOrDefault();
-                        var val3 = targetDetails.Where(r => r.detail.FieldName == "檢查結果或量測值").FirstOrDefault();
-                        var val4 = targetDetails.Where(r => r.detail.FieldName == "是否合格").FirstOrDefault();
-                        replaceVal1 = val1 != null ? val1.detail.FieldDescription : "";
-                        replaceVal2 = val2 != null ? val2.detail.FieldDescription : "";
-                        replaceVal3 = val3 != null ? val3.detail.Value : "";
-                        replaceVal4 = val4 != null ? val4.detail.Value : "";
+                        if (itemNames[i] != "異常狀況之危害因素及嚴重性分析" && itemNames[i] != "異常狀況改善措施" &&
+                            itemNames[i] != "異常狀況改善措施追蹤:(定期檢討改善措施之合宜性，本表並依規定須保存三年)" &&
+                            itemNames[i] != "單位名稱") 
+                        {
+                            replaceS = itemNames[i];
+                            replaceS2 = (i + 1).ToString();
+                            var targetDetails = resultList.Where(r => r.detail.ItemName == itemNames[i]).ToList();
+                            var val1 = targetDetails.Where(r => r.detail.FieldName == "檢查方法").FirstOrDefault();
+                            var val2 = targetDetails.Where(r => r.detail.FieldName == "判定基準").FirstOrDefault();
+                            var val3 = targetDetails.Where(r => r.detail.FieldName == "檢查結果或量測值").FirstOrDefault();
+                            var val4 = targetDetails.Where(r => r.detail.FieldName == "是否合格").FirstOrDefault();
+                            replaceVal1 = val1 != null ? val1.detail.FieldDescription : "";
+                            replaceVal2 = val2 != null ? val2.detail.FieldDescription : "";
+                            replaceVal3 = val3 != null ? val3.detail.Value : "";
+                            replaceVal4 = val4 != null ? val4.detail.Value : "";
+                        }
                     }
                     myDoc = myDoc.Replace(targetS, replaceS);
                     myDoc = myDoc.Replace(targetS2, replaceS2);
@@ -394,6 +446,35 @@ namespace InspectSystem.Controllers
                     myDoc = myDoc.Replace(targetCol2, replaceVal2);
                     myDoc = myDoc.Replace(targetCol3, replaceVal3);
                     myDoc = myDoc.Replace(targetCol4, replaceVal4);
+                    //填入異常狀況之危害因素及嚴重性分析等文字
+                    string analysisText = "", improveText = "", trackText = "";
+                    var temp1 = resultList.Where(r => r.detail.ItemName == "異常狀況之危害因素及嚴重性分析").ToList();
+                    var temp2 = resultList.Where(r => r.detail.ItemName == "異常狀況改善措施").ToList();
+                    var temp3 = resultList.Where(r => r.detail.ItemName == "異常狀況改善措施追蹤:(定期檢討改善措施之合宜性，本表並依規定須保存三年)").ToList();
+                    foreach (var item in temp1)
+                    {
+                        if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                        {
+                            analysisText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                        }
+                    }
+                    foreach (var item in temp2)
+                    {
+                        if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                        {
+                            improveText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                        }
+                    }
+                    foreach (var item in temp3)
+                    {
+                        if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                        {
+                            trackText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                        }
+                    }
+                    myDoc = myDoc.Replace("analysisText", analysisText);
+                    myDoc = myDoc.Replace("improveText", improveText);
+                    myDoc = myDoc.Replace("trackText", trackText);
                 }
             }
             else
@@ -407,6 +488,9 @@ namespace InspectSystem.Controllers
                 myDoc = myDoc.Replace("Classname", "");
                 myDoc = myDoc.Replace("Day", "");
                 myDoc = myDoc.Replace("engineer", "");
+                myDoc = myDoc.Replace("analysisText", "");
+                myDoc = myDoc.Replace("improveText", "");
+                myDoc = myDoc.Replace("trackText", "");
                 for (int i = 0; i < 13; i++)
                 {
                     string targetS = "", targetS2 = "";

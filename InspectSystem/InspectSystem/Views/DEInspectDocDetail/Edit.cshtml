@@ -215,6 +215,7 @@
                                                 @Html.RadioButtonFor(modelItem => docItem.IsFunctional, "合格", new { @Name = "InspectDocDetail[" + j + "].IsFunctional" })合格
                                                 @Html.RadioButtonFor(modelItem => docItem.IsFunctional, "不合格", new { @Name = "InspectDocDetail[" + j + "].IsFunctional" })不合格
                                                 @Html.RadioButtonFor(modelItem => docItem.IsFunctional, "已改善", new { @Name = "InspectDocDetail[" + j + "].IsFunctional" })已改善
+                                                @Html.RadioButtonFor(modelItem => docItem.IsFunctional, "未開機", new { @Name = "InspectDocDetail[" + j + "].IsFunctional" })未開機
                                                 @Html.RadioButtonFor(modelItem => docItem.IsFunctional, "N/A", new { @Name = "InspectDocDetail[" + j + "].IsFunctional" })N/A
                                                 @Html.ValidationMessage("InspectDocDetail[" + j + "].IsFunctional", "", new { @class = "text-danger" })
                                             </div>
