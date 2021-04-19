@@ -52,7 +52,7 @@
         }
     </style>
 </head>
-<body style="margin: 0px; font-family: DFKai-SB" @*onload='window.print(); setTimeout(window.close, 500);'*@>
+<body style="margin: 0px; font-family: DFKai-SB" onload='window.print(); setTimeout(window.close, 500);'>
     <div>
         <table class="style1">
             <tr style="font-size:36px;">
@@ -108,7 +108,9 @@
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                 width="15%">
-                                鍋爐用水<br />柴油、液氧存量紀錄
+                                <span style="font-size: 11pt;">
+                                    鍋爐用水<br />柴油、液氧存量紀錄
+                                </span>
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%;">
@@ -370,7 +372,7 @@
                                             }
                                             else
                                             {
-                                                <span></span>
+                                                <span class="far fa-square"></span>
                                             }
                                         }
                                     </span>
@@ -386,7 +388,7 @@
                                             }
                                             else
                                             {
-                                                <span></span>
+                                                <span class="far fa-square"></span>
                                             }
                                         }
                                     </span>
@@ -984,7 +986,7 @@
                                             }
                                             else
                                             {
-                                                <span></span>
+                                                <span class="far fa-square"></span>
                                             }
                                         }
                                     </span>
@@ -1000,7 +1002,7 @@
                                             }
                                             else
                                             {
-                                                <span></span>
+                                                <span class="far fa-square"></span>
                                             }
                                         }
                                     </span>
@@ -1734,21 +1736,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1760,21 +1783,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1786,21 +1830,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1813,27 +1878,63 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>Hz</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             width="15%">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機檢視(16:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1856,27 +1957,64 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                               .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                               .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                               .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                               .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>Hz</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            溫度設定  °C
+                                            <span>溫度設定</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            <span>°C</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1888,26 +2026,71 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            <span>、</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(5); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1919,21 +2102,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1945,21 +2149,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1971,21 +2196,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1998,27 +2244,63 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>Hz</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             width="15%">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(18:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-6 150RT")).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -2041,27 +2323,64 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>Hz</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            溫度設定  °C
+                                            <span>溫度設定</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-1 200RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            <span>°C</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -2073,26 +2392,71 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                   .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            <span>、</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-2 350RT")).ElementAt(5); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -2104,21 +2468,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-3 600RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -2130,21 +2515,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-4 600RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -2156,54 +2562,111 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-5 450RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            CH-6 150RT
+                                            CH-6 1500RT
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-6 1500RT")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-6 1500RT")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-6 1500RT")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-6 1500RT")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>Hz</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             width="15%">
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("空調冰水主機卸載(22:00)"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("CH-6 1500RT")).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -2222,7 +2685,21 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
                                             colspan="8">
                                             <span>(中控室)</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("消防受信總機(中控室)"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("中控室")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -2240,13 +2717,41 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>採水泵浦：</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("消防泵浦室"))
+                                                                              .Where(dtl => dtl.ItemName.Contains("採水泵浦")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>放水型泵浦：</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("消防泵浦室"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("放水型泵浦")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -2254,13 +2759,41 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>泡沫泵浦：</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("消防泵浦室"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("泡沫泵浦")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>灑水泵浦：</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("消防泵浦室"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("灑水泵浦")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -2268,13 +2801,34 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>消防泵浦：</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("消防泵浦室"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("消防泵浦")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>泡沫原液體壓力：</span>
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("消防泵浦室"))
+                                                                                .Where(dtl => dtl.ItemName.Contains("泡沫原液槽壓力")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value KG</span>
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -2291,7 +2845,54 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="8">
-                                            <span>#1：   %</span><tab1>#2：   %</tab1><tab1>#3：   %</tab1><tab1>消防UPS：   %</tab1>
+                                            <span>
+                                                <span>#1：</span>
+                                                <span>
+                                                    @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("UPS機房檢視"))
+                                                                                    .Where(dtl => dtl.ItemName.Contains("UPS機房檢視")).ElementAt(0); }
+                                                    @if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </span>
+                                            <tab1>
+                                                <span>#2：</span>
+                                                <span>
+                                                    @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("UPS機房檢視"))
+                                                                                     .Where(dtl => dtl.ItemName.Contains("UPS機房檢視")).ElementAt(1); }
+                                                    @if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </tab1>
+                                            <tab1>
+                                                <span>#3：</span>
+                                                <span>
+                                                    @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("UPS機房檢視"))
+                                                                                      .Where(dtl => dtl.ItemName.Contains("UPS機房檢視")).ElementAt(2); }
+                                                    @if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </tab1>
+                                            <tab1>
+                                                <span>消防UPS：</span>
+                                                <span>
+                                                    @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("UPS機房檢視"))
+                                                                                      .Where(dtl => dtl.ItemName.Contains("UPS機房檢視")).ElementAt(3); }
+                                                    @if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </tab1>
                                         </td>
                                     </tr>
                                     <tr>
@@ -2319,21 +2920,57 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
                                             #1
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("熱水桶溫度"))
+                                                                                 .Where(dtl => dtl.ItemName.Contains("熱水桶溫度")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            °C
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
                                             #2
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("熱水桶溫度"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("熱水桶溫度")).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            °C
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
                                             #3
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("熱水桶溫度"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("熱水桶溫度")).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            °C
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
                                             #4
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("熱水桶溫度"))
+                                                                                  .Where(dtl => dtl.ItemName.Contains("熱水桶溫度")).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
+                                            °C
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -2355,25 +2992,57 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
                                             colspan="2">
                                             <span>地點：急診室外</span><br />
-                                            <span>總水表：123</span>
+                                            <span>總水表：</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("自來水表度數"))
+                                                                                   .Where(dtl => dtl.ItemName.Contains("地點：急診外")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
                                             colspan="2">
                                             <span>地點：泵補機房(民生沖廁)</span><br />
-                                            <span>沖廁水表：123</span>
+                                            <span>沖廁水表：</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("自來水表度數"))
+                                                                                   .Where(dtl => dtl.ItemName.Contains("地點：泵浦機房(民生沖廁)")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
                                             colspan="2">
                                             <span>地點：空調機房</span><br />
-                                            <span>空調水表：123</span>
+                                            <span>空調水表：</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("自來水表度數"))
+                                                                                   .Where(dtl => dtl.ItemName.Contains("地點：空調機房")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
                                             colspan="2">
                                             <span>地點：鍋爐室</span><br />
-                                            <span>消防水表：123</span>
+                                            <span>消防水表：</span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("自來水表度數"))
+                                                                                   .Where(dtl => dtl.ItemName.Contains("地點：鍋爐室")).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -2388,7 +3057,43 @@
                             <td colspan="7" align="left" class="align-top"
                                 style="border-bottom-style: solid; border-bottom-width: 4px; border-right-style: solid; border-right-width: 4px; border-right-color: #000000; border-bottom-color: #000000">
                                 <p style="font-size: 0.7em !important; margin-bottom:0px;">(大夜班人員請確實檢視空調主機是否依作業標準書(2-1及2-2執行作業卸載。))</p>
-                                <p style="font-size: 0.7em !important;">(物品清點：手電筒4支 頭燈1組)</p>
+                                <p style="font-size: 0.7em !important;">
+                                    <span>
+                                        (物品清點：
+                                    </span>
+                                    <span>
+                                        @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("物品清點"))
+                                                                       .Where(dtl => dtl.ItemName.Contains("物品清點")).ElementAt(0); }
+                                        @if (field != null)
+                                        {
+                                            if (field.Value == "true")
+                                            {
+                                                <span class="far fa-check-square"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="far fa-square"></span>
+                                            }
+                                        }
+                                    </span>
+                                    <span>手電筒4支&nbsp;</span>
+                                    <span>
+                                        @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("物品清點"))
+                                                                       .Where(dtl => dtl.ItemName.Contains("物品清點")).ElementAt(1); }
+                                        @if (field != null)
+                                        {
+                                            if (field.Value == "true")
+                                            {
+                                                <span class="far fa-check-square"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="far fa-square"></span>
+                                            }
+                                        }
+                                    </span>
+                                    <span>頭燈1組)</span>
+                                </p>
                                 <p style="font-size: 0.7em !important;">@Model.Shift2Note</p>
                             </td>
                         </tr>
