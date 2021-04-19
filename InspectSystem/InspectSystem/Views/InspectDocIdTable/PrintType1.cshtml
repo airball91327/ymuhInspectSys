@@ -1303,19 +1303,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: none; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("變電站變壓器檢視(溫度<90度正常，溫度>90度異常)"))
-                                                                          .Where(dtl => dtl.ItemName.Contains("空調")).ElementAt(0); }
-                                            @if (field != null)
-                                            {
-                                                if (field.Value == "true")
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 10).ElementAt(0); }
+                                                @if (field != null)
                                                 {
-                                                    <span>正常</span>
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>正常</span>
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    <span>異常</span>
-                                                }
-                                            }
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1386,6 +1388,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 10).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value != "true")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>異常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -1426,19 +1443,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("變電站變壓器檢視(溫度<90度正常，溫度>90度異常)"))
-                                                                          .Where(dtl => dtl.ItemName.Contains("門診空調關機(21:30)")).ElementAt(0); }
-                                            @if (field != null)
-                                            {
-                                                if (field.Value == "true")
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 12).ElementAt(0); }
+                                                @if (field != null)
                                                 {
-                                                    <span>正常</span>
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span> OFF</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span> OFF</span>
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    <span>異常</span>
-                                                }
-                                            }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -3005,7 +3024,7 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: left"
                                             colspan="2">
-                                            <span>地點：泵補機房(民生沖廁)</span><br />
+                                            <span style="font-size: 11pt;">地點：泵補機房(民生沖廁)</span><br />
                                             <span>沖廁水表：</span>
                                             <span>
                                                 @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassName.Contains("自來水表度數"))

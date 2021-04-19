@@ -1,5 +1,8 @@
 ﻿@model InspectSystem.Models.InspectDocPrintVModel
 
+<link rel="stylesheet" type="text/css" href="~/Font-awesome-5.14.0/css/all.min.css">
+<script src="~/Font-awesome-5.14.0/js/all.min.js"></script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
@@ -43,12 +46,13 @@
                 display: none !important;
             }
         }
+
         tab1 {
             padding-left: 3em;
         }
     </style>
 </head>
-<body style="margin: 0px; font-family: DFKai-SB" @*onload='window.print(); setTimeout(window.close, 500);'*@>
+<body style="margin: 0px; font-family: DFKai-SB" onload='window.print(); setTimeout(window.close, 500);'>
     <div>
         <table class="style1">
             <tr style="font-size:36px;">
@@ -118,7 +122,14 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{var field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 1)
+                                                                                     .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             cm
                                         </td>
                                         <td class="style5"
@@ -129,26 +140,28 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 1)
+                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             cm
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>液氧蒸發器是否結冰：</span>
-                                            @{var field = Model.ShiftDetails3.Where(dtl => dtl.ItemName.Contains("液氧蒸發器是否結冰")).FirstOrDefault(); }
-                                            @if (field != null)
-                                            {
-
-                                                if (field.Value == "true")
+                                            <span>
+                                                @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 1)
+                                                                                   .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
                                                 {
-                                                    <span>是</span>
+                                                    <span>@field.Value</span>
                                                 }
-                                                else
-                                                {
-                                                    <span>否</span>
-                                                }
-                                            }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -176,6 +189,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 2)
+                                                                                     .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -185,6 +213,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 2)
+                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -212,6 +255,14 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 3)
+                                                                                     .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -221,6 +272,14 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 3)
+                                                                                       .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -230,6 +289,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>已加油</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>已加油</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -292,7 +366,8 @@
                                             colspan="3">
                                             <span>1號機</span>
                                             <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("1號機")).FirstOrDefault(); }
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -304,7 +379,8 @@
                                             colspan="3">
                                             <span>2號機</span>
                                             <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("2號機")).FirstOrDefault(); }
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -314,9 +390,10 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            溫度設定
+                                            溫度設定<br />
                                             <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("溫度設定")).FirstOrDefault(); }
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -334,26 +411,62 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -368,7 +481,8 @@
                                             colspan="3">
                                             <span>1號機</span>
                                             <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("1號機")).FirstOrDefault(); }
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                   .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -380,7 +494,8 @@
                                             colspan="3">
                                             <span>2號機</span>
                                             <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("2號機")).FirstOrDefault(); }
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                   .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -390,9 +505,9 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            溫度設定
                                             <span>
-                                                @{ field = Model.ShiftDetails1.Where(dtl => dtl.ItemName.Contains("CH-1")).Where(dtl => dtl.FieldName.Contains("溫度設定")).FirstOrDefault(); }
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                                     .Where(dtl => dtl.ItemId == 3).ElementAt(2); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -410,26 +525,62 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -441,20 +592,42 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>運轉</span>
-                                            <span></span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -463,42 +636,39 @@
                         </tr>
                         <tr style="font-size: 1.3em;">
                             <td style="border-right-style: solid; border-bottom-style: solid; border-right-width: 4px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
-                                C棟1F門診空調開機(08:00)
+                                <span style="font-size:11pt;">C棟1F門診空調開機(08:00)</span>
                             </td>
                             <td colspan="7">
                                 <table style="width: 100%; table-layout:fixed">
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1">
-                                            柴油:
+                                            colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 6).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1">
-                                            <span></span>
-                                            cm
+                                            colspan="4">
+                                            C棟2F中央空調機房08:00開機(六、日免開)
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1">
-                                            液氧：
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1">
-                                            <span></span>
-                                            cm
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="3">
-                                            <span>液氧蒸發器是否結冰：</span>
-                                        </td>
-                                        <td class="style5"
-                                            style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
-                                            colspan="1">
-                                            勾是  請除冰
+                                            colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 7).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -527,6 +697,14 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 8).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -536,6 +714,14 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 8).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -545,6 +731,14 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 8).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -558,13 +752,41 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 9).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    <span>@field.Value</span>
+                                                }
+                                            </span>
                                             <span>(可依天氣選擇是否開機)</span>
                                         </td>
                                     </tr>
                                 </table>
                                 <p style="font-size: 0.7em !important; margin-bottom:0px;">(星期六發電機保養、星期日C棟備用抽水機及自來水泵保養)</p>
-                                <p style="font-size: 0.7em !important;">自來水表度數：</p>
+                                <p style="font-size: 0.7em !important; margin-bottom:0px;">
+                                    10RT ON:
+                                    <span>
+                                        @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                     .Where(dtl => dtl.ItemId == 10).ElementAt(3); }
+                                        @if (field != null)
+                                        {
+                                            <span>@field.Value</span>
+                                        }
+                                    </span>
+                                </p>
+                                <p style="font-size: 0.7em !important;">
+                                    自來水表度數：
+                                    <span>
+                                        @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
+                                                                     .Where(dtl => dtl.ItemId == 11).ElementAt(0); }
+                                        @if (field != null)
+                                        {
+                                            <span>@field.Value</span>
+                                        }
+                                    </span>
+                                </p>
                                 <p style="font-size: 0.7em !important;">@Model.Shift1Note</p>
                             </td>
                         </tr>
@@ -607,23 +829,63 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>TR01</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>溫度</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>TR02</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>溫度</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -633,6 +895,17 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 12).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -640,23 +913,63 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>TR03</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>溫度</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>TR04</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>溫度</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -666,6 +979,17 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 13).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -673,12 +997,32 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>TR05</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>溫度</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -705,7 +1049,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                              .Where(dtl => dtl.ItemId == 16).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -715,6 +1073,21 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: none; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                             .Where(dtl => dtl.ItemId == 14).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>正常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -731,15 +1104,59 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                              .Where(dtl => dtl.ItemId == 17).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                               .Where(dtl => dtl.ItemId == 15).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>OFF</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>OFF</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
+                                                                               .Where(dtl => dtl.ItemId == 14).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional != "Y")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>異常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -762,9 +1179,29 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>電壓</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -774,9 +1211,29 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>電壓</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -788,9 +1245,29 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>電壓</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -800,9 +1277,29 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>電壓</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -825,18 +1322,50 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            溫度設定  °C
+                                            溫度設定<br />
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
+                                            °C
                                         </td>
                                     </tr>
                                     <tr>
@@ -849,29 +1378,80 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -895,17 +1475,48 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -919,29 +1530,80 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -954,17 +1616,49 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>運轉</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -988,18 +1682,50 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            溫度設定  °C
+                                            溫度設定<br />
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
+                                            °C
                                         </td>
                                     </tr>
                                     <tr>
@@ -1012,29 +1738,80 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1058,17 +1835,48 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="3">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1082,29 +1890,80 @@
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>1號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: none; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>2號機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1117,17 +1976,49 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>運轉</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>%</span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(2); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             °C
                                         </td>
                                     </tr>
@@ -1140,17 +2031,46 @@
                                 <span style="font-size:12pt;">A棟大廳10RT冷氣(17:30關機)</span>
                             </td>
                             <td colspan="7">
-                                <table style="width: 100%; table-layout:fixed;">
+                                <table style="width: 100%; height: 50px; table-layout:fixed;">
                                     <tr>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="1">
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 7)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>OFF</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>OFF</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>C棟2F中央空調機房 18:00關機</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 7)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.Value == "true")
+                                                    {
+                                                        <span class="far fa-check-square"></span><span>OFF</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="far fa-square"></span><span>OFF</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
@@ -1172,25 +2092,81 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>A棟：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>B棟：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>C棟：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>電機室：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field.IsFunctional == "Y")
+                                                    {
+                                                        <span>正常</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>異常</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -1207,7 +2183,66 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="8">
-                                            <span>#1：   %</span><tab1>#2：   %</tab1><tab1>#4：   %</tab1><tab1>#5：   %</tab1>
+                                            <span>
+                                                <span>#1：</span>
+                                                <span>
+                                                    @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
+                                                                                 .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                    @if (field != null)
+                                                    {
+                                                        if (field != null)
+                                                        {
+                                                            <span>@field.Value</span>
+                                                        }
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </span>
+                                            <tab1>
+                                                <span>#2：</span>
+                                                <span>
+                                                    @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
+                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                    @if (field != null)
+                                                    {
+                                                        if (field != null)
+                                                        {
+                                                            <span>@field.Value</span>
+                                                        }
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </tab1>
+                                            <tab1>
+                                                <span>#4：</span>
+                                                <span>
+                                                    @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
+                                                                                 .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                    @if (field != null)
+                                                    {
+                                                        if (field != null)
+                                                        {
+                                                            <span>@field.Value</span>
+                                                        }
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </tab1>
+                                            <tab1>
+                                                <span>#5：</span>
+                                                <span>
+                                                    @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
+                                                                                 .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                    @if (field != null)
+                                                    {
+                                                        if (field != null)
+                                                        {
+                                                            <span>@field.Value</span>
+                                                        }
+                                                    }
+                                                </span>
+                                                <span>%</span>
+                                            </tab1>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1216,7 +2251,17 @@
                                             colspan="8">
                                             <span>空調</span>
                                             <span>現場溫度：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
+                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                             <span>°C</span>
                                         </td>
                                     </tr>
@@ -1242,19 +2287,49 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>A棟1：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>B棟1：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
+                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>C棟1：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
+                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1262,19 +2337,49 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>A棟2：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
+                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
                                             <span>B棟2：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
+                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="4">
                                             <span>C棟2：</span>
-                                            <span></span>
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
+                                                                             .Where(dtl => dtl.ItemId == 6).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
@@ -1313,22 +2418,62 @@
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
+                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
+                                                                               .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
+                                                                               .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                         <td class="style5"
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center"
                                             colspan="2">
-                                            
+                                            <span>
+                                                @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
+                                                                               .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                @if (field != null)
+                                                {
+                                                    if (field != null)
+                                                    {
+                                                        <span>@field.Value</span>
+                                                    }
+                                                }
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
