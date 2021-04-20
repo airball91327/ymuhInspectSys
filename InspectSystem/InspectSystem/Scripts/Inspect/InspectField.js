@@ -64,18 +64,21 @@ function ChangeAttrByRaioBtn() {
         $("#MinValue").attr("disabled", false);
         $("#MaxValue").attr("disabled", false);
         $("#FieldDescription").attr("disabled", true);
+        $("#showPastValueDiv").show();
     }
     else if (checkValue == "description") {
         $("#UnitOfData").attr("disabled", true);
         $("#MinValue").attr("disabled", true);
         $("#MaxValue").attr("disabled", true);
         $("#FieldDescription").attr("disabled", false);
+        $("#showPastValueDiv").hide();
     }
     else {
         $("#UnitOfData").attr("disabled", true); /* If a element set disabled, it won't return values.*/
         $("#MinValue").attr("disabled", true);
         $("#MaxValue").attr("disabled", true);
         $("#FieldDescription").attr("disabled", true);
+        $("#showPastValueDiv").hide();
     }
 
     /* for datatype dropdownlist. */

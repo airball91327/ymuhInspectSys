@@ -69,6 +69,10 @@
                                                                         @Html.DisplayFor(modelItem => docItem.Value)
                                                                         @Html.DisplayFor(modelItem => fieldItem.UnitOfData)
                                                                     </span>
+                                                                    if (fieldItem.ToShowPastValue() == true)
+                                                                    {
+                                                                        <p style="color: orangered">昨日數值 : @fieldItem.PastValue()</p>
+                                                                    }
                                                                     break;
 
                                                                 case "checkbox":

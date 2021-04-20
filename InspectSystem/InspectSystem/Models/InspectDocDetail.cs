@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Linq.Dynamic;
 
 namespace InspectSystem.Models
 {
@@ -70,30 +72,37 @@ namespace InspectSystem.Models
         public virtual InspectDoc InspectDocs { get; set; }
 
         /* Check that this field is needed to show past value or not. */
-        //public Boolean ToShowPastValue()
-        //{
-        //    BMEDcontext db = new BMEDcontext();
-        //    Boolean checkResult = false;
-        //    var acid = (AreaId) * 100 + ClassId;
-        //    checkResult = db.InspectField.Find(acid, ItemId, FieldId).ShowPastValue;
+        public Boolean ToShowPastValue()
+        {
+            BMEDcontext db = new BMEDcontext();
+            Boolean checkResult = false;
+            checkResult = db.InspectField.Find(AreaId, ShiftId, ClassId, ItemId, FieldId).ShowPastValue;
 
-        //    return checkResult;
-        //}
+            return checkResult;
+        }
 
         /* Get the past value of the field. */
-        //public string PastValue()
-        //{
-        //    BMEDcontext db = new BMEDcontext();
-        //    var pastValue = "";
-        //    var targetDocId = DocId - 100;
-        //    var findDocDetails = db.InspectDocDetails.Find(targetDocId, ClassId, ItemId, FieldId);
-        //    // If has past value
-        //    if(findDocDetails != null)
-        //    {
-        //        pastValue = findDocDetails.Value;
-        //    }          
+        public string PastValue()
+        {
+            BMEDcontext db = new BMEDcontext();
+            var pastValue = "";
+            var docidTable = db.InspectDocIdTable.Find(DocId);
+            if (docidTable != null)
+            {
+                var applyDate = docidTable.ApplyDate.AddDays(-1);
+                var targetDoc = db.InspectDocIdTable.Where(d => d.ApplyDate == applyDate).FirstOrDefault();
+                if (targetDoc != null)
+                {
+                    var findDocDetails = db.InspectDocDetail.Find(targetDoc.DocId, ShiftId, ClassId, ItemId, FieldId);
+                    // If has past value
+                    if (findDocDetails != null)
+                    {
+                        pastValue = findDocDetails.Value;
+                    }
+                }
+            }
 
-        //    return pastValue;
-        //}
+            return pastValue;
+        }
     }
 }

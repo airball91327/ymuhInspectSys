@@ -122,6 +122,14 @@
                     </div>
                 </div>
 
+                <div class="form-group row" id="showPastValueDiv">
+                    @Html.LabelFor(model => model.ShowPastValue, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10" style="margin-top : 7px">
+                        @Html.CheckBoxFor(model => model.ShowPastValue)
+                        @Html.ValidationMessageFor(model => model.ShowPastValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
             </div>
 
             <div class="form-group row">

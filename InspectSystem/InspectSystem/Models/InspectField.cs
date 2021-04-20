@@ -46,7 +46,7 @@ namespace InspectSystem.Models
         [Display(Name = "是否必填")]
         public bool IsRequired { get; set; }
         [Display(Name = "顯示昨日數值")]
-        public bool? ShowPastValue { get; set; }
+        public bool ShowPastValue { get; set; }
         [Display(Name = "異動人員")]
         public int? Rtp { get; set; }
         [NotMapped]

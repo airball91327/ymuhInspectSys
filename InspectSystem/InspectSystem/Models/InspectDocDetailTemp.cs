@@ -81,11 +81,8 @@ namespace InspectSystem.Models
         {
             BMEDcontext db = new BMEDcontext();
             bool checkResult = false;
-            var result = db.InspectField.Find(AreaId, ShiftId, ClassId, ItemId, FieldId).ShowPastValue;
-            if (result != null)
-            {
-                checkResult = result.Value;
-            }
+            checkResult = db.InspectField.Find(AreaId, ShiftId, ClassId, ItemId, FieldId).ShowPastValue;
+
             return checkResult;
         }
 
