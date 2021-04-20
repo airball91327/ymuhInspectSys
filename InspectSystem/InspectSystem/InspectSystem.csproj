@@ -244,6 +244,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DEInspectAreaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DEInspectDocDetailController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectDocDetailController.cs" />
     <Compile Include="Areas\Admin\Controllers\InspectAreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DEInspectClassController.cs" />
@@ -2407,6 +2408,8 @@
     <Content Include="Areas\Admin\Views\InspectDocDetail\GetClassContentEdit.cshtml" />
     <Content Include="App_Data\ReportSamples\通用表單_日.doc" />
     <Content Include="App_Data\ReportSamples\通用表單_月.doc" />
+    <Content Include="Areas\Admin\Views\DEInspectDocDetail\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectDocDetail\List.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

@@ -1,0 +1,103 @@
+﻿@model InspectSystem.Models.DEquipment.DEInspectDocQryVModel
+
+
+<h2>數值編輯 - 危險性設備</h2>
+
+@using (Ajax.BeginForm("Index2", "DEInspectDocDetail", new { Area = "Admin" }, new AjaxOptions
+{
+    HttpMethod = "GET",
+    OnBegin = "$.Toast.showToast({ 'title': '搜尋中，請稍待...', 'icon': 'loading', 'duration': 0 })",
+    OnSuccess = "showmsg",
+    UpdateTargetId = "pnlDEINSPECT"
+}, new { id = "formDEINSPECT" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="form-group col-md">
+                @Html.LabelFor(model => model.DocId, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.EditorFor(model => model.DocId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DocId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md">
+                <div>
+                    <input type="button" value="查詢" class="btn btn-primary" id="QryBtn2" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="pnlDEINSPECT">
+
+</div>
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.toast.js"></script>
+<script>
+    $(function () {
+        /* Only first visit the page, will submit the form. */
+        var count = 0;
+        $('.nav-tabs a[href="#menu1"]').on('shown.bs.tab', function (event) {
+            if (count == 0) {
+                submitformDEINSPECT();
+                count++;
+            };
+        });
+        $('#QryBtn2').click(function () {
+            submitformDEINSPECT();
+        });
+    });
+    function submitformDEINSPECT() {
+        fetchPage(1);
+    }
+    // Use ajax to fetch page.
+    var fetchPage = function (page) {
+        var pagedPartialUrl = '@Url.Action("Index2", "DEInspectDocDetail", new { Area = "Admin" })';
+        var s = $('#formDEINSPECT').serialize();
+        $.Toast.showToast({
+            'title': '搜尋中，請稍待...',
+            'icon': 'loading',
+            'duration': 0
+        })
+        $.ajax({
+            url:pagedPartialUrl,
+            type: "GET",
+            data: s + "&page=" + page,
+            success: function (data) {
+
+                window.location.hash = page;
+
+                $('#pnlDEINSPECT').html(data);
+
+                $('#pnlDEINSPECT .pagination li a').each(function (i, item) {
+                    var hyperLinkUrl = $(item).attr('href');
+                    if (typeof hyperLinkUrl !== 'undefined' && hyperLinkUrl !== false) {
+                        var pageNumber = $(item).attr('href').replace(pagedPartialUrl + '?page=', '');
+                        $(item).attr('href', '#').click(function (event) {
+                            event.preventDefault();
+                            $(event.target).attr('href');
+                            fetchPage(pageNumber);
+                        });
+                    }
+                });
+                $.Toast.hideToast();
+            },
+            error: function (data) {
+                alert(data.responseText);
+                $.Toast.hideToast();
+            }
+        });
+
+    };
+</script>
