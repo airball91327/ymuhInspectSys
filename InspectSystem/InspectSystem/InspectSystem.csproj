@@ -2410,6 +2410,7 @@
     <Content Include="App_Data\ReportSamples\通用表單_月.doc" />
     <Content Include="Areas\Admin\Views\DEInspectDocDetail\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DEInspectDocDetail\List.cshtml" />
+    <Content Include="Areas\Admin\Views\DEInspectDocDetail\Edit.cshtml" />
     <None Include="Report\WaterSystem.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

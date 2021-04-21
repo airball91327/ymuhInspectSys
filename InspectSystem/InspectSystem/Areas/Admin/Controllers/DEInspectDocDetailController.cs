@@ -73,6 +73,29 @@ namespace InspectSystem.Areas.Admin.Controllers
             return PartialView("List", returnList.ToPagedList(page, pageSize));
         }
 
+        // GET: Admin/DEInspectDocDetail/Edit/5
+        public async Task<ActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DEInspectDoc DEInspectDoc = await db.DEInspectDoc.FindAsync(id);
+            if (DEInspectDoc == null)
+            {
+                return HttpNotFound();
+            }
+            // Insert values to classVModel.
+            DEInspectClassVModel classVModel = new DEInspectClassVModel(); ;
+            classVModel.DocId = DEInspectDoc.DocId;
+            classVModel.AreaId = DEInspectDoc.AreaId;
+            classVModel.CycleId = DEInspectDoc.CycleId;
+            classVModel.ClassId = DEInspectDoc.ClassId;
+            //
+            ViewBag.Header = DEInspectDoc.AreaName + "【" + DEInspectDoc.CycleName + "】" + "巡檢單";
+            return View(classVModel);
+        }
+
         // GET: Admin/DEInspectDocDetail/Delete/5
         public async Task<ActionResult> Delete(string id)
         {

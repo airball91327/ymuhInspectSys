@@ -66,7 +66,7 @@ else
                     @Html.DisplayFor(modelItem => item.EngName)
                 </td>
                 <td>
-                    @Html.ActionLink("編輯", "Edit", "DEInspectDoc", new { Area = "Admin", id = item.DocId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("編輯", "Edit", "DEInspectDocDetail", new { Area = "Admin", id = item.DocId }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }

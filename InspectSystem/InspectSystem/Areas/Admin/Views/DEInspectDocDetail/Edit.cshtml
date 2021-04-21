@@ -1,0 +1,81 @@
+﻿@model InspectSystem.Models.DEquipment.DEInspectClassVModel
+
+@{
+    ViewBag.Title = "編輯";
+}
+
+<script src="~/Scripts/ScrollToTop.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/MyStyles/MyDocEditStyle.css" />
+
+<div class="container">
+    @*<h3>
+        @ViewBag.Header
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#precautionModal">注意事項</button>
+    </h3>*@
+
+    <div id="tab" class="btn-group" data-toggle="buttons-radio">
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#docDetail" id="docDetailTab">表單內容</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#inspectDoc" id="inspectDocTab">案件資訊</button>
+        <button class="btn btn-large btn-info" data-toggle="tab" href="#flowList" id="flowListTab">流程資訊</button>
+        @*<button class="btn btn-large btn-info" data-toggle="tab" href="#nextflow" id="btnNextFlow">簽核作業</button>*@
+    </div>
+
+    <div class="tab-content card">
+        <div id="docDetail" class="tab-pane fade show active">
+            @Html.Action("Edit", "DEInspectDocDetail", new { Area = "", docId = Model.DocId })
+        </div>
+        <div id="inspectDoc" class="tab-pane fade">
+            @Html.Action("Details", "DEInspectDoc", new { Area = "", id = Model.DocId })
+        </div>
+        <div id="flowList" class="tab-pane fade">
+            @Html.Action("FlowList", "DEInspectDocFlow", new { Area = "", docId = Model.DocId })
+        </div>
+        @*<div id="nextflow" class="tab-pane fade">
+            @Html.Action("NextFlow", "DEInspectDocFlow", new { docId = Model.DocId })
+        </div>*@
+    </div>
+</div>
+
+<button onclick="topFunction()" id="goToTopBtn" title="Go to top">回頁首</button>
+
+<!--Modal for precautions of area.-->
+<div class="modal fade" id="precautionModal" tabindex="-1" role="dialog" aria-labelledby="precautionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h2 class="modal-title">注意事項</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("AreaPrecautions", "DEInspectPrecautions", new { Area = "Admin", areaId = Model.AreaId })
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.toast.js"></script>
+
+    <script type="text/javascript">
+        function showmsg(data) {
+            if (data.success == null) {
+                // search success.
+                $.Toast.hideToast();
+            }
+            else {
+                if (data.success === false) {
+                    alert(data.error);
+                    $.Toast.hideToast();
+                }
+            }
+        }
+    </script>
+}
