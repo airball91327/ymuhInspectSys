@@ -97,9 +97,12 @@
                 <br />
                 @Html.DisplayFor(modelItem => item.Rtt)
             </td>
-            <td>
-                <button class="btn btn-success fieldEditBtn" data-toggle="modal" data-target="#fieldModal" value="@row">編輯</button>
-            </td>
+            @if (item.IsReport != "Y")
+            {
+                <td>
+                    <button class="btn btn-success fieldEditBtn" data-toggle="modal" data-target="#fieldModal" value="@row">編輯</button>
+                </td>
+            }
         </tr>
     }
 

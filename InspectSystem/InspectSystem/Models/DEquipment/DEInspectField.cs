@@ -55,6 +55,8 @@ namespace InspectSystem.Models.DEquipment
         public DateTime? Rtt { get; set; }
         [Display(Name = "欄位描述")]
         public string FieldDescription { get; set; }
+        [Display(Name = "報表使用欄位")]
+        public string IsReport { get; set; }
 
         public virtual DEInspectItem DEInspectItem { get; set; }
     }

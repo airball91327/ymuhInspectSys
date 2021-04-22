@@ -65,9 +65,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Rtt)
                 </td>
-                <td>
-                    <a class="btn btn-primary editBtn" href="@Url.Action("Edit", new { areaId = item.AreaId, shiftId = item.ShiftId, classId = item.ClassId })">編輯</a>
-                </td>
+                @if (item.IsReport != "Y")
+                {
+                    <td>
+                        <a class="btn btn-primary editBtn" href="@Url.Action("Edit", new { areaId = item.AreaId, shiftId = item.ShiftId, classId = item.ClassId })">編輯</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>

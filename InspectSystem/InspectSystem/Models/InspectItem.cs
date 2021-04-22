@@ -41,6 +41,8 @@ namespace InspectSystem.Models
         public string RtpName { get; set; }
         [Display(Name = "異動時間")]
         public DateTime? Rtt { get; set; }
+        [Display(Name = "報表使用欄位")]
+        public string IsReport { get; set; }
 
         public virtual InspectClass InspectClass { get; set; }
         public virtual ICollection<InspectField> InspectField { get; set; }
