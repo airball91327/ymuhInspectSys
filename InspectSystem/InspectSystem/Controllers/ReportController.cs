@@ -235,9 +235,12 @@ namespace InspectSystem.Controllers
                 }
                 foreach (var item in temp3)
                 {
-                    if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                    if (!string.IsNullOrEmpty(item.detail.Value))
                     {
-                        trackText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                        if (item.detail.Value.Trim() != "無")
+                        {
+                            trackText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                        }
                     }
                 }
                 myDoc = myDoc.Replace("analysisText", analysisText);
