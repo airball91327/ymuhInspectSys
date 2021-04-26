@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using InspectSystem.Models;
 using InspectSystem.Models.DEquipment;
 using X.PagedList;
+using InspectSystem.Extensions;
 
 namespace InspectSystem.Areas.Admin.Controllers
 {
@@ -144,7 +145,18 @@ namespace InspectSystem.Areas.Admin.Controllers
             {
                 foreach (var item in inspectDocDetail)
                 {
+                    InspectDocDetail oriObj = db.InspectDocDetail.Find(item.DocId, item.ShiftId, item.ClassId, item.ItemId, item.FieldId);
+                    db.Entry(oriObj).State = EntityState.Detached;
+                    //
                     db.Entry(item).State = EntityState.Modified;
+                    // Save log.
+                    var logAction2 = oriObj.EnumeratePropertyDifferences<InspectDocDetail>(item);
+                    if (logAction2.Count() > 0)
+                    {
+                        string logClass = "巡檢系統";
+                        string logAction = "一般巡檢 > 後台數值編輯 > " + "(" + item.DocId + ")" + " ";
+                        var result = new SystemLogsController().SaveLog(logClass, logAction, logAction2);
+                    }
                 }
                 db.SaveChanges();
 

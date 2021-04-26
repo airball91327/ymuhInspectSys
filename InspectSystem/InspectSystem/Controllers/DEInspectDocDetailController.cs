@@ -1,4 +1,5 @@
-﻿using InspectSystem.Models;
+﻿using InspectSystem.Extensions;
+using InspectSystem.Models;
 using InspectSystem.Models.DEquipment;
 using System;
 using System.Collections.Generic;
@@ -79,7 +80,19 @@ namespace InspectSystem.Controllers
             {
                 foreach (var item in inspectDocDetail)
                 {
+                    //
+                    DEInspectDocDetail oriObj = db.DEInspectDocDetail.Find(item.DocId, item.CycleId, item.ClassId, item.ItemId, item.FieldId);
+                    db.Entry(oriObj).State = EntityState.Detached;
+                    //
                     db.Entry(item).State = EntityState.Modified;
+                    // Save log.
+                    var logAction2 = oriObj.EnumeratePropertyDifferences<DEInspectDocDetail>(item);
+                    if (logAction2.Count() > 0)
+                    {
+                        string logClass = "巡檢系統";
+                        string logAction = "危險性設備巡檢 > 後台數值編輯 > " + "(" + item.DocId + ")" + " ";
+                        var result = new Areas.Admin.Controllers.SystemLogsController().SaveLog(logClass, logAction, logAction2);
+                    }
                 }
                 db.SaveChanges();
 

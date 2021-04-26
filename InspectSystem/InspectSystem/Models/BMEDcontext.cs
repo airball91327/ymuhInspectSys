@@ -54,5 +54,8 @@ namespace InspectSystem.Models
         public virtual DbSet<Department> Departments { get; set; }
 
         public virtual DbSet<InspectDocStatus> InspectDocStatus { get; set; }
+
+        // 系統Log紀錄
+        public virtual DbSet<SystemLog> SystemLogs { get; set; }
     }
 }
