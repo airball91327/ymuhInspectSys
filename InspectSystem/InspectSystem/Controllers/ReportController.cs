@@ -110,12 +110,19 @@ namespace InspectSystem.Controllers
                 var ClassName = firstData.detail.ClassName.ToString();
                 var year = (firstData.doc.ApplyDate.Year - 1911).ToString();
                 var month = firstData.doc.ApplyDate.Month.ToString();
+                var managerFlow = db.DEInspectDocFlow.Where(df => df.DocId == firstData.doc.DocId).OrderByDescending(d => d.StepId)
+                                                     .Where(df => df.Cls.Contains("單位主管")).FirstOrDefault();
                 //將抓到的資料，替換掉我們剛剛設的文字
                 myDoc = myDoc.Replace("Location", location);
                 myDoc = myDoc.Replace("Department", dpt);
                 myDoc = myDoc.Replace("Year", year);
                 myDoc = myDoc.Replace("Month", month);
                 myDoc = myDoc.Replace("Classname", ClassName);
+                if (managerFlow != null)
+                {
+                    var manager = db.AppUsers.Find(managerFlow.Rtp);
+                    myDoc = myDoc.Replace("Manager", manager.FullName);
+                }
                 //替換欄位名稱
                 var itemNames = resultList.Where(r => r.detail.DocId == firstData.doc.DocId)
                                           .Select(r => new
