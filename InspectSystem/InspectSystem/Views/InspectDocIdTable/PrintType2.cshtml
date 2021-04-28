@@ -124,7 +124,7 @@
                                             colspan="1">
                                             <span>
                                                 @{var field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 1)
-                                                                                     .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                                     .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -142,7 +142,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 1)
-                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                                 .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -156,7 +156,7 @@
                                             <span>液氧蒸發器是否結冰：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 1)
-                                                                                   .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                                   .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -191,7 +191,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 2)
-                                                                                     .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                                     .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -215,7 +215,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 2)
-                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                                 .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -257,7 +257,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 3)
-                                                                                     .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                                     .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -274,7 +274,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 3)
-                                                                                       .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                                       .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -291,7 +291,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails3.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.Value == "true")
@@ -367,7 +367,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -380,7 +380,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                                               .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -393,7 +393,7 @@
                                             溫度設定<br />
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                                               .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -413,7 +413,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                                 .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -424,7 +424,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                                                   .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -438,7 +438,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                                                   .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -449,7 +449,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                                                   .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 4).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -461,7 +461,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                   .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                                                   .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 5).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -482,7 +482,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                   .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                                   .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -495,7 +495,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                   .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                                                   .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -507,7 +507,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                                     .Where(dtl => dtl.ItemId == 3).ElementAt(2); }
+                                                                                     .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -527,7 +527,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -538,7 +538,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -552,7 +552,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -563,7 +563,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(3); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 4).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -575,7 +575,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(4); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 5).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -594,7 +594,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 5).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -610,7 +610,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 5).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -622,7 +622,7 @@
                                             style="border-right-style: solid; border-bottom-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-right-color: #000000; border-bottom-color: #000000; text-align: center">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 5).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -646,7 +646,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 6).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 6).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -663,7 +663,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 7).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 7).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -699,7 +699,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 8).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 8).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -716,7 +716,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 8).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 8).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -733,7 +733,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 8).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 8).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -754,7 +754,7 @@
                                             colspan="4">
                                             <span>
                                                 @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 9).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 9).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     <span>@field.Value</span>
@@ -769,7 +769,7 @@
                                     10RT ON:
                                     <span>
                                         @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                     .Where(dtl => dtl.ItemId == 10).ElementAt(3); }
+                                                                     .Where(dtl => dtl.ItemId == 10).Where(dtl => dtl.FieldId == 4).FirstOrDefault(); }
                                         @if (field != null)
                                         {
                                             <span>@field.Value</span>
@@ -780,7 +780,7 @@
                                     自來水表度數：
                                     <span>
                                         @{field = Model.ShiftDetails1.Where(dtl => dtl.ClassId == 1)
-                                                                     .Where(dtl => dtl.ItemId == 11).ElementAt(0); }
+                                                                     .Where(dtl => dtl.ItemId == 11).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                         @if (field != null)
                                         {
                                             <span>@field.Value</span>
@@ -831,7 +831,7 @@
                                             <span>TR01</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -846,7 +846,7 @@
                                             <span>溫度</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -862,7 +862,7 @@
                                             <span>TR02</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -877,7 +877,7 @@
                                             <span>溫度</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -897,7 +897,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 12).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 12).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -915,7 +915,7 @@
                                             <span>TR03</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -930,7 +930,7 @@
                                             <span>溫度</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -946,7 +946,7 @@
                                             <span>TR04</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -961,7 +961,7 @@
                                             <span>溫度</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -981,7 +981,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 13).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 13).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -999,7 +999,7 @@
                                             <span>TR05</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 5).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1014,7 +1014,7 @@
                                             <span>溫度</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 5).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1051,7 +1051,7 @@
                                             colspan="3">
                                             <span>
                                                 @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                              .Where(dtl => dtl.ItemId == 16).ElementAt(0); }
+                                                                              .Where(dtl => dtl.ItemId == 16).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -1075,7 +1075,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                             .Where(dtl => dtl.ItemId == 14).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 14).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -1106,7 +1106,7 @@
                                             colspan="3">
                                             <span>
                                                 @{ field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                              .Where(dtl => dtl.ItemId == 17).ElementAt(0); }
+                                                                              .Where(dtl => dtl.ItemId == 17).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -1125,7 +1125,7 @@
                                             colspan="3">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                               .Where(dtl => dtl.ItemId == 15).ElementAt(0); }
+                                                                               .Where(dtl => dtl.ItemId == 15).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.Value == "true")
@@ -1144,7 +1144,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 1)
-                                                                               .Where(dtl => dtl.ItemId == 14).ElementAt(0); }
+                                                                               .Where(dtl => dtl.ItemId == 14).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional != "Y")
@@ -1181,7 +1181,7 @@
                                             colspan="3">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                               .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1193,7 +1193,7 @@
                                             <span>電壓</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                               .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                                               .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1213,7 +1213,7 @@
                                             colspan="3">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1225,7 +1225,7 @@
                                             <span>電壓</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1247,7 +1247,7 @@
                                             colspan="3">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1259,7 +1259,7 @@
                                             <span>電壓</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1279,7 +1279,7 @@
                                             colspan="3">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1291,7 +1291,7 @@
                                             <span>電壓</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 2)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1324,7 +1324,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1340,7 +1340,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1356,7 +1356,7 @@
                                             溫度設定<br />
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1380,7 +1380,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1395,7 +1395,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1412,7 +1412,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1427,7 +1427,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 4).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1443,7 +1443,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 3)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 5).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1477,7 +1477,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1493,7 +1493,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1508,7 +1508,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1532,7 +1532,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1547,7 +1547,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1564,7 +1564,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1579,7 +1579,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 4).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1595,7 +1595,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 5).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1618,7 +1618,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1634,7 +1634,7 @@
                                             <span>運轉</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1650,7 +1650,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 4)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1684,7 +1684,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1700,7 +1700,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1716,7 +1716,7 @@
                                             溫度設定<br />
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1740,7 +1740,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1755,7 +1755,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1772,7 +1772,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1787,7 +1787,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 4).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1803,7 +1803,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 5)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 5).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1837,7 +1837,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1853,7 +1853,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1868,7 +1868,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1892,7 +1892,7 @@
                                             <span>1號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1907,7 +1907,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1924,7 +1924,7 @@
                                             <span>2號機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1939,7 +1939,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(3); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 4).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1955,7 +1955,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(4); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 5).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1978,7 +1978,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -1994,7 +1994,7 @@
                                             <span>運轉</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(1); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 2).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2010,7 +2010,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 6)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(2); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 3).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2038,7 +2038,7 @@
                                             colspan="1">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 7)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.Value == "true")
@@ -2058,7 +2058,7 @@
                                             <span>C棟2F中央空調機房 18:00關機</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 7)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.Value == "true")
@@ -2094,7 +2094,7 @@
                                             <span>A棟：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -2114,7 +2114,7 @@
                                             <span>B棟：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -2134,7 +2134,7 @@
                                             <span>C棟：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -2154,7 +2154,7 @@
                                             <span>電機室：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 8)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field.IsFunctional == "Y")
@@ -2187,7 +2187,7 @@
                                                 <span>#1：</span>
                                                 <span>
                                                     @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
-                                                                                 .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                                 .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                     @if (field != null)
                                                     {
                                                         if (field != null)
@@ -2202,7 +2202,7 @@
                                                 <span>#2：</span>
                                                 <span>
                                                     @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
-                                                                                 .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                                 .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                     @if (field != null)
                                                     {
                                                         if (field != null)
@@ -2217,7 +2217,7 @@
                                                 <span>#4：</span>
                                                 <span>
                                                     @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
-                                                                                 .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                                 .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                     @if (field != null)
                                                     {
                                                         if (field != null)
@@ -2232,7 +2232,7 @@
                                                 <span>#5：</span>
                                                 <span>
                                                     @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
-                                                                                 .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                                                 .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                     @if (field != null)
                                                     {
                                                         if (field != null)
@@ -2253,7 +2253,7 @@
                                             <span>現場溫度：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 9)
-                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 5).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2289,7 +2289,7 @@
                                             <span>A棟1：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2305,7 +2305,7 @@
                                             <span>B棟1：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
-                                                                             .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2321,7 +2321,7 @@
                                             <span>C棟1：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
-                                                                             .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2339,7 +2339,7 @@
                                             <span>A棟2：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
-                                                                             .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2355,7 +2355,7 @@
                                             <span>B棟2：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
-                                                                             .Where(dtl => dtl.ItemId == 5).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 5).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2371,7 +2371,7 @@
                                             <span>C棟2：</span>
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 10)
-                                                                             .Where(dtl => dtl.ItemId == 6).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 6).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2420,7 +2420,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
-                                                                             .Where(dtl => dtl.ItemId == 1).ElementAt(0); }
+                                                                             .Where(dtl => dtl.ItemId == 1).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2435,7 +2435,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
-                                                                               .Where(dtl => dtl.ItemId == 2).ElementAt(0); }
+                                                                               .Where(dtl => dtl.ItemId == 2).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2450,7 +2450,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
-                                                                               .Where(dtl => dtl.ItemId == 3).ElementAt(0); }
+                                                                               .Where(dtl => dtl.ItemId == 3).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
@@ -2465,7 +2465,7 @@
                                             colspan="2">
                                             <span>
                                                 @{field = Model.ShiftDetails2.Where(dtl => dtl.ClassId == 11)
-                                                                               .Where(dtl => dtl.ItemId == 4).ElementAt(0); }
+                                                                               .Where(dtl => dtl.ItemId == 4).Where(dtl => dtl.FieldId == 1).FirstOrDefault(); }
                                                 @if (field != null)
                                                 {
                                                     if (field != null)
