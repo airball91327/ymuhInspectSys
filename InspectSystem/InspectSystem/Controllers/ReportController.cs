@@ -456,23 +456,32 @@ namespace InspectSystem.Controllers
                     var temp3 = resultList.Where(r => r.detail.ItemName == "異常狀況改善措施追蹤:(定期檢討改善措施之合宜性，本表並依規定須保存三年)").ToList();
                     foreach (var item in temp1)
                     {
-                        if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                        if (!string.IsNullOrEmpty(item.detail.Value))
                         {
-                            analysisText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                            if (item.detail.Value.Trim() != "無")
+                            {
+                                analysisText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                            }
                         }
                     }
                     foreach (var item in temp2)
                     {
-                        if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                        if (!string.IsNullOrEmpty(item.detail.Value))
                         {
-                            improveText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                            if (item.detail.Value.Trim() != "無")
+                            {
+                                improveText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                            }
                         }
                     }
                     foreach (var item in temp3)
                     {
-                        if (item.detail.Value.Trim() != "無" && !string.IsNullOrEmpty(item.detail.Value))
+                        if (!string.IsNullOrEmpty(item.detail.Value))
                         {
-                            trackText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                            if (item.detail.Value.Trim() != "無")
+                            {
+                                trackText += item.doc.ApplyDate.ToString("MM/dd") + item.detail.Value.ToString() + " ";
+                            }
                         }
                     }
                     myDoc = myDoc.Replace("analysisText", analysisText);
